@@ -1,3 +1,5 @@
+# Dockerfile for Backend Node.js server
+
 FROM node:20-alpine
 
 WORKDIR /app
