@@ -1,0 +1,28 @@
+{
+  "name": "@ccpilot/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "@tanstack/react-query": "^5.95.2",
+    "@tanstack/react-query-devtools": "^5.95.2",
+    "@tanstack/react-router": "^1.168.3",
+    "@tanstack/react-router-devtools": "^1.166.11",
+    "react": "^19.0.2",
+    "react-dom": "^19.0.2",
+    "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "@tanstack/router-plugin": "^1.167.4",
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.2"
+  }
+}

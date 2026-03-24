@@ -1,0 +1,14 @@
+{
+  "name": "@studio/cdd-monitor",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "cdd-monitor": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=23.6.0"
+  }
+}

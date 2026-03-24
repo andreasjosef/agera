@@ -1,93 +1,117 @@
-# Group 4
+# 🛡️ CCPilot: Technical & Team Operations
 
+This document defines how we build, communicate, and ship. **Read this before your first commit.**
 
+---
 
-## Getting started
+## 🛠️ Infrastructure & Requirements
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+To run the "Walking Skeleton," you must have a container engine installed.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### 1. Install Container Engine
 
-## Add your files
+We support both **Docker** and **Podman**.
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+- **Windows/Mac:** Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [OrbStack](https://orbstack.dev/).
+- **Linux (Fedora):** `sudo dnf install moby-engine docker-compose` or use Podman.
+- **Linux (Ubuntu):** [Official Docker Install Guide](https://docs.docker.com/engine/install/ubuntu/).
 
+### 2. Node & Package Manager
+
+- **Node.js:** v20+ (LTS)
+- **pnpm:** v9+ (`corepack enable pnpm`)
+
+---
+
+## 🚀 Getting Started
+
+The repo uses an automated bootstrap script to handle database initialization and schema syncing.
+
+```bash
+# 1. Clone and Install
+git clone <repo-url>
+cd ccpilot
+pnpm install
+
+# 2. Launch the Development Environment
+# This starts Postgres, syncs Drizzle schemas, and runs Vite + Express
+pnpm dev
 ```
-cd existing_repo
-git remote add origin https://git.chas-lab.dev/chas-challenge-2026/group-4.git
-git branch -M main
-git push -uf origin main
+
+---
+
+## 📂 Project Structure (Monorepo)
+
+We use **Turborepo** to manage our apps and shared packages.
+
+```text
+.
+├── apps/
+│   ├── web/          # Frontend: Vite + TanStack Router/Query + Tailwind
+│   └── express/      # Backend: Node.js API + Drizzle Client
+├── packages/
+│   └── domain/       # THE TRUTH: Zod Schemas + Drizzle Table Definitions
+├── scripts/
+│   └── dev.mjs       # Cross-platform Bootstrap Script (The Magic)
+├── docker-compose.yml # Infrastructure (Postgres 18-alpine)
+└── turbo.json        # Build & Pipeline Orchestration
 ```
 
-## Integrate with your tools
+---
 
-* [Set up project integrations](https://git.chas-lab.dev/chas-challenge-2026/group-4/-/settings/integrations)
+## 📡 Communication & Workflow Hub
 
-## Collaborate with your team
+Our stack is integrated to minimize "status check" meetings.
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+### 1. Linear (The Source of Truth)
 
-## Test and Deploy
+- **Role:** All tasks, bugs, and "Bets" live here.
+- **Process:** Move issues to **"In Progress"** when you start.
+- **GitHub/GitLab Link:** Every issue has an ID (e.g., `CCP-12`). Use this in your branch names.
 
-Use the built-in continuous integration in GitLab.
+### 2. GitLab (The Forge)
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+- **Branching:** `feat/CCP-12-description` or `fix/CCP-44-bug-name`.
+- **Merge Requests (MR):** All code enters `main` via an MR.
+- **CI/CD:** Automated lints and builds trigger on every push.
 
-***
+### 3. Discord (The Pulse)
 
-# Editing this README
+- **#announcements:** High-level project updates.
+- **#dev-chat:** Technical deep-dives and "I'm blocked" pings.
+- **#linear-feed:** Automated alerts when issues are completed or moved.
+- **Voice Channels:** For "Body Doubling" (working together in silence) or quick ad-hoc syncs.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+---
 
-## Suggestions for a good README
+## 🛰️ Commit Convention
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+We use a stripped-down version of [Conventional Commits](https://www.conventionalcommits.org/). Use **lowercase**, **present tense** (e.g., "add" not "added"), and always include a **scope**.
 
-## Name
-Choose a self-explaining name for your project.
+**Structure:** `type(scope): subject`
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+| Type           | Description                 | Example                                       |
+| :------------- | :-------------------------- | :-------------------------------------------- |
+| **`feat`**     | A new feature or logic      | `feat(web): add now-card focus component`     |
+| **`fix`**      | A bug fix                   | `fix(domain): correct user validation schema` |
+| **`chore`**    | Maintenance, infra, or deps | `chore(root): update postgres image to v18`   |
+| **`refactor`** | Code cleanup/optimization   | `refactor(express): simplify auth middleware` |
+| **`docs`**     | Documentation only          | `docs(root): add commit guidelines to readme` |
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+> **Note:** Scopes should be `web`, `express`, `domain`, or `root`.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## 🔄 The Linear -> Git Workflow
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+1.  **Pick an Issue** in Linear (from the current Cycle).
+2.  **Create a Branch:** `git checkout -b feat/CCP-[ID]-task-name`.
+3.  **Code & Commit:** Use descriptive messages. Check out:
+4.  **Push & MR:** GitLab will link the MR to the Linear issue automatically.
+5.  **Review & Merge:** Once approved, Linear will move the task to **"Done"**.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+---
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## 🛑 Critical Rules
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- **No "Ghost" Work:** If it's not in Linear, don't build it.
+- **Schema First:** Changes to data models _must_ happen in `packages/domain` first.
+- **Keep it Clean:** Run `pnpm lint` before you push.
