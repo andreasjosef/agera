@@ -5,7 +5,7 @@ import os from "os";
 const sleep = promisify(setTimeout);
 const isWindows = os.platform() === "win32";
 
-// --- Formatting & Colors ---
+// Formatting & Colors ---
 const reset = "\x1b[0m";
 const bold = "\x1b[1m";
 const dim = "\x1b[2m";
@@ -26,7 +26,7 @@ async function run() {
     `${bold}${blue}╔════════════════════════════════════════════╗${reset}`,
   );
   console.log(
-    `${bold}${blue}║       CCPILOT - DEVELOPMENT BOOTSTRAP      ║${reset}`,
+    `${bold}${blue}║       CCPILOT - DEV ENVIRONMENT BOOTSTRAP      ║${reset}`,
   );
   console.log(
     `${bold}${blue}╚════════════════════════════════════════════╝${reset}\n`,
@@ -44,6 +44,7 @@ async function run() {
       process.exit(1);
     }
   }
+
   info(`Using container engine: ${bold}${dockerCmd}${reset}`);
 
   step("Starting database container...");
