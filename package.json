@@ -10,7 +10,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:up": "docker compose up -d db",
     "db:stop": "docker compose stop db",
-    "db:clean": "docker compose down && rm -rf ./pgdata"
+    "db:clean": "docker compose down && rm -rf ./pgdata",
+    "docs:ship": "pnpm --filter docs ship"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -41,7 +42,11 @@
       ]
     },
     "onlyBuiltDependencies": [
-      "esbuild"
+      "@parcel/watcher",
+      "esbuild",
+      "netlify-cli",
+      "sharp",
+      "unix-dgram"
     ]
   }
 }

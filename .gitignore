@@ -49,3 +49,6 @@ eslintdebug.json
 
 # TypeScript 
 *.tsbuildinfo
+
+# Local Netlify folder
+.netlify
