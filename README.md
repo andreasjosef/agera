@@ -18,7 +18,7 @@ We support both **Docker** and **Podman**.
 
 ### 2. Node & Package Manager
 
-- **Node.js:** v20+ (LTS)
+- **Node.js:** v24+ (LTS)
 - **pnpm:** v9+ (`corepack enable pnpm`)
 
 ---
@@ -48,13 +48,14 @@ We use **Turborepo** to manage our apps and shared packages.
 .
 ├── apps/
 │   ├── web/          # Frontend: Vite + TanStack Router/Query + Tailwind
-│   └── express/      # Backend: Node.js API + Drizzle Client
-├── packages/
-│   └── domain/       # THE TRUTH: Zod Schemas + Drizzle Table Definitions
+│   └── express/      # Backend: Node.js API + External Services
+├── packages/         # Tools + Internal Scripts
+├── domain/           # Zod Schemas + Drizzle Table Definitions + DB transactions
+│   └── db/      
 ├── scripts/
-│   └── dev.mjs       # Cross-platform Bootstrap Script (The Magic)
-├── docker-compose.yml # Infrastructure (Postgres 18-alpine)
-└── turbo.json        # Build & Pipeline Orchestration
+│   └── dev.mjs       # Cross-platform Bootstrap Script
+├── docker-compose.yml # Infrastructure
+└── turbo.json        # Monorepo dev server
 ```
 
 ---
