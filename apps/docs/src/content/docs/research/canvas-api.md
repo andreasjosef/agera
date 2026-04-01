@@ -1,4 +1,6 @@
-
+---
+title: Instructure API Research
+---
 ## API Resources
 
 ### Courses
