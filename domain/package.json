@@ -1,0 +1,25 @@
+{
+  "name": "@ccpilot/domain",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./db": "./src/db/client.ts",
+    "./types": "./src/index.ts",
+    "./actions": "./src/actions.ts"
+  },
+  "scripts": {
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../../../../packages/cdd-monitor/src/index.ts --fast"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.1",
+    "drizzle-zod": "^0.8.3",
+    "pg": "^8.18.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.16.0",
+    "dotenv": "^17.3.1",
+    "drizzle-kit": "^0.31.9"
+  }
+}
