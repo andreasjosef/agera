@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "ship": "pnpm build && netlify deploy --prod"
+    "ship": "netlify deploy --prod"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.38.2",

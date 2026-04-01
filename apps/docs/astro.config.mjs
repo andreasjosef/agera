@@ -14,7 +14,7 @@ export default defineConfig({
           label: "Start Here",
           items: [
             // Each item here is one entry in the navigation menu.
-            { label: "Team", slug: "team/protocol" },
+            { label: "Team Philosophy", slug: "team/philosophy" },
           ],
         },
         {
