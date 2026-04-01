@@ -10,7 +10,7 @@ description: Research on integrating external calendar data into ccpilot.
    https://chasacademy.instructure.com/feeds/calendars/user_useridhere.ics or
 something like this. That would be nice because then we could easily generate
 the subscription for every new user from their canvas user id.
-
+-> **ANSWER** every course response object as calendar.ics with the feed.
 
 ## Tools
 
