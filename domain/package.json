@@ -9,6 +9,7 @@
     "./actions": "./src/actions.ts"
   },
   "scripts": {
+    "db:push": "pnpm exec drizzle-kit push",
     "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../../../../packages/cdd-monitor/src/index.ts --fast"
   },
   "dependencies": {
