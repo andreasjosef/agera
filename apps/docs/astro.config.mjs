@@ -8,13 +8,13 @@ export default defineConfig({
   integrations: [
     starlight({
       plugins: [starlightThemeRapide()],
-      title: "CCPILOT Docs",
+      title: "CCPILOT",
       sidebar: [
         {
-          label: "Team Docs",
+          label: "Start Here",
           items: [
             // Each item here is one entry in the navigation menu.
-            { label: "Protocols", slug: "team/protocol" },
+            { label: "Team", slug: "team/protocol" },
           ],
         },
         {
