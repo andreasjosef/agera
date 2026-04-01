@@ -93,7 +93,7 @@ async function run() {
   }
 
   step("Starting development servers via Turbo...");
-  console.log(`${dim}Watching: apps/web & apps/express${reset}\n`);
+  console.log(`${dim}Watching: apps/web & apps/express & apps/docs${reset}\n`);
 
   const pnpmCmd = isWindows ? "pnpm.cmd" : "pnpm";
   const turboArgs = [
@@ -103,6 +103,8 @@ async function run() {
     "@ccpilot/web",
     "--filter",
     "@ccpilot/express",
+    "--filter",
+    "@ccpilot/docs",
   ];
 
   const turbo = spawn(pnpmCmd, turboArgs, {
