@@ -3,8 +3,6 @@ import pg from "pg";
 
 import * as schema from "./schema.ts";
 
-export * from "./errors.ts";
-
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is missing from environment variables");
 }
