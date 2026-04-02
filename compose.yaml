@@ -3,13 +3,14 @@ services:
     image: docker.io/library/postgres:18-alpine
     container_name: ccpilot_db
     environment:
+      - POSTGRES_DB=ccpilot_db
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./domain/db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+      - ccpilot_data:/var/lib/postgresql/data:Z
+      - ./domain/src/db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro,Z
 
 volumes:
-  postgres_data:
+  ccpilot_data:
