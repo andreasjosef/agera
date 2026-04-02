@@ -109,7 +109,7 @@ async function run() {
 
   const turbo = spawn(pnpmCmd, turboArgs, {
     stdio: "inherit",
-    shell: false,
+    shell: true,
   });
 
   // Handle clean exit
