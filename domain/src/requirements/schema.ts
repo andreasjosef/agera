@@ -9,5 +9,5 @@ export const requirementType = pgEnum("requirementType", [
 
 export const requirementsTable = pgTable("requirements", {
   id: serial("requirement_id").primaryKey(),
-  type: requirementType(),
+  type: requirementType().notNull(),
 });
