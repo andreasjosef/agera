@@ -1,0 +1,9 @@
+{
+  "name": "@ccpilot/ts-fetch",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@ccpilot/domain": "workspace:*",
+    "zod": "^4.3.6"
+  }
+}
