@@ -1,11 +1,12 @@
 import z, { prettifyError } from "zod";
-import { Result, fail, ok } from "@ccpilot/domain";
+import { type Result, fail, ok } from "@ccpilot/domain";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 interface RequestConfig extends RequestInit {
   extractArray?: (data: any) => unknown[];
   parseMeta?: (data: any) => void;
+  onItemError?: (err: string, item: unknown) => void;
 }
 
 /**
@@ -92,7 +93,12 @@ export async function fetchList<T>(
 
     const successes = list.reduce<T[]>((acc, item) => {
       const res = itemParser(item);
-      if (res.ok) acc.push(res.value);
+      if (res.ok) {
+        acc.push(res.value);
+      } else {
+        options.onItemError?.(item, res.error);
+      }
+
       return acc;
     }, []);
 
@@ -127,7 +133,7 @@ export async function deleteItem<T>(
 /**
  * 🧬 Parsers: Turning raw JSON into Domain Types.
  */
-export const zodParser =
+export const zodWrappedParser =
   <T>(schema: z.ZodSchema<T>) =>
   (input: unknown): Result<T> => {
     // Handle the 'Result' wrapper from your backend response
@@ -135,5 +141,12 @@ export const zodParser =
     if (!wrapper.ok) return fail(wrapper.error || "API Error");
 
     const result = schema.safeParse(wrapper.value);
+    return result.success ? ok(result.data) : fail(prettifyError(result.error));
+  };
+
+export const zodRawParser =
+  <T>(schema: z.ZodSchema<T>) =>
+  (input: unknown): Result<T> => {
+    const result = schema.safeParse(input);
     return result.success ? ok(result.data) : fail(prettifyError(result.error));
   };
