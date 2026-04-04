@@ -147,6 +147,15 @@ importers:
 
   packages/cdd-monitor: {}
 
+  packages/lms-canvas:
+    dependencies:
+      '@ccpilot/ts-fetch':
+        specifier: workspace:*
+        version: link:../ts-fetch
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
+
   packages/ts-fetch:
     dependencies:
       '@ccpilot/domain':
