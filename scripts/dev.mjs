@@ -82,7 +82,7 @@ async function run() {
 
   step("Syncing Domain Schema with Drizzle...");
   try {
-    execSync("pnpm --filter domain db:push", {
+    execSync("pnpm --filter @ccpilot/persistence db:push", {
       stdio: "inherit",
       shell: isWindows,
     });

@@ -10,7 +10,7 @@ services:
       - "5432:5432"
     volumes:
       - ccpilot_data:/var/lib/postgresql/data:Z
-      - ./domain/src/db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro,Z
+      - ./packages/persistence/src/db/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro,Z
 
 volumes:
   ccpilot_data:
