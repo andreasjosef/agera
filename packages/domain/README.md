@@ -1,8 +1,8 @@
-# @repo/domain
+# @ccpilot/domain
 Business Logic & Contracts
 
 ## Purpose
-This package contains the business rules for ccpilot. It contains the DNA of the system. It is strictly **Infrastructure Agnostic**—it does not know about databases, APIs, or the web.
+This package contains the business rules for ccpilot. This is DNA of the system. It is strictly **Infrastructure Agnostic**—it does not know about databases, APIs, or the web.
 
 ## Structure
 We organize by domain entity. Each slice contains:
@@ -18,7 +18,7 @@ We organize by domain entity. Each slice contains:
 - **Dependencies:** Only utility libraries (e.g., Zod).
 
 ## The Contract
-Persistence must implement the interfaces defined in `src/*/repository.ts`.
+`@ccpilot/persistence` must implement the interfaces defined in `src/*/repository.ts`.
 
 ---
 *Note: This package must build first. All other packages depend on this.*
