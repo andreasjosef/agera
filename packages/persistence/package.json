@@ -1,5 +1,5 @@
 {
-  "name": "@ccpilot/domain",
+  "name": "@ccpilot/persistence",
   "private": true,
   "type": "module",
   "exports": {
