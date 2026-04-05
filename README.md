@@ -26,6 +26,7 @@ Instead of one giant "blob" of code, we use a **Modular Architecture**. Each pac
 - **`domain`**: Core types, business rules, and repository interfaces
 - **`persistence`**: Drizzle ORM, Postgres schemas, and repo implementations.
 - **`lms-canvas`**: Integration and mapping for the Canvas API.
+- **`llm-client`**: Integration with LLM model for Step generation. 
 - **`ts-fetch`**: Type-safe fetch utility returning `Result` types.
 - **`cdd-monitor`**: Custom typescript compiler interface
 
@@ -59,7 +60,9 @@ pnpm dev
 
 _This uses `scripts/dev.mjs` to orchestrate the startup of Express, Web, and the DB._
 
-We compiled a list of \[common issues\]([https://ccpilot-docs.netlify.app/research/dev-env-checklist/#possible-issues-with-local-development](https://ccpilot-docs.netlify.app/research/dev-env-checklist/#possible-issues-with-local-development)) when getting set up.
+We compiled a list of [common
+issues]([https://ccpilot-docs.netlify.app/research/dev-env-checklist/#possible-issues-with-local-development](https://ccpilot-docs.netlify.app/research/dev-env-checklist/#possible-issues-with-local-development))
+that might trip you up when getting set up.
 
 * * *
 
