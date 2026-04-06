@@ -11,4 +11,4 @@ test_job:
     script:
     - corepack enable
     - pnpm install
-    - node ----experimental-strip-types --test math.test.ts
+    - node --experimental-strip-types --test math.test.ts
