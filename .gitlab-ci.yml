@@ -1,0 +1,14 @@
+
+
+image: node:24-alpine
+
+stages:
+    - test
+
+
+test_job:
+    stage: test
+    script:
+    - corepack enable
+    - pnpm install
+    - pnpm test
