@@ -1,11 +1,6 @@
-export interface Requirement {
-  id: string;
-  name: string;
-  steps: Step[];
-  due: Date;
-}
+import { z } from "zod";
 
-export interface Step {
-  id: string;
-  pScore: number;
-}
+import { RequirementSchema, StepSchema } from "./schema.ts";
+
+export type Requirement = z.infer<typeof RequirementSchema>;
+export type Step = z.infer<typeof StepSchema>;
