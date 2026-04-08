@@ -18,7 +18,7 @@ export const StepSchema = z.object({
 export const RequirementSchema = z.object({
   id: z.string(),
   title: z.string(),
-  due: z.date(),
+  due: z.string(),
   type: RequirementTypeSchema,
   source: RequirementSourceSchema,
   steps: z.array(StepSchema),
