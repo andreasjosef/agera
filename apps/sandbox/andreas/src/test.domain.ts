@@ -20,3 +20,5 @@ const test: Requirement = {
 
 console.log(RequirementSchema.safeParse(test).success);
 console.log(StepSchema.safeParse(testStep).success);
+
+console.log("--- Testing Requiremnt Repo Interface ---");
