@@ -1,5 +1,9 @@
-import express from "express";
 
-const app = express();
+import dotenv from 'dotenv'
+import app from './app.ts'
 
-app.listen(4000, () => console.log("[CCPILOT BACKEND LIVE] - PORT: 4000"));
+dotenv.config()
+
+const PORT = process.env.PORT || 4000
+
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
