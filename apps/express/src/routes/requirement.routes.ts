@@ -1,14 +1,11 @@
 
 import { Router } from "express";
-import { getRequirements } from "../controllers/requirements.controller.ts";
-
+import { rquirementsController } from "../controllers/requirements.controller.ts";
 
 
 const requirementsRouter: Router = Router()
 
-
-requirementsRouter.get('/requirements', getRequirements)
-
+requirementsRouter.get('/requirements', rquirementsController)
 
 
 export default requirementsRouter
