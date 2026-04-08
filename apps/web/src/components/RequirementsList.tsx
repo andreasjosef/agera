@@ -7,7 +7,7 @@ const RequirementParser = zodRawParser(RequirementSchema);
 
 const getAllRequirements = async () => {
   const res = await fetchList("/requirements.json", RequirementParser, {
-    extractArray: (data) => data.requirements,
+    extractArray: (data) => data.value,
     onItemError: (item, err) => {
       console.error("Failed to parse item:", err, item);
     },
@@ -40,8 +40,8 @@ export default function RequirementsList() {
 
   return (
     <ul>
-      {requirements.map((req) => (
-        <li key={req.id}> {req.id} </li>
+      {requirements.map((requirement) => (
+        <li key={requirement.id}> {requirement.id} </li>
       ))}
     </ul>
   );
