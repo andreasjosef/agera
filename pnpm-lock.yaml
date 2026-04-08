@@ -83,6 +83,12 @@ importers:
         specifier: ^5.2.1
         version: 5.2.1
 
+  apps/sandbox/andreas:
+    dependencies:
+      '@ccpilot/domain':
+        specifier: workspace:*
+        version: link:../../../packages/domain
+
   apps/web:
     dependencies:
       '@tailwindcss/vite':
