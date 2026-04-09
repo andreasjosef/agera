@@ -9,7 +9,7 @@ stages:
 
 
 variables:
-    PMPM_STORE_PATH: .pnpm-store
+  PNPM_STORE_PATH: .pnpm-store
 
 cache:
     key:
@@ -20,14 +20,14 @@ cache:
 
 before_script:
     - corepack enable
-    - corepack prepare pnpm@latest --active
+    - corepack prepare pnpm@latest --activate
     - pnpm config set store-dir $PNPM_STORE_PATH
 
 
 install_dependencies:
     stage: setup
     script:
-      - pnpm install -fronzen-lockfile
+    - pnpm install --frozen-lockfile
     artifacts:
       paths:
         - node_modules/
@@ -46,7 +46,7 @@ build_documentation:
     script:
       - apk add --no-cache python3
       - echo "Synkar README-filer..."
-      - python3 scripts/syn_docs.py
+      - python3 scripts/sync-docs.py
       - echo "Bygger Starlight dokumentationen..."
       - pnpm --filter docs build
 
