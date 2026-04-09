@@ -13,7 +13,7 @@ SOURCES = [
 ]
 
 def sync_docs():
-    print("Skapar README-filer (DevOps Python-sync)...")
+    print("Skapar README-filer...")
 
     for source in SOURCES:
         source_dir = ROOT_DIR / source["dir"]
