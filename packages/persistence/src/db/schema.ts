@@ -11,8 +11,8 @@ export const requirementsTable = pgTable("requirements", {
   id: integer().generatedAlwaysAsIdentity().primaryKey(),
   title: varchar({ length: 255 }).notNull(),
   due: varchar({ length: 255 }).notNull(),
-  type: requirementType().notNull(),
-  source: requirementSource().notNull(),
+  type: requirementType().default("assignment"),
+  source: requirementSource().default("canvas"),
 });
 
 export const stepsTable = pgTable("steps", {
