@@ -51,11 +51,11 @@ def sync_docs():
                     title = title_match.group(1).strip()
                     content = content.replace(title_match.group(0), "", 1).strip()
 
-                # Skapa frontmatter för Starlight/Astro
-                frontmatter = f"---\ntitle: {title}\n---\n\n"
+                safe_title = json.dumps(title) 
+
+                frontmatter = f"---\ntitle: {safe_title}\n---\n\n"
                 final_content = frontmatter + content
 
-                # Spara filen
                 target_file_path = target_dir / f"{folder_name}.md"
                 with open(target_file_path, "w", encoding="utf-8") as f:
                     f.write(final_content)
