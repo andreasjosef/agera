@@ -1,5 +1,5 @@
 ---
-title: ccpilot/domain
+title: "@ccpilot/domain"
 ---
 
 Business Logic & Contracts

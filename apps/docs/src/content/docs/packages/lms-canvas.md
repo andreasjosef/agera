@@ -1,5 +1,5 @@
 ---
-title: ccpilot/lms-canvas
+title: "@repo/lms-canvas"
 ---
 
 **External LMS Integration & Mapping**
@@ -10,9 +10,9 @@ This package is responsible for all communication with the Canvas LMS. Its job i
 
 ## Structure
 
-- **`src/client.ts`**: API wrapper. Handles HTTP requests, headers, and authentication with Canvas.
-- **`src/schemas.ts`**: Zod schemas that define exactly what we expect from the Canvas API responses.
-- **`src/mapper.ts`**: Contains the pure functions that convert "Canvas-Speak" into "Field-Logic-Speak."
+- **`src/client.ts`**: The API wrapper. Handles HTTP requests, headers, and authentication with Canvas.
+- **`src/schemas.ts`**: **The Guard.** Zod schemas that define exactly what we expect from the Canvas API responses.
+- **`src/mapper.ts`**: **The Translator.** Contains the pure functions that convert "Canvas-Speak" into "Field-Logic-Speak."
 
 ## Key Patterns: The Mapper
 

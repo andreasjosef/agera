@@ -1,15 +1,14 @@
 ---
-title: ts-fetch
+title: "TS Fetch"
 ---
 
-**TS Fetch** is a lightweight, type-safe wrapper around the native Fetch API. It
-ensures that network responses are validated against our domain models using parsers (like Zod), returning a strictly typed **Result** object instead of raw, unpredictable JSON.
+**TS Fetch** is a lightweight, type-safe wrapper around the native Fetch API. It ensures that network responses are validated against your domain models using parsers (like Zod), returning a strictly typed **Result** object instead of raw, unpredictable JSON.
 
 ---
 
 ## Key Features
 
-* **Type Safety**: Every request requires a parser to ensure the data matches our TypeScript interfaces.
+* **Type Safety**: Every request requires a parser to ensure the data matches your TypeScript interfaces.
 * **Unified Error Handling**: Returns a `Result<T>` type (`ok` or `fail`), eliminating the need for `try/catch` blocks at the call site.
 * **Semantic API**: Dedicated methods for `GET`, `POST`, `PUT`, and `DELETE`.
 * **List Handling**: Built-in support for extracting arrays from nested JSON structures (e.g., `data.results`) and parsing items individually.
@@ -101,5 +100,4 @@ The `_fetchRaw` function serves as the **Single Source of Truth**. It handles:
 1. Default Header injection (`Content-Type: application/json`).
 2. Payload stringification.
 3. Response status validation (`response.ok`).
-4. Parsing logic (or returning `null` if no parser is provided).
 4. Parsing logic (or returning `null` if no parser is provided).

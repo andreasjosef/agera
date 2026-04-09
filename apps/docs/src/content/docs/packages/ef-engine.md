@@ -1,6 +1,7 @@
 ---
-title: ccpilot/ef-engine
+title: "@ccpilot/ef-engine"
 ---
+
 **Prioritization & Reverse Planning Logic**
 
 ## Purpose
@@ -35,5 +36,4 @@ The engine calculates a **Pscore** for every step in the system. The Pscore is a
 
 * * *
 
-_Note: This package is the bridge between UX Research and Engineering. If the "Next Step" feels wrong to a student, the logic lives here._
 _Note: This package is the bridge between UX Research and Engineering. If the "Next Step" feels wrong to a student, the logic lives here._

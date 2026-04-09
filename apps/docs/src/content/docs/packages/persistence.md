@@ -1,10 +1,11 @@
 ---
-title: ccpilot/persistence
+title: "@ccpilot/persistence"
 ---
-_Data Infrastructure & Storage_
+
+Data Infrastructure & Storage
 
 ## Purpose
-The job of this package is to satisfy the repository contracts defined by `@repo/domain` using **Drizzle ORM** and **PostgreSQL**.
+This package job is to satisfy the contracts defined by `@repo/domain` using **Drizzle ORM** and **PostgreSQL**.
 
 ## Structure
 - `src/db/client.ts`: The Drizzle connection pool.
@@ -26,5 +27,4 @@ Example: `const repo = createRequirementRepo(db);`
 - **Logic:** This package should contain **zero** business logic. It only handles mapping, querying, and persistence.
 
 ---
-*To run migrations: `pnpm exec drizzle-kit generate && pnpm exec drizzle-kit migrate` within this folder.*
 *To run migrations: `pnpm exec drizzle-kit generate && pnpm exec drizzle-kit migrate` within this folder.*
