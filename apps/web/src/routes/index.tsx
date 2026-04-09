@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import RequirementsList from "@/components/RequirementsList";
-import { requirmentQueries } from "@/models/requirment/api";
+import { requirmentQueryOptions } from "@/models/requirment/api";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
-  loader: () => requirmentQueries.all();
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(requirmentQueryOptions.all),
 });
 
 function Dashboard() {
