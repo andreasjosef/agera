@@ -76,6 +76,9 @@ importers:
 
   apps/express:
     dependencies:
+      '@ccpilot/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6

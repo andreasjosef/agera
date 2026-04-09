@@ -1,5 +1,5 @@
-import { Result } from "@/shared/result.ts";
-import { Requirement } from "./types.ts";
+import { type Result } from "../shared/result.ts";
+import { type Requirement } from "./types.ts";
 
 export interface IRequirementRepository {
   /**
