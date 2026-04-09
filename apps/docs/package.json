@@ -3,6 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "predev": "python3 ../../scripts/sync-docs.py",
+    "prebuild": "python3 ../../scripts/sync-docs.py",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",

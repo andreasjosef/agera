@@ -12,7 +12,8 @@
     "db:stop": "docker compose stop db",
     "db:clean": "docker compose down && rm -rf ./pgdata",
     "db:shell": "sh -c 'command -v docker >/dev/null && docker exec -it ccpilot_db psql -U ccpilot_admin ccpilot_db || podman exec -it ccpilot_db psql -U ccpilot_admin ccpilot_db'",
-    "docs:ship": "pnpm --filter docs ship"
+    "docs:ship": "pnpm --filter docs ship",
+    "docs:update": "python3 scripts/sync-docs.py"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -1,0 +1,51 @@
+---
+<<<<<<< HEAD
+title: "@repo/lms-canvas"
+=======
+title: ccpilot/lms-canvas
+>>>>>>> dev
+---
+
+**External LMS Integration & Mapping**
+
+## Purpose
+
+This package is responsible for all communication with the Canvas LMS. Its job is to fetch raw assignment data and transform it into the clean **Requirement** entities defined in our Domain.
+
+## Structure
+
+<<<<<<< HEAD
+- **`src/client.ts`**: The API wrapper. Handles HTTP requests, headers, and authentication with Canvas.
+- **`src/schemas.ts`**: **The Guard.** Zod schemas that define exactly what we expect from the Canvas API responses.
+- **`src/mapper.ts`**: **The Translator.** Contains the pure functions that convert "Canvas-Speak" into "Field-Logic-Speak."
+=======
+- **`src/client.ts`**: API wrapper. Handles HTTP requests, headers, and authentication with Canvas.
+- **`src/schemas.ts`**: Zod schemas that define exactly what we expect from the Canvas API responses.
+- **`src/mapper.ts`**: Contains the pure functions that convert "Canvas-Speak" into "Field-Logic-Speak."
+>>>>>>> dev
+
+## Key Patterns: The Mapper
+
+We follow a strict **Input → Transform → Output** pattern here.
+
+The mapper should be a pure function:
+
+- **Input**: `CanvasAssignment` (Validated by our internal Canvas Zod schema).
+- **Transform**: Align fields, sanitize strings, and handle date conversions.
+- **Output**: `Requirement` (Validated by `@ccpilot/domain` Zod schema).
+
+## The Contract
+
+- **Inputs**: Requires a Canvas API Token
+- **Outputs**: Returns a `Result<Requirement[]>` to the `apps/express` caller.
+- **Dependencies**: Strictly depends on `@repo/domain` for the output types.
+
+## Constraints
+
+- This package never talks to PostgreSQL. It only fetches and maps.
+- It does not "break down" tasks. It only captures content as it exists in the LMS.
+<<<<<<< HEAD
+- All Canvas-specific lingo (like `assignment_group_id` or `submission_types`) inside this package. It should never leak into the rest of the system.
+=======
+- All Canvas-specific lingo (like `assignment_group_id` or `submission_types`) inside this package. It should never leak into the rest of the system.
+>>>>>>> dev
