@@ -6,23 +6,21 @@ import { queryOptions } from "@tanstack/react-query";
 const RequirementParser = zodRawParser(RequirementSchema);
 
 export const requirmentQueryOptions = {
-  all: () => {
-    return queryOptions({
-      queryKey: ["requirments"],
-      queryFn: async () => {
-        const res = await fetchList("/requirements.json", RequirementParser, {
-          extractArray: (data) => data.value,
-          onItemError: (item, err) => {
-            console.error("Failed to parse item:", err, item);
-          },
-        });
+  all: queryOptions({
+    queryKey: ["requirments"],
+    queryFn: async () => {
+      const res = await fetchList("/requirements.json", RequirementParser, {
+        extractArray: (data) => data.value,
+        onItemError: (item, err) => {
+          console.error("Failed to parse item:", err, item);
+        },
+      });
 
-        if (!res.ok) {
-          throw new Error(res.error);
-        }
+      if (!res.ok) {
+        throw new Error(res.error);
+      }
 
-        return res.value;
-      },
-    });
-  },
+      return res.value;
+    },
+  }),
 };
