@@ -3,7 +3,6 @@
 image: node:24-alpine
 
 stages:
-    - setup
     - test
     - docs
 
@@ -22,19 +21,7 @@ before_script:
     - corepack enable
     - corepack prepare pnpm@latest --activate
     - pnpm config set store-dir $PNPM_STORE_PATH
-
-
-install_dependencies:
-    stage: setup
-    script:
     - pnpm install --frozen-lockfile
-    artifacts:
-      paths:
-        - node_modules/
-        - app/*/node_modules/
-        - packages/*/node_modules/
-      expire_in: 1 hour
-
 
 test_job:
     stage: test
