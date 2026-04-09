@@ -1,47 +1,16 @@
-import { fetchList, zodRawParser } from "@ccpilot/ts-fetch";
-import { RequirementSchema } from "@ccpilot/domain";
-import { useQuery } from "@tanstack/react-query";
+import { Requirement } from "@ccpilot/domain";
 
-// TODO: Switch to zodWrappedParser when the /requirment endpoint is implemented
-const RequirementParser = zodRawParser(RequirementSchema);
+interface RequirementsListProps {
+  requirments: Requirement[];
+}
 
-const getAllRequirements = async () => {
-  const res = await fetchList("/requirements.json", RequirementParser, {
-    extractArray: (data) => data.value,
-    onItemError: (item, err) => {
-      console.error("Failed to parse item:", err, item);
-    },
-  });
-
-  if (!res.ok) {
-    throw new Error(res.error);
-  }
-
-  return res.value;
-};
-
-export default function RequirementsList() {
-  const {
-    data: requirements,
-    isPending,
-    error,
-  } = useQuery({
-    queryKey: ["requirements"],
-    queryFn: getAllRequirements,
-  });
-
-  if (isPending) {
-    return <p> Loading requirements...</p>;
-  }
-
-  if (error) {
-    return <p> {error.message} </p>;
-  }
-
+export default function RequirementsList({
+  requirments,
+}: RequirementsListProps) {
   return (
     <ul>
-      {requirements.map((requirement) => (
-        <li key={requirement.id}> {requirement.id} </li>
+      {requirments.map((requirment) => (
+        <li> {requirment.id} </li>
       ))}
     </ul>
   );

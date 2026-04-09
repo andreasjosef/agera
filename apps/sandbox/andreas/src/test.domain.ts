@@ -1,4 +1,12 @@
-import { RequirementSchema, StepSchema } from "@ccpilot/domain";
+import {
+  RequirementSchema,
+  StepSchema,
+  type IRequirementRepository,
+  getRequirements,
+  saveRequirement,
+} from "@ccpilot/domain";
+
+import {} from "@ccpilot/domain";
 
 import type { Requirement, Step } from "@ccpilot/domain";
 
@@ -12,7 +20,7 @@ const testStep: Step = {
 const test: Requirement = {
   id: "1234",
   title: "Test Assignment",
-  due: new Date(),
+  due: new Date().toString(),
   source: "canvas",
   steps: [testStep],
   type: "assignment",
@@ -21,4 +29,27 @@ const test: Requirement = {
 console.log(RequirementSchema.safeParse(test).success);
 console.log(StepSchema.safeParse(testStep).success);
 
-console.log("--- Testing Requiremnt Repo Interface ---");
+const reqRepo: IRequirementRepository = {
+  getAll: async () => {
+    console.log("loading requirements...");
+
+    return {
+      ok: false,
+      error: "Just testing a load",
+    };
+  },
+  save: async (req) => {
+    console.log("saving requirement: ", req);
+
+    return {
+      ok: false,
+      error: "Just testing a save",
+    };
+  },
+};
+
+const resultAll = await getRequirements(reqRepo);
+const resultSave = await saveRequirement(reqRepo, test);
+
+console.log("getAll actions response: ", resultAll);
+console.log("saveReq actions response: ", resultSave);

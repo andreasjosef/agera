@@ -11,15 +11,31 @@ export default defineConfig({
       title: "CCPILOT",
       sidebar: [
         {
-          label: "Start Here",
+          label: "Protocols",
+          autogenerate: { directory: "protocols" },
+        },
+        {
+          label: "Reference",
           items: [
-            // Each item here is one entry in the navigation menu.
-            { label: "Team Philosophy", slug: "team/philosophy" },
+            { label: "Overview", link: "/reference/" },
+            {
+              label: "Apps",
+              autogenerate: { directory: "apps" },
+            },
+            {
+              label: "Packages",
+              autogenerate: { directory: "packages" },
+            },
           ],
         },
         {
           label: "Research",
+          collapsed: true,
           autogenerate: { directory: "research" },
+        },
+        {
+          label: "Build Log",
+          autogenerate: { directory: "logs" },
         },
       ],
     }),

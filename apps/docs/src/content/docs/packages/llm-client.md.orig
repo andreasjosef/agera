@@ -1,6 +1,12 @@
 ---
+<<<<<<< HEAD
+title: "@ccpilot/llm-client"
+---
+
+=======
 title: ccpilot/llm-client
 ---
+>>>>>>> dev
 **Structured AI Generation for Reverse Planning*
 
 ## Purpose
@@ -31,5 +37,8 @@ We don't chat with an AI. We use **Structured Outputs** (JSON) to ensure the LLM
 ---
 
 _Note: This is the most "expensive" package in the system. Every call should be
+<<<<<<< HEAD
 intentional and results cached_
+=======
 intentional and results cached_
+>>>>>>> dev

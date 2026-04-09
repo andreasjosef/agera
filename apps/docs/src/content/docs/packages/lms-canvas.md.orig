@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
+title: "@repo/lms-canvas"
+=======
 title: ccpilot/lms-canvas
+>>>>>>> dev
 ---
 
 **External LMS Integration & Mapping**
@@ -10,9 +14,15 @@ This package is responsible for all communication with the Canvas LMS. Its job i
 
 ## Structure
 
+<<<<<<< HEAD
+- **`src/client.ts`**: The API wrapper. Handles HTTP requests, headers, and authentication with Canvas.
+- **`src/schemas.ts`**: **The Guard.** Zod schemas that define exactly what we expect from the Canvas API responses.
+- **`src/mapper.ts`**: **The Translator.** Contains the pure functions that convert "Canvas-Speak" into "Field-Logic-Speak."
+=======
 - **`src/client.ts`**: API wrapper. Handles HTTP requests, headers, and authentication with Canvas.
 - **`src/schemas.ts`**: Zod schemas that define exactly what we expect from the Canvas API responses.
 - **`src/mapper.ts`**: Contains the pure functions that convert "Canvas-Speak" into "Field-Logic-Speak."
+>>>>>>> dev
 
 ## Key Patterns: The Mapper
 
@@ -34,4 +44,8 @@ The mapper should be a pure function:
 
 - This package never talks to PostgreSQL. It only fetches and maps.
 - It does not "break down" tasks. It only captures content as it exists in the LMS.
+<<<<<<< HEAD
 - All Canvas-specific lingo (like `assignment_group_id` or `submission_types`) inside this package. It should never leak into the rest of the system.
+=======
+- All Canvas-specific lingo (like `assignment_group_id` or `submission_types`) inside this package. It should never leak into the rest of the system.
+>>>>>>> dev

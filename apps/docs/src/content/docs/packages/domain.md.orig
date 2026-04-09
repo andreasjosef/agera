@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
+title: "@ccpilot/domain"
+=======
 title: ccpilot/domain
+>>>>>>> dev
 ---
 
 Business Logic & Contracts
@@ -32,4 +36,8 @@ as Ports into our internal architecture
 `src/services/*.ts`
 
 ---
+<<<<<<< HEAD
 *Note: This package must build first. All other packages depend on this.*
+=======
+*Note: This package must build first. All other packages depend on this.*
+>>>>>>> dev
