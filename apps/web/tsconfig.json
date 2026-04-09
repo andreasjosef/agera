@@ -4,7 +4,6 @@
     "jsx": "react-jsx",
     "types": ["node", "react", "react-dom"],
     "moduleResolution": "Bundler",
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }

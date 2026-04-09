@@ -1,0 +1,128 @@
+{
+  "ok": true,
+  "value": [
+    {
+      "id": "req-001",
+      "title": "Complete Canvas Module Assignment",
+      "due": "2026-04-15T23:59:59Z",
+      "type": "assignment",
+      "source": "canvas",
+      "steps": [
+        {
+          "id": "step-001-1",
+          "title": "Review assignment guidelines",
+          "outcome": "Understand all requirements",
+          "complexity": 1
+        },
+        {
+          "id": "step-001-2",
+          "title": "Implement solution",
+          "outcome": "Complete working code",
+          "complexity": 3
+        },
+        {
+          "id": "step-001-3",
+          "title": "Submit assignment",
+          "outcome": "Verified submission",
+          "complexity": 1
+        }
+      ]
+    },
+    {
+      "id": "req-002",
+      "title": "Database Design Lecture Notes",
+      "due": "2026-04-10T23:59:59Z",
+      "type": "lecture",
+      "source": "canvas",
+      "steps": [
+        {
+          "id": "step-002-1",
+          "title": "Watch lecture video",
+          "outcome": "Video completed",
+          "complexity": 2
+        },
+        {
+          "id": "step-002-2",
+          "title": "Take notes",
+          "outcome": "Comprehensive notes",
+          "complexity": 2
+        }
+      ]
+    },
+    {
+      "id": "req-003",
+      "title": "API Integration Project",
+      "due": "2026-04-22T23:59:59Z",
+      "type": "assignment",
+      "source": "canvas",
+      "steps": [
+        {
+          "id": "step-003-1",
+          "title": "Set up project environment",
+          "outcome": "Ready development setup",
+          "complexity": 2
+        },
+        {
+          "id": "step-003-2",
+          "title": "Implement API endpoints",
+          "outcome": "All endpoints functional",
+          "complexity": 4
+        },
+        {
+          "id": "step-003-3",
+          "title": "Test and document",
+          "outcome": "Complete test coverage",
+          "complexity": 3
+        }
+      ]
+    },
+    {
+      "id": "req-004",
+      "title": "React Components Lecture",
+      "due": "2026-04-12T23:59:59Z",
+      "type": "lecture",
+      "source": "canvas",
+      "steps": [
+        {
+          "id": "step-004-1",
+          "title": "Attend live session",
+          "outcome": "Session attended",
+          "complexity": 1
+        },
+        {
+          "id": "step-004-2",
+          "title": "Review provided examples",
+          "outcome": "Examples understood",
+          "complexity": 2
+        }
+      ]
+    },
+    {
+      "id": "req-005",
+      "title": "Performance Optimization Challenge",
+      "due": "2026-04-28T23:59:59Z",
+      "type": "assignment",
+      "source": "canvas",
+      "steps": [
+        {
+          "id": "step-005-1",
+          "title": "Analyze current performance",
+          "outcome": "Bottlenecks identified",
+          "complexity": 2
+        },
+        {
+          "id": "step-005-2",
+          "title": "Implement optimizations",
+          "outcome": "Performance improved by 30%+",
+          "complexity": 4
+        },
+        {
+          "id": "step-005-3",
+          "title": "Benchmark and report",
+          "outcome": "Detailed report submitted",
+          "complexity": 2
+        }
+      ]
+    }
+  ]
+}
