@@ -1,11 +1,12 @@
-import { IRequirementRepository, Requirement } from "@ccpilot/domain";
-import { requirementsTable } from "../db/schema";
-import { Db } from "../db/client";
+import type { IRequirementRepository, Requirement } from "@ccpilot/domain";
+import { requirementsTable } from "../db/schema.ts";
+import { type Db } from "../db/client.ts";
 
-export const createRequirementRepo = (db: Db) => {
+export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
-    save: (req: Requirement) => {
-      const requirements = db
+    save: async (req: Requirement) => {
+      console.log("saving a new requirment");
+      const [row] = await db
         .insert(requirementsTable)
         .values({
           title: req.title,
@@ -15,8 +16,13 @@ export const createRequirementRepo = (db: Db) => {
         })
         .returning();
 
-      console.log(requirements);
+      console.log("saving a new requirment:", row);
+
+      return { ok: true, value: req };
     },
-    // getAll: () => {},
+    getAll: async () => {
+      console.log("getting all requirments");
+      return { ok: true, value: [] };
+    },
   };
 };
