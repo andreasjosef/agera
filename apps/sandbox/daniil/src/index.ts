@@ -1,4 +1,4 @@
-import { Requirement } from "@ccpilot/domain";
+import type { Requirement } from "@ccpilot/domain";
 import { createRequirementRepo, db } from "@ccpilot/persistence";
 
 const reqRepo = createRequirementRepo(db);
@@ -32,3 +32,4 @@ const requirment: Requirement = {
 };
 
 reqRepo.save(requirment);
+reqRepo.getAll();

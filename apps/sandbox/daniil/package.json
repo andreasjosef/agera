@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
+  "scripts": {
+    "dev": "node --env-file ../../../.env ./src/index.ts"
+  },
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
     "@ccpilot/domain": "workspace:*",
-    "@ccpilot/persistence": "workspace:*"
+    "@ccpilot/persistence": "workspace:*",
+    "dotenv": "^17.4.1"
   }
 }
