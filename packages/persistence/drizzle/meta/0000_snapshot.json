@@ -1,5 +1,5 @@
 {
-  "id": "ca5058e8-a52f-4862-b4d1-99a55598bf91",
+  "id": "a2a914f1-6058-4763-b6ff-36c57be176ca",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -10,20 +10,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "requirements_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "notNull": true
         },
         "title": {
           "name": "title",
@@ -42,7 +31,7 @@
           "type": "requirementType",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'assignment'"
         },
         "source": {
@@ -50,7 +39,7 @@
           "type": "requirementSource",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "'canvas'"
         }
       },
@@ -66,6 +55,12 @@
       "name": "steps",
       "schema": "",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
         "requirment_id": {
           "name": "requirment_id",
           "type": "integer",

@@ -1,14 +1,14 @@
 import type { IRequirementRepository, Requirement } from "@ccpilot/domain";
-import { requirementsTable } from "../db/schema.ts";
 import { type Db } from "../db/client.ts";
+import { requirementsTable } from "../db/schema.ts";
 
 export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
     save: async (req: Requirement) => {
-      console.log("saving a new requirment");
-      const [row] = await db
+      const [rows] = await db
         .insert(requirementsTable)
         .values({
+          id: String(new Date()),
           title: req.title,
           due: req.due,
           type: req.type,
@@ -16,13 +16,15 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
         })
         .returning();
 
-      console.log("saving a new requirment:", row);
-
-      return { ok: true, value: req };
+      // NOTE: return hardcoded steps for now. We will probably need to make a join between tables to get actual steps
+      return { ok: true, value: { ...rows, steps: [] } };
     },
     getAll: async () => {
-      console.log("getting all requirments");
-      return { ok: true, value: [] };
+      const rows = await db.select().from(requirementsTable);
+
+      // TODO: Get steps via join
+      const result: Requirement[] = rows.map((req) => ({ ...req, steps: [] }));
+      return { ok: true, value: result };
     },
   };
 };
