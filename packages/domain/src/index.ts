@@ -10,3 +10,4 @@ export * from "./requirements/actions.ts";
 
 // Services
 export * from "./services/llm.ts";
+export * from "./services/canvas.ts";
