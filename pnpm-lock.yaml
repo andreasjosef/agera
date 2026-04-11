@@ -96,6 +96,18 @@ importers:
         specifier: ^2.8.19
         version: 2.8.19
 
+  apps/sandbox/andreas:
+    dependencies:
+      '@ccpilot/domain':
+        specifier: workspace:*
+        version: link:../../../packages/domain
+      '@ccpilot/lms-canvas':
+        specifier: workspace:*
+        version: link:../../../packages/lms-canvas
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
+
   apps/web:
     dependencies:
       '@ccpilot/domain':
@@ -155,6 +167,9 @@ importers:
 
   packages/lms-canvas:
     dependencies:
+      '@ccpilot/domain':
+        specifier: workspace:*
+        version: link:../domain
       '@ccpilot/ts-fetch':
         specifier: workspace:*
         version: link:../ts-fetch
@@ -3301,6 +3316,9 @@ packages:
   data-view-byte-offset@1.0.1:
     resolution: {integrity: sha512-BS8PfmtDGnrgYdOonGZQdLZslWIeCGFP9tpan0hi1Co2Zr2NKADsvGYA8XxuG/4UWgJ6Cjtv+YJnB6MM69QGlQ==}
     engines: {node: '>= 0.4'}
+
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
@@ -10433,6 +10451,8 @@ snapshots:
       call-bound: 1.0.4
       es-errors: 1.3.0
       is-data-view: 1.0.2
+
+  date-fns@4.1.0: {}
 
   debug@4.4.3(supports-color@10.2.2):
     dependencies:
