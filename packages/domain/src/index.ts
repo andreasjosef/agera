@@ -8,6 +8,9 @@ export * from "./requirements/schema.ts";
 export * from "./requirements/repository.ts";
 export * from "./requirements/actions.ts";
 
+// Integrations
+export * from "./integrations/actions.ts";
+
 // Services
 export * from "./services/llm.ts";
 export * from "./services/canvas.ts";
