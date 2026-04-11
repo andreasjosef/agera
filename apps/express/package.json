@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/index.ts && pnpm cdd",
+    "dev": "node --watch src/index.ts",
     "lint": "eslint .",
     "cdd": "tsc --watch --noEmit --preserveWatchOutput --allowImportingTsExtensions | node ../../packages/cdd-monitor/src/index.ts --fast"
   },
