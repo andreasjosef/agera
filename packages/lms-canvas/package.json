@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "main": "./src/index.ts",
+  "scripts": {
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../cdd-monitor/src/index.ts --fast"
+  },
   "packageManager": "pnpm@10.32.1",
   "dependencies": {
     "@ccpilot/domain": "workspace:*",

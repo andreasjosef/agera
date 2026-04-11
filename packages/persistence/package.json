@@ -10,7 +10,7 @@
   },
   "scripts": {
     "db:push": "pnpm exec drizzle-kit push",
-    "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../../../../packages/cdd-monitor/src/index.ts --fast"
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../cdd-monitor/src/index.ts --fast"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.1",

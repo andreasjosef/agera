@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput --allowImportingTsExtensions | node ../../packages/cdd-monitor/src/index.ts --fast"
   },
   "dependencies": {
     "@ccpilot/domain": "workspace:*",

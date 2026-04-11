@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/index.ts",
-    "lint": "eslint ."
+    "dev": "node --watch src/index.ts && pnpm cdd",
+    "lint": "eslint .",
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput --allowImportingTsExtensions | node ../../packages/cdd-monitor/src/index.ts --fast"
   },
   "dependencies": {
     "@ccpilot/domain": "workspace:*",
