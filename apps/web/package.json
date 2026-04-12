@@ -8,9 +8,12 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput --allowImportingTsExtensions | node ../../packages/cdd-monitor/src/index.ts --fast"
   },
   "dependencies": {
+    "@ccpilot/domain": "workspace:*",
+    "@ccpilot/ts-fetch": "workspace:*",
     "@tailwindcss/vite": "^4.2.2",
     "@tanstack/react-query": "^5.95.2",
     "@tanstack/react-query-devtools": "^5.95.2",

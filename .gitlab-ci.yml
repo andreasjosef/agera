@@ -4,11 +4,39 @@ image: node:24-alpine
 
 stages:
     - test
+    - docs
 
+
+variables:
+  PNPM_STORE_PATH: .pnpm-store
+
+cache:
+    key:
+     files:
+       - pnpm-lock.yaml
+    paths:
+       - $PNPM_STORE_PATH
+
+before_script:
+    - corepack enable
+    - corepack prepare pnpm@latest --activate
+    - pnpm config set store-dir $PNPM_STORE_PATH
+    - pnpm install --frozen-lockfile
 
 test_job:
     stage: test
     script:
-    - corepack enable
-    - pnpm install
     - node --experimental-strip-types --test math.test.ts
+
+build_documentation:
+    stage: docs 
+    script:
+      - echo "Syncing README-file..."
+      - node scripts/sync-docs.mjs
+      - echo "Building Starlight documentation..."
+      - pnpm --filter docs build
+
+    artifacts:
+      paths:
+       - apps/docs/dist/
+      expire_in: 1 week

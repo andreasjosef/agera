@@ -1,15 +1,15 @@
-# Dockerfile for Backend Node.js server
-
-FROM node:20-alpine
+FROM node:24-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+RUN corepack enable
 
-RUN npm install
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
 EXPOSE 8080
 
-CMD ["npm", "start"]
+CMD ["pnpm", "start"]
