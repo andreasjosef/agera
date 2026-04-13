@@ -1,10 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "types": ["node", "express"],
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    "declaration": false,
     "paths": {
       "@/*": ["./src/*"]
     }
