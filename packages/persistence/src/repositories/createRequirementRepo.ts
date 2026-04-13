@@ -1,10 +1,15 @@
-import { IRequirementRepository, Requirement, ok } from "@ccpilot/domain";
+import {
+  type IRequirementRepository,
+  type Requirement,
+  ok,
+} from "@ccpilot/domain";
 import { type Db } from "../db/client.ts";
 import { requirementsTable } from "../db/schema.ts";
 
 export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
     save: async (req: Requirement) => {
+      console.log("saving requirement");
       const [rows] = await db
         .insert(requirementsTable)
         .values({
@@ -20,6 +25,7 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
       return ok({ ...rows, steps: [] });
     },
     getAll: async () => {
+      console.log("get all requirements");
       const rows = await db.select().from(requirementsTable);
 
       // TODO: Get steps via join
