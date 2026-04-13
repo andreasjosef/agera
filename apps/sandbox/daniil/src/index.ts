@@ -32,4 +32,4 @@ const requirment: Requirement = {
 };
 
 reqRepo.save(requirment);
-console.log(await reqRepo.getAll());
+reqRepo.getAll();
