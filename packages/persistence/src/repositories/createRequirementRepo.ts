@@ -13,7 +13,7 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
       const [rows] = await db
         .insert(requirementsTable)
         .values({
-          id: String(new Date()),
+          id: req.id,
           title: req.title,
           due: req.due,
           type: req.type,
@@ -25,7 +25,6 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
       return ok({ ...rows, steps: [] });
     },
     getAll: async () => {
-      console.log("get all requirements");
       const rows = await db.select().from(requirementsTable);
 
       // TODO: Get steps via join

@@ -10,6 +10,7 @@ export const RequirementSourceSchema = z.enum(RequirementSourceValues);
 
 export const StepSchema = z.object({
   id: z.string(),
+  stepKey: z.string(),
   title: z.string().min(1),
   outcome: z.string(),
   complexity: z.number(),
