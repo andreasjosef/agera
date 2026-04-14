@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { requirementsController } from "../controllers/requirements.controller.ts";
+import { ok } from "@ccpilot/domain";
 
-const requirementsRouter: Router = Router()
+const router: Router = Router();
 
-requirementsRouter.get('/requirements', requirementsController)
+router.get("/requirements", async (req, res) => {
+  return res.status(204).json(ok(undefined));
+});
 
-export default requirementsRouter
+export default router;

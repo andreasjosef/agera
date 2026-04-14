@@ -1,5 +1,6 @@
 # build output
 dist/
+
 # generated types
 .astro/
 
@@ -19,3 +20,10 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# generated docs will be added by the build process from repo root anyways
+./src/content/docs/apps
+./src/content/docs/packages
+./src/content/docs/reference.md
+./src/content/docs/domain-api-reference.md
+

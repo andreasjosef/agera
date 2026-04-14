@@ -6,9 +6,10 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../../../../packages/cdd-monitor/src/index.ts --fast"
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../cdd-monitor/src/index.ts --fast"
   },
   "dependencies": {
+    "date-fns": "^4.1.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

@@ -5,16 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/index.ts",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput --allowImportingTsExtensions | node ../../packages/cdd-monitor/src/index.ts --fast"
   },
   "dependencies": {
     "@ccpilot/domain": "workspace:*",
-    "@types/express": "^5.0.6",
     "cors": "^2.8.6",
     "dotenv": "^17.4.1",
     "express": "^5.2.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/cors": "^2.8.19"
   }
 }

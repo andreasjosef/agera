@@ -31,10 +31,9 @@ test_job:
 build_documentation:
     stage: docs 
     script:
-      - apk add --no-cache python3
-      - echo "Synkar README-filer..."
-      - python3 scripts/sync-docs.py
-      - echo "Bygger Starlight dokumentationen..."
+      - echo "Syncing README-file..."
+      - node scripts/sync-docs.mjs
+      - echo "Building Starlight documentation..."
       - pnpm --filter docs build
 
     artifacts:
