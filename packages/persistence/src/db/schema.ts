@@ -22,13 +22,3 @@ export const stepsTable = pgTable("steps", {
   outcome: text().notNull(),
   complexity: integer().notNull(),
 });
-
-export const stepsTable = pgTable("steps", {
-  id: text("cuid").primaryKey(),
-  requirementId: text("requirement_id")
-    .notNull()
-    .references(() => requirementsTable.id),
-  title: text("title").notNull(),
-  outcome: text("outcome").notNull(),
-  complexity: integer("complexity").notNull(),
-});
