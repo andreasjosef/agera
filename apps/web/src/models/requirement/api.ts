@@ -5,16 +5,20 @@ import { queryOptions } from "@tanstack/react-query";
 // TODO: Switch to zodWrappedParser when the /requirment endpoint is implemented
 const RequirementParser = zodRawParser(RequirementSchema);
 
-export const requirmentQueryOptions = {
+export const requirementQueryOptions = {
   all: queryOptions({
-    queryKey: ["requirments"],
+    queryKey: ["requirements"],
     queryFn: async () => {
-      const res = await fetchList("/requirements.json", RequirementParser, {
-        extractArray: (data) => data.value,
-        onItemError: (item, err) => {
-          console.error("Failed to parse item:", err, item);
+      const res = await fetchList(
+        "http://localhost:4000/api/requirements",
+        RequirementParser,
+        {
+          extractArray: (data) => data.value,
+          onItemError: (item, err) => {
+            console.error("Failed to parse item:", err, item);
+          },
         },
-      });
+      );
 
       if (!res.ok) {
         throw new Error(res.error);

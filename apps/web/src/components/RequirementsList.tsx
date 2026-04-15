@@ -1,16 +1,19 @@
 import { Requirement } from "@ccpilot/domain";
 
 interface RequirementsListProps {
-  requirments: Requirement[];
+  requirements: Requirement[];
 }
 
 export default function RequirementsList({
-  requirments,
+  requirements,
 }: RequirementsListProps) {
   return (
     <ul>
-      {requirments.map((requirment) => (
-        <li> {requirment.id} </li>
+      {requirements.map((requirement) => (
+        <li key={requirement.id}>
+          <h2>{requirement.title}</h2>
+          <p>{requirement.due}</p>
+        </li>
       ))}
     </ul>
   );

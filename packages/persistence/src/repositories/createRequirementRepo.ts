@@ -1,6 +1,7 @@
 import {
   type IRequirementRepository,
   type Requirement,
+  type NewRequirement,
   ok,
 } from "@ccpilot/domain";
 import { type Db } from "../db/client.ts";
@@ -8,12 +9,11 @@ import { requirementsTable } from "../db/schema.ts";
 
 export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
-    save: async (req: Requirement) => {
+    save: async (req: NewRequirement) => {
       console.log("saving requirement");
       const [rows] = await db
         .insert(requirementsTable)
         .values({
-          id: req.id,
           title: req.title,
           due: req.due,
           type: req.type,
