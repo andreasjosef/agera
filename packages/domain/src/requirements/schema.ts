@@ -24,3 +24,8 @@ export const RequirementSchema = z.object({
   source: RequirementSourceSchema,
   steps: z.array(StepSchema),
 });
+
+export const StepsLLMResponseSchema = z.object({
+  requirment_summary: z.string(),
+  steps: z.array(StepSchema),
+});

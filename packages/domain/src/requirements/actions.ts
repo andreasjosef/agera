@@ -1,9 +1,9 @@
 import { type Result } from "../shared/result.ts";
-import type { Requirement, Step } from "./types.ts";
+import type { Requirement, Step, StepsLLMResponse } from "./types.ts";
 
 import type { IRequirementRepository } from "./repository.ts";
 import { type LLMClientInterface } from "../services/llm.ts";
-import { StepSchema } from "./schema.ts";
+import { StepSchema, StepsLLMResponseSchema } from "./schema.ts";
 
 import { STEP_GEN_SYS_PROMPT } from "./prompts.ts";
 
@@ -27,10 +27,10 @@ export const saveRequirement = async (
 export const generateSteps = async (
   llm: LLMClientInterface,
   description: string,
-): Promise<Result<Step[]>> => {
+): Promise<Result<StepsLLMResponse>> => {
   return llm.complete(
     STEP_GEN_SYS_PROMPT,
     `Here is the description: ${description}`,
-    StepSchema,
+    StepsLLMResponseSchema,
   );
 };
