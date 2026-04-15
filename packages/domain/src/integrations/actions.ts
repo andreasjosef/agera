@@ -6,10 +6,12 @@ import { type NewRequirement } from "../requirements/types.ts";
 import { type IRequirementRepository } from "../requirements/repository.ts";
 import { type CanvasClientInterface } from "../services/canvas.ts";
 
+import { saveRequirement } from "../requirements/actions.ts";
+
 export const syncCanvasReqsAction = async (
   canvas: CanvasClientInterface,
   repo: IRequirementRepository,
-): Promise<Result<string>> => {
+): Promise<Result<void>> => {
   // TODO: this should eventually return SyncStatus result
   const courseResult = await canvas.fetchCourses();
 
@@ -36,10 +38,16 @@ export const syncCanvasReqsAction = async (
       type: "assignment",
     };
 
-    repo.save(requirement);
+    const result = await saveRequirement(repo, requirement);
+
+    if (!result.ok) {
+      console.error(`[SYNC] Failed: ${assignement.title}`);
+    }
+
+    console.log(`[SYNC] Handeld: ${assignement.title}`);
   }
 
-  console.log("[ CANVAS SYNC ACTION ]:  Sync Finished!");
+  console.log("[SYNC] Complete!");
 
-  return ok("Sync finished");
+  return ok(undefined);
 };
