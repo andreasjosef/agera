@@ -1,10 +1,34 @@
 import { Router } from "express";
-import { ok } from "@ccpilot/domain";
+import { fail, ok, syncCanvasReqsAction } from "@ccpilot/domain";
+
+import { createCanvasClient } from "@ccpilot/lms-canvas";
+import { createRequirementRepo, db } from "@ccpilot/persistence";
+
+const canvas = createCanvasClient(process.env.CANVAS_TOKEN!);
+const reqRepo = createRequirementRepo(db);
 
 const router: Router = Router();
 
-router.get("/requirements", async (req, res) => {
-  return res.status(204).json(ok(undefined));
+router.get("/", async (req, res) => {
+  const result = await reqRepo.getAll();
+
+  if (!result.ok) {
+    return res.status(400).json(fail(result.error));
+  }
+
+  return res.status(200).json(result);
+});
+
+router.post("/sync", async (req, res) => {
+  // NOTE: use promise chaining here so we do not have to await the result and can immediately sent
+  // the sync started startus back
+  syncCanvasReqsAction(canvas, reqRepo).then((result) => {
+    if (!result.ok) {
+      console.error("Promblems during sync");
+    }
+  });
+
+  return res.status(200).json(ok("sync started"));
 });
 
 export default router;
