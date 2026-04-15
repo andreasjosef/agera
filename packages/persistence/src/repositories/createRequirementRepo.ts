@@ -10,7 +10,6 @@ import { requirementsTable } from "../db/schema.ts";
 export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
     save: async (req: NewRequirement) => {
-      console.log("saving requirement");
       const [rows] = await db
         .insert(requirementsTable)
         .values({
