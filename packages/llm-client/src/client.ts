@@ -40,24 +40,15 @@ export const createLLMClient = (): LLMClientInterface => {
         return fail("Failed to parse LLM response");
       }
 
-      // console.log(
-      //   "typeof content",
-      //   typeof result.value.choices[0].message.content,
-      //   result.value.choices[0].message.content,
-      //   JSON.parse(result.value.choices[0].message.content),
-      // );
-
-      const validated = schema.safeParse(
-        result.value.choices[0].message.content,
-      );
+      const choicesContent = result.value.choices[0].message.content;
+      const validated = schema.safeParse(JSON.parse(choicesContent));
 
       if (!validated.success) {
         console.log(validated);
         return fail("Failed to parse LLM choices");
       }
 
-      console.log(validated.data, typeof validated.data);
-      return ok([]);
+      return ok(validated.data);
     },
   };
 };
