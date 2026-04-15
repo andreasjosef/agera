@@ -13,5 +13,5 @@ export interface LLMClientInterface {
     system: string,
     user: string,
     schema: z.ZodSchema<T>,
-  ) => Promise<Result<T[]>>;
+  ) => Promise<Result<T>>;
 }
