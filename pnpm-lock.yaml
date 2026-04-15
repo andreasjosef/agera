@@ -85,6 +85,12 @@ importers:
       '@ccpilot/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@ccpilot/lms-canvas':
+        specifier: workspace:*
+        version: link:../../packages/lms-canvas
+      '@ccpilot/persistence':
+        specifier: workspace:*
+        version: link:../../packages/persistence
       cors:
         specifier: ^2.8.6
         version: 2.8.6
@@ -101,6 +107,24 @@ importers:
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
+
+  apps/sandbox/andreas:
+    dependencies:
+      '@ccpilot/domain':
+        specifier: workspace:*
+        version: link:../../../packages/domain
+      '@ccpilot/lms-canvas':
+        specifier: workspace:*
+        version: link:../../../packages/lms-canvas
+      '@ccpilot/ts-fetch':
+        specifier: workspace:*
+        version: link:../../../packages/ts-fetch
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
 
   apps/sandbox/daniil:
     dependencies:

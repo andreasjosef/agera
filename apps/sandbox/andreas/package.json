@@ -7,6 +7,8 @@
   "dependencies": {
     "@ccpilot/domain": "workspace:*",
     "@ccpilot/lms-canvas": "workspace:*",
-    "date-fns": "^4.1.0"
+    "@ccpilot/ts-fetch": "workspace:*",
+    "date-fns": "^4.1.0",
+    "zod": "^4.3.6"
   }
 }
