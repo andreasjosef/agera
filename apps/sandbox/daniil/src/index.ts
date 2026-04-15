@@ -34,7 +34,7 @@ const requirment: Requirement = {
 
 const testGenerateSteps = async () => {
   console.log("[SANDBOX]: test generate steps");
-  await generateSteps(llmClient, "test description");
+  await generateSteps(llmClient, "write hello world application");
 };
 
 const testSavingRequirment = () => {
