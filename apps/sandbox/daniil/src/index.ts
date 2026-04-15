@@ -23,7 +23,7 @@ const requirment: Requirement = {
       outcomeDefinition: "",
       curiosityTrigger: "",
       theWin: "",
-      category: 1,
+      category: [],
       complexity: 1,
       estimatedMinutes: 1,
       dependencyOrder: 1,
@@ -34,7 +34,15 @@ const requirment: Requirement = {
 
 const testGenerateSteps = async () => {
   console.log("[SANDBOX]: test generate steps");
-  await generateSteps(llmClient, "write hello world application");
+  const result = await generateSteps(
+    llmClient,
+    "write hello world application",
+  );
+
+  if (!result.ok) {
+    console.log(result.error);
+  }
+  console.log(result);
 };
 
 const testSavingRequirment = () => {
