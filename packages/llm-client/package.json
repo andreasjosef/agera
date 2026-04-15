@@ -6,6 +6,7 @@
   "main": "./src/index.ts",
   "dependencies": {
     "@ccpilot/domain": "workspace:*",
-    "@ccpilot/ts-fetch": "workspace:*"
+    "@ccpilot/ts-fetch": "workspace:*",
+    "zod": "^4.3.6"
   }
 }
