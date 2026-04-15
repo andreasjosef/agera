@@ -14,10 +14,10 @@ export const StepSchema = z.object({
   outcomeDefinition: z.string(),
   curiosityTrigger: z.string(),
   theWin: z.string(),
-  category: z.number(),
-  complexity: z.number(),
-  estimatedMinutes: z.number(),
-  dependencyOrder: z.number(),
+  category: z.string(),
+  complexity: z.coerce.number(),
+  estimatedMinutes: z.coerce.number(),
+  dependencyOrder: z.coerce.number(),
   quickStartLinkHint: z.string(),
 });
 
