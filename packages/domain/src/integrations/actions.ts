@@ -2,14 +2,15 @@ import { isAfter } from "date-fns";
 
 import { type Result, ok, fail } from "../shared/result.ts";
 
-import { type Requirement } from "../requirements/types.ts";
+import { type NewRequirement } from "../requirements/types.ts";
 import { type IRequirementRepository } from "../requirements/repository.ts";
 import { type CanvasClientInterface } from "../services/canvas.ts";
 
 export const syncCanvasReqsAction = async (
   canvas: CanvasClientInterface,
   repo: IRequirementRepository,
-): Promise<Result<void>> => {
+): Promise<Result<string>> => {
+  // TODO: this should eventually return SyncStatus result
   const courseResult = await canvas.fetchCourses();
 
   if (!courseResult.ok) return fail(courseResult.error);
@@ -27,8 +28,7 @@ export const syncCanvasReqsAction = async (
 
   for (const assignement of assignements) {
     // REFACTOR: Move this into a mapper function
-    const requirement: Requirement = {
-      id: assignement.id,
+    const requirement: NewRequirement = {
       title: assignement.title.trim(),
       source: "canvas",
       due: assignement.due,
@@ -36,11 +36,10 @@ export const syncCanvasReqsAction = async (
       type: "assignment",
     };
 
-    console.log("[ACTION] - SAVE: ", requirement.title);
-    // console.log("[ACTION] - LOG: ", assignemnt.description);
-
     repo.save(requirement);
   }
 
-  return ok(undefined);
+  console.log("[ CANVAS SYNC ACTION ]:  Sync Finished!");
+
+  return ok("Sync finished");
 };
