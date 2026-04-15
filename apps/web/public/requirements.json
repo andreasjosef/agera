@@ -10,18 +10,21 @@
       "steps": [
         {
           "id": "step-001-1",
+          "stepKey": "step-001-1",
           "title": "Review assignment guidelines",
           "outcome": "Understand all requirements",
           "complexity": 1
         },
         {
           "id": "step-001-2",
+          "stepKey": "step-001-1",
           "title": "Implement solution",
           "outcome": "Complete working code",
           "complexity": 3
         },
         {
           "id": "step-001-3",
+          "stepKey": "step-001-1",
           "title": "Submit assignment",
           "outcome": "Verified submission",
           "complexity": 1
@@ -37,12 +40,14 @@
       "steps": [
         {
           "id": "step-002-1",
+          "stepKey": "step-001-1",
           "title": "Watch lecture video",
           "outcome": "Video completed",
           "complexity": 2
         },
         {
           "id": "step-002-2",
+          "stepKey": "step-001-1",
           "title": "Take notes",
           "outcome": "Comprehensive notes",
           "complexity": 2
@@ -59,17 +64,20 @@
         {
           "id": "step-003-1",
           "title": "Set up project environment",
+          "stepKey": "step-001-1",
           "outcome": "Ready development setup",
           "complexity": 2
         },
         {
           "id": "step-003-2",
+          "stepKey": "step-001-1",
           "title": "Implement API endpoints",
           "outcome": "All endpoints functional",
           "complexity": 4
         },
         {
           "id": "step-003-3",
+          "stepKey": "step-001-1",
           "title": "Test and document",
           "outcome": "Complete test coverage",
           "complexity": 3
@@ -85,12 +93,14 @@
       "steps": [
         {
           "id": "step-004-1",
+          "stepKey": "step-001-1",
           "title": "Attend live session",
           "outcome": "Session attended",
           "complexity": 1
         },
         {
           "id": "step-004-2",
+          "stepKey": "step-001-1",
           "title": "Review provided examples",
           "outcome": "Examples understood",
           "complexity": 2
@@ -107,17 +117,20 @@
         {
           "id": "step-005-1",
           "title": "Analyze current performance",
+          "stepKey": "step-001-1",
           "outcome": "Bottlenecks identified",
           "complexity": 2
         },
         {
           "id": "step-005-2",
+          "stepKey": "step-001-1",
           "title": "Implement optimizations",
           "outcome": "Performance improved by 30%+",
           "complexity": 4
         },
         {
           "id": "step-005-3",
+          "stepKey": "step-001-1",
           "title": "Benchmark and report",
           "outcome": "Detailed report submitted",
           "complexity": 2
