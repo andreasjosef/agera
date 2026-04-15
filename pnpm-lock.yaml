@@ -131,9 +131,15 @@ importers:
       '@ccpilot/domain':
         specifier: workspace:*
         version: link:../../../packages/domain
+      '@ccpilot/llm-client':
+        specifier: workspace:*
+        version: link:../../../packages/llm-client
       '@ccpilot/persistence':
         specifier: workspace:*
         version: link:../../../packages/persistence
+      '@ccpilot/ts-fetch':
+        specifier: workspace:*
+        version: link:../../../packages/ts-fetch
       dotenv:
         specifier: ^17.4.1
         version: 17.4.1
@@ -196,7 +202,14 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
 
-  packages/llm-client: {}
+  packages/llm-client:
+    dependencies:
+      '@ccpilot/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@ccpilot/ts-fetch':
+        specifier: workspace:*
+        version: link:../ts-fetch
 
   packages/lms-canvas:
     dependencies:

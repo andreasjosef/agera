@@ -3,5 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "packageManager": "pnpm@10.32.1",
-  "dependencies": {}
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@ccpilot/domain": "workspace:*",
+    "@ccpilot/ts-fetch": "workspace:*"
+  }
 }
