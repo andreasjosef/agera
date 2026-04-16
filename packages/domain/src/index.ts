@@ -9,6 +9,10 @@ export * from "./requirements/repository.ts";
 export * from "./requirements/actions.ts";
 export * from "./requirements/prompts.ts";
 
+// Users
+export * from "./users/schema.ts";
+export * from "./users/types.ts";
+
 // Integrations
 export * from "./integrations/actions.ts";
 
