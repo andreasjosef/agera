@@ -1,5 +1,5 @@
 import { type Result } from "../shared/result.ts";
-import type { UserIdentity, NewUser } from "./types.ts";
+import type { UserIdentity, NewUser, SafeUser } from "./types.ts";
 
 /**
  * Defines the persistence contract for User entities within the domain.
@@ -14,7 +14,7 @@ export interface IUserRepository {
    * @param user - The unpersisted user data (without a system-generated ID).
    * @returns A {@link Result} containing the persisted {@link UserIdentity} on success.
    */
-  createUser: (req: NewUser) => Promise<Result<UserIdentity>>;
+  createUser: (user: NewUser) => Promise<Result<UserIdentity>>;
   /**
    * Retrieves a specific user from the storage layer using their unique identifier.
    *
@@ -22,5 +22,5 @@ export interface IUserRepository {
    * @returns A {@link Result} containing the {@link UserIdentity} if found,
    * or a failure if the user does not exist.
    */
-  findById: (id: string) => Promise<Result<UserIdentity>>;
+  findById: (id: string) => Promise<Result<SafeUser>>;
 }
