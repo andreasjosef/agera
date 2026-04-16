@@ -8,6 +8,11 @@
   "scripts": {
     "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../cdd-monitor/src/index.ts --fast"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "@ccpilot/domain": "workspace:*",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10"
+  }
 }
