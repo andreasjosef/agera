@@ -7,6 +7,7 @@ export * from "./requirements/types.ts";
 export * from "./requirements/schema.ts";
 export * from "./requirements/repository.ts";
 export * from "./requirements/actions.ts";
+export * from "./requirements/prompts.ts";
 
 // Integrations
 export * from "./integrations/actions.ts";

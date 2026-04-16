@@ -10,10 +10,15 @@ export const RequirementSourceSchema = z.enum(RequirementSourceValues);
 
 export const StepSchema = z.object({
   id: z.string(),
-  stepKey: z.string(),
-  title: z.string().min(1),
-  outcome: z.string(),
-  complexity: z.number(),
+  action: z.string(),
+  outcomeDefinition: z.string(),
+  curiosityTrigger: z.string(),
+  theWin: z.string(),
+  category: z.string(),
+  complexity: z.coerce.number(),
+  estimatedMinutes: z.coerce.number(),
+  dependencyOrder: z.coerce.number(),
+  quickStartLinkHint: z.string(),
 });
 
 export const RequirementSchema = z.object({

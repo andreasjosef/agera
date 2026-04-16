@@ -108,36 +108,6 @@ importers:
         specifier: ^5.0.6
         version: 5.0.6
 
-  apps/sandbox/andreas:
-    dependencies:
-      '@ccpilot/domain':
-        specifier: workspace:*
-        version: link:../../../packages/domain
-      '@ccpilot/lms-canvas':
-        specifier: workspace:*
-        version: link:../../../packages/lms-canvas
-      '@ccpilot/ts-fetch':
-        specifier: workspace:*
-        version: link:../../../packages/ts-fetch
-      date-fns:
-        specifier: ^4.1.0
-        version: 4.1.0
-      zod:
-        specifier: ^4.3.6
-        version: 4.3.6
-
-  apps/sandbox/daniil:
-    dependencies:
-      '@ccpilot/domain':
-        specifier: workspace:*
-        version: link:../../../packages/domain
-      '@ccpilot/persistence':
-        specifier: workspace:*
-        version: link:../../../packages/persistence
-      dotenv:
-        specifier: ^17.4.1
-        version: 17.4.1
-
   apps/web:
     dependencies:
       '@ccpilot/domain':
@@ -196,7 +166,17 @@ importers:
         specifier: ^17.3.1
         version: 17.3.1
 
-  packages/llm-client: {}
+  packages/llm-client:
+    dependencies:
+      '@ccpilot/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@ccpilot/ts-fetch':
+        specifier: workspace:*
+        version: link:../ts-fetch
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
 
   packages/lms-canvas:
     dependencies:

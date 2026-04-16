@@ -1,13 +1,15 @@
-import type { Requirement } from "@ccpilot/domain";
-
+import {
+  type Requirement,
+  generateSteps,
+  RequirementSchema,
+} from "@ccpilot/domain";
+import { zodRawParser, fetchList } from "@ccpilot/ts-fetch";
+import { createLLMClient } from "@ccpilot/llm-client";
 import { createRequirementRepo, db } from "@ccpilot/persistence";
+import { randomUUID } from "node:crypto";
 
-import { randomUUID } from "crypto";
-
+const llmClient = createLLMClient();
 const reqRepo = createRequirementRepo(db);
-
-console.log(randomUUID());
-
 const requirment: Requirement = {
   id: randomUUID(),
   title: "Complete Canvas Module Assignment",
@@ -17,27 +19,34 @@ const requirment: Requirement = {
   steps: [
     {
       id: randomUUID(),
-      stepKey: "step-001-1",
-      title: "Review assignment guidelines",
-      outcome: "Understand all requirements",
+      action: "",
+      outcomeDefinition: "",
+      curiosityTrigger: "",
+      theWin: "",
+      category: [],
       complexity: 1,
-    },
-    {
-      id: randomUUID(),
-      stepKey: "step-001-2",
-      title: "Implement solution",
-      outcome: "Complete working code",
-      complexity: 3,
-    },
-    {
-      id: randomUUID(),
-      stepKey: "step-001-3",
-      title: "Submit assignment",
-      outcome: "Verified submission",
-      complexity: 1,
+      estimatedMinutes: 1,
+      dependencyOrder: 1,
+      quickStartLinkHint: "",
     },
   ],
 };
 
-reqRepo.save(requirment);
-console.log(await reqRepo.getAll());
+const testGenerateSteps = async () => {
+  console.log("[SANDBOX]: test generate steps");
+  const result = await generateSteps(
+    llmClient,
+    "write hello world application",
+  );
+
+  if (!result.ok) {
+    console.log(result.error);
+  }
+  console.log(result);
+};
+
+const testSavingRequirment = () => {
+  reqRepo.save(requirment);
+};
+
+testGenerateSteps();
