@@ -1,6 +1,6 @@
 import type {IUserRepository} from "@ccpilot/domain"
 import { ok } from "@ccpilot/domain"
-import { SafeUser } from "@ccpilot/domain"
+import type { SafeUser } from "@ccpilot/domain"
 
 
 export const createUserRepo = (): IUserRepository => {
@@ -18,7 +18,7 @@ export const createUserRepo = (): IUserRepository => {
 
         findById: async (id) => {
             console.log("[USER REPO]: Find user ", id)
-            
+
             const userIdentity: SafeUser = {
                 name: "",
                 email: "",
