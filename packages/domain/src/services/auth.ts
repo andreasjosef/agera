@@ -1,4 +1,4 @@
-import { Result } from "../shared/result.ts";
+import { type Result } from "../shared/result.ts";
 
 /**
  * Defines the contract for identity management and token generation.
