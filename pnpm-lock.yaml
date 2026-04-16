@@ -108,26 +108,14 @@ importers:
         specifier: ^5.0.6
         version: 5.0.6
 
-  apps/sandbox/daniil:
+  apps/sandbox/yousif:
     dependencies:
-      '@ccpilot/auth-jwt':
-        specifier: workspace:*
-        version: link:../../../packages/auth-jwt
       '@ccpilot/domain':
         specifier: workspace:*
         version: link:../../../packages/domain
-      '@ccpilot/llm-client':
-        specifier: workspace:*
-        version: link:../../../packages/llm-client
       '@ccpilot/persistence':
         specifier: workspace:*
         version: link:../../../packages/persistence
-      '@ccpilot/ts-fetch':
-        specifier: workspace:*
-        version: link:../../../packages/ts-fetch
-      dotenv:
-        specifier: ^17.4.1
-        version: 17.4.2
 
   apps/web:
     dependencies:
