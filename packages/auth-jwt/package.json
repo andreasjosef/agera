@@ -1,0 +1,13 @@
+{
+  "name": "@ccpilot/auth-jwt",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../cdd-monitor/src/index.ts --fast"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
