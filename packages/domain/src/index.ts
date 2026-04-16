@@ -19,3 +19,4 @@ export * from "./integrations/actions.ts";
 // Services
 export * from "./services/llm.ts";
 export * from "./services/canvas.ts";
+export * from "./services/auth.ts";

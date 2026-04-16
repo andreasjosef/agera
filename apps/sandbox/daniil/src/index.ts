@@ -6,10 +6,13 @@ import {
 import { zodRawParser, fetchList } from "@ccpilot/ts-fetch";
 import { createLLMClient } from "@ccpilot/llm-client";
 import { createRequirementRepo, db } from "@ccpilot/persistence";
-import { randomUUID } from "node:crypto";
+import { randomUUID, sign } from "node:crypto";
+import { createJwtClient } from "@ccpilot/auth-jwt";
 
 const llmClient = createLLMClient();
 const reqRepo = createRequirementRepo(db);
+const jwtClient = createJwtClient();
+
 const requirment: Requirement = {
   id: randomUUID(),
   title: "Complete Canvas Module Assignment",
@@ -23,7 +26,7 @@ const requirment: Requirement = {
       outcomeDefinition: "",
       curiosityTrigger: "",
       theWin: "",
-      category: [],
+      category: "",
       complexity: 1,
       estimatedMinutes: 1,
       dependencyOrder: 1,
@@ -49,4 +52,23 @@ const testSavingRequirment = () => {
   reqRepo.save(requirment);
 };
 
-testGenerateSteps();
+const testJwtClient = () => {
+  const userId = "67";
+
+  const signedResult = jwtClient.sign(userId);
+
+  if (!signedResult.ok) {
+    return console.log("sign error");
+  }
+  console.log("[SANDBOX] sign result:", signedResult);
+
+  const verifiedResult = jwtClient.verify(signedResult.value);
+
+  if (!verifiedResult.ok) {
+    return console.log("verify error");
+  }
+
+  console.log("[SANDBOX] verify result:", verifiedResult);
+};
+
+testJwtClient();

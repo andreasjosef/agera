@@ -8,6 +8,7 @@
   },
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
+    "@ccpilot/auth-jwt": "workspace:*",
     "@ccpilot/domain": "workspace:*",
     "@ccpilot/llm-client": "workspace:*",
     "@ccpilot/persistence": "workspace:*",
