@@ -7,6 +7,7 @@
   "dependencies": {
     "@ccpilot/domain": "workspace:*",
     "@ccpilot/ts-fetch": "workspace:*",
+    "dotenv": "^17.4.2",
     "zod": "^4.3.6"
   }
 }
