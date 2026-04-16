@@ -10,3 +10,8 @@ export const UserIdentitySchema = z.object({
 export const NewUserSchema = UserIdentitySchema.omit({
   id: true,
 });
+
+export const SafeUserSchema = UserIdentitySchema.omit({
+  password: true,
+  id: true
+});
