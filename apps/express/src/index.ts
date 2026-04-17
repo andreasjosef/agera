@@ -3,12 +3,16 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { ok } from "@ccpilot/domain";
 
+import { authHandlerNode } from "@ccpilot/auth-betterauth";
+
 import requirementsRouter from "./routes/requirement.routes.ts";
 
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 const app = express();
+
+app.all("/api/auth/*splat", authHandlerNode);
 
 app.use(express.json());
 app.use(cors());

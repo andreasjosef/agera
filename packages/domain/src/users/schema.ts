@@ -13,5 +13,5 @@ export const NewUserSchema = UserIdentitySchema.omit({
 
 export const SafeUserSchema = UserIdentitySchema.omit({
   password: true,
-  id: true
 });
+
