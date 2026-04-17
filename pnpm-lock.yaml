@@ -111,15 +111,6 @@ importers:
         specifier: ^5.0.6
         version: 5.0.6
 
-  apps/sandbox/yousif:
-    dependencies:
-      '@ccpilot/domain':
-        specifier: workspace:*
-        version: link:../../../packages/domain
-      '@ccpilot/persistence':
-        specifier: workspace:*
-        version: link:../../../packages/persistence
-
   apps/web:
     dependencies:
       '@ccpilot/domain':
