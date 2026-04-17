@@ -1,4 +1,4 @@
-import { SafeUser } from "@/users/types.ts";
+import { type SafeUser } from "../users/types.ts";
 import { type Result } from "../shared/result.ts";
 
 /**
