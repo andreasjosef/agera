@@ -1,24 +1,31 @@
+import { SafeUser } from "@/users/types.ts";
 import { type Result } from "../shared/result.ts";
 
 /**
- * Defines the contract for identity management and token generation.
- * This interface allows the system to verify identities
- * without being coupled to specific technical implementations
- * like JWT or session cookies.
- * @group Definitions
+ * A platform-agnostic representation of an incoming network request.
+ *
+ * This ensures the Domain doesn't depend on framework-specific types
+ * like Express.Request.
+ */
+export interface AuthRequest {
+  /** Map of lowercase header keys to their string values. */
+  headers: Record<string, string | undefined>;
+}
+
+/**
+ * Defines the contract for identity management and session orchestration.
+ *
+ * This interface allows the system to verify identities without being coupled
+ * to specific technical implementations like JWT
+ *
+ * * @group Definitions
  */
 export interface IAuthService {
   /**
-   * Generates a secure authentication token for a specific user identifier.
-   * @param userId - The unique identifier of the user to be authenticated.
-   * @returns A {@link Result} containing the signed token string on success.
+   * Translates an incoming request into a verified User Identity.
+   *
+   * @param req - The simplified {@link AuthRequest} containing necessary headers/cookies.
+   * @returns A {@link Result} containing the {@link SafeUser} if the session is valid.
    */
-  sign: (userId: string) => Result<string>;
-
-  /**
-   * Validates a raw authentication token and extracts the subject identity.
-   * @param token - The raw token string provided by the client.
-   * @returns A {@link Result} containing the verified subject ('sub') identifier.
-   */
-  verify: (token: string) => Result<{ sub: string }>;
+  getSession: (req: AuthRequest) => Promise<Result<SafeUser>>;
 }
