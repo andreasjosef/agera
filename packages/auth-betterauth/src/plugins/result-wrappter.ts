@@ -1,5 +1,4 @@
 import { type BetterAuthPlugin } from "better-auth";
-import { ok } from "node:assert";
 
 export const resultWrapper = (): BetterAuthPlugin => {
   return {
@@ -16,30 +15,32 @@ export const resultWrapper = (): BetterAuthPlugin => {
         const data = await resCopy.json();
 
         if (response.ok) {
+          const flattenedValue = data?.user ?? data;
+
           const succuessBody = JSON.stringify({
             ok: true,
-            value: data,
+            value: flattenedValue,
           });
 
-          const wrappedReponse = new Response(succuessBody, {
-            status: response.status,
-            headers: response.headers,
-          });
-
-          return { response: wrappedReponse };
+          return {
+            response: new Response(succuessBody, {
+              status: response.status,
+              headers: response.headers,
+            }),
+          };
         }
 
         const failureBody = JSON.stringify({
           ok: false,
-          error: "An error occurred during authentication",
+          error: data?.message || data?.error || "Authentication failed",
         });
 
-        const failureWrap = new Response(failureBody, {
-          status: response.status,
-          headers: response.headers,
-        });
-
-        return { response: failureWrap };
+        return {
+          response: new Response(failureBody, {
+            status: response.status,
+            headers: response.headers,
+          }),
+        };
       } catch (e) {
         return;
       }
