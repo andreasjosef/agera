@@ -1,0 +1,16 @@
+{
+  "name": "@ccpilot/auth-betterauth",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "cdd": "tsc --watch --noEmit --preserveWatchOutput | node ../cdd-monitor/src/index.ts --fast"
+  },
+  "dependencies": {
+    "@ccpilot/domain": "workspace:*",
+    "@ccpilot/persistence": "workspace:*",
+    "better-auth": "^1.6.5"
+  }
+}
