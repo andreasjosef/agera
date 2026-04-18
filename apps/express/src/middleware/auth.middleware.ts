@@ -14,10 +14,8 @@ export const authenticateUser = async (req: RequestWithUser, res: Response, next
     
     const result = await authService.getSession(req)
 
-    if(!result.ok) {
-        return res.status(401).json({message: result.error})
-    }
-
+    if(!result.ok) return res.status(401).json({message: result.error})
+    
     req.user = result.value
 
     next()
