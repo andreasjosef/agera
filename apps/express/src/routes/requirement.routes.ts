@@ -1,16 +1,27 @@
 import { Router } from "express";
+
 import { fail, ok, syncCanvasReqsAction } from "@ccpilot/domain";
 
 import { createCanvasClient } from "@ccpilot/lms-canvas";
 import { createRequirementRepo, db } from "@ccpilot/persistence";
+import {
+  authenticateUser,
+  type RequestWithUser,
+} from "../middleware/auth.middleware.ts";
 
 const canvas = createCanvasClient(process.env.CANVAS_TOKEN!);
 const reqRepo = createRequirementRepo(db);
 
 const router: Router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/", authenticateUser, async (req, res) => {
+  // TODO: once reqReqo accepts the userid we pass it here as req.locals.user;
   const result = await reqRepo.getAll();
+
+  console.log(
+    "[REQ ROUTE] request with user: ",
+    (req as RequestWithUser).userid,
+  );
 
   if (!result.ok) {
     return res.status(400).json(fail(result.error));

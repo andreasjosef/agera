@@ -9,7 +9,7 @@ import { type Result } from "../shared/result.ts";
  */
 export interface AuthRequest {
   /** Map of lowercase header keys to their string values. */
-  headers: Record<string, string | undefined>;
+  headers: Record<string, string | string[] | undefined>;
 }
 
 /**
