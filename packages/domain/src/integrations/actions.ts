@@ -38,7 +38,8 @@ export const syncCanvasReqsAction = async (
       type: "assignment",
     };
 
-    const result = await saveRequirement(repo, requirement);
+    // TODO: Use an actual user id here
+    const result = await saveRequirement(repo, requirement, "");
 
     if (!result.ok) {
       console.error(`[SYNC] Failed: ${assignement.title}`);

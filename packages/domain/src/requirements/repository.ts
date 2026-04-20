@@ -5,10 +5,10 @@ export interface IRequirementRepository {
   /**
    * Persists a new requirements or updates an existing one
    * **/
-  save: (req: NewRequirement) => Promise<Result<Requirement>>;
+  save: (req: NewRequirement, userId : string) => Promise<Result<Requirement>>;
 
   /**
    * Retrieves all the requirements from the persistence layer
    * */
-  getAll: () => Promise<Result<Requirement[]>>;
+  getAll: (userId: string) => Promise<Result<Requirement[]>>;
 }
