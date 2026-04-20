@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import {
+  _fetchRaw,
   safeFetchItem,
   safePostItem,
   zodWrappedParser,
@@ -38,4 +39,5 @@ export const authMutations = {
       authUserParser,
     );
   },
+  signOut: () => _fetchRaw(`${BASE_URL}/sign-out`, "POST", {}, {}),
 };

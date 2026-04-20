@@ -17,11 +17,7 @@ export default function LoginForm({
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-
     const data = Object.fromEntries(formData) as unknown as LoginFormData;
-
-    console.log(data);
-
     onSubmit(data);
   };
 
@@ -36,7 +32,9 @@ export default function LoginForm({
           type="password"
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">
+          {isLoading ? "Signing you in..." : "Sign In"}
+        </button>
       </form>
     </>
   );

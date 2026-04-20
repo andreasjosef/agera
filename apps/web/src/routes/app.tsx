@@ -1,6 +1,7 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { authQueries } from "@/modules/auth/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { LogoutButton } from "@/components/LogoutButton";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -32,6 +33,7 @@ function RouteComponent() {
           >
             App
           </Link>
+          <LogoutButton />
         </nav>
         <main>
           <Outlet />
