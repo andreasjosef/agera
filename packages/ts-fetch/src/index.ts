@@ -12,7 +12,7 @@ interface RequestConfig extends RequestInit {
 /**
  * Internal Engine: The Single Source of Truth for all Network calls.
  */
-async function _fetchRaw<TOut>(
+export async function _fetchRaw<TOut>(
   url: string,
   method: HttpMethod,
   payload: unknown | null,
@@ -28,6 +28,7 @@ async function _fetchRaw<TOut>(
       ...config,
       method,
       headers,
+      credentials: "include",
       body: payload ? JSON.stringify(payload) : undefined,
     });
 
