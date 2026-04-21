@@ -7,7 +7,7 @@ export interface RequestWithUser extends Request {
 }
 
 export const authenticateUser = async (
-  req: RequestWithUser,
+  req: Request,
   res: Response,
   next: NextFunction,
 ) => {
@@ -17,7 +17,7 @@ export const authenticateUser = async (
 
   if (!result.ok) return res.status(401).json(fail(result.error));
 
-  req.userid = result.value.id
+  (req as RequestWithUser).userid = result.value.id;
 
   next();
 };
