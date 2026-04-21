@@ -5,6 +5,7 @@ import type {
   NewRequirement,
   Step,
   StepsLLMResponse,
+  RequirementContext,
 } from "./types.ts";
 
 import type { IRequirementRepository } from "./repository.ts";
@@ -21,13 +22,12 @@ export const getRequirements = async (
 };
 
 export const saveRequirement = async (
-  repo: IRequirementRepository,
+  ctx: Pick<RequirementContext, "repo" | "userId">,
   req: NewRequirement,
-  userId: string,
 ): Promise<Result<Requirement>> => {
   // TODO: some validation will have to happen here like
   //  - does this already exist in the db
-  return repo.save(req, userId);
+  return ctx.repo.save(req, ctx.userId);
 };
 
 export const generateSteps = async (

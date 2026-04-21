@@ -88,6 +88,9 @@ importers:
       '@ccpilot/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@ccpilot/llm-client':
+        specifier: workspace:*
+        version: link:../../packages/llm-client
       '@ccpilot/lms-canvas':
         specifier: workspace:*
         version: link:../../packages/lms-canvas

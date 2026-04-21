@@ -8,20 +8,16 @@ import {
   authenticateUser,
   type RequestWithUser,
 } from "../middleware/auth.middleware.ts";
+import { createLLMClient } from "@ccpilot/llm-client";
 
 const canvas = createCanvasClient(process.env.CANVAS_TOKEN!);
 const reqRepo = createRequirementRepo(db);
+const openrouter = createLLMClient();
 
 const router: Router = Router();
 
 router.get("/", authenticateUser, async (req, res) => {
-  // TODO: once reqReqo accepts the userid we pass it here as req.locals.user;
-  const result = await reqRepo.getAll();
-
-  console.log(
-    "[REQ ROUTE] request with user: ",
-    (req as RequestWithUser).userid,
-  );
+  const result = await reqRepo.getAll((req as RequestWithUser).userid);
 
   if (!result.ok) {
     return res.status(400).json(fail(result.error));
@@ -30,14 +26,17 @@ router.get("/", authenticateUser, async (req, res) => {
   return res.status(200).json(result);
 });
 
-router.post("/sync", async (req, res) => {
+router.post("/sync", authenticateUser, async (req, res) => {
   // NOTE: use promise chaining here so we do not have to await the result and can immediately sent
   // the sync started startus back
-  syncCanvasReqsAction(canvas, reqRepo).then((result) => {
-    if (!result.ok) {
-      console.error("Promblems during sync");
-    }
-  });
+  const userId = (req as RequestWithUser).userid;
+  syncCanvasReqsAction({ canvas, repo: reqRepo, llm: openrouter, userId }).then(
+    (result) => {
+      if (!result.ok) {
+        console.error("Promblems during sync");
+      }
+    },
+  );
 
   return res.status(200).json(ok("sync started"));
 });
