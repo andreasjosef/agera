@@ -13,6 +13,7 @@ export const requirementSource = pgEnum("requirementSource", ["canvas"]);
 
 export const requirementsTable = pgTable("requirements", {
   id: t.uuid("id").primaryKey().defaultRandom(),
+  user_id: t.text().references(() => user.id),
   title: t.varchar({ length: 255 }).notNull(),
   due: t.varchar({ length: 255 }).notNull(),
   type: requirementType().default("assignment").notNull(),
