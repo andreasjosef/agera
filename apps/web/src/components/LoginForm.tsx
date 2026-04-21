@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 interface LoginFormData {
   email: string;
   password: string;
@@ -36,6 +38,9 @@ export default function LoginForm({
           {isLoading ? "Signing you in..." : "Sign In"}
         </button>
       </form>
+      <p>
+        Need an account? <Link to="/signup">Singup</Link>
+      </p>
     </>
   );
 }

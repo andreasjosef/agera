@@ -5,7 +5,8 @@ import {
   safePostItem,
   zodWrappedParser,
 } from "@ccpilot/ts-fetch";
-import { SafeUserSchema } from "@ccpilot/domain";
+
+import { SafeUserSchema, NewUser } from "@ccpilot/domain";
 
 const BASE_URL = "http://localhost:4000/api/auth";
 
@@ -35,6 +36,13 @@ export const authMutations = {
   signIn: (credentials: unknown) => {
     return safePostItem(
       `${BASE_URL}/sign-in/email`,
+      credentials,
+      authUserParser,
+    );
+  },
+  signUp: (credentials: NewUser) => {
+    return safePostItem(
+      `${BASE_URL}/sign-up/email`,
       credentials,
       authUserParser,
     );
