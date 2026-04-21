@@ -1,23 +1,31 @@
 import { Router } from "express";
+import {
+  fail,
+  ok,
+  type RequirementContext,
+  syncCanvasReqsAction,
+} from "@ccpilot/domain";
 
-import { fail, ok, syncCanvasReqsAction } from "@ccpilot/domain";
-
-import { createCanvasClient } from "@ccpilot/lms-canvas";
-import { createRequirementRepo, db } from "@ccpilot/persistence";
 import {
   authenticateUser,
   type RequestWithUser,
 } from "../middleware/auth.middleware.ts";
-import { createLLMClient } from "@ccpilot/llm-client";
 
-const canvas = createCanvasClient(process.env.CANVAS_TOKEN!);
-const reqRepo = createRequirementRepo(db);
-const openrouter = createLLMClient();
+import {
+  canvasClient,
+  reqRepo,
+  openrouterClient,
+} from "../services/instances.ts";
 
 const router: Router = Router();
+router.use(authenticateUser);
 
-router.get("/", authenticateUser, async (req, res) => {
-  const result = await reqRepo.getAll((req as RequestWithUser).userid);
+/**
+ * GET: Fetch all requirements
+ */
+router.get("/", async (req, res) => {
+  const userId = (req as RequestWithUser).userid;
+  const result = await reqRepo.getAll(userId);
 
   if (!result.ok) {
     return res.status(400).json(fail(result.error));
@@ -26,19 +34,26 @@ router.get("/", authenticateUser, async (req, res) => {
   return res.status(200).json(result);
 });
 
-router.post("/sync", authenticateUser, async (req, res) => {
-  // NOTE: use promise chaining here so we do not have to await the result and can immediately sent
-  // the sync started startus back
+/**
+ * POST: Initiate Canvas Sync and Step generation
+ */
+router.post("/sync", async (req, res) => {
   const userId = (req as RequestWithUser).userid;
-  syncCanvasReqsAction({ canvas, repo: reqRepo, llm: openrouter, userId }).then(
-    (result) => {
-      if (!result.ok) {
-        console.error("Promblems during sync");
-      }
-    },
-  );
+  const reqCtx: RequirementContext = {
+    userId,
+    canvas: canvasClient,
+    llm: openrouterClient,
+    repo: reqRepo,
+  };
 
-  return res.status(200).json(ok("sync started"));
+  // NOTE: We use promise chaining here so we do not have to await the result and can immediately sent
+  // the sync started startus back
+  syncCanvasReqsAction(reqCtx).then((result) => {
+    if (!result.ok)
+      console.error(`[CANVAS SYNC FAILURE] User: ${userId}`, result.error);
+  });
+
+  return res.status(202).json(ok("sync started"));
 });
 
 export default router;
