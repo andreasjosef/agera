@@ -13,5 +13,5 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  trustedOrigins: ["http://localhost:4000"],
+  trustedOrigins: ["http://localhost:3000"],
 });

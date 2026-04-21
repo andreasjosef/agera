@@ -12,16 +12,17 @@ dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 const app = express();
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  }),
+);
 
 app.all("/api/auth/*splat", authHandlerNode);
 
-app.use(cookieParser());
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:3000/"],
-  }),
-);
+app.use(cookieParser());
 
 app.get("/health", (req, res) => {
   res.status(200).json(ok("Up and running !"));
