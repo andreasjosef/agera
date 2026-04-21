@@ -2,23 +2,23 @@ import { isAfter } from "date-fns";
 
 import { type Result, ok, fail } from "../shared/result.ts";
 
-import { type NewRequirement } from "../requirements/types.ts";
-import { type IRequirementRepository } from "../requirements/repository.ts";
-import { type CanvasClientInterface } from "../services/canvas.ts";
+import type {
+  RequirementContext,
+  NewRequirement,
+} from "../requirements/types.ts";
 
 import { saveRequirement } from "../requirements/actions.ts";
 
 export const syncCanvasReqsAction = async (
-  canvas: CanvasClientInterface,
-  repo: IRequirementRepository,
+  ctx: RequirementContext,
 ): Promise<Result<void>> => {
   // TODO: this should eventually return SyncStatus result
-  const courseResult = await canvas.fetchCourses();
+  const courseResult = await ctx.canvas.fetchCourses();
 
   if (!courseResult.ok) return fail(courseResult.error);
 
   const assignmentResults = await Promise.all(
-    courseResult.value.map((course) => canvas.fetchAssignments(course.id)),
+    courseResult.value.map((course) => ctx.canvas.fetchAssignments(course.id)),
   );
 
   const now = new Date();
@@ -38,8 +38,7 @@ export const syncCanvasReqsAction = async (
       type: "assignment",
     };
 
-    // TODO: Use an actual user id here
-    const result = await saveRequirement(repo, requirement, "");
+    const result = await saveRequirement(ctx, requirement);
 
     if (!result.ok) {
       console.error(`[SYNC] Failed: ${assignement.title}`);
