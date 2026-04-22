@@ -53,7 +53,7 @@ router.post("/sync", async (req, res) => {
       console.error(`[CANVAS SYNC FAILURE] User: ${userId}`, result.error);
   });
 
-  return res.status(202).json(ok("sync started"));
+  return res.status(202).json(ok("INITIALIZED"));
 });
 
 export default router;
