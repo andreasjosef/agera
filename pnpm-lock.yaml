@@ -120,6 +120,15 @@ importers:
         specifier: ^5.0.6
         version: 5.0.6
 
+  apps/sandbox/fausto:
+    dependencies:
+      '@ccpilot/domain':
+        specifier: workspace:*
+        version: link:../../../packages/domain
+      '@ccpilot/persistence':
+        specifier: workspace:*
+        version: link:../../../packages/persistence
+
   apps/web:
     dependencies:
       '@ccpilot/domain':
