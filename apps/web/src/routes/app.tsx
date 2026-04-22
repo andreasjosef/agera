@@ -39,6 +39,10 @@ function RouteComponent() {
         </header>
 
         <main className="min-h-screen">
+          <div className="flex gap-x-2">
+            <Link to="/app/dashboard"> Dashboard </Link>
+            <Link to="/app/integrations/canvas"> Integrations: Canvas </Link>
+          </div>
           <Outlet />
         </main>
 
