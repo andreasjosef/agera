@@ -1,19 +1,17 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { integrationMutations } from "./api";
 
 export const useCanvasConnect = () => {
-  const queryClient = useQueryClient();
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: integrationMutations.connectCanvas,
+  const { mutate, isPending, data } = useMutation({
+    mutationFn: (data: unknown) => integrationMutations.connectCanvas(data),
     onSuccess: () => {
-      queryClient.clear();
-      // TODO: Do we need anything more here ?
+      // TODO: Do we need to handle something here ?
     },
   });
 
   return {
-    canvasConnect: mutate,
-    canvasConnecting: isPending,
+    mutate,
+    connecting: isPending,
+    syncData: data,
   };
 };
