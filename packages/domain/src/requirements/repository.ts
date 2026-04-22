@@ -4,6 +4,7 @@ import type {
   NewRequirement,
   StepGenerationStatus,
   Step,
+  NewStep,
 } from "./types.ts";
 
 export interface IRequirementRepository {
@@ -35,7 +36,7 @@ export interface IRequirementRepository {
    * */
   updateSteps: (
     reqId: string,
-    steps: Step[],
+    steps: NewStep[],
     status: StepGenerationStatus,
   ) => Promise<Result<void>>;
 }

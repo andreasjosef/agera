@@ -8,7 +8,7 @@ import {
   type Requirement,
   type NewRequirement,
   type StepGenerationStatus,
-  type Step,
+  type NewStep,
   ok,
   fail,
 } from "@ccpilot/domain";
@@ -57,7 +57,7 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
     },
     updateSteps: async (
       reqId: string,
-      steps: Step[],
+      steps: NewStep[],
       status: StepGenerationStatus,
     ) => {
       try {

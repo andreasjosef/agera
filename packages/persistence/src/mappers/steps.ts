@@ -1,4 +1,4 @@
-import { type Step, StepSchema } from "@ccpilot/domain";
+import { type Step, StepSchema, type NewStep } from "@ccpilot/domain";
 import type { InferSelectModel, InferInsertModel } from "drizzle-orm";
 import { stepsTable } from "../db/schema.ts";
 
@@ -22,7 +22,7 @@ export const toDomainStep = (row: StepRow): Step => {
 };
 
 export const toDbStep = (
-  step: Step,
+  step: NewStep,
   reqId: string,
 ): InferInsertModel<typeof stepsTable> => {
   return {

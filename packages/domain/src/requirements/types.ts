@@ -16,6 +16,8 @@ export type Requirement = z.infer<typeof RequirementSchema>;
 export type NewRequirement = Omit<Requirement, "id">;
 
 export type Step = z.infer<typeof StepSchema>;
+export type NewStep = Omit<Step, "id">;
+
 export type StepsLLMResponse = z.infer<typeof StepsLLMResponseSchema>;
 
 export type StepGenerationStatus = z.infer<typeof StepGenerationStatusSchema>;
