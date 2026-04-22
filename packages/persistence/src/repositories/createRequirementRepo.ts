@@ -1,12 +1,19 @@
+import { eq } from "drizzle-orm";
+
+import { type Db } from "../db/client.ts";
+import { toDbStep, toDomainStep } from "../mappers/steps.ts";
+
 import {
   type IRequirementRepository,
   type Requirement,
   type NewRequirement,
+  type StepGenerationStatus,
+  type NewStep,
   ok,
+  fail,
 } from "@ccpilot/domain";
-import { type Db } from "../db/client.ts";
-import { requirementsTable } from "../db/schema.ts";
-import { eq } from "drizzle-orm";
+
+import { requirementsTable, stepsTable } from "../db/schema.ts";
 
 export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
@@ -25,10 +32,61 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
       // NOTE: return hardcoded steps for now. We will probably need to make a join between tables to get actual steps
       return ok({ ...rows, steps: [] });
     },
+    findById: async (reqId: string) => {
+      const result = await db.query.requirementsTable.findFirst({
+        where: eq(requirementsTable.id, reqId),
+        with: {
+          steps: true,
+        },
+      });
+
+      if (!result) return fail("Requirement not found!");
+
+      return ok({
+        ...result,
+        steps: result.steps.map(toDomainStep),
+      });
+    },
+    updateStatus: async (id: string, status: StepGenerationStatus) => {
+      await db
+        .update(requirementsTable)
+        .set({ status })
+        .where(eq(requirementsTable.id, id));
+
+      return ok(undefined);
+    },
+    updateSteps: async (
+      reqId: string,
+      steps: NewStep[],
+      status: StepGenerationStatus,
+    ) => {
+      try {
+        await db.transaction(async (tx) => {
+          await tx
+            .delete(stepsTable)
+            .where(eq(stepsTable.requirement_id, reqId));
+
+          if (steps.length > 0) {
+            const insertRows = steps.map((step) => toDbStep(step, reqId));
+            await tx.insert(stepsTable).values(insertRows);
+          }
+
+          await tx
+            .update(requirementsTable)
+            .set({ status })
+            .where(eq(requirementsTable.id, reqId));
+        });
+
+        return ok(undefined);
+      } catch (error) {
+        return fail("Update Step Transaction Failed!");
+      }
+    },
     getAll: async (userId) => {
       const rows = await db
-      .select()
-      .from(requirementsTable).where(eq(requirementsTable.user_id, userId))
+        .select()
+        .from(requirementsTable)
+        .where(eq(requirementsTable.user_id, userId));
 
       // TODO: Get steps via join
       const requirements: Requirement[] = rows.map((req) => ({

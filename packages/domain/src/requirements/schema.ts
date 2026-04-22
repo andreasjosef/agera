@@ -3,22 +3,36 @@ import { z } from "zod";
 import {
   RequirementTypeValues,
   RequirementSourceValues,
+  StepGenerationStatusValues,
+  SyncStatusValues,
 } from "../shared/constants.ts";
 
 export const RequirementTypeSchema = z.enum(RequirementTypeValues);
 export const RequirementSourceSchema = z.enum(RequirementSourceValues);
+export const StepTypeSchema = z.enum([
+  "admin",
+  "deepwork",
+  "planning",
+  "polish",
+  "decisions",
+]);
 
 export const StepSchema = z.object({
-  id: z.string(),
+  id: z.uuid(),
+  stepKey: z.string(),
   action: z.string(),
   outcomeDefinition: z.string(),
   curiosityTrigger: z.string(),
   theWin: z.string(),
-  category: z.string(),
+  category: StepTypeSchema,
   complexity: z.coerce.number(),
   estimatedMinutes: z.coerce.number(),
   dependencyOrder: z.coerce.number(),
   quickStartLinkHint: z.string(),
+});
+
+export const NewStepSchema = StepSchema.omit({
+  id: true,
 });
 
 export const RequirementSchema = z.object({
@@ -32,5 +46,13 @@ export const RequirementSchema = z.object({
 
 export const StepsLLMResponseSchema = z.object({
   requirement_summary: z.string(),
-  steps: z.array(StepSchema),
+  steps: z.array(NewStepSchema),
+});
+
+export const StepGenerationStatusSchema = z.enum(StepGenerationStatusValues);
+export const SyncStatusSchema = z.enum(SyncStatusValues);
+
+export const SyncStatusResponseSchema = z.object({
+  status: SyncStatusSchema,
+  payload: z.array(RequirementSchema),
 });
