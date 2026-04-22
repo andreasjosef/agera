@@ -15,6 +15,10 @@ export const CanvasCourseSchema = z.object({
   calendar: z.url(),
 });
 
+export const CanvasConnectionPayloadSchema = z.object({
+  token: z.string(),
+});
+
 export type CanvasCourse = z.infer<typeof CanvasCourseSchema>;
 
 export interface CanvasClientInterface {
