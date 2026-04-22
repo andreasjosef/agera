@@ -1,19 +1,13 @@
-import { CanvasConnectionPayloadSchema } from "@ccpilot/domain";
-import { safePostItem, zodRawParser } from "@ccpilot/ts-fetch";
+import { safePostItem, zodWrappedParser } from "@ccpilot/ts-fetch";
 
 // TODO: Use proxy instead
-const BASE_URL = "http://localhost:4000/api/auth";
+const BASE_URL = "http://localhost:4000/api/requirements";
 
-const CanvasConnectionPayloadParser = zodRawParser(
-  CanvasConnectionPayloadSchema,
-);
+// TODO: Create zod parser for sync response
 
 export const integrationMutations = {
-  connectCanvas: (token: string) => {
-    return safePostItem(
-      `${BASE_URL}/api/requirements/sync`,
-      { token },
-      CanvasConnectionPayloadParser,
-    );
+  connectCanvas: (data: unknown) => {
+    console.log("data", data);
+    return safePostItem(`${BASE_URL}/sync`, data);
   },
 };
