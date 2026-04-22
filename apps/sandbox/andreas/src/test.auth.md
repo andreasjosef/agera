@@ -5,10 +5,10 @@
 **Success:** Add new user
 ```bash
 xh POST localhost:4000/api/auth/sign-up/email \
-  --session=test-pilot
+  --session=test-pilot \
   email="pilot@ccpilot.com" \
   password="Password123!" \
-  name="The Pilot" Origin:http://localhost:4000
+  name="The Pilot" Origin:http://localhost:3000
 ```
 
 **Failure:** Attempting to use the same email again
