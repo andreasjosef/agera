@@ -1,4 +1,6 @@
 import { pgEnum, pgTable } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+
 import * as t from "drizzle-orm/pg-core";
 
 /**
@@ -7,6 +9,22 @@ import * as t from "drizzle-orm/pg-core";
 export const requirementType = pgEnum("requirementType", [
   "assignment",
   "lecture",
+]);
+
+export const syncStatus = pgEnum("syncStatus", [
+  "RAW",
+  "GENERATING",
+  "COMPLETE",
+  "ERROR",
+]);
+
+export const stepType = pgEnum("stepType", [
+  "admin",
+  "deepwork",
+  "research",
+  "decisions",
+  "planning",
+  "polish",
 ]);
 
 export const requirementSource = pgEnum("requirementSource", ["canvas"]);
@@ -18,6 +36,7 @@ export const requirementsTable = pgTable("requirements", {
   due: t.varchar({ length: 255 }).notNull(),
   type: requirementType().default("assignment").notNull(),
   source: requirementSource().default("canvas").notNull(),
+  status: syncStatus().default("RAW").notNull(),
 });
 
 export const stepsTable = pgTable("steps", {
@@ -26,10 +45,31 @@ export const stepsTable = pgTable("steps", {
   requirement_id: t
     .uuid("requirement_id")
     .references(() => requirementsTable.id, { onDelete: "cascade" }),
-  title: t.varchar({ length: 255 }).notNull(),
-  outcome: t.text().notNull(),
-  complexity: t.integer().notNull(),
+  action: t.text().notNull(),
+  outcomeDefinition: t.text("outcome_definition").notNull(),
+  curiosityTrigger: t.text("curiosity_trigger").notNull(),
+  theWin: t.text("win").notNull(),
+  category: stepType().notNull(),
+  complexity: t.numeric().notNull(),
+  estimatedMinutes: t.numeric("est_minutes"),
+  dependencyOrder: t.numeric("dependency_order"),
+  quickStartLinkHint: t.text(),
 });
+
+// Requirement and Steps relationships
+export const requirementsRelations = relations(
+  requirementsTable,
+  ({ many }) => ({
+    steps: many(stepsTable),
+  }),
+);
+
+export const stepsRelations = relations(stepsTable, ({ one }) => ({
+  requirement: one(requirementsTable, {
+    fields: [stepsTable.requirement_id],
+    references: [requirementsTable.id],
+  }),
+}));
 
 /**
  * User Tables
