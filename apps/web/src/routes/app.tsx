@@ -25,19 +25,24 @@ export const Route = createFileRoute("/app")({
 function RouteComponent() {
   return (
     <>
-      <div className="min-h-screen">
-        <nav className="p-6 flex gap-6">
-          <Link
-            to="/"
-            className="text-xl text-secondary [&.active]:text-slate-700 font-bold"
-          >
-            App
-          </Link>
-          <LogoutButton />
-        </nav>
-        <main>
+      <div>
+        <header>
+          <nav className="p-6 flex justify-between">
+            <Link
+              to="/"
+              className="text-xl text-secondary [&.active]:text-slate-700 font-bold"
+            >
+              App
+            </Link>
+            <LogoutButton />
+          </nav>
+        </header>
+
+        <main className="min-h-screen">
           <Outlet />
         </main>
+
+        <footer>Footer</footer>
       </div>
     </>
   );
