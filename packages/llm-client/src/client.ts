@@ -3,9 +3,10 @@ import { safePostItem, zodRawParser } from "@ccpilot/ts-fetch";
 import path from "path";
 import dotenv from "dotenv";
 import { LLMResponseSchema, type LLMRequest } from "./schema.ts";
+import { z } from "zod";
 
 const __dirname = import.meta.dirname;
-dotenv.config({ path: path.resolve(__dirname, "../../.env") });
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 if (!process.env.OPENROUTER_API_KEY) {
   throw new Error("OPENROUTER_API_KEY is missing from environment variables");
@@ -44,7 +45,8 @@ export const createLLMClient = (): LLMClientInterface => {
       const validated = schema.safeParse(JSON.parse(choicesContent));
 
       if (!validated.success) {
-        console.log(validated);
+        console.log(z.prettifyError(validated.error));
+
         return fail("Failed to parse LLM choices");
       }
 
