@@ -1,11 +1,17 @@
 import { Router } from "express";
-import { ok, TokenPayloadSchema } from "@ccpilot/domain";
+import {
+  fail,
+  ok,
+  saveIntegrationAction,
+  TokenPayloadSchema,
+} from "@ccpilot/domain";
 
 import {
   authenticateUser,
   type RequestWithUser,
 } from "../middleware/auth.middleware.ts";
 import { validateReq } from "../middleware/validate.ts";
+import { integrationsRepo } from "../services/instances.ts";
 
 const router = Router();
 router.use(authenticateUser);
@@ -13,11 +19,20 @@ router.use(authenticateUser);
 /**
  * POST: Save a new integration token to db
  */
-router.post("/connect", validateReq(TokenPayloadSchema), (req, res) => {
+router.post("/connect", validateReq(TokenPayloadSchema), async (req, res) => {
   const user = (req as RequestWithUser).userid;
+  const { token, provider } = req.body;
 
-  // TODO: save the token to integrations table
-  console.log("[INTEGRATIONS API] saving: ", req.body);
+  const result = await saveIntegrationAction(
+    user,
+    token,
+    provider,
+    integrationsRepo,
+  );
+
+  if (!result.ok) {
+    res.status(500).json(fail(result.error));
+  }
 
   // Then initiate sync here?
   // syncCanvasReqs() ?
