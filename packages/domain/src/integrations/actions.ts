@@ -1,13 +1,26 @@
 import { isAfter } from "date-fns";
+import { saveRequirement } from "../requirements/actions.ts";
 
 import { type Result, ok, fail } from "../shared/result.ts";
-
 import type {
   RequirementContext,
   NewRequirement,
 } from "../requirements/types.ts";
 
-import { saveRequirement } from "../requirements/actions.ts";
+import { type TokenProvider } from "./types.ts";
+
+export const saveIntegrationAction = async (
+  userId: string,
+  token: string,
+  provider: TokenProvider,
+): Promise<Result<void>> => {
+  // TODO:
+  // check if provider already exists
+  // if not create row
+  // if yes update row
+
+  return fail("todo");
+};
 
 export const syncCanvasReqsAction = async (
   ctx: RequirementContext,

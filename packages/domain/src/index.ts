@@ -17,6 +17,8 @@ export * from "./users/repository.ts";
 // Integrations
 export * from "./integrations/actions.ts";
 export * from "./integrations/schema.ts";
+export * from "./integrations/types.ts";
+export * from "./integrations/repository.ts";
 
 // Services
 export * from "./services/llm.ts";
