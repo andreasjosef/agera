@@ -8,18 +8,15 @@ import type {
 } from "../requirements/types.ts";
 
 import { type TokenProvider } from "./types.ts";
+import { type IIntegrationRepository } from "./repository.ts";
 
 export const saveIntegrationAction = async (
   userId: string,
   token: string,
   provider: TokenProvider,
+  repo: IIntegrationRepository,
 ): Promise<Result<void>> => {
-  // TODO:
-  // check if provider already exists
-  // if not create row
-  // if yes update row
-
-  return fail("todo");
+  return await repo.save(userId, token, provider);
 };
 
 export const syncCanvasReqsAction = async (
