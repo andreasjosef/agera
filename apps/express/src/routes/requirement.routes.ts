@@ -39,6 +39,10 @@ router.get("/", async (req, res) => {
  */
 router.post("/sync", async (req, res) => {
   const userId = (req as RequestWithUser).userid;
+
+  // NOTE: We will have to the canvas client instance here later,
+  // because we will have to get the canvas token for the authenticated
+  // user from the integration table
   const reqCtx: RequirementContext = {
     userId,
     canvas: canvasClient,

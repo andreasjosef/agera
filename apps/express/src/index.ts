@@ -7,6 +7,7 @@ import { ok } from "@ccpilot/domain";
 import { authHandlerNode } from "@ccpilot/auth-betterauth";
 
 import requirementsRouter from "./routes/requirement.routes.ts";
+import integrationsRouter from "./routes/integrations.routes.ts";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 app.use(
   cors({
+    // TODO: Add production domain to allowed origins
     origin: ["http://localhost:3000"],
     credentials: true,
   }),
@@ -29,6 +31,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/requirements", requirementsRouter);
+app.use("/api/integrations", integrationsRouter);
 
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`),
