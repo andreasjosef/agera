@@ -19,6 +19,9 @@ router.post("/connect", validateReq(TokenPayloadSchema), (req, res) => {
   // TODO: save the token to integrations table
   console.log("[INTEGRATIONS API] saving: ", req.body);
 
+  // Then initiate sync here?
+  // syncCanvasReqs() ?
+
   res.status(200).json(ok(undefined));
 });
 
