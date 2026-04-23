@@ -1,17 +1,24 @@
 import { Router } from "express";
+import { ok, TokenPayloadSchema } from "@ccpilot/domain";
+
 import {
   authenticateUser,
   type RequestWithUser,
 } from "../middleware/auth.middleware.ts";
-import { ok } from "@ccpilot/domain";
+import { validateReq } from "../middleware/validate.ts";
 
 const router = Router();
 router.use(authenticateUser);
 
-router.post("/connect", (req, res) => {
+/**
+ * POST: Save a new integration token to db
+ */
+router.post("/connect", validateReq(TokenPayloadSchema), (req, res) => {
   const user = (req as RequestWithUser).userid;
 
-  console.log("[INTEGRATIONS API]Trying to save for user: ", user);
+  // TODO: save the token to integrations table
+  console.log("[INTEGRATIONS API] saving: ", req.body);
+
   res.status(200).json(ok(undefined));
 });
 
