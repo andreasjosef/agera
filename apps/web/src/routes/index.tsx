@@ -1,5 +1,5 @@
 import { authQueries } from "@/modules/auth/api";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, isRedirect, redirect } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
         });
       }
     } catch (e) {
-      // Keep user on the landing page
+      if (isRedirect(e)) throw e;
     }
   },
 });
