@@ -2,6 +2,7 @@ import { pgEnum, pgTable } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 import * as t from "drizzle-orm/pg-core";
+import { uniqueIndex } from "drizzle-orm/gel-core";
 
 /**
  * Requirement Tables
@@ -70,6 +71,25 @@ export const stepsRelations = relations(stepsTable, ({ one }) => ({
     references: [requirementsTable.id],
   }),
 }));
+
+// Integration Table
+export const tokenProvider = pgEnum("tokenProvider", ["CANVAS"]);
+
+export const integrationsTable = pgTable(
+  "integrations",
+  {
+    id: t.uuid().defaultRandom(),
+    user_id: t
+      .text("user_id")
+      .references(() => user.id, { onDelete: "cascade" }),
+    provider: tokenProvider().notNull(),
+    // TODO: currently token is just text -> encrypt
+    encryptedToken: t.text("encrypted_token").notNull(),
+  },
+  (table) => [
+    t.uniqueIndex("user_provider_idx").on(table.user_id, table.provider),
+  ],
+);
 
 /**
  * User Tables
