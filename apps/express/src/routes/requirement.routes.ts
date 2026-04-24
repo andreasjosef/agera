@@ -50,6 +50,8 @@ router.post("/sync", async (req, res) => {
     repo: reqRepo,
   };
 
+  console.log("[REQ ROUTER] initiate sync for user: ", userId);
+
   // NOTE: We use promise chaining here so we do not have to await the result and can immediately sent
   // the sync started startus back
   syncCanvasReqsAction(reqCtx).then((result) => {
