@@ -10,9 +10,12 @@ export default function RequirementsList({
   return (
     <ul>
       {requirements.map((requirement) => (
-        <li key={requirement.id}>
-          <h2>{requirement.title}</h2>
-          <p>{requirement.due}</p>
+        <li className="flex items-center justify-between" key={requirement.id}>
+          <div>
+            <h2>{requirement.title}</h2>
+            <p>{requirement.due}</p>
+          </div>
+          <span>{requirement.status}</span>
         </li>
       ))}
     </ul>
