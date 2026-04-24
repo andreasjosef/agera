@@ -17,6 +17,9 @@ export const StepTypeSchema = z.enum([
   "decisions",
 ]);
 
+export const SyncStatusSchema = z.enum(SyncStatusValues);
+export const StepGenerationStatusSchema = z.enum(StepGenerationStatusValues);
+
 export const StepSchema = z.object({
   id: z.uuid(),
   stepKey: z.string(),
@@ -42,15 +45,14 @@ export const RequirementSchema = z.object({
   type: RequirementTypeSchema,
   source: RequirementSourceSchema,
   steps: z.array(StepSchema),
+  status: StepGenerationStatusSchema,
+  updatedAt: z.date(),
 });
 
 export const StepsLLMResponseSchema = z.object({
   requirement_summary: z.string(),
   steps: z.array(NewStepSchema),
 });
-
-export const StepGenerationStatusSchema = z.enum(StepGenerationStatusValues);
-export const SyncStatusSchema = z.enum(SyncStatusValues);
 
 export const SyncStatusResponseSchema = z.object({
   status: SyncStatusSchema,
