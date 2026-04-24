@@ -1,15 +1,24 @@
 import { isAfter } from "date-fns";
-import { saveRequirement } from "../requirements/actions.ts";
 
 import { type Result, ok, fail } from "../shared/result.ts";
+import { StepsLLMResponseSchema } from "../requirements/schema.ts";
+import { createEnrichedRequirement } from "../requirements/actions.ts";
+import { STEP_GEN_SYS_PROMPT } from "../requirements/prompts.ts";
 import type {
   RequirementContext,
   NewRequirement,
+  StepsLLMResponse,
 } from "../requirements/types.ts";
+
+import { type LLMClientInterface } from "../services/llm.ts";
 
 import { type TokenProvider } from "./types.ts";
 import { type IIntegrationRepository } from "./repository.ts";
 
+/**
+ * Persists a 3rd-party provider token for a specific user to the integration repository.
+ * If a token for the given provider and user already exists it will be updated instead.
+ */
 export const saveIntegrationAction = async (
   userId: string,
   token: string,
@@ -19,12 +28,30 @@ export const saveIntegrationAction = async (
   return await repo.save(userId, token, provider);
 };
 
+/**
+ * Utilizes the LLM service to derive structured steps and summaries
+ * from a raw requirement description.
+ */
+export const generateSteps = async (
+  llm: LLMClientInterface,
+  description: string,
+): Promise<Result<StepsLLMResponse>> => {
+  return llm.complete(
+    STEP_GEN_SYS_PROMPT,
+    `Here is the description: ${description}`,
+    StepsLLMResponseSchema,
+  );
+};
+
+/**
+ * Orchestrates the retrieval of Canvas assignments and delegates
+ * their creation to the internal llm enrichment requirement pipeline.
+ */
 export const syncCanvasReqsAction = async (
   ctx: RequirementContext,
 ): Promise<Result<void>> => {
   // TODO: this should eventually return SyncStatus result
   const courseResult = await ctx.canvas.fetchCourses();
-
   if (!courseResult.ok) return fail(courseResult.error);
 
   const assignmentResults = await Promise.all(
@@ -48,16 +75,8 @@ export const syncCanvasReqsAction = async (
       type: "assignment",
     };
 
-    const result = await saveRequirement(ctx, requirement);
-
-    if (!result.ok) {
-      console.error(`[SYNC] Failed: ${assignement.title}`);
-    }
-
-    console.log(`[SYNC] Handeld: ${assignement.title}`);
+    await createEnrichedRequirement(ctx, requirement, assignement.description);
   }
-
-  console.log("[SYNC] Complete!");
 
   return ok(undefined);
 };
