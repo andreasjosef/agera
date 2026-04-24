@@ -1,9 +1,11 @@
-import { type Result } from "../shared/result.ts";
+import { fail, ok, type Result } from "../shared/result.ts";
 
 import type {
   Requirement,
   NewRequirement,
   RequirementContext,
+  SyncStatusResponse,
+  SyncStatus,
 } from "./types.ts";
 
 import type { IRequirementRepository } from "./repository.ts";
@@ -47,6 +49,34 @@ export const createEnrichedRequirement = async (
   processReqLLM(ctx, result.value.id, description);
 
   return result;
+};
+
+/**
+ * Fetch the user's requirements that are not yet in a terminal state
+ * and derive aggregate sync status
+ * */
+export const getSyncStatusAction = async (
+  repo: IRequirementRepository,
+  userId: string,
+): Promise<Result<SyncStatusResponse>> => {
+  const recentResult = await repo.getRecent(userId, 10);
+  if (!recentResult.ok) return fail(recentResult.error);
+
+  const recent = recentResult.value;
+
+  if (recent.length === 0) {
+    return ok({ status: "COMPLETE", payload: [] });
+  }
+
+  const isGenerating = recent.some((req) => req.status === "GENERATING");
+  const isRaw = recent.some((req) => req.status === "RAW");
+
+  let aggregateStatus: SyncStatus = "COMPLETE";
+
+  if (isGenerating) aggregateStatus = "PROCESSING";
+  else if (isRaw) aggregateStatus = "INITIALIZED";
+
+  return ok({ status: aggregateStatus, payload: recent });
 };
 
 /**
