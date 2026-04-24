@@ -4,6 +4,7 @@ import {
   ok,
   type RequirementContext,
   syncCanvasReqsAction,
+  getSyncStatusAction,
 } from "@ccpilot/domain";
 
 import {
@@ -35,7 +36,22 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * POST: Initiate Canvas Sync and Step generation
+ * GET: The Sync Status for an ongoing requirement sync operation
+ */
+router.get("/sync", async (req, res) => {
+  const userId = (req as RequestWithUser).userid;
+
+  const statusResult = await getSyncStatusAction(reqRepo, userId);
+
+  if (!statusResult.ok) {
+    return res.status(500).json(statusResult);
+  }
+
+  res.status(200).json(statusResult);
+});
+
+/**
+ * POST: Initiate a manual Canvas Sync and Step generation
  */
 router.post("/sync", async (req, res) => {
   const userId = (req as RequestWithUser).userid;
