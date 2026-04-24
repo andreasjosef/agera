@@ -19,6 +19,19 @@ export interface IRequirementRepository {
   getAll: (userId: string) => Promise<Result<Requirement[]>>;
 
   /**
+   * Retrieves all the requirements where the sync status is "GENERATING" or "RAW"
+   * */
+  getSyncIncomplete: (userId: string) => Promise<Result<Requirement[]>>;
+
+  /**
+   * Retrieves all the requirements updated within the given minutes defaults to 10
+   * */
+  getRecent: (
+    userId: string,
+    timeWindowMinutes: number,
+  ) => Promise<Result<Requirement[]>>;
+
+  /**
    * Retrieves a single requirement from the persistence layer by its ID
    * */
   findById: (reqId: string) => Promise<Result<Requirement>>;

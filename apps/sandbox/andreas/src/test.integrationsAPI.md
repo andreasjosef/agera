@@ -29,6 +29,13 @@ xh post :4000/api/integrations/connect \
   token="firsttokentotest" \
   provider="CANVAS"
 ```
+4. Get Status
+
+```
+xh get :4000/api/requirements/sync \
+  --session=test-pilot \
+  Origin:http://localhost:3000 \
+```
 
 4. Update Token
 

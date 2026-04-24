@@ -3,7 +3,9 @@ import { isAfter } from "date-fns";
 import { type Result, ok, fail } from "../shared/result.ts";
 import { StepsLLMResponseSchema } from "../requirements/schema.ts";
 import { createEnrichedRequirement } from "../requirements/actions.ts";
-import { STEP_GEN_SYS_PROMPT } from "../requirements/prompts.ts";
+
+import { STEP_GEN_SYS_PROMPT_REASON_SE_V1 } from "../requirements/prompts.ts";
+
 import type {
   RequirementContext,
   NewRequirement,
@@ -37,7 +39,7 @@ export const generateSteps = async (
   description: string,
 ): Promise<Result<StepsLLMResponse>> => {
   return llm.complete(
-    STEP_GEN_SYS_PROMPT,
+    STEP_GEN_SYS_PROMPT_REASON_SE_V1,
     `Here is the description: ${description}`,
     StepsLLMResponseSchema,
   );

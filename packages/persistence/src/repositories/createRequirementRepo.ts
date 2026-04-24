@@ -14,11 +14,12 @@ import {
 } from "@ccpilot/domain";
 
 import { requirementsTable, stepsTable } from "../db/schema.ts";
+import { toDomainRequirement } from "../mappers/requirements.ts";
 
 export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
     save: async (req: NewRequirement, userId: string) => {
-      const [rows] = await db
+      const [row] = await db
         .insert(requirementsTable)
         .values({
           title: req.title,
@@ -29,8 +30,7 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
         })
         .returning();
 
-      // NOTE: return hardcoded steps for now. We will probably need to make a join between tables to get actual steps
-      return ok({ ...rows, steps: [] });
+      return ok(toDomainRequirement(row));
     },
     findById: async (reqId: string) => {
       const result = await db.query.requirementsTable.findFirst({
@@ -81,6 +81,39 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
       } catch (error) {
         return fail("Update Step Transaction Failed!");
       }
+    },
+    getSyncIncomplete: async (userId) => {
+      const rows = await db.query.requirementsTable.findMany({
+        where: (table, { and, inArray, eq }) =>
+          and(
+            eq(table.user_id, userId),
+            inArray(table.status, ["GENERATING", "RAW"]),
+          ),
+        with: {
+          steps: true,
+        },
+      });
+
+      return ok(
+        rows.map((row) =>
+          toDomainRequirement(row, row.steps.map(toDomainStep)),
+        ),
+      );
+    },
+    getRecent: async (userId: string, timeWinodwMinutes: number = 10) => {
+      const threshold = new Date(Date.now() - timeWinodwMinutes * 60000);
+
+      const rows = await db.query.requirementsTable.findMany({
+        where: (table, { and, eq, gte }) =>
+          and(eq(table.user_id, userId), gte(table.updatedAt, threshold)),
+        with: { steps: true },
+      });
+
+      return ok(
+        rows.map((row) =>
+          toDomainRequirement(row, row.steps.map(toDomainStep)),
+        ),
+      );
     },
     getAll: async (userId) => {
       const rows = await db

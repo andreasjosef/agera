@@ -19,10 +19,15 @@ export const createLLMClient = (): LLMClientInterface => {
     complete: async (system, user, schema) => {
       const payload: LLMRequest = {
         model: "openrouter/free",
+        //model: "minimax/minimax-m2.7",
         messages: [
           { role: "system", content: system },
           { role: "user", content: user },
         ],
+        response_format: { type: "json_object" },
+        // extra_body: {
+        //   reasoning_split: true,
+        // },
       };
 
       const result = await safePostItem(
@@ -38,6 +43,7 @@ export const createLLMClient = (): LLMClientInterface => {
       );
 
       if (!result.ok) {
+        console.log("[LLM CLIENT] llm response error: ", result.error);
         return fail("Failed to parse LLM response");
       }
 
