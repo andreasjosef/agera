@@ -1,9 +1,7 @@
-interface CanvasIntegrationFormData {
-  token: string;
-}
+import { TokenPayload } from "@ccpilot/domain";
 
 interface CanvasIntegrationFormProps {
-  onSubmit: (data: CanvasIntegrationFormData) => void;
+  onSubmit: (data: TokenPayload) => void;
   isLoading: boolean;
   connectionError?: string;
 }
@@ -17,9 +15,11 @@ export default function CanvasIntegrationForm({
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(
-      formData,
-    ) as unknown as CanvasIntegrationFormData;
+    // TODO: Safe parse form data here ?
+    const data = {
+      token: formData.get("token"),
+      provider: "CANVAS",
+    } as TokenPayload;
 
     if (!data.token) {
       // TODO: Display error in UI
