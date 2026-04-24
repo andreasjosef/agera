@@ -8,5 +8,3 @@ export const TokenPayloadSchema = z.object({
   token: z.string(),
   provider: TokenProviderSchema,
 });
-
-export const IntegrationsConnectResponseSchema = z.undefined();
