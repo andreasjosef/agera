@@ -2,7 +2,6 @@ import { pgEnum, pgTable } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 import * as t from "drizzle-orm/pg-core";
-import { uniqueIndex } from "drizzle-orm/gel-core";
 
 /**
  * Requirement Tables
@@ -38,6 +37,11 @@ export const requirementsTable = pgTable("requirements", {
   type: requirementType().default("assignment").notNull(),
   source: requirementSource().default("canvas").notNull(),
   status: syncStatus().default("RAW").notNull(),
+  updatedAt: t
+    .timestamp("updated_at")
+    .defaultNow()
+    .notNull()
+    .$onUpdate(() => new Date()),
 });
 
 export const stepsTable = pgTable("steps", {
