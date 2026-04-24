@@ -1,15 +1,10 @@
-import {
-  IntegrationsConnectResponseSchema,
-  SyncStatusResponse,
-} from "@ccpilot/domain";
+import { SyncStatusResponse, SyncStatusResponseSchema } from "@ccpilot/domain";
 import { safePostItem, zodWrappedParser } from "@ccpilot/ts-fetch";
 import { queryOptions } from "@tanstack/react-query";
 
 // TODO: Use proxy instead
 const BASE_URL = "http://localhost:4000/api";
-const IntegrationsConnectResponseParser = zodWrappedParser(
-  IntegrationsConnectResponseSchema,
-);
+const SyncStatusResponseParser = zodWrappedParser(SyncStatusResponseSchema);
 
 // TODO: This should send a request to /integrations and parse integrations response
 export const integrationMutations = {
@@ -17,7 +12,7 @@ export const integrationMutations = {
     return safePostItem(
       `${BASE_URL}/integrations/connect`,
       data,
-      IntegrationsConnectResponseParser,
+      SyncStatusResponseParser,
     );
   },
 };
