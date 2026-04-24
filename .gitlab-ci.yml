@@ -26,8 +26,8 @@ before_script:
 test_job:
     stage: test
     script:
-    - node --experimental-strip-types --test math.test.ts
-
+    - pnpm turbo run test
+    
 build_documentation:
     stage: docs 
     script:
