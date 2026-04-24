@@ -41,11 +41,11 @@ export const syncQueries = {
       refetchInterval: (query) => {
         const status = query.state.data?.status;
 
-        if (status === "INITIALIZED" || status === "PROCESSING") {
-          return 1000;
+        if (status === "COMPLETE" || status === "ERROR") {
+          return false;
         }
 
-        return false;
+        return 1000;
       },
     });
   },
