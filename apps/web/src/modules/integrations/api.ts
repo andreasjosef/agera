@@ -1,5 +1,9 @@
-import { SyncStatusResponse, SyncStatusResponseSchema } from "@ccpilot/domain";
-import { safePostItem, zodWrappedParser } from "@ccpilot/ts-fetch";
+import { SyncStatusResponseSchema } from "@ccpilot/domain";
+import {
+  safeFetchItem,
+  safePostItem,
+  zodWrappedParser,
+} from "@ccpilot/ts-fetch";
 import { queryOptions } from "@tanstack/react-query";
 
 // TODO: Use proxy instead
@@ -18,26 +22,31 @@ export const integrationMutations = {
 };
 
 export const syncQueries = {
-  getStatus: (currentSyncStatus: string) => {
+  getStatus: () => {
     return queryOptions({
-      queryFn: async (): Promise<SyncStatusResponse> => {
-        // Simulate polling (infinite)
-        const result = new Promise<SyncStatusResponse>(async (resolve) => {
-          console.log("syncQueries.getStatus: call");
+      queryFn: async () => {
+        console.log("sync polling in progress");
+        const result = await safeFetchItem(
+          `${BASE_URL}/requirements/sync`,
+          SyncStatusResponseParser,
+        );
 
-          setTimeout(() => {
-            resolve({ status: "PROCESSING", payload: [] });
-          }, 500);
-        });
+        if (!result.ok) {
+          throw new Error(result.error);
+        }
 
-        return result;
+        return result.value;
       },
       queryKey: ["sync", "status"],
-      refetchInterval: ["INITIALIZED", "PROCESSING"].includes(currentSyncStatus)
-        ? 1000
-        : false,
+      refetchInterval: (query) => {
+        const status = query.state.data?.status;
 
-      enabled: !!currentSyncStatus,
+        if (status === "INITIALIZED" || status === "PROCESSING") {
+          return 1000;
+        }
+
+        return false;
+      },
     });
   },
 };

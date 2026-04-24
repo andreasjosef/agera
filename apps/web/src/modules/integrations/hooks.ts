@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { integrationMutations, syncQueries } from "./api";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export const useCanvasConnect = () => {
   const queryClient = useQueryClient();
@@ -20,17 +20,17 @@ export const useCanvasConnect = () => {
 };
 
 export const useSyncPolling = () => {
-  const [currentSyncStatus, setCurrentSyncStatus] = useState("");
-  const { data: pollingData, refetch } = useQuery(
-    syncQueries.getStatus(currentSyncStatus),
-  );
+  // TODO: Should this be a store ?
+  const { data: pollingData, refetch } = useQuery(syncQueries.getStatus());
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    console.log("useSyncPolling: polling data updated");
-    if (pollingData) {
-      setCurrentSyncStatus(pollingData.status);
+    if (!pollingData) return;
+
+    if (pollingData.status === "COMPLETE") {
+      queryClient.invalidateQueries({ queryKey: ["requirements"] });
     }
-  }, [pollingData]);
+  }, [pollingData?.status, queryClient]);
 
   return { pollingData, refetch };
 };
