@@ -1,4 +1,5 @@
 import { TokenPayload } from "@ccpilot/domain";
+import { useState } from "react";
 
 interface CanvasIntegrationFormProps {
   onSubmit: (data: TokenPayload) => void;
@@ -11,6 +12,8 @@ export default function CanvasIntegrationForm({
   isLoading,
   connectionError,
 }: CanvasIntegrationFormProps) {
+  const [errorMessage, setErrorMessage] = useState(connectionError);
+
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -22,13 +25,14 @@ export default function CanvasIntegrationForm({
     } as TokenPayload;
 
     if (!data.token) {
-      // TODO: Display error in UI
-      return console.error("Connection token must not be empty");
+      setErrorMessage("Connection token must not be empty");
+      return;
     }
 
     onSubmit(data);
   };
 
+  // TODO: We should probably load the existing canvas token as default value
   return (
     <form className="grid bg-blue-300 p-4" onSubmit={handleSubmit}>
       <label className="grid" htmlFor="canvas-token">
@@ -45,7 +49,7 @@ export default function CanvasIntegrationForm({
         Connect
       </button>
 
-      {connectionError && <p> {connectionError} </p>}
+      {errorMessage && <p> {errorMessage} </p>}
     </form>
   );
 }
