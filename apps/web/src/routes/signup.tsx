@@ -16,7 +16,7 @@ function SignupPage() {
     mutationFn: authMutations.signUp,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate({ to: "/app" });
+      navigate({ to: "/app/onboarding" });
     },
   });
 
