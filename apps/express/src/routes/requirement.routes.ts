@@ -5,6 +5,8 @@ import {
   type RequirementContext,
   syncCanvasReqsAction,
   getSyncStatusAction,
+  NewRequirementSchema,
+  createEnrichedRequirement,
 } from "@ccpilot/domain";
 
 import {
@@ -17,6 +19,8 @@ import {
   reqRepo,
   openrouterClient,
 } from "../services/instances.ts";
+
+import { validateReq } from "@/middleware/validate.ts";
 
 const router: Router = Router();
 router.use(authenticateUser);
@@ -76,6 +80,29 @@ router.post("/sync", async (req, res) => {
   });
 
   return res.status(202).json(ok("INITIALIZED"));
+});
+
+router.post("/create", validateReq(NewRequirementSchema), async (req, res) => {
+  const userId = (req as RequestWithUser).userid;
+
+  const reqCtx: RequirementContext = {
+    userId,
+    canvas: canvasClient,
+    llm: openrouterClient,
+    repo: reqRepo,
+  };
+
+  const data = req.body;
+
+  const result = await createEnrichedRequirement(
+    reqCtx,
+    data,
+    data.description,
+  );
+
+  if (!result.ok) return res.status(400).json(fail(result.error));
+
+  return res.status(201).json(ok(result.value));
 });
 
 export default router;
