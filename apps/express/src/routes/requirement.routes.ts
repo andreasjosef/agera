@@ -105,4 +105,5 @@ router.post("/create", validateReq(NewRequirementSchema), async (req, res) => {
   return res.status(201).json(ok(result.value));
 });
 
-export default router;
+
+export default router
