@@ -1,16 +1,14 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { integrationMutations } from "./api";
-import { useNavigate } from "@tanstack/react-router";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { integrationMutations, syncQueries } from "./api";
+import { useEffect } from "react";
 
 export const useCanvasConnect = () => {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const { mutate, isPending, data } = useMutation({
     mutationFn: (data: unknown) => integrationMutations.connectCanvas(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth", "session"] });
-      navigate({ to: "/app/dashboard" });
     },
   });
 
@@ -19,4 +17,20 @@ export const useCanvasConnect = () => {
     connecting: isPending,
     syncData: data,
   };
+};
+
+export const useSyncPolling = () => {
+  // TODO: Should this be a store ?
+  const { data: pollingData, refetch } = useQuery(syncQueries.getStatus());
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (!pollingData) return;
+
+    if (pollingData.status === "COMPLETE") {
+      queryClient.invalidateQueries({ queryKey: ["requirements"] });
+    }
+  }, [pollingData?.status, queryClient]);
+
+  return { pollingData, refetch };
 };

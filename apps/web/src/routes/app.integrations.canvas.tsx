@@ -1,6 +1,6 @@
 import CanvasIntegrationForm from "@/components/CanvasIntegrationForm";
 import { useCanvasConnect } from "@/modules/integrations/hooks";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/integrations/canvas")({
   component: CanvasIntegrationPage,
@@ -8,6 +8,11 @@ export const Route = createFileRoute("/app/integrations/canvas")({
 
 function CanvasIntegrationPage() {
   const { mutate, connecting, syncData } = useCanvasConnect();
+  const navigate = useNavigate();
+
+  const handleSyncNow = () => {
+    navigate({ to: "/app/dashboard" });
+  };
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -16,6 +21,12 @@ function CanvasIntegrationPage() {
         isLoading={connecting}
         connectionError={!syncData?.ok ? syncData?.error : undefined}
       />
+
+      {syncData?.ok && (
+        <button disabled={connecting} onClick={handleSyncNow}>
+          Sync Now
+        </button>
+      )}
     </div>
   );
 }
