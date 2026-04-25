@@ -22,10 +22,12 @@ function LoginPage() {
   });
 
   return (
-    <LoginForm
-      onSubmit={(data: { email: string; password: string }) => mutate(data)}
-      isLoading={isPending}
-      error={error?.message}
-    />
+    <div className="grid min-h-screen place-items-center p-4">
+      <LoginForm
+        onSubmit={(data: { email: string; password: string }) => mutate(data)}
+        isLoading={isPending}
+        error={error?.message}
+      />
+    </div>
   );
 }

@@ -21,10 +21,12 @@ function SignupPage() {
   });
 
   return (
-    <SignupForm
-      onSubmit={(data: NewUser) => mutate(data)}
-      isLoading={isPending}
-      error={error?.message}
-    />
+    <div className="grid min-h-screen place-items-center p-4">
+      <SignupForm
+        onSubmit={(data: NewUser) => mutate(data)}
+        isLoading={isPending}
+        error={error?.message}
+      />
+    </div>
   );
 }

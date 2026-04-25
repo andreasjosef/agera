@@ -11,11 +11,7 @@ export interface LoginFormProps {
   error?: string;
 }
 
-export default function LoginForm({
-  onSubmit,
-  isLoading,
-  error,
-}: LoginFormProps) {
+export default function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -24,7 +20,7 @@ export default function LoginForm({
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-y-4 w-full max-w-sm">
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className="flex flex-col w-sm gap-2">
         <input name="email" className="bg-amber-200" type="email" required />
@@ -39,8 +35,14 @@ export default function LoginForm({
         </button>
       </form>
       <p>
-        Need an account? <Link to="/signup">Singup</Link>
+        Need an account?
+        <Link
+          className="text-blue-600 underline font-semibold hover:text-blue-800"
+          to="/signup"
+        >
+          Sign Up
+        </Link>
       </p>
-    </>
+    </div>
   );
 }
