@@ -24,30 +24,22 @@ export const Route = createFileRoute("/app")({
 
 function RouteComponent() {
   return (
-    <>
-      <div>
-        <header>
-          <nav className="p-6 flex justify-between">
-            <Link
-              to="/"
-              className="text-xl text-secondary [&.active]:text-slate-700 font-bold"
-            >
-              App
-            </Link>
-            <LogoutButton />
-          </nav>
-        </header>
-
-        <main className="min-h-screen">
-          <div className="flex gap-x-2">
-            <Link to="/app/dashboard"> Dashboard </Link>
-            <Link to="/app/integrations/canvas"> Integrations: Canvas </Link>
-          </div>
-          <Outlet />
-        </main>
-
-        <footer>Footer</footer>
-      </div>
-    </>
+    <div className="h-screen grid grid-rows-[auto_1fr] overflow-hidden">
+      <header className="p-6 flex justify-between">
+        <h1 className="font-bold">CCPILOT</h1>
+        <nav className="flex gap-x-2">
+          <Link
+            className="px-3 py-1.5 font-semibold text-sm hover:text-neutral-800 hover:underline transition-all"
+            to="/app/dashboard"
+          >
+            Settings
+          </Link>
+          <LogoutButton />
+        </nav>
+      </header>
+      <main className="overflow-y-auto">
+        <Outlet />
+      </main>
+    </div>
   );
 }
