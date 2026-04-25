@@ -58,3 +58,10 @@ export const SyncStatusResponseSchema = z.object({
   status: SyncStatusSchema,
   payload: z.array(RequirementSchema),
 });
+
+export const NewRequirementSchema = RequirementSchema.omit({
+  id: true,
+  status: true,
+  updatedAt: true
+})
+
