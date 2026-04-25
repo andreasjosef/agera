@@ -46,7 +46,7 @@ export const RequirementSchema = z.object({
   source: RequirementSourceSchema,
   steps: z.array(StepSchema),
   status: StepGenerationStatusSchema,
-  updatedAt: z.string(),
+  updatedAt: z.coerce.date(),
 });
 
 export const StepsLLMResponseSchema = z.object({
