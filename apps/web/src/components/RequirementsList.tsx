@@ -10,12 +10,14 @@ export default function RequirementsList({
   return (
     <ul>
       {requirements.map((requirement) => (
-        <li className="flex items-center justify-between" key={requirement.id}>
+        <li
+          className="flex items-center justify-between bg-neutral-200 p-2 mb-2"
+          key={requirement.id}
+        >
           <div>
-            <h2>{requirement.title}</h2>
-            <p>{requirement.due}</p>
+            <h2>Uppgift: {requirement.title}</h2>
+            <p>Due: {new Date(requirement.due).toLocaleDateString()}</p>
           </div>
-          <span>{requirement.status}</span>
         </li>
       ))}
     </ul>

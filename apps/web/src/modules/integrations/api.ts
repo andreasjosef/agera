@@ -1,4 +1,8 @@
-import { SyncStatusResponseSchema } from "@ccpilot/domain";
+import {
+  IntegrationStatusResponseSchema,
+  SyncStatusResponseSchema,
+  type TokenProvider,
+} from "@ccpilot/domain";
 import {
   safeFetchItem,
   safePostItem,
@@ -21,8 +25,25 @@ export const integrationMutations = {
   },
 };
 
-export const syncQueries = {
-  getStatus: () => {
+export const integrationQueries = {
+  getConnection: (provider: TokenProvider) => {
+    return queryOptions({
+      queryFn: async () => {
+        const result = await safeFetchItem(
+          `${BASE_URL}/integrations/${provider}`,
+          zodWrappedParser(IntegrationStatusResponseSchema),
+        );
+
+        if (!result.ok) {
+          throw new Error(result.error);
+        }
+
+        return result.value;
+      },
+      queryKey: ["integrations", "status"],
+    });
+  },
+  getSyncStatus: (isEnabled: boolean) => {
     return queryOptions({
       queryFn: async () => {
         console.log("sync polling in progress");
@@ -38,6 +59,7 @@ export const syncQueries = {
         return result.value;
       },
       queryKey: ["sync", "status"],
+      enabled: isEnabled,
       refetchInterval: (query) => {
         const status = query.state.data?.status;
 
@@ -45,7 +67,7 @@ export const syncQueries = {
           return false;
         }
 
-        return 1000;
+        return 500;
       },
     });
   },
