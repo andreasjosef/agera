@@ -65,7 +65,7 @@ export const getSyncStatusAction = async (
   const recent = recentResult.value;
 
   if (recent.length === 0) {
-    return ok({ status: "COMPLETE", payload: [] });
+    return ok({ status: "IDLE", payload: [] });
   }
 
   const isGenerating = recent.some((req) => req.status === "GENERATING");
