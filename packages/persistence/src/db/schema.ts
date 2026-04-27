@@ -1,5 +1,6 @@
 import { pgEnum, pgTable } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import { INTEGRATION_STATUS_VALUES } from "@ccpilot/domain";
 
 import * as t from "drizzle-orm/pg-core";
 
@@ -78,6 +79,10 @@ export const stepsRelations = relations(stepsTable, ({ one }) => ({
 
 // Integration Table
 export const tokenProvider = pgEnum("tokenProvider", ["CANVAS"]);
+export const integrationStatusEnum = pgEnum(
+  "integrationStatus",
+  INTEGRATION_STATUS_VALUES,
+);
 
 export const integrationsTable = pgTable(
   "integrations",
@@ -89,11 +94,20 @@ export const integrationsTable = pgTable(
     provider: tokenProvider().notNull(),
     // TODO: currently token is just text -> encrypt
     encryptedToken: t.text("encrypted_token").notNull(),
+    status: integrationStatusEnum().default("CONNECT").notNull(),
+    updatedAt: t
+      .timestamp("updated_at")
+      .defaultNow()
+      .notNull()
+      .$onUpdate(() => new Date()),
+    error: t.text(),
   },
   (table) => [
     t.uniqueIndex("user_provider_idx").on(table.user_id, table.provider),
   ],
 );
+
+export type IntegrationRow = typeof integrationsTable.$inferSelect;
 
 /**
  * User Tables

@@ -7,13 +7,13 @@ import {
 } from "@ccpilot/domain";
 
 import { type Db } from "../db/client.ts";
-import { integrationsTable } from "../db/schema.ts";
+import { type IntegrationRow, integrationsTable } from "../db/schema.ts";
 
 import { and, eq } from "drizzle-orm";
 
 export const createIntegrationsRepository = (
   db: Db,
-): IIntegrationRepository => {
+): IIntegrationRepository<IntegrationRow> => {
   return {
     save: async (userId: string, token: string, provider: TokenProvider) => {
       try {
@@ -50,10 +50,7 @@ export const createIntegrationsRepository = (
 
         if (!row) return fail(`No ${provider} token found for this user!`);
 
-        return ok({
-          provider: provider,
-          token: row.encryptedToken,
-        });
+        return ok(row);
       } catch (err) {
         console.error("[INTEGRATIONS REPO] getForProvider failed: ", err);
         return fail(`Could not load ${provider} token!`);

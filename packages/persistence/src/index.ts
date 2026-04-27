@@ -9,3 +9,4 @@ export * from "./repositories/integrations.ts";
 
 // Mappers
 export * from "./mappers/steps.ts";
+export * from "./mappers/integrations.ts";
