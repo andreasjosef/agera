@@ -14,20 +14,39 @@ import type {
 
 import { type LLMClientInterface } from "../services/llm.ts";
 
-import { type TokenProvider } from "./types.ts";
-import { type IIntegrationRepository } from "./repository.ts";
+import type { IntegrationStatusResponse, TokenProvider } from "./types.ts";
+import type { IIntegrationRepository } from "./repository.ts";
 
 /**
  * Persists a 3rd-party provider token for a specific user to the integration repository.
  * If a token for the given provider and user already exists it will be updated instead.
  */
-export const saveIntegrationAction = async (
+export const saveIntegrationAction = async <T>(
   userId: string,
   token: string,
   provider: TokenProvider,
-  repo: IIntegrationRepository,
+  repo: IIntegrationRepository<T>,
 ): Promise<Result<void>> => {
   return await repo.save(userId, token, provider);
+};
+
+/**
+ * Searches the integration table for a given provider and returns the the status of that integration as
+ * IntegrationStatusResponse
+ */
+export const getIntegrationStatusAction = async <T>(
+  userid: string,
+  provider: TokenProvider,
+  repo: IIntegrationRepository<T>,
+  mapper: (row: T | null) => IntegrationStatusResponse,
+): Promise<Result<IntegrationStatusResponse>> => {
+  const result = await repo.getForProvider(userid, provider);
+
+  if (!result.ok) {
+    return ok({ status: "NOT_FOUND" });
+  }
+
+  return ok(mapper(result.value));
 };
 
 /**

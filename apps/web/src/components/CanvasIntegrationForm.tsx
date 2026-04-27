@@ -34,12 +34,12 @@ export default function CanvasIntegrationForm({
 
   // TODO: We should probably load the existing canvas token as default value
   return (
-    <form className="grid bg-blue-300 p-4" onSubmit={handleSubmit}>
+    <form className="grid bg-neutral-200 p-4" onSubmit={handleSubmit}>
       <label className="grid" htmlFor="canvas-token">
         Canvas Access Token:
         <input
           name="token"
-          type="text"
+          type="password"
           className="outline outline-blue-950 rounded-sm"
           id="canvas-token"
         />
