@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, count, eq, inArray } from "drizzle-orm";
 
 import { type Db } from "../db/client.ts";
 import { toDbStep, toDomainStep } from "../mappers/steps.ts";
@@ -9,16 +9,36 @@ import {
   type NewRequirement,
   type StepGenerationStatus,
   type NewStep,
+  type TokenProvider,
   ok,
   fail,
 } from "@ccpilot/domain";
 
-import { requirementsTable, stepsTable } from "../db/schema.ts";
+import {
+  integrationsTable,
+  requirementsTable,
+  stepsTable,
+} from "../db/schema.ts";
 import { toDomainRequirement } from "../mappers/requirements.ts";
 
 export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
     save: async (req: NewRequirement, userId: string) => {
+      const integration = await db
+        .select({ id: integrationsTable.id })
+        .from(integrationsTable)
+        .where(
+          and(
+            eq(integrationsTable.user_id, userId),
+            eq(integrationsTable.provider, req.source),
+          ),
+        )
+        .limit(1)
+        .then((res) => res[0]);
+
+      if (!integration || !integration.id)
+        return fail(`Integration for ${req.source} not found for this user!`);
+
       const [row] = await db
         .insert(requirementsTable)
         .values({
@@ -27,6 +47,7 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
           type: req.type,
           source: req.source,
           user_id: userId,
+          integrationId: integration.id,
         })
         .returning();
 
@@ -116,18 +137,76 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
       );
     },
     getAll: async (userId) => {
+      const rows = await db.query.requirementsTable.findMany({
+        where: (table, { and, eq }) => and(eq(table.user_id, userId)),
+        with: { steps: true },
+      });
+
+      return ok(
+        rows.map((row) =>
+          toDomainRequirement(row, row.steps.map(toDomainStep)),
+        ),
+      );
+    },
+    getCountsByStatuses: async (
+      userId: string,
+      provider: TokenProvider,
+      statuses: StepGenerationStatus[],
+    ) => {
+      if (statuses.length === 0) {
+        return fail("Need Statuses to filter by!");
+      }
+
       const rows = await db
-        .select()
+        .select({
+          status: requirementsTable.status,
+          count: count(),
+        })
         .from(requirementsTable)
-        .where(eq(requirementsTable.user_id, userId));
+        .innerJoin(
+          integrationsTable,
+          eq(requirementsTable.integrationId, integrationsTable.id),
+        )
+        .where(
+          and(
+            eq(requirementsTable.user_id, userId),
+            eq(integrationsTable.provider, provider),
+            inArray(requirementsTable.status, statuses),
+          ),
+        )
+        .groupBy(requirementsTable.status);
 
-      // TODO: Get steps via join
-      const requirements: Requirement[] = rows.map((req) => ({
-        ...req,
-        steps: [],
-      }));
+      const statusMap = rows.reduce(
+        (acc, row) => {
+          const status = row.status as StepGenerationStatus;
+          acc[status] = row.count;
+          return acc;
+        },
+        {} as Record<StepGenerationStatus, number>,
+      );
 
-      return ok(requirements);
+      console.log("[DB REQS] statusMap: ", statusMap);
+
+      return ok(statusMap);
+    },
+    getTotalCount: async (userId: string, provider: TokenProvider) => {
+      const [result] = await db
+        .select({
+          value: count(),
+        })
+        .from(requirementsTable)
+        .innerJoin(
+          integrationsTable,
+          eq(requirementsTable.integrationId, integrationsTable.id),
+        )
+        .where(
+          and(
+            eq(integrationsTable.user_id, userId),
+            eq(integrationsTable.provider, provider),
+          ),
+        );
+
+      return ok(result?.value ?? 0);
     },
   };
 };

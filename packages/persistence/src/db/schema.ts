@@ -28,22 +28,30 @@ export const stepType = pgEnum("stepType", [
   "polish",
 ]);
 
-export const requirementSource = pgEnum("requirementSource", ["canvas"]);
+export const requirementSource = pgEnum("requirementSource", ["CANVAS"]);
 
-export const requirementsTable = pgTable("requirements", {
-  id: t.uuid("id").primaryKey().defaultRandom(),
-  user_id: t.text().references(() => user.id),
-  title: t.varchar({ length: 255 }).notNull(),
-  due: t.varchar({ length: 255 }).notNull(),
-  type: requirementType().default("assignment").notNull(),
-  source: requirementSource().default("canvas").notNull(),
-  status: syncStatus().default("RAW").notNull(),
-  updatedAt: t
-    .timestamp("updated_at")
-    .defaultNow()
-    .notNull()
-    .$onUpdate(() => new Date()),
-});
+export const requirementsTable = pgTable(
+  "requirements",
+  {
+    id: t.uuid("id").primaryKey().defaultRandom(),
+    user_id: t.text().references(() => user.id),
+    integrationId: t
+      .uuid()
+      .references(() => integrationsTable.id, { onDelete: "cascade" })
+      .notNull(),
+    title: t.varchar({ length: 255 }).notNull(),
+    due: t.varchar({ length: 255 }).notNull(),
+    type: requirementType().default("assignment").notNull(),
+    source: requirementSource().default("CANVAS").notNull(),
+    status: syncStatus().default("RAW").notNull(),
+    updatedAt: t
+      .timestamp("updated_at")
+      .defaultNow()
+      .notNull()
+      .$onUpdate(() => new Date()),
+  },
+  (table) => [t.index("req_integration_idx").on(table.integrationId)],
+);
 
 export const stepsTable = pgTable("steps", {
   id: t.uuid("id").primaryKey().defaultRandom(),
@@ -87,14 +95,14 @@ export const integrationStatusEnum = pgEnum(
 export const integrationsTable = pgTable(
   "integrations",
   {
-    id: t.uuid().defaultRandom(),
+    id: t.uuid("id").primaryKey().defaultRandom(),
     user_id: t
       .text("user_id")
       .references(() => user.id, { onDelete: "cascade" }),
     provider: tokenProvider().notNull(),
     // TODO: currently token is just text -> encrypt
     encryptedToken: t.text("encrypted_token").notNull(),
-    status: integrationStatusEnum().default("CONNECT").notNull(),
+    status: integrationStatusEnum().default("SYNCING").notNull(),
     updatedAt: t
       .timestamp("updated_at")
       .defaultNow()

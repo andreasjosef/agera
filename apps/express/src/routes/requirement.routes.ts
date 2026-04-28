@@ -3,6 +3,7 @@ import {
   fail,
   ok,
   type RequirementContext,
+  type TokenProvider,
   syncCanvasReqsAction,
   getSyncStatusAction,
 } from "@ccpilot/domain";
@@ -38,10 +39,11 @@ router.get("/", async (req, res) => {
 /**
  * GET: The Sync Status for an ongoing requirement sync operation
  */
-router.get("/sync", async (req, res) => {
-  const userId = (req as RequestWithUser).userid;
+router.get("/sync/:provider", async (req, res) => {
+  const userId = (req as unknown as RequestWithUser).userid;
+  const provider = req.params.provider.toUpperCase() as TokenProvider;
 
-  const statusResult = await getSyncStatusAction(reqRepo, userId);
+  const statusResult = await getSyncStatusAction(reqRepo, userId, provider);
 
   if (!statusResult.ok) {
     return res.status(500).json(statusResult);

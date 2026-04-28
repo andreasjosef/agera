@@ -90,7 +90,7 @@ export const syncCanvasReqsAction = async (
     // REFACTOR: Move this into a mapper function
     const requirement: NewRequirement = {
       title: assignement.title.trim(),
-      source: "canvas",
+      source: "CANVAS",
       due: assignement.due,
       steps: [],
       type: "assignment",

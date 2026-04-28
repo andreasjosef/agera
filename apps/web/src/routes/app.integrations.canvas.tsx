@@ -1,6 +1,7 @@
 import CanvasIntegrationForm from "@/components/CanvasIntegrationForm";
 import { integrationQueries } from "@/modules/integrations/api";
 import { useCanvasConnect, useSyncPolling } from "@/modules/integrations/hooks";
+import { requirementQueryOptions } from "@/modules/requirement/api";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -20,7 +21,9 @@ function CanvasIntegrationPage() {
     integrationQueries.getConnection("CANVAS"),
   );
 
-  const { pollingData } = useSyncPolling(integration?.status);
+  const { data: requirements } = useQuery(requirementQueryOptions.all);
+
+  const { pollingData } = useSyncPolling("CANVAS", integration?.status);
   const { mutate, connecting, syncData } = useCanvasConnect();
 
   return (
@@ -35,23 +38,25 @@ function CanvasIntegrationPage() {
         />
       )}
 
-      {integration?.status === "STABLE" && (
-        <div className="bg-neutral-200 p-4">
-          <p>
-            Status: <span className="text-green-500 font-semibold">Stable</span>
-          </p>
-          <p>Last Sync: {integration.lastSync.toLocaleString()}</p>
-          <p>Sync Status: {pollingData?.status}</p>
-        </div>
-      )}
+      {integration?.status === "STABLE" ||
+        (integration?.status === "SYNCING" && (
+          <div className="bg-neutral-200 p-4">
+            <p>
+              Status:
+              <span className="text-green-500 font-semibold">Stable</span>
+            </p>
+            <p>Last Sync: {integration.lastSync?.toLocaleString()}</p>
+            <p>Sync Status: {pollingData?.status}</p>
+          </div>
+        ))}
 
       <h3 className="text-2xl font-semibold my-1">Synced Requirements</h3>
-      {pollingData?.payload.map((item) => (
+      {requirements?.map((item) => (
         <p className="p-1 bg-neutral-200">{item.title}</p>
       ))}
 
       <h3 className="text-2xl font-semibold my-1">Generated Steps</h3>
-      {pollingData?.payload.map((item) =>
+      {requirements?.map((item) =>
         item.steps.map((step) => (
           <div className="p-1 bg-neutral-200 flex flex-col mb-1">
             <p>

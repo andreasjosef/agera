@@ -43,12 +43,11 @@ export const integrationQueries = {
       queryKey: ["integrations", "status"],
     });
   },
-  getSyncStatus: (isEnabled: boolean) => {
+  getSyncStatus: (isEnabled: boolean, provider: TokenProvider) => {
     return queryOptions({
       queryFn: async () => {
-        console.log("sync polling in progress");
         const result = await safeFetchItem(
-          `${BASE_URL}/requirements/sync`,
+          `${BASE_URL}/requirements/sync/${provider}`,
           SyncStatusResponseParser,
         );
 
@@ -63,11 +62,13 @@ export const integrationQueries = {
       refetchInterval: (query) => {
         const status = query.state.data?.status;
 
-        if (status === "COMPLETE" || status === "ERROR") {
-          return false;
+        console.log("[GET SYNC STATUS QUERY] status: ", status);
+
+        if (status === "INITIALIZED" || status === "PROCESSING") {
+          return 500;
         }
 
-        return 500;
+        return false;
       },
     });
   },
