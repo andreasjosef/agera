@@ -13,6 +13,7 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppOnboardingRouteImport } from './routes/app.onboarding'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
 import { Route as AppIntegrationsCanvasRouteImport } from './routes/app.integrations.canvas'
@@ -37,6 +38,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppOnboardingRoute = AppOnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
@@ -60,15 +66,16 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/onboarding': typeof AppOnboardingRoute
+  '/app/': typeof AppIndexRoute
   '/app/integrations/canvas': typeof AppIntegrationsCanvasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/onboarding': typeof AppOnboardingRoute
+  '/app': typeof AppIndexRoute
   '/app/integrations/canvas': typeof AppIntegrationsCanvasRoute
 }
 export interface FileRoutesById {
@@ -79,6 +86,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
   '/app/onboarding': typeof AppOnboardingRoute
+  '/app/': typeof AppIndexRoute
   '/app/integrations/canvas': typeof AppIntegrationsCanvasRoute
 }
 export interface FileRouteTypes {
@@ -90,15 +98,16 @@ export interface FileRouteTypes {
     | '/signup'
     | '/app/dashboard'
     | '/app/onboarding'
+    | '/app/'
     | '/app/integrations/canvas'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/app'
     | '/login'
     | '/signup'
     | '/app/dashboard'
     | '/app/onboarding'
+    | '/app'
     | '/app/integrations/canvas'
   id:
     | '__root__'
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/app/dashboard'
     | '/app/onboarding'
+    | '/app/'
     | '/app/integrations/canvas'
   fileRoutesById: FileRoutesById
 }
@@ -148,6 +158,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/onboarding': {
       id: '/app/onboarding'
       path: '/onboarding'
@@ -175,12 +192,14 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppOnboardingRoute: typeof AppOnboardingRoute
+  AppIndexRoute: typeof AppIndexRoute
   AppIntegrationsCanvasRoute: typeof AppIntegrationsCanvasRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppOnboardingRoute: AppOnboardingRoute,
+  AppIndexRoute: AppIndexRoute,
   AppIntegrationsCanvasRoute: AppIntegrationsCanvasRoute,
 }
 
