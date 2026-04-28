@@ -80,9 +80,12 @@ router.post("/connect", validateReq(TokenPayloadSchema), async (req, res) => {
       console.error(`[CANVAS SYNC FAILURE] User: ${user}`, result.error);
   });
 
-  res
-    .status(202)
-    .json(ok<SyncStatusResponse>({ status: "INITIALIZED", payload: [] }));
+  res.status(202).json(
+    ok<SyncStatusResponse>({
+      status: "INITIALIZED",
+      stats: { active: 0, total: 0 },
+    }),
+  );
 });
 
 export default router;

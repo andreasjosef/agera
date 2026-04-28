@@ -5,11 +5,11 @@ import type {
   NewRequirement,
   RequirementContext,
   SyncStatusResponse,
-  SyncStatus,
 } from "./types.ts";
 
 import type { IRequirementRepository } from "./repository.ts";
 import { generateSteps } from "../integrations/actions.ts";
+import { type TokenProvider } from "../integrations/types.ts";
 
 /**
  * Retrieves the full collection of requirements for a specific user.
@@ -58,25 +58,49 @@ export const createEnrichedRequirement = async (
 export const getSyncStatusAction = async (
   repo: IRequirementRepository,
   userId: string,
+  provider: TokenProvider,
 ): Promise<Result<SyncStatusResponse>> => {
-  const recentResult = await repo.getRecent(userId, 10);
-  if (!recentResult.ok) return fail(recentResult.error);
+  const activeStatsResult = await repo.getCountsByStatuses(userId, provider, [
+    "RAW",
+    "GENERATING",
+  ]);
 
-  const recent = recentResult.value;
-
-  if (recent.length === 0) {
-    return ok({ status: "IDLE", payload: [] });
+  if (!activeStatsResult.ok) {
+    console.log("No active stats!");
+    return fail("No Requirements found for this user!");
   }
+  const activeStats = activeStatsResult.value;
 
-  const isGenerating = recent.some((req) => req.status === "GENERATING");
-  const isRaw = recent.some((req) => req.status === "RAW");
+  const totalCountResult = await repo.getTotalCount(userId, provider);
+  if (!totalCountResult.ok) return fail(`Failed to load count for ${provider}`);
 
-  let aggregateStatus: SyncStatus = "COMPLETE";
+  const totalCount = totalCountResult.value;
 
-  if (isGenerating) aggregateStatus = "PROCESSING";
-  else if (isRaw) aggregateStatus = "INITIALIZED";
+  const raw = activeStats.RAW ?? 0;
+  const generating = activeStats.GENERATING ?? 0;
 
-  return ok({ status: aggregateStatus, payload: recent });
+  console.log("[REQ DB COUNTS] raw", raw);
+  console.log("[REQ DB COUNTS] generating", generating);
+
+  if (generating > 0)
+    return ok({
+      status: "PROCESSING",
+      stats: { active: generating + raw, total: totalCount },
+    });
+
+  if (raw > 0)
+    return ok({
+      status: "INITIALIZED",
+      stats: { active: raw, total: totalCount },
+    });
+
+  if (totalCount > 0)
+    return ok({
+      status: "COMPLETE",
+      stats: { active: 0, total: totalCount },
+    });
+
+  return ok({ status: "INITIALIZED", stats: { active: 0, total: 0 } });
 };
 
 /**
