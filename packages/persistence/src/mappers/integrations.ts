@@ -1,4 +1,4 @@
-import { type IntegrationStatusResponse } from "@ccpilot/domain";
+import { type IntegrationToken, type IntegrationStatusResponse } from "@ccpilot/domain";
 import { type IntegrationRow } from "../db/schema.ts";
 
 export const mapIntegrationRowToStatus = (
@@ -26,3 +26,12 @@ export const mapIntegrationRowToStatus = (
     lastSync: row.updatedAt ?? new Date(),
   };
 };
+
+export const mapIntegrationRowToToken = (
+  row: IntegrationRow | null | undefined
+): IntegrationToken => {
+  return {
+    token: row?.encryptedToken ?? "",
+    provider: row?.provider ?? "CANVAS"
+  }
+}
