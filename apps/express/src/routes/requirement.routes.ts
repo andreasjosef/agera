@@ -8,6 +8,7 @@ import {
   getSyncStatusAction,
   NewRequirementSchema,
   createEnrichedRequirement,
+  loadIntegrationTokenAction,
 } from "@ccpilot/domain";
 
 import {
@@ -19,9 +20,12 @@ import {
   canvasClient,
   reqRepo,
   openrouterClient,
+  integrationsRepo,
 } from "../services/instances.ts";
 
-import { validateReq } from "@/middleware/validate.ts";
+import { validateReq } from "../middleware/validate.ts";
+import { mapIntegrationRowToToken } from "@ccpilot/persistence";
+import { createCanvasClient } from "@ccpilot/lms-canvas";
 
 const router: Router = Router();
 router.use(authenticateUser);
@@ -87,9 +91,12 @@ router.post("/sync", async (req, res) => {
 router.post("/create", validateReq(NewRequirementSchema), async (req, res) => {
   const userId = (req as RequestWithUser).userid;
 
+  const tokenResult = await loadIntegrationTokenAction(userId, "CANVAS", integrationsRepo, mapIntegrationRowToToken)
+  if(!tokenResult.ok) return res.status(401).json(fail("Integration token not found"))
+
   const reqCtx: RequirementContext = {
     userId,
-    canvas: canvasClient,
+    canvas: createCanvasClient(tokenResult.value.token),
     llm: openrouterClient,
     repo: reqRepo,
   };
@@ -107,5 +114,4 @@ router.post("/create", validateReq(NewRequirementSchema), async (req, res) => {
   return res.status(201).json(ok(result.value));
 });
 
-
-export default router
+export default router;
