@@ -12,3 +12,8 @@ export type TokenProvider = z.infer<typeof TokenProviderSchema>;
 export type IntegrationStatusResponse = z.infer<
   typeof IntegrationStatusResponseSchema
 >;
+
+export type IntegrationToken = {
+  token: string
+  provider: TokenProvider
+}
