@@ -14,8 +14,10 @@ import type {
 
 import { type LLMClientInterface } from "../services/llm.ts";
 
-import type { IntegrationStatusResponse, TokenProvider } from "./types.ts";
+import type { IntegrationStatusResponse, IntegrationToken, TokenProvider } from "./types.ts";
 import type { IIntegrationRepository } from "./repository.ts";
+
+
 
 /**
  * Persists a 3rd-party provider token for a specific user to the integration repository.
@@ -100,4 +102,16 @@ export const syncCanvasReqsAction = async (
   }
 
   return ok(undefined);
+};
+
+export const loadIntegrationTokenAction = async <T>(
+  userid: string,
+  provider: TokenProvider,
+  repo: IIntegrationRepository<T>,
+  mapper: (row: T | null) => IntegrationToken
+): Promise<Result<IntegrationToken>> => {
+  const result = await repo.getForProvider(userid, provider)
+  if(!result.ok) return fail(result.error)
+
+  return ok(mapper(result.value));
 };
