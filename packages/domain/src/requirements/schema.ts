@@ -6,6 +6,7 @@ import {
   StepGenerationStatusValues,
   SyncStatusValues,
 } from "../shared/constants.ts";
+import { TokenProviderSchema } from "../integrations/schema.ts";
 
 export const RequirementTypeSchema = z.enum(RequirementTypeValues);
 export const RequirementSourceSchema = z.enum(RequirementSourceValues);
@@ -43,10 +44,10 @@ export const RequirementSchema = z.object({
   title: z.string(),
   due: z.string(),
   type: RequirementTypeSchema,
-  source: RequirementSourceSchema,
+  source: TokenProviderSchema,
   steps: z.array(StepSchema),
   status: StepGenerationStatusSchema,
-  updatedAt: z.string(),
+  updatedAt: z.coerce.date(),
 });
 
 export const StepsLLMResponseSchema = z.object({
@@ -56,7 +57,10 @@ export const StepsLLMResponseSchema = z.object({
 
 export const SyncStatusResponseSchema = z.object({
   status: SyncStatusSchema,
-  payload: z.array(RequirementSchema),
+  stats: z.object({
+    active: z.number(),
+    total: z.number(),
+  }),
 });
 
 export const NewRequirementSchema = RequirementSchema.omit({

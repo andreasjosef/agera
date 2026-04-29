@@ -12,6 +12,7 @@ export const StepGenerationStatusValues = [
 ] as const;
 export const SyncStatusValues = [
   "INITIALIZED",
+  "IDLE",
   "PROCESSING",
   "COMPLETE",
   "ERROR",

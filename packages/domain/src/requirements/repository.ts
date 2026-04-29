@@ -1,9 +1,9 @@
+import { type TokenProvider } from "../integrations/types.ts";
 import { type Result } from "../shared/result.ts";
 import type {
   Requirement,
   NewRequirement,
   StepGenerationStatus,
-  Step,
   NewStep,
 } from "./types.ts";
 
@@ -30,6 +30,24 @@ export interface IRequirementRepository {
     userId: string,
     timeWindowMinutes: number,
   ) => Promise<Result<Requirement[]>>;
+
+  /**
+   * Gets the total count of requirements for a given provider
+   * */
+  getTotalCount: (
+    userId: string,
+    provider: TokenProvider,
+  ) => Promise<Result<number>>;
+
+  /**
+   * Retrieves the count of requirements
+   * for the given step generation statuses and provider
+   * */
+  getCountsByStatuses: (
+    userId: string,
+    provider: TokenProvider,
+    statuses: StepGenerationStatus[],
+  ) => Promise<Result<Record<StepGenerationStatus, number>>>;
 
   /**
    * Retrieves a single requirement from the persistence layer by its ID

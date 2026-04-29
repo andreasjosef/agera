@@ -1,4 +1,8 @@
-import { SyncStatusResponseSchema } from "@ccpilot/domain";
+import {
+  IntegrationStatusResponseSchema,
+  SyncStatusResponseSchema,
+  type TokenProvider,
+} from "@ccpilot/domain";
 import {
   safeFetchItem,
   safePostItem,
@@ -21,13 +25,29 @@ export const integrationMutations = {
   },
 };
 
-export const syncQueries = {
-  getStatus: () => {
+export const integrationQueries = {
+  getConnection: (provider: TokenProvider) => {
     return queryOptions({
       queryFn: async () => {
-        console.log("sync polling in progress");
         const result = await safeFetchItem(
-          `${BASE_URL}/requirements/sync`,
+          `${BASE_URL}/integrations/${provider}`,
+          zodWrappedParser(IntegrationStatusResponseSchema),
+        );
+
+        if (!result.ok) {
+          throw new Error(result.error);
+        }
+
+        return result.value;
+      },
+      queryKey: ["integrations", "status"],
+    });
+  },
+  getSyncStatus: (isEnabled: boolean, provider: TokenProvider) => {
+    return queryOptions({
+      queryFn: async () => {
+        const result = await safeFetchItem(
+          `${BASE_URL}/requirements/sync/${provider}`,
           SyncStatusResponseParser,
         );
 
@@ -38,14 +58,17 @@ export const syncQueries = {
         return result.value;
       },
       queryKey: ["sync", "status"],
+      enabled: isEnabled,
       refetchInterval: (query) => {
         const status = query.state.data?.status;
 
-        if (status === "COMPLETE" || status === "ERROR") {
-          return false;
+        console.log("[GET SYNC STATUS QUERY] status: ", status);
+
+        if (status === "INITIALIZED" || status === "PROCESSING") {
+          return 500;
         }
 
-        return 1000;
+        return false;
       },
     });
   },

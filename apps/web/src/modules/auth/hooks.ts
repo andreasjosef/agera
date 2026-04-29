@@ -10,10 +10,8 @@ export const useSession = () => {
     error,
   } = useQuery(authQueries.session());
 
-  if (!user) return null;
-
   return {
-    user: user,
+    user,
     isAuthenticated: !!user,
     isLoading,
     isError,

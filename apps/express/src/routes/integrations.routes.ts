@@ -3,10 +3,12 @@ import {
   fail,
   ok,
   type RequirementContext,
-  saveIntegrationAction,
-  TokenPayloadSchema,
-  syncCanvasReqsAction,
   type SyncStatusResponse,
+  type TokenProvider,
+  TokenPayloadSchema,
+  saveIntegrationAction,
+  syncCanvasReqsAction,
+  getIntegrationStatusAction,
 } from "@ccpilot/domain";
 
 import {
@@ -21,9 +23,29 @@ import {
   reqRepo,
 } from "../services/instances.ts";
 import { createCanvasClient } from "@ccpilot/lms-canvas";
+import { mapIntegrationRowToStatus } from "@ccpilot/persistence";
 
 const router = Router();
 router.use(authenticateUser);
+
+/**
+ * GET: Retrieve the integration status of a given provider
+ */
+router.get("/:provider", async (req, res) => {
+  const user = (req as unknown as RequestWithUser).userid;
+  const provider = req.params.provider.toUpperCase() as TokenProvider;
+
+  const result = await getIntegrationStatusAction(
+    user,
+    provider,
+    integrationsRepo,
+    mapIntegrationRowToStatus,
+  );
+
+  if (!result.ok) return res.status(500).json(fail("Integration API Error"));
+
+  res.status(200).json(ok(result.value));
+});
 
 /**
  * POST: Save a new integration token to db
@@ -58,9 +80,12 @@ router.post("/connect", validateReq(TokenPayloadSchema), async (req, res) => {
       console.error(`[CANVAS SYNC FAILURE] User: ${user}`, result.error);
   });
 
-  res
-    .status(202)
-    .json(ok<SyncStatusResponse>({ status: "INITIALIZED", payload: [] }));
+  res.status(202).json(
+    ok<SyncStatusResponse>({
+      status: "INITIALIZED",
+      stats: { active: 0, total: 0 },
+    }),
+  );
 });
 
 export default router;
