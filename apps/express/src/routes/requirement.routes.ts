@@ -24,7 +24,6 @@ import {
 } from "../services/instances.ts";
 
 import { validateReq } from "../middleware/validate.ts";
-import { mapIntegrationRowToToken } from "@ccpilot/persistence";
 import { createCanvasClient } from "@ccpilot/lms-canvas";
 
 const router: Router = Router();
@@ -90,9 +89,16 @@ router.post("/sync", async (req, res) => {
 
 router.post("/create", validateReq(NewRequirementSchema), async (req, res) => {
   const userId = (req as RequestWithUser).userid;
+  const { description } = req.body;
 
-  const tokenResult = await loadIntegrationTokenAction(userId, "CANVAS", integrationsRepo, mapIntegrationRowToToken)
-  if(!tokenResult.ok) return res.status(401).json(fail("Integration token not found"))
+  const tokenResult = await loadIntegrationTokenAction(
+    userId,
+    "CANVAS",
+    integrationsRepo,
+  );
+
+  if (!tokenResult.ok)
+    return res.status(401).json(fail("Integration token not found"));
 
   const reqCtx: RequirementContext = {
     userId,
