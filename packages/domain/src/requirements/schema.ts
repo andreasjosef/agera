@@ -48,6 +48,7 @@ export const RequirementSchema = z.object({
   steps: z.array(StepSchema),
   status: StepGenerationStatusSchema,
   updatedAt: z.coerce.date(),
+  integrationId: z.string().optional(),
 });
 
 export const StepsLLMResponseSchema = z.object({
@@ -66,6 +67,5 @@ export const SyncStatusResponseSchema = z.object({
 export const NewRequirementSchema = RequirementSchema.omit({
   id: true,
   status: true,
-  updatedAt: true
-})
-
+  updatedAt: true,
+});

@@ -1,6 +1,7 @@
 // Shared
 export * from "./shared/result.ts";
 export * from "./shared/constants.ts";
+export * from "./shared/context.ts";
 
 // Requirements
 export * from "./requirements/types.ts";

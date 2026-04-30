@@ -1,19 +1,20 @@
 import {
   fail,
   ok,
-  type TokenPayload,
+  type Integration,
+  type IntegrationToken,
   type IIntegrationRepository,
   type TokenProvider,
 } from "@ccpilot/domain";
 
 import { type Db } from "../db/client.ts";
-import { type IntegrationRow, integrationsTable } from "../db/schema.ts";
+import { integrationsTable } from "../db/schema.ts";
 
 import { and, eq } from "drizzle-orm";
 
 export const createIntegrationsRepository = (
   db: Db,
-): IIntegrationRepository<IntegrationRow> => {
+): IIntegrationRepository => {
   return {
     save: async (userId: string, token: string, provider: TokenProvider) => {
       try {
@@ -64,7 +65,7 @@ export const createIntegrationsRepository = (
           .from(integrationsTable)
           .where(eq(integrationsTable.user_id, userId));
 
-        const tokenPayloads: TokenPayload[] = rows.map((row) => ({
+        const tokenPayloads: IntegrationToken[] = rows.map((row) => ({
           token: row.encryptedToken,
           provider: row.provider as TokenProvider,
         }));

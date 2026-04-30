@@ -1,6 +1,6 @@
 import { pgEnum, pgTable } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
-import { INTEGRATION_STATUS_VALUES } from "@ccpilot/domain";
+import { INTEGRATION_STATUS_VALUES, PROVIDER_VALUES } from "@ccpilot/domain";
 
 import * as t from "drizzle-orm/pg-core";
 
@@ -28,7 +28,7 @@ export const stepType = pgEnum("stepType", [
   "polish",
 ]);
 
-export const requirementSource = pgEnum("requirementSource", ["CANVAS"]);
+export const requirementSource = pgEnum("requirementSource", PROVIDER_VALUES);
 
 export const requirementsTable = pgTable(
   "requirements",
@@ -37,8 +37,7 @@ export const requirementsTable = pgTable(
     user_id: t.text().references(() => user.id),
     integrationId: t
       .uuid()
-      .references(() => integrationsTable.id, { onDelete: "cascade" })
-      .notNull(),
+      .references(() => integrationsTable.id, { onDelete: "cascade" }),
     title: t.varchar({ length: 255 }).notNull(),
     due: t.varchar({ length: 255 }).notNull(),
     type: requirementType().default("assignment").notNull(),
@@ -86,7 +85,7 @@ export const stepsRelations = relations(stepsTable, ({ one }) => ({
 }));
 
 // Integration Table
-export const tokenProvider = pgEnum("tokenProvider", ["CANVAS"]);
+export const tokenProvider = pgEnum("tokenProvider", PROVIDER_VALUES);
 export const integrationStatusEnum = pgEnum(
   "integrationStatus",
   INTEGRATION_STATUS_VALUES,

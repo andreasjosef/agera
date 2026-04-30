@@ -1,5 +1,5 @@
 import { type Result } from "../shared/result.ts";
-import type { Integration, TokenPayload, TokenProvider } from "./types.ts";
+import type { Integration, IntegrationToken, TokenProvider } from "./types.ts";
 
 export interface IIntegrationRepository {
   save: (
@@ -13,5 +13,5 @@ export interface IIntegrationRepository {
     provider: TokenProvider,
   ) => Promise<Result<Integration>>;
 
-  getAll: (user: string) => Promise<Result<TokenPayload[]>>;
+  getAll: (user: string) => Promise<Result<IntegrationToken[]>>;
 }
