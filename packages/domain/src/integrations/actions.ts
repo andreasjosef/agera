@@ -14,20 +14,22 @@ import type {
 
 import { type LLMClientInterface } from "../services/llm.ts";
 
-import type { IntegrationStatusResponse, IntegrationToken, TokenProvider } from "./types.ts";
+import type {
+  IntegrationStatusResponse,
+  Integration,
+  TokenProvider,
+} from "./types.ts";
 import type { IIntegrationRepository } from "./repository.ts";
-
-
 
 /**
  * Persists a 3rd-party provider token for a specific user to the integration repository.
  * If a token for the given provider and user already exists it will be updated instead.
  */
-export const saveIntegrationAction = async <T>(
+export const saveIntegrationAction = async (
   userId: string,
   token: string,
   provider: TokenProvider,
-  repo: IIntegrationRepository<T>,
+  repo: IIntegrationRepository,
 ): Promise<Result<void>> => {
   return await repo.save(userId, token, provider);
 };
@@ -36,11 +38,10 @@ export const saveIntegrationAction = async <T>(
  * Searches the integration table for a given provider and returns the the status of that integration as
  * IntegrationStatusResponse
  */
-export const getIntegrationStatusAction = async <T>(
+export const getIntegrationStatusAction = async (
   userid: string,
   provider: TokenProvider,
-  repo: IIntegrationRepository<T>,
-  mapper: (row: T | null) => IntegrationStatusResponse,
+  repo: IIntegrationRepository,
 ): Promise<Result<IntegrationStatusResponse>> => {
   const result = await repo.getForProvider(userid, provider);
 
@@ -48,7 +49,44 @@ export const getIntegrationStatusAction = async <T>(
     return ok({ status: "NOT_FOUND" });
   }
 
-  return ok(mapper(result.value));
+  const integration = result.value;
+
+  // This helper ensures that what leaves the Action is a Date object or undefined
+  const ensureDate = (
+    d: Date | string | null | undefined,
+  ): Date | undefined => {
+    if (!d) return undefined;
+
+    const date = d instanceof Date ? d : new Date(d);
+
+    return isNaN(date.getTime()) ? undefined : date;
+  };
+
+  switch (integration.status) {
+    case "CONNECT":
+      return ok({
+        status: "CONNECT",
+      });
+    case "SYNCING":
+      return ok({
+        status: "SYNCING",
+        lastSync: ensureDate(integration.lastSync),
+      });
+    case "STABLE":
+      return ok({
+        status: "STABLE",
+        lastSync: ensureDate(integration.lastSync) ?? new Date(),
+      });
+    case "ERROR":
+      return ok({
+        status: "ERROR",
+        lastSync: ensureDate(integration.lastSync),
+        error: integration.error ?? "An unknown integration error occurred!",
+      });
+
+    default:
+      return ok({ status: "NOT_FOUND" });
+  }
 };
 
 /**
@@ -73,7 +111,6 @@ export const generateSteps = async (
 export const syncCanvasReqsAction = async (
   ctx: RequirementContext,
 ): Promise<Result<void>> => {
-  // TODO: this should eventually return SyncStatus result
   const courseResult = await ctx.canvas.fetchCourses();
   if (!courseResult.ok) return fail(courseResult.error);
 
@@ -104,14 +141,13 @@ export const syncCanvasReqsAction = async (
   return ok(undefined);
 };
 
-export const loadIntegrationTokenAction = async <T>(
+export const loadIntegrationTokenAction = async (
   userid: string,
   provider: TokenProvider,
-  repo: IIntegrationRepository<T>,
-  mapper: (row: T | null) => IntegrationToken
-): Promise<Result<IntegrationToken>> => {
-  const result = await repo.getForProvider(userid, provider)
-  if(!result.ok) return fail(result.error)
+  repo: IIntegrationRepository,
+): Promise<Result<Integration>> => {
+  const result = await repo.getForProvider(userid, provider);
+  if (!result.ok) return fail(result.error);
 
-  return ok(mapper(result.value));
+  return ok(result.value);
 };

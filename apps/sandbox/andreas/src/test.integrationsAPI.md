@@ -46,3 +46,15 @@ xh post :4000/api/integrations/connect \
   token="updated-token-for-testing" \
   provider="CANVAS"
 ```
+
+```
+xh POST :4000/api/requirements/create \
+  title="Test Assignment" \
+  due="$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  source="CANVAS" \
+  steps:=[] \
+  type="assignment" \
+  Origin:http://localhost:3000 \
+  --session=test-pilot
+```
+
