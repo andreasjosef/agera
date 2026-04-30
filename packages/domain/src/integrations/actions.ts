@@ -21,7 +21,6 @@ import type {
   IntegrationToken,
 } from "./types.ts";
 import type { IIntegrationRepository } from "./repository.ts";
-import type { CanvasClientInterface } from "../services/canvas.ts";
 
 /**
  * Persists a 3rd-party provider token for a specific user to the integration repository.
@@ -128,22 +127,24 @@ export const generateSteps = async (
  * Orchestrates the retrieval of Canvas assignments and delegates
  * their creation to the internal llm enrichment requirement pipeline.
  */
-export type CanvasSyncContext = Pick<AppContext, "userId" | "repos"> & {
-  services: Pick<AppContext["services"], "llm"> & {
-    canvas: CanvasClientInterface;
-  };
-};
-
 export const syncCanvasReqsAction = async (
-  ctx: CanvasSyncContext,
+  ctx: AppContext,
 ): Promise<Result<void>> => {
-  const courseResult = await ctx.services.canvas.fetchCourses();
+  const canvas = ctx.services.canvas;
+
+  if (!canvas) {
+    return fail("No Canvas Token found. Connect a canvas account!");
+  }
+
+  const courseResult = await canvas.fetchCourses();
+  console.log("[CANVAS SYNX REQ] course result", courseResult);
   if (!courseResult.ok) return fail(courseResult.error);
 
+  console.log("[CANVAS SYNX REQ] canvas context ", ctx.services.canvas);
+  console.log("[CANVAS SYNX REQ] course result", courseResult);
+
   const assignmentResults = await Promise.all(
-    courseResult.value.map((course) =>
-      ctx.services.canvas.fetchAssignments(course.id),
-    ),
+    courseResult.value.map((course) => canvas.fetchAssignments(course.id)),
   );
 
   const now = new Date();
