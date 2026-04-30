@@ -1,0 +1,16 @@
+import { type LLMClientInterface } from "../services/llm.ts";
+import { type IIntegrationRepository } from "../integrations/repository.ts";
+import { type IRequirementRepository } from "../requirements/repository.ts";
+import { type CanvasClientInterface } from "../services/canvas.ts";
+
+export interface AppContext {
+  userId: string;
+  repos: {
+    requirements: IRequirementRepository;
+    integrations: IIntegrationRepository;
+  };
+  services: {
+    llm: LLMClientInterface;
+    canvas: CanvasClientInterface;
+  };
+}
