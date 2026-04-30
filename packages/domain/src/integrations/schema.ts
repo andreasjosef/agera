@@ -1,8 +1,14 @@
 import { z } from "zod";
 
-export const PROVIDER_VALUES = ["CANVAS"] as const;
+/**
+ * The Integration Domain is responsible for managing the lifecycle of external
+ * connections like Canvas.
+ * */
 
-export const TokenProviderSchema = z.enum(PROVIDER_VALUES);
+//======================================================================
+// Constants
+// =====================================================================
+export const PROVIDER_VALUES = ["CANVAS"] as const;
 export const INTEGRATION_STATUS_VALUES = [
   "CONNECT",
   "SYNCING",
@@ -11,6 +17,15 @@ export const INTEGRATION_STATUS_VALUES = [
   "NOT_FOUND",
 ] as const;
 
+//=======================================================================
+// Enums
+// ======================================================================
+export const IntegrationStatusSchema = z.enum(INTEGRATION_STATUS_VALUES);
+export const TokenProviderSchema = z.enum(PROVIDER_VALUES);
+
+//=======================================================================
+// Schemas
+// ======================================================================
 export const TokenPayloadSchema = z.object({
   token: z.string(),
   provider: TokenProviderSchema,
@@ -19,6 +34,10 @@ export const TokenPayloadSchema = z.object({
 export const IntegrationStatusResponseSchema = z.discriminatedUnion("status", [
   z.object({
     status: z.literal("NOT_FOUND"),
+  }),
+
+  z.object({
+    status: z.literal("CONNECT"),
   }),
 
   z.object({
