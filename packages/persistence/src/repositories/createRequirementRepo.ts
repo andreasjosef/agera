@@ -5,7 +5,6 @@ import { toDbStep, toDomainStep } from "../mappers/steps.ts";
 
 import {
   type IRequirementRepository,
-  type Requirement,
   type NewRequirement,
   type StepGenerationStatus,
   type NewStep,
@@ -24,21 +23,6 @@ import { toDomainRequirement } from "../mappers/requirements.ts";
 export const createRequirementRepo = (db: Db): IRequirementRepository => {
   return {
     save: async (req: NewRequirement, userId: string) => {
-      const integration = await db
-        .select({ id: integrationsTable.id })
-        .from(integrationsTable)
-        .where(
-          and(
-            eq(integrationsTable.user_id, userId),
-            eq(integrationsTable.provider, req.source),
-          ),
-        )
-        .limit(1)
-        .then((res) => res[0]);
-
-      if (!integration || !integration.id)
-        return fail(`Integration for ${req.source} not found for this user!`);
-
       const [row] = await db
         .insert(requirementsTable)
         .values({
@@ -47,7 +31,7 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
           type: req.type,
           source: req.source,
           user_id: userId,
-          integrationId: integration.id,
+          integrationId: req.integrationId,
         })
         .returning();
 
@@ -63,10 +47,7 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
 
       if (!result) return fail("Requirement not found!");
 
-      return ok({
-        ...result,
-        steps: result.steps.map(toDomainStep),
-      });
+      return ok(toDomainRequirement(result, result.steps.map(toDomainStep)));
     },
     updateStatus: async (id: string, status: StepGenerationStatus) => {
       await db
@@ -153,9 +134,7 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
       provider: TokenProvider,
       statuses: StepGenerationStatus[],
     ) => {
-      if (statuses.length === 0) {
-        return fail("Need Statuses to filter by!");
-      }
+      if (statuses.length === 0) return fail("Need Statuses to filter by!");
 
       const rows = await db
         .select({
@@ -163,14 +142,10 @@ export const createRequirementRepo = (db: Db): IRequirementRepository => {
           count: count(),
         })
         .from(requirementsTable)
-        .innerJoin(
-          integrationsTable,
-          eq(requirementsTable.integrationId, integrationsTable.id),
-        )
         .where(
           and(
             eq(requirementsTable.user_id, userId),
-            eq(integrationsTable.provider, provider),
+            eq(requirementsTable.source, provider),
             inArray(requirementsTable.status, statuses),
           ),
         )

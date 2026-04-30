@@ -1,8 +1,8 @@
-import { TokenPayload } from "@ccpilot/domain";
+import { type IntegrationToken } from "@ccpilot/domain";
 import { useState } from "react";
 
 interface CanvasIntegrationFormProps {
-  onSubmit: (data: TokenPayload) => void;
+  onSubmit: (data: IntegrationToken) => void;
   isLoading: boolean;
   connectionError?: string;
 }
@@ -22,7 +22,7 @@ export default function CanvasIntegrationForm({
     const data = {
       token: formData.get("token"),
       provider: "CANVAS",
-    } as TokenPayload;
+    } as IntegrationToken;
 
     if (!data.token) {
       setErrorMessage("Connection token must not be empty");

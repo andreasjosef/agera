@@ -11,6 +11,6 @@ export interface AppContext {
   };
   services: {
     llm: LLMClientInterface;
-    canvas: CanvasClientInterface;
+    canvas: CanvasClientInterface | null;
   };
 }

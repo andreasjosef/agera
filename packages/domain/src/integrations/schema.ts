@@ -8,7 +8,7 @@ import { z } from "zod";
 //======================================================================
 // Constants
 // =====================================================================
-export const PROVIDER_VALUES = ["CANVAS"] as const;
+export const PROVIDER_VALUES = ["CANVAS", "MANUAL"] as const;
 export const INTEGRATION_STATUS_VALUES = [
   "CONNECT",
   "SYNCING",
@@ -26,7 +26,7 @@ export const TokenProviderSchema = z.enum(PROVIDER_VALUES);
 //=======================================================================
 // Schemas
 // ======================================================================
-export const TokenPayloadSchema = z.object({
+export const IntegrationTokenSchema = z.object({
   token: z.string(),
   provider: TokenProviderSchema,
 });

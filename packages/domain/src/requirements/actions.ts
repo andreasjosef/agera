@@ -3,13 +3,13 @@ import { fail, ok, type Result } from "../shared/result.ts";
 import type {
   Requirement,
   NewRequirement,
-  RequirementContext,
   SyncStatusResponse,
 } from "./types.ts";
 
 import type { IRequirementRepository } from "./repository.ts";
 import { generateSteps } from "../integrations/actions.ts";
 import { type TokenProvider } from "../integrations/types.ts";
+import { type AppContext } from "../shared/context.ts";
 
 /**
  * Retrieves the full collection of requirements for a specific user.
@@ -24,21 +24,30 @@ export const getRequirements = async (
 /**
  * Atomic primitive to persist a requirement to the database.
  */
+export type SaveRequirementContext = Pick<AppContext, "userId"> & {
+  repos: Pick<AppContext["repos"], "requirements">;
+};
+
 export const saveRequirement = async (
-  ctx: Pick<RequirementContext, "repo" | "userId">,
+  ctx: SaveRequirementContext,
   req: NewRequirement,
 ): Promise<Result<Requirement>> => {
   // TODO: some validation will have to happen here like
   //  - does this already exist in the db
-  return ctx.repo.save(req, ctx.userId);
+  return ctx.repos.requirements.save(req, ctx.userId);
 };
 
 /**
  * High-level orchestrator that persists a requirement and initiates
  * the asynchronous AI enrichment pipeline.
  */
+export type EnrichContext = Pick<AppContext, "userId"> & {
+  repos: Pick<AppContext["repos"], "requirements">;
+  services: Pick<AppContext["services"], "llm">;
+};
+
 export const createEnrichedRequirement = async (
-  ctx: RequirementContext,
+  ctx: EnrichContext,
   req: NewRequirement,
   description: string,
 ): Promise<Result<Requirement>> => {
@@ -108,23 +117,27 @@ export const getSyncStatusAction = async (
  * Handles transitions: RAW -> GENERATING -> [COMPLETE | ERROR]
  */
 async function processReqLLM(
-  ctx: RequirementContext,
+  ctx: EnrichContext,
   id: string,
   description: string,
 ) {
-  await ctx.repo.updateStatus(id, "GENERATING");
+  await ctx.repos.requirements.updateStatus(id, "GENERATING");
 
   console.log("[DOMAIN ACTTION] initiate step generation for: ", id);
-  const llmResult = await generateSteps(ctx.llm, description);
+  const llmResult = await generateSteps(ctx.services.llm, description);
 
   if (llmResult.ok) {
-    await ctx.repo.updateSteps(id, llmResult.value.steps, "COMPLETE");
+    await ctx.repos.requirements.updateSteps(
+      id,
+      llmResult.value.steps,
+      "COMPLETE",
+    );
     console.log(
       "[STEP GEN] completed for: ",
       llmResult.value.requirement_summary,
     );
   } else {
-    await ctx.repo.updateStatus(id, "ERROR");
+    await ctx.repos.requirements.updateStatus(id, "ERROR");
     console.log("[STEP GEN] error: ", llmResult.error);
   }
 }

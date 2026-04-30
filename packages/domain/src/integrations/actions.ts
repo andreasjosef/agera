@@ -1,13 +1,14 @@
 import { isAfter } from "date-fns";
 
 import { type Result, ok, fail } from "../shared/result.ts";
+import { type AppContext } from "../shared/context.ts";
+
 import { StepsLLMResponseSchema } from "../requirements/schema.ts";
 import { createEnrichedRequirement } from "../requirements/actions.ts";
 
 import { STEP_GEN_SYS_PROMPT_REASON_SE_V1 } from "../requirements/prompts.ts";
 
 import type {
-  RequirementContext,
   NewRequirement,
   StepsLLMResponse,
 } from "../requirements/types.ts";
@@ -16,10 +17,11 @@ import { type LLMClientInterface } from "../services/llm.ts";
 
 import type {
   IntegrationStatusResponse,
-  Integration,
   TokenProvider,
+  IntegrationToken,
 } from "./types.ts";
 import type { IIntegrationRepository } from "./repository.ts";
+import type { CanvasClientInterface } from "../services/canvas.ts";
 
 /**
  * Persists a 3rd-party provider token for a specific user to the integration repository.
@@ -90,7 +92,25 @@ export const getIntegrationStatusAction = async (
 };
 
 /**
- * Utilizes the LLM service to derive structured steps and summaries
+ * Orchestrates loading a specific integration token.
+ */
+export const loadIntegrationTokenAction = async (
+  userid: string,
+  provider: TokenProvider,
+  repo: IIntegrationRepository,
+): Promise<Result<IntegrationToken>> => {
+  const result = await repo.getForProvider(userid, provider);
+
+  if (!result.ok) return fail(result.error);
+
+  return ok({
+    token: result.value.token,
+    provider: result.value.provider,
+  });
+};
+
+/**
+ * Utilizes the LLM service to generate structured steps and summaries
  * from a raw requirement description.
  */
 export const generateSteps = async (
@@ -108,14 +128,22 @@ export const generateSteps = async (
  * Orchestrates the retrieval of Canvas assignments and delegates
  * their creation to the internal llm enrichment requirement pipeline.
  */
+export type CanvasSyncContext = Pick<AppContext, "userId" | "repos"> & {
+  services: Pick<AppContext["services"], "llm"> & {
+    canvas: CanvasClientInterface;
+  };
+};
+
 export const syncCanvasReqsAction = async (
-  ctx: RequirementContext,
+  ctx: CanvasSyncContext,
 ): Promise<Result<void>> => {
-  const courseResult = await ctx.canvas.fetchCourses();
+  const courseResult = await ctx.services.canvas.fetchCourses();
   if (!courseResult.ok) return fail(courseResult.error);
 
   const assignmentResults = await Promise.all(
-    courseResult.value.map((course) => ctx.canvas.fetchAssignments(course.id)),
+    courseResult.value.map((course) =>
+      ctx.services.canvas.fetchAssignments(course.id),
+    ),
   );
 
   const now = new Date();
@@ -139,15 +167,4 @@ export const syncCanvasReqsAction = async (
   }
 
   return ok(undefined);
-};
-
-export const loadIntegrationTokenAction = async (
-  userid: string,
-  provider: TokenProvider,
-  repo: IIntegrationRepository,
-): Promise<Result<Integration>> => {
-  const result = await repo.getForProvider(userid, provider);
-  if (!result.ok) return fail(result.error);
-
-  return ok(result.value);
 };

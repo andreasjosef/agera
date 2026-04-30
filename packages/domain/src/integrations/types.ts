@@ -1,13 +1,13 @@
 import z from "zod";
 
 import {
-  TokenPayloadSchema,
+  IntegrationTokenSchema,
   TokenProviderSchema,
   IntegrationStatusResponseSchema,
   IntegrationStatusSchema,
 } from "./schema.ts";
 
-export type TokenPayload = z.infer<typeof TokenPayloadSchema>;
+export type IntegrationToken = z.infer<typeof IntegrationTokenSchema>;
 export type TokenProvider = z.infer<typeof TokenProviderSchema>;
 export type IntegrationStatus = z.infer<typeof IntegrationStatusSchema>;
 
@@ -22,4 +22,3 @@ export type Integration = {
   status: IntegrationStatus;
   error?: string;
 };
-
