@@ -1,0 +1,5 @@
+[REASONING PROTOCOL]
+Innan du genererar JSON, gör en intern analys av följande:
+1. Identifiera "Dolda Beroenden": Vilka små, osynliga steg måste ske för att huvudmålet ska uppnås?
+2. Analysera "Kognitiv Last": Var är risken för analysparalys störst? Dela upp dessa punkter ytterligare.
+3. Säkerställ "Outcome-First": Kontrollera att varje steg beskriver ett TILLSTÅND, inte en instruktion men kalla inte outcomes i ditt svar 'Uppnå Tillståndet' eller liknande.
