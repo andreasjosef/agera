@@ -4,7 +4,7 @@ import {
   type StepsLLMResponse,
   StepsLLMResponseSchema,
 } from "../../requirements/definitions.ts";
-import { STEP_GEN_SYS_PROMPT_REASON_SE_V1 } from "../../requirements/index.ts";
+import { assembleSystemPrompt } from "../prompts/loader.ts";
 
 /**
  * Utilizes the LLM service to generate structured steps and summaries
@@ -14,8 +14,18 @@ export const generateSteps = async (
   llm: LLMClientInterface,
   description: string,
 ): Promise<Result<StepsLLMResponse>> => {
+  const systemPrompt = assembleSystemPrompt([
+    "core/identity",
+    "core/npf-logic",
+    "templates/initial-sync",
+    "templates/fallback",
+    "core/output-rules",
+    "json/schema.v1",
+    "core/style",
+  ]);
+
   return llm.complete(
-    STEP_GEN_SYS_PROMPT_REASON_SE_V1,
+    systemPrompt,
     `Here is the description: ${description}`,
     StepsLLMResponseSchema,
   );

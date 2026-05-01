@@ -53,5 +53,5 @@ export const getSyncStatusAction = async (
     });
 
   // TODO: This should be IDLE but then I need to update the Integration Status before that to syncing or so
-  return ok({ status: "INITIALIZED", stats: { active: 0, total: 0 } });
+  return ok({ status: "IDLE", stats: { active: 0, total: 0 } });
 };

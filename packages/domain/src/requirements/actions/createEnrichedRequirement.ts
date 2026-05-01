@@ -2,7 +2,7 @@ import { type AppContext } from "../../shared/context.ts";
 import { type Result } from "../../shared/result.ts";
 import type { NewRequirement, Requirement } from "../definitions.ts";
 import { saveRequirement } from "./saveRequirement.ts";
-import { generateSteps } from "../../integrations/index.ts";
+import { generateSteps } from "./generateSteps.ts";
 
 export type EnrichContext = Pick<AppContext, "userId"> & {
   repos: Pick<AppContext["repos"], "requirements">;
