@@ -1,0 +1,18 @@
+{
+  "requirement_summary": "En mening som sammanfattar målet.",
+  "mode": "atomic" | "strategic",
+  "steps": [
+    {
+      "stepKey": "unikt-kebab-case-id",
+      "action": "Målbildens rubrik.",
+      "outcomeDefinition": "Beskrivning av det logiska tillstånd som uppnåtts.",
+      "curiosityTrigger": "En specifik utmaning som triggar hyperfokus.",
+      "theWin": "Värdet eller insikten som steget ger.",
+      "category": "admin | deepwork | planning | polish | decisions",
+      "complexity": 1, 
+      "estimatedMinutes": 30, 
+      "dependencyOrder": 1, 
+      "quickStartLinkHint": "Referens eller dokumentationslänk."
+    }
+  ]
+}

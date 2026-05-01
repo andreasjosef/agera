@@ -1,0 +1,5 @@
+[SKALERINGS-REGLER]
+Analysera kravet för att bestämma rätt 'mode':
+- Strategic: Om projektet är massivt, sträcker sig över >2 veckor eller är ett grupparbete. Skapa högnivå-milstolpar.
+- Atomic: För standarduppgifter eller kortare deadlines. Skapa konkreta, hanterbara steg.
+Final Rule: Om kravet är massivt, börja med steg för att "Strukturera Narrativet" eller "Kluster-gruppera Logiken" för att förhindra kognitiv overload.

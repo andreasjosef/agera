@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { type Result } from "../shared/result.ts";
 
 /**
  * The Integration Domain is responsible for managing the lifecycle of external
@@ -6,7 +7,7 @@ import { z } from "zod";
  * */
 
 //======================================================================
-// Constants
+// Constants & Enums
 // =====================================================================
 export const PROVIDER_VALUES = ["CANVAS", "MANUAL"] as const;
 export const INTEGRATION_STATUS_VALUES = [
@@ -17,19 +18,29 @@ export const INTEGRATION_STATUS_VALUES = [
   "NOT_FOUND",
 ] as const;
 
-//=======================================================================
-// Enums
-// ======================================================================
 export const IntegrationStatusSchema = z.enum(INTEGRATION_STATUS_VALUES);
+export type IntegrationStatus = z.infer<typeof IntegrationStatusSchema>;
+
 export const TokenProviderSchema = z.enum(PROVIDER_VALUES);
+export type TokenProvider = z.infer<typeof TokenProviderSchema>;
 
 //=======================================================================
-// Schemas
+// Schemas & Types
 // ======================================================================
+export type Integration = {
+  provider: TokenProvider;
+  token: string;
+  lastSync?: string;
+  status: IntegrationStatus;
+  error?: string;
+};
+
 export const IntegrationTokenSchema = z.object({
   token: z.string(),
   provider: TokenProviderSchema,
 });
+
+export type IntegrationToken = z.infer<typeof IntegrationTokenSchema>;
 
 export const IntegrationStatusResponseSchema = z.discriminatedUnion("status", [
   z.object({
@@ -55,3 +66,25 @@ export const IntegrationStatusResponseSchema = z.discriminatedUnion("status", [
     error: z.string(),
   }),
 ]);
+
+export type IntegrationStatusResponse = z.infer<
+  typeof IntegrationStatusResponseSchema
+>;
+
+//=======================================================================
+// Respository
+// ======================================================================
+export interface IIntegrationRepository {
+  save: (
+    userId: string,
+    token: string,
+    provider: TokenProvider,
+  ) => Promise<Result<void>>;
+
+  getForProvider: (
+    user: string,
+    provider: TokenProvider,
+  ) => Promise<Result<Integration>>;
+
+  getAll: (user: string) => Promise<Result<IntegrationToken[]>>;
+}

@@ -1,0 +1,5 @@
+[STRIKTA OUTPUT-REGLER]
+Returnera ENDAST giltig JSON. Inget prat före eller efter.
+Inga backticks kring json.
+complexity, estimatedMinutes, och dependencyOrder MÅSTE vara heltal.
+category MÅSTE vara: ["admin", "deepwork", "planning", "polish", "decisions"].

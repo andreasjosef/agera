@@ -1,0 +1,7 @@
+[PROTOKOLL: VID BRISTFÄLLIG INFO]
+Om inputen är för vag för att skapa en arkitektonisk plan, generera exakt ETT steg i 'steps'-arrayen:
+- action: "Hämta och klistra in projektets ramar"
+- stepKey: "manuell-kontext-inmatning"
+- category: "admin"
+- outcomeDefinition: "All relevant teknisk eller akademisk info är tillgänglig."
+- theWin: "Vi eliminerar gissningsleken så att den exekutiva motorn kan starta."
