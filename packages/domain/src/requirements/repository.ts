@@ -5,13 +5,21 @@ import type {
   NewRequirement,
   StepGenerationStatus,
   NewStep,
-} from "./types.ts";
-
+} from "./definitions.ts";
+/**
+ * The IRequirementRepository defines the contract between the domain
+ * and the persistence layer. Every implementation must satisfy these methods.
+ */
 export interface IRequirementRepository {
   /**
    * Persists a new requirements or updates an existing one
    * **/
   save: (req: NewRequirement, userId: string) => Promise<Result<Requirement>>;
+
+  /**
+   * Retrieves a single requirement from the persistence layer by its ID
+   * */
+  findById: (reqId: string) => Promise<Result<Requirement>>;
 
   /**
    * Retrieves all the requirements from the persistence layer
@@ -31,6 +39,8 @@ export interface IRequirementRepository {
     timeWindowMinutes: number,
   ) => Promise<Result<Requirement[]>>;
 
+  // ===== Stats =======
+
   /**
    * Gets the total count of requirements for a given provider
    * */
@@ -49,10 +59,7 @@ export interface IRequirementRepository {
     statuses: StepGenerationStatus[],
   ) => Promise<Result<Record<StepGenerationStatus, number>>>;
 
-  /**
-   * Retrieves a single requirement from the persistence layer by its ID
-   * */
-  findById: (reqId: string) => Promise<Result<Requirement>>;
+  // ===== Updates =======
 
   /**
    * Atomically updates the generation status of a requirement

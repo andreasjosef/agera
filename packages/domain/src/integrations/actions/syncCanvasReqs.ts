@@ -1,8 +1,8 @@
 import { isAfter } from "date-fns";
 import { type Result, fail, ok } from "../../shared/result.ts";
 import { type AppContext } from "../../shared/context.ts";
-import { type NewRequirement } from "../../requirements/types.ts";
-import { createEnrichedRequirement } from "../../requirements/actions.ts";
+import { type NewRequirement } from "../../requirements/definitions.ts";
+import { createEnrichedRequirement } from "../../requirements/index.ts";
 
 /**
  * Orchestrates the retrieval of Canvas assignments and delegates

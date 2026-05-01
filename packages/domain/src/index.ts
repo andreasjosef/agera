@@ -4,11 +4,7 @@ export * from "./shared/constants.ts";
 export * from "./shared/context.ts";
 
 // Requirements
-export * from "./requirements/types.ts";
-export * from "./requirements/schema.ts";
-export * from "./requirements/repository.ts";
-export * from "./requirements/actions.ts";
-export * from "./requirements/prompts.ts";
+export * from "./requirements/index.ts";
 
 // Users
 export * from "./users/schema.ts";
