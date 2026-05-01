@@ -1,4 +1,4 @@
-import { type TokenProvider } from "../integrations/types.ts";
+import { type TokenProvider } from "../integrations/definitions.ts";
 import { type Result } from "../shared/result.ts";
 import type {
   Requirement,

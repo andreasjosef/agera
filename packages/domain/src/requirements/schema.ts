@@ -6,7 +6,7 @@ import {
   StepGenerationStatusValues,
   SyncStatusValues,
 } from "../shared/constants.ts";
-import { TokenProviderSchema } from "../integrations/schema.ts";
+import { TokenProviderSchema } from "../integrations/definitions.ts";
 
 export const RequirementTypeSchema = z.enum(RequirementTypeValues);
 export const RequirementSourceSchema = z.enum(RequirementSourceValues);

@@ -8,7 +8,7 @@ import type {
 
 import type { IRequirementRepository } from "./repository.ts";
 import { generateSteps } from "../integrations/actions.ts";
-import { type TokenProvider } from "../integrations/types.ts";
+import { type TokenProvider } from "../integrations/definitions.ts";
 import { type AppContext } from "../shared/context.ts";
 
 /**
