@@ -30,7 +30,7 @@ export type TokenProvider = z.infer<typeof TokenProviderSchema>;
 export type Integration = {
   provider: TokenProvider;
   token: string;
-  lastSync?: string;
+  lastSync?: Date;
   status: IntegrationStatus;
   error?: string;
 };

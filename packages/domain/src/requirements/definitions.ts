@@ -35,13 +35,15 @@ export const SyncStatusValues = [
 export const SyncStatusSchema = z.enum(SyncStatusValues);
 export type SyncStatus = z.infer<typeof SyncStatusSchema>;
 
-export const StepTypeSchema = z.enum([
+export const StepTypeValues = [
   "admin",
   "deepwork",
+  "research",
   "planning",
   "polish",
   "decisions",
-]);
+] as const;
+export const StepTypeSchema = z.enum(StepTypeValues);
 
 //======================================================================
 // Core Entities
