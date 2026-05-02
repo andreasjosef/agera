@@ -1,10 +1,33 @@
-import { type Step, StepSchema, type NewStep } from "@ccpilot/domain";
-import type { InferSelectModel, InferInsertModel } from "drizzle-orm";
+import {
+  type Step,
+  type NewStep,
+  type Requirement,
+  StepSchema,
+} from "@ccpilot/domain";
+import { type InferSelectModel, type InferInsertModel } from "drizzle-orm";
+import { requirementsTable } from "../db/schema.ts";
 import { stepsTable } from "../db/schema.ts";
 
-type StepRow = InferSelectModel<typeof stepsTable>;
+type RequirementRow = InferSelectModel<typeof requirementsTable>;
+type StepsRow = InferSelectModel<typeof stepsTable>;
 
-export const toDomainStep = (row: StepRow): Step => {
+export const toDomainRequirement = (
+  dbRow: RequirementRow,
+  steps: Step[] = [],
+): Requirement => {
+  return {
+    id: dbRow.id,
+    title: dbRow.title,
+    due: dbRow.due,
+    type: dbRow.type,
+    steps: steps,
+    source: dbRow.source,
+    status: dbRow.status,
+    updatedAt: dbRow.updatedAt,
+  };
+};
+
+export const toDomainStep = (row: StepsRow): Step => {
   return StepSchema.parse({
     id: row.id,
     stepKey: row.stepKey,
