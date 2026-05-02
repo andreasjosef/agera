@@ -6,8 +6,8 @@ import { ok } from "@ccpilot/domain";
 
 import { authHandlerNode } from "@ccpilot/auth-betterauth";
 
-import requirementsRouter from "./routes/requirement.routes.ts";
-import integrationsRouter from "./routes/integrations.routes.ts";
+import requirementsRouter from "./routes/requirements/router.ts";
+import integrationsRouter from "./routes/integrations/router.ts";
 
 dotenv.config();
 
@@ -34,7 +34,7 @@ app.use("/api/requirements", requirementsRouter);
 app.use("/api/integrations", integrationsRouter);
 
 app.listen(PORT, () =>
-  console.log(`Server running on http://localhost:${PORT}`),
+  console.log(`[CCPILOT API] running on http://localhost:${PORT}`),
 );
 
 export default app;
