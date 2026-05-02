@@ -1,4 +1,3 @@
-import { createCanvasClient } from "@ccpilot/lms-canvas";
 import {
   createIntegrationsRepository,
   createRequirementRepo,
@@ -6,7 +5,6 @@ import {
 } from "@ccpilot/persistence";
 import { createLLMClient } from "@ccpilot/llm-client";
 
-export const canvasClient = createCanvasClient(process.env.CANVAS_TOKEN!);
-export const reqRepo = createRequirementRepo(db);
+export const reqRepo = createRequirementRepo();
 export const integrationsRepo = createIntegrationsRepository(db);
 export const openrouterClient = createLLMClient();
