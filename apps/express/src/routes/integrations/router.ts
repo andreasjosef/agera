@@ -13,7 +13,7 @@ integrationsRouter.use(appContext);
 
 integrationsRouter.get("/:provider", handlers.getIntegration);
 integrationsRouter.post(
-  "/connect/canvas",
+  "/connect",
   validateReq(IntegrationTokenSchema),
   handlers.connectCanvas,
 );
