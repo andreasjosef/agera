@@ -1,9 +1,9 @@
-import { fail, type LLMClientInterface, ok } from "@ccpilot/domain";
-import { safePostItem, zodRawParser } from "@ccpilot/ts-fetch";
+import { z } from "zod";
 import path from "path";
 import dotenv from "dotenv";
+import { fail, type LLMClientInterface, ok } from "@ccpilot/domain";
+import { safePostItem, zodRawParser } from "@ccpilot/ts-fetch";
 import { LLMResponseSchema, type LLMRequest } from "./schema.ts";
-import { z } from "zod";
 
 const __dirname = import.meta.dirname;
 dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
@@ -20,14 +20,16 @@ export const createLLMClient = (): LLMClientInterface => {
       const payload: LLMRequest = {
         model: "openrouter/free",
         //model: "minimax/minimax-m2.7",
+        //model: "google/gemini-2.5-flash-lite",
+        //model: "openrouter/auto",
         messages: [
           { role: "system", content: system },
           { role: "user", content: user },
         ],
         response_format: { type: "json_object" },
-        // extra_body: {
-        //   reasoning_split: true,
-        // },
+        extra_body: {
+          reasoning_split: true,
+        },
       };
 
       const result = await safePostItem(
@@ -48,15 +50,29 @@ export const createLLMClient = (): LLMClientInterface => {
       }
 
       const choicesContent = result.value.choices[0].message.content;
-      const validated = schema.safeParse(JSON.parse(choicesContent));
 
-      if (!validated.success) {
-        console.log(z.prettifyError(validated.error));
+      try {
+        const sanitized = choicesContent
+          .replace(/```json/g, "")
+          .replace(/```/g, "")
+          .trim();
 
-        return fail("Failed to parse LLM choices");
+        const parsed = JSON.parse(sanitized);
+        const validated = schema.safeParse(parsed);
+
+        if (!validated.success) {
+          console.log(
+            "[LLM CLIENT] response error: ",
+            z.prettifyError(validated.error),
+          );
+          return fail("LLM response did not match Schema");
+        }
+
+        return ok(validated.data);
+      } catch (err) {
+        console.log("[LLM CLIENT] caught malformed json crash: ", err);
+        return fail("LLM returned invalid json");
       }
-
-      return ok(validated.data);
     },
   };
 };

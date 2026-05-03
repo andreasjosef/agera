@@ -81,6 +81,13 @@ export interface IIntegrationRepository {
     provider: TokenProvider,
   ) => Promise<Result<void>>;
 
+  updateStatus: (
+    userId: string,
+    provider: TokenProvider,
+    status: IntegrationStatus,
+    errorMessage?: string,
+  ) => Promise<Result<void>>;
+
   getForProvider: (
     user: string,
     provider: TokenProvider,
