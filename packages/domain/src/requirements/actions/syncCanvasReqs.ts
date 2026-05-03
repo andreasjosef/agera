@@ -11,6 +11,7 @@ import { createEnrichedRequirement } from "../../requirements/index.ts";
 export const syncCanvasReqsAction = async (
   ctx: AppContext,
 ): Promise<Result<void>> => {
+  await ctx.repos.integrations.updateStatus(ctx.userId, "CANVAS", "SYNCING");
   const canvas = ctx.services.canvas;
 
   if (!canvas) {
@@ -27,6 +28,8 @@ export const syncCanvasReqsAction = async (
   const assignmentResults = await Promise.all(
     courseResult.value.map((course) => canvas.fetchAssignments(course.id)),
   );
+
+  await ctx.repos.integrations.updateStatus(ctx.userId, "CANVAS", "STABLE");
 
   const now = new Date();
 

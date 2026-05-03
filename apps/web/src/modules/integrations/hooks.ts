@@ -40,7 +40,10 @@ export const useSyncPolling = (
   useEffect(() => {
     if (!pollingData) return;
 
-    if (pollingData.status === "PROCESSING") {
+    if (
+      pollingData.status === "PROCESSING" ||
+      pollingData.status === "INITIALIZED"
+    ) {
       queryClient.invalidateQueries({ queryKey: ["requirements"] });
     }
 
@@ -48,7 +51,7 @@ export const useSyncPolling = (
       queryClient.invalidateQueries({ queryKey: ["requirements"] });
       queryClient.invalidateQueries({ queryKey: ["integrations", "status"] });
     }
-  }, [pollingData?.status, queryClient]);
+  }, [pollingData, queryClient]);
 
   return { pollingData, refetch };
 };

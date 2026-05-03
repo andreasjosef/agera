@@ -1,5 +1,8 @@
 import { type Result, fail, ok } from "../../shared/result.ts";
-import { type TokenProvider } from "../../integrations/index.ts";
+import {
+  type IIntegrationRepository,
+  type TokenProvider,
+} from "../../integrations/index.ts";
 import { type IRequirementRepository } from "../repository.ts";
 import { type SyncStatusResponse } from "../definitions.ts";
 
@@ -8,14 +11,21 @@ import { type SyncStatusResponse } from "../definitions.ts";
  * and derive aggregate sync status
  * */
 export const getSyncStatusAction = async (
-  repo: IRequirementRepository,
+  reqRepo: IRequirementRepository,
+  intRepo: IIntegrationRepository,
   userId: string,
   provider: TokenProvider,
 ): Promise<Result<SyncStatusResponse>> => {
-  const activeStatsResult = await repo.getCountsByStatuses(userId, provider, [
-    "RAW",
-    "GENERATING",
-  ]);
+  const integrationResult = await intRepo.getForProvider(userId, provider);
+  if (integrationResult.ok && integrationResult.value.status === "SYNCING") {
+    return ok({ status: "PROCESSING", stats: { active: 0, total: 0 } });
+  }
+
+  const activeStatsResult = await reqRepo.getCountsByStatuses(
+    userId,
+    provider,
+    ["RAW", "GENERATING"],
+  );
 
   if (!activeStatsResult.ok) {
     console.log("No active stats!");
@@ -23,7 +33,7 @@ export const getSyncStatusAction = async (
   }
   const activeStats = activeStatsResult.value;
 
-  const totalCountResult = await repo.getTotalCount(userId, provider);
+  const totalCountResult = await reqRepo.getTotalCount(userId, provider);
   if (!totalCountResult.ok) return fail(`Failed to load count for ${provider}`);
 
   const totalCount = totalCountResult.value;

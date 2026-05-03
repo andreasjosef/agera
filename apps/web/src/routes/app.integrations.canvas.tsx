@@ -38,17 +38,17 @@ function CanvasIntegrationPage() {
         />
       )}
 
-      {integration?.status === "STABLE" ||
-        (integration?.status === "SYNCING" && (
-          <div className="bg-neutral-200 p-4">
-            <p>
-              Status:
-              <span className="text-green-500 font-semibold">Stable</span>
-            </p>
-            <p>Last Sync: {integration.lastSync?.toLocaleString()}</p>
-            <p>Sync Status: {pollingData?.status}</p>
-          </div>
-        ))}
+      {(integration?.status === "STABLE" ||
+        integration?.status === "SYNCING") && (
+        <div className="bg-neutral-200 p-4">
+          <p>
+            Status:
+            <span className="text-green-500 font-semibold">Stable</span>
+          </p>
+          <p>Last Sync: {integration.lastSync?.toLocaleString()}</p>
+          <p>Sync Status: {pollingData?.status}</p>
+        </div>
+      )}
 
       <h3 className="text-2xl font-semibold my-1">Synced Requirements</h3>
       {requirements?.map((item) => (

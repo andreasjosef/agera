@@ -20,6 +20,7 @@ export const getSyncStatus: ContextHandler = async (req: Request, res) => {
 
   const syncStatusResult = await getSyncStatusAction(
     ctx.repos.requirements,
+    ctx.repos.integrations,
     ctx.userId,
     validateProvider.data,
   );

@@ -21,7 +21,7 @@ export const integrationsTable = t.pgTable(
     encryptedToken: t.text("encrypted_token").notNull(),
     // TODO: this should actually be CONNECT but need to do a whole session
     // to figure out what races what here.
-    status: integrationStatusEnum().default("SYNCING").notNull(),
+    status: integrationStatusEnum().default("CONNECT").notNull(),
     updatedAt: t
       .timestamp("updated_at")
       .defaultNow()
