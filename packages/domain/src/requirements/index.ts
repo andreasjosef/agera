@@ -9,3 +9,4 @@ export * from "./actions/saveRequirement.ts";
 export * from "./actions/createEnrichedRequirement.ts";
 export * from "./actions/syncCanvasReqs.ts";
 export * from "./actions/generateSteps.ts";
+export * from "./actions/getNextStep.ts";
