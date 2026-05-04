@@ -96,6 +96,13 @@ export const NewStepSchema = StepSchema.omit({
 });
 export type NewStep = Omit<Step, "id">;
 
+/** Used by the ef-engine */
+export const ScoredStepSchema = StepSchema.extend({
+  priorityScore: z.number(),
+  effectiveDeadline: z.coerce.date(),
+});
+export type ScoredStep = z.infer<typeof ScoredStepSchema>;
+
 /** Used when ingesting a new requirement from a sync source */
 export const NewRequirementSchema = RequirementSchema.omit({
   id: true,

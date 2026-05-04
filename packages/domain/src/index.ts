@@ -18,3 +18,4 @@ export * from "./integrations/index.ts";
 export * from "./services/llm.ts";
 export * from "./services/canvas.ts";
 export * from "./services/auth.ts";
+export * from "./services/ef-engine.ts";
