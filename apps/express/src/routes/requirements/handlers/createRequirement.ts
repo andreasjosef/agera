@@ -16,7 +16,7 @@ export const createRequirement: ContextHandler = async (req, res) => {
 
   const newRequirement: NewRequirement = {
     title: "Test Mock",
-    due: new Date().toString(),
+    due: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toString(),
     source: "MANUAL",
     steps: [],
     type: "assignment",
