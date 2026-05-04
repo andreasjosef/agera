@@ -41,7 +41,7 @@ export function calculatePriority(
     const msToDeadline = effectiveDeadline.getTime() - now.getTime();
     const hoursToDeadline = msToDeadline / (1000 * 60 * 60);
 
-    // Continous decay function
+    // Continous decay function <- Thanks AI
     let pressure = 0;
     if (hoursToDeadline <= 0) {
       pressure = 1.0; // Overdue = Maximum Pressure
@@ -49,19 +49,9 @@ export function calculatePriority(
       // Linear scaling within the active horizon
       pressure = 1 - hoursToDeadline / horizonHours;
     } else {
-      // 📉 Logarithmic/Inverse decay for the "Calendar Horizon"
       // This ensures a 0.01 vs 0.001 difference to break ties in favor of the closer task
       pressure = horizonHours / (hoursToDeadline * 10);
     }
-    // const rawPressure = 1 - hoursToDeadline / horizonHours;
-    // const pressure = Math.max(
-    //   0.0001 / (hoursToDeadline / 24),
-    //   Math.min(1, rawPressure),
-    // );
-    // const pressure = Math.max(
-    //   0,
-    //   Math.min(1, 1 - hoursToDeadline / horizonHours),
-    // );
 
     // calcute the utility ie intereste vs. complexity and apply energy gate
     const interest = 5; // hard coded for now .. need to fix that with llm
