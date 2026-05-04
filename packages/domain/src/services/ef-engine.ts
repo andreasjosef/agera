@@ -73,6 +73,7 @@ export function calculatePriority(
       ...nextStep,
       priorityScore: priorityScoreFinal,
       effectiveDeadline,
+      requirementTitle: req.title,
     } as ScoredStep;
   });
 
