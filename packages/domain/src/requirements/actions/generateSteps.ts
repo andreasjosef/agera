@@ -2,6 +2,7 @@ import { type Result } from "../../shared/result.ts";
 import { type LLMClientInterface } from "../../services/llm.ts";
 import {
   type StepsLLMResponse,
+  type RequirementType,
   StepsLLMResponseSchema,
 } from "../../requirements/definitions.ts";
 import { assembleSystemPrompt } from "../prompts/loader.ts";
@@ -13,11 +14,15 @@ import { assembleSystemPrompt } from "../prompts/loader.ts";
 export const generateSteps = async (
   llm: LLMClientInterface,
   description: string,
+  type: RequirementType,
 ): Promise<Result<StepsLLMResponse>> => {
+  const template =
+    type === "message" ? "templates/message-triage" : "templates/initial-sync";
+
   const systemPrompt = assembleSystemPrompt([
     "core/identity",
     "core/npf-logic",
-    "templates/initial-sync",
+    template,
     "templates/fallback",
     "core/output-rules",
     "json/schema.v1",

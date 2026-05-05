@@ -6,8 +6,13 @@ import { TokenProviderSchema } from "../integrations/definitions.ts";
 // Defines the states and taxonomies for the Requirement domain
 //======================================================================
 
-export const RequirementTypeValues = ["assignment", "lecture"] as const;
+export const RequirementTypeValues = [
+  "assignment",
+  "lecture",
+  "message",
+] as const;
 export const RequirementTypeSchema = z.enum(RequirementTypeValues);
+export type RequirementType = z.infer<typeof RequirementTypeSchema>;
 
 export const RequirementSourceValues = ["canvas"] as const;
 export const RequirementSourceSchema = z.enum(RequirementSourceValues);
