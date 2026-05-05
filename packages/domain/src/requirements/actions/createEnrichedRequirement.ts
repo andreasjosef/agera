@@ -1,6 +1,10 @@
 import { type AppContext } from "../../shared/context.ts";
 import { type Result } from "../../shared/result.ts";
-import type { NewRequirement, Requirement } from "../definitions.ts";
+import type {
+  NewRequirement,
+  Requirement,
+  RequirementType,
+} from "../definitions.ts";
 import { saveRequirement } from "./saveRequirement.ts";
 import { generateSteps } from "./generateSteps.ts";
 
@@ -22,7 +26,7 @@ export const createEnrichedRequirement = async (
   if (!result.ok) return result;
 
   // Start pipleine and move on. This keeps the AI lifecycle sync/save responsive
-  processReqLLM(ctx, result.value.id, description);
+  processReqLLM(ctx, result.value.id, description, req.type);
 
   return result;
 };
@@ -35,11 +39,12 @@ async function processReqLLM(
   ctx: EnrichContext,
   id: string,
   description: string,
+  type: RequirementType,
 ) {
   await ctx.repos.requirements.updateStatus(id, "GENERATING");
 
   console.log("[DOMAIN ACTTION] initiate step generation for: ", id);
-  const llmResult = await generateSteps(ctx.services.llm, description);
+  const llmResult = await generateSteps(ctx.services.llm, description, type);
 
   if (llmResult.ok) {
     await ctx.repos.requirements.updateSteps(

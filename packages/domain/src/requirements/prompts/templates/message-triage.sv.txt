@@ -1,0 +1,10 @@
+[MESSAGE-TRIAGE-REGLER]
+Detta mode används för att filtrera "brus" från informella meddelanden (Slack, e-post, Discord) där fokus ligger på snabb triage och schema.
+Signal-to-Noise: Ignorera hälsningar, småprat och allmän information. Extrahera endast konkreta händelser, deadlines eller direkta uppmaningar.
+Atomic Triage: Skapa exakt ETT steg per unik händelse eller deadline.
+- Exempel: Om meddelandet säger "Vi ses i sal 6 kl 11.30", ska steget heta: "Möte: [Namn] i Sal 6 (11.30)".
+- Anti-hallucinering: Skapa INTE stödsteg som "Förbered frågor" eller "Läs på" om det inte uttryckligen står i texten.
+Temporal Mapping: Översätt relativa termer som "imorgon", "på onsdag" eller "näst torsdag" till faktiska datum i relation till dagens datum.
+Friction-profil:
+- Passiva händelser (Lyssna/Delta/Möte): Låg Complexity (C=2)
+- Aktiva händelser (Redovisa/Test/Deadline): Hög Complexity (C=8)

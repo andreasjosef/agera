@@ -19,7 +19,7 @@ export const createRequirement: ContextHandler = async (req, res) => {
     due: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toString(),
     source: "MANUAL",
     steps: [],
-    type: "assignment",
+    type: "message",
   };
 
   const result = await createEnrichedRequirement(
