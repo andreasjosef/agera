@@ -20,8 +20,9 @@ export default function NowCard() {
             <h2 className="text-2xl font-bold">{nextStep?.requirementTitle}</h2>
             <p>
               Time:
-              <span>{nextStep?.estimatedMinutes} min</span>, Complexity:
-              <span>{nextStep?.complexity}</span>
+              <span>{nextStep?.estimatedMinutes} min, </span>
+              Due:
+              <span>{nextStep?.effectiveDeadline.toDateString()}</span>
             </p>
           </div>
 
