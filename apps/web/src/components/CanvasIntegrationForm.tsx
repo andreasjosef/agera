@@ -34,7 +34,7 @@ export default function CanvasIntegrationForm({
 
   // TODO: We should probably load the existing canvas token as default value
   return (
-    <form className="grid bg-neutral-200 p-4" onSubmit={handleSubmit}>
+    <form className="grid bg-app-surface p-4" onSubmit={handleSubmit}>
       <label className="grid" htmlFor="canvas-token">
         Canvas Access Token:
         <input
@@ -45,7 +45,7 @@ export default function CanvasIntegrationForm({
         />
       </label>
 
-      <button type="submit" disabled={isLoading}>
+      <button className="" type="submit" disabled={isLoading}>
         Connect
       </button>
 

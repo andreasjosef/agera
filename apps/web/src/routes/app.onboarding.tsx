@@ -12,7 +12,7 @@ function OnboardingPage() {
     <div className="flex flex-col gap-y-4 w-full max-w-2xl mx-auto">
       <header className="mt-18">
         <h2 className="text-xl mb-2 font-bold">Welcome {user?.name}</h2>
-        <p>
+        <p className="text-content-muted">
           This app is designed to integrate with your LMS system to help you
           navigate your studies more easily. For the best experience please
           select your provider from the list of supported LMS systems below.

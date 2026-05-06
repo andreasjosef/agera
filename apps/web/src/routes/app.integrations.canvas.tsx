@@ -28,7 +28,7 @@ function CanvasIntegrationPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h2 className="text-2xl mb-2">Canvas Integration</h2>
+      <h2 className="text-2xl mb-2 font-bold">Canvas Integration</h2>
 
       {integration?.status === "NOT_FOUND" && (
         <CanvasIntegrationForm
@@ -40,7 +40,7 @@ function CanvasIntegrationPage() {
 
       {(integration?.status === "STABLE" ||
         integration?.status === "SYNCING") && (
-        <div className="bg-neutral-200 p-4">
+        <div className="bg-app-surface p-4">
           <p>
             Status:
             <span className="text-green-500 font-semibold">Stable</span>
@@ -52,13 +52,13 @@ function CanvasIntegrationPage() {
 
       <h3 className="text-2xl font-semibold my-1">Synced Requirements</h3>
       {requirements?.map((item) => (
-        <p className="p-1 bg-neutral-200">{item.title}</p>
+        <p className="p-1 bg-app-surface">{item.title}</p>
       ))}
 
       <h3 className="text-2xl font-semibold my-1">Generated Steps</h3>
       {requirements?.map((item) =>
         item.steps.map((step) => (
-          <div className="p-1 bg-neutral-200 flex flex-col mb-1">
+          <div className="p-1 bg-app-surface flex flex-col mb-1">
             <p>
               <strong>Outcome:</strong> {step.outcomeDefinition}
             </p>

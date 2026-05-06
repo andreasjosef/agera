@@ -23,21 +23,29 @@ export default function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
     <div className="flex flex-col gap-y-4 w-full max-w-sm">
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className="flex flex-col w-sm gap-2">
-        <input name="email" className="bg-amber-200" type="email" required />
+        <input
+          name="email"
+          className="border-app-border border-2"
+          type="email"
+          required
+        />
         <input
           name="password"
-          className="bg-amber-200"
+          className="border-app-border border-2"
           type="password"
           required
         />
-        <button type="submit">
+        <button
+          className="bg-brand-primary hover:bg-brand-hover text-app-bg font-medium rounded-md focus:outline-app-ring outline-offset-3 focus:bg-brand-hover"
+          type="submit"
+        >
           {isLoading ? "Signing you in..." : "Sign In"}
         </button>
       </form>
       <p>
         Need an account?
         <Link
-          className="text-blue-600 underline font-semibold hover:text-blue-800"
+          className="text-brand-primary underline font-semibold hover:text-brand-hover visited:text-brand-primary"
           to="/signup"
         >
           Sign Up

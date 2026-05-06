@@ -29,7 +29,7 @@ function RouteComponent() {
         <h1 className="font-bold">CCPILOT</h1>
         <nav className="flex gap-x-2">
           <Link
-            className="px-3 py-1.5 font-semibold text-sm hover:text-neutral-800 hover:underline transition-all"
+            className="px-3 py-1.5 font-semibold text-sm hover:underline transition-all"
             to="/app/dashboard"
           >
             Settings

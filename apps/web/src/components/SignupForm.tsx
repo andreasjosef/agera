@@ -23,25 +23,28 @@ export default function SignupForm({ onSubmit, isLoading }: SignupFormProps) {
         <input
           name="name"
           placeholder="What Should We Call You?"
-          className="bg-amber-200"
+          className="border-app-border border-2"
           type="text"
           required
         />
         <input
           name="email"
           placeholder="Please Enter Your Email"
-          className="bg-amber-200"
+          className="border-app-border border-2"
           type="email"
           required
         />
         <input
           name="password"
           placeholder="Choose a Password"
-          className="bg-amber-200"
+          className="border-app-border border-2"
           type="password"
           required
         />
-        <button type="submit">
+        <button
+          className="bg-brand-primary hover:bg-brand-hover text-app-bg font-medium rounded-md focus:outline-app-ring outline-offset-3 focus:bg-brand-hover"
+          type="submit"
+        >
           {isLoading ? "Signing you in..." : "Sign Up"}
         </button>
       </form>
@@ -49,7 +52,7 @@ export default function SignupForm({ onSubmit, isLoading }: SignupFormProps) {
       <p>
         Already have an account?{" "}
         <Link
-          className="text-blue-600 underline font-semibold hover:text-blue-800"
+          className="text-brand-primary underline font-semibold hover:text-brand-hover visited:text-brand-primary"
           to="/login"
         >
           Login instead
