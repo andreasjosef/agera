@@ -1,5 +1,5 @@
 {
-  "name": "@ccpilot/domain",
+  "name": "@ccpilot/crypto",
   "private": true,
   "type": "module",
   "exports": {
