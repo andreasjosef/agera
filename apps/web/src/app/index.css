@@ -18,6 +18,11 @@
   --color-medium-red-violet-900: #682753;
   --color-medium-red-violet-950: #440e33;
 
+  /* Canvas */
+  --color-glacier-200: #b9dee8;
+  --color-glacier-300: #88c6d8;
+  --color-glacier-400: #66b0c7;
+
   /* Neutral */
   --color-cod-gray-50: #fafafa;
   --color-cod-gray-100: #f5f4f5;
@@ -50,6 +55,10 @@
   --color-brand-primary: var(--brand-solid);
   --color-brand-hover: var(--brand-muted);
   --color-brand-subtle: var(--brand-subtle);
+
+  --color-canvas-primary: var(--canvas-solid);
+  --color-canvas-hover: var(--canvas-muted);
+  --color-canvas-subtle: var(--canvas-subtle);
 }
 
 @layer base {
@@ -69,6 +78,10 @@
     --brand-solid: var(--color-medium-red-violet-600);
     --brand-muted: var(--color-medium-red-violet-500);
     --brand-subtle: var(--color-medium-red-violet-400);
+
+    --canvas-solid: var(--color-glacier-400);
+    --canvas-muted: var(--color-glacier-300);
+    --canvas-subtle: var(--color-glacier-200);
   }
 
   /* TODO: Dark mode*/
@@ -81,10 +94,13 @@
 
 @layer components {
   .primary-button {
+    --_bg-primary: var(--bg-primary, var(--color-brand-primary));
+    --_bg-hover: var(--bg-hover, var(--color-brand-hover));
+
     padding-inline: calc(var(--spacing) * 4);
     padding-block: calc(var(--spacing) * 2);
 
-    background-color: var(--color-brand-primary);
+    background-color: var(--_bg-primary);
     color: var(--color-app-surface);
 
     font-weight: bold;
@@ -93,11 +109,11 @@
     cursor: pointer;
 
     &:is(:hover, :focus) {
-      background-color: var(--color-brand-hover);
+      background-color: var(--_bg-hover);
     }
 
     &:focus {
-      outline: 2px solid var(--color-app-ring);
+      outline: 2px solid var(--_bg-primary);
       outline-offset: 3px;
     }
   }
