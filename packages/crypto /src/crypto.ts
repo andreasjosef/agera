@@ -15,7 +15,7 @@ const key = crypto
 
 const iv = crypto.randomBytes(16);
 
-export function encrypt(data: string) {
+export function encryptToken(data: string) {
   const cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
   let encrypted = cipher.update(data, "utf-8", "hex");
   encrypted += cipher.final("hex");
@@ -23,7 +23,7 @@ export function encrypt(data: string) {
   return iv.toString("hex") + encrypted;
 }
 
-export function decrypt(data: string) {
+export function decryptToken(data: string) {
   const inputIV = data.slice(0, 32);
   const encrypted = data.slice(32);
   const decipher = crypto.createDecipheriv(
