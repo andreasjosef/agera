@@ -5,11 +5,11 @@ export const LogoutButton = () => {
 
   return (
     <button
-      className="px-3 py-1.5 font-semibold text-sm rounded-sm cursor-pointer bg-brand-primary hover:bg-brand-hover focus:bg-brand-hover text-app-bg"
+      className="primary-button"
       onClick={() => logout()}
       disabled={isLoggingOut}
     >
-      {isLoggingOut ? "Leaving..." : "Sign Out"}
+      {isLoggingOut ? "Leaving..." : "Log Out"}
     </button>
   );
 };

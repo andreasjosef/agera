@@ -49,9 +49,7 @@ export default function NowCard() {
         </div>
       </div>
 
-      <button className="px-5 py-3 bg-brand-primary hover:bg-brand-hover text-app-bg font-medium rounded-md focus:outline-app-ring outline-offset-3 focus:bg-brand-hover cursor-pointer">
-        Done
-      </button>
+      <button className="primary-button">Done</button>
     </article>
   );
 }

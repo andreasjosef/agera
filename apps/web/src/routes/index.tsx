@@ -40,10 +40,7 @@ function RouteComponent() {
           Navigera i vuxenutbildning genom dina styrkor istället för att
           dräneras av exekutiva brister.
         </p>
-        <Link
-          className="px-5 py-3 bg-brand-primary hover:bg-brand-hover text-app-bg font-medium rounded-md focus:outline-app-ring outline-offset-3 focus:bg-brand-hover"
-          to="/signup"
-        >
+        <Link className="primary-button" to="/signup">
           Get Started
         </Link>
       </main>
