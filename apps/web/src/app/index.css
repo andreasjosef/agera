@@ -78,3 +78,27 @@
     background-color: var(--color-app-bg);
   }
 }
+
+@layer components {
+  .primary-button {
+    padding-inline: calc(var(--spacing) * 4);
+    padding-block: calc(var(--spacing) * 2);
+
+    background-color: var(--color-brand-primary);
+    color: var(--color-app-surface);
+
+    font-weight: bold;
+
+    border-radius: var(--radius-md);
+    cursor: pointer;
+
+    &:is(:hover, :focus) {
+      background-color: var(--color-brand-hover);
+    }
+
+    &:focus {
+      outline: 2px solid var(--color-app-ring);
+      outline-offset: 3px;
+    }
+  }
+}
