@@ -7,6 +7,7 @@ import {
   ok,
 } from "@ccpilot/domain";
 import { eq } from "drizzle-orm";
+import { decryptToken } from "@ccpilot/crypto";
 
 export const getAll = async (userId: string) => {
   try {
@@ -16,7 +17,7 @@ export const getAll = async (userId: string) => {
       .where(eq(integrationsTable.user_id, userId));
 
     const tokenPayloads: IntegrationToken[] = rows.map((row) => ({
-      token: row.encryptedToken,
+      token: decryptToken(row.encryptedToken),
       provider: row.provider as TokenProvider,
     }));
 

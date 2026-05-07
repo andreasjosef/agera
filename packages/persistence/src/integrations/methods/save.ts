@@ -1,6 +1,7 @@
 import { db } from "../../db/client.ts";
 import { integrationsTable } from "../../db/schema.ts";
 import { type TokenProvider, fail, ok } from "@ccpilot/domain";
+import { encryptToken } from "@ccpilot/crypto";
 
 export const save = async (
   userId: string,
@@ -8,12 +9,14 @@ export const save = async (
   provider: TokenProvider,
 ) => {
   try {
+    const encryptedToken = encryptToken(token);
+
     await db
       .insert(integrationsTable)
       .values({
         user_id: userId,
         provider: provider,
-        encryptedToken: token,
+        encryptedToken: encryptedToken,
       })
       .onConflictDoUpdate({
         target: [integrationsTable.user_id, integrationsTable.provider],

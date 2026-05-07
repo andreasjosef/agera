@@ -8,6 +8,7 @@ import {
 import { eq, and } from "drizzle-orm";
 import { db } from "../../db/client.ts";
 import { integrationsTable } from "../../db/schema.ts";
+import { decryptToken } from "@ccpilot/crypto"; 
 
 export const getForProvider = async (
   userId: string,
@@ -27,9 +28,11 @@ export const getForProvider = async (
 
     if (!row) return fail(`No ${provider} token found for this user!`);
 
+    const decryptedToken = decryptToken(row.encryptedToken);
+
     // TODO: this should be moved a toDomainIntegration mapper
     return ok({
-      token: row.encryptedToken,
+      token: decryptedToken,
       provider: row.provider,
       status: row.status,
       error: row.error ?? undefined,
