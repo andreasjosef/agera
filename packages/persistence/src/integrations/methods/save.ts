@@ -8,8 +8,9 @@ export const save = async (
   token: string,
   provider: TokenProvider,
 ) => {
-  const encryptedToken = encryptToken(token);
   try {
+    const encryptedToken = encryptToken(token);
+
     await db
       .insert(integrationsTable)
       .values({
