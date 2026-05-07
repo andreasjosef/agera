@@ -1,15 +1,26 @@
-import { createUserRepo } from '@ccpilot/persistence'
+import { createIntegrationsRepository } from "@ccpilot/persistence"
 
-const userRepo = createUserRepo()
+type TokenProvider = "CANVAS" | "MANUAL";
+const integrationRepo = createIntegrationsRepository();
 
-const user = await userRepo.createUser({name: "Yousif", email: "Yosuif@gmail.com", password: "yousif12345"})
+const user: {
+  userId: string;
+  token: string;
+  provider: TokenProvider;
+} = {
+  userId: "lzi8WhxEuYd531hsVwtJh9EhHsGmY1Ln",
+  token: "cndkfnd34vsflkn4653fklgnfkn",
+  provider: "CANVAS",
+};
 
-const findUser = async (id: string) => {
-    const result = await userRepo.findById(id)
+async function main() {
+  const result = await integrationRepo.save(
+    user.userId,
+    user.token,
+    user.provider
+  );
 
-    if(!result.ok) return `${result.error}`
-
-    return result.value
-
+  console.log(result);
 }
 
+main();

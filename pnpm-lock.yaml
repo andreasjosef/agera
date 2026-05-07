@@ -248,6 +248,9 @@ importers:
 
   packages/persistence:
     dependencies:
+      '@ccpilot/crypto':
+        specifier: workspace:*
+        version: 'link:../crypto '
       '@ccpilot/domain':
         specifier: workspace:*
         version: link:../domain
