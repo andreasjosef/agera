@@ -5,17 +5,17 @@
   /* TODO: Add state colors */
 
   /* Brand */
-  --color-medium-red-violet-50: #fdf6fc;
-  --color-medium-red-violet-100: #fcebf9;
-  --color-medium-red-violet-200: #f7d7f1;
-  --color-medium-red-violet-300: #f1b6e3;
-  --color-medium-red-violet-400: #e78bd0;
-  --color-medium-red-violet-500: #d75eb9;
-  --color-medium-red-violet-600: #bf409d;
-  --color-medium-red-violet-700: #9a317c;
-  --color-medium-red-violet-800: #7e2a65;
-  --color-medium-red-violet-900: #682753;
-  --color-medium-red-violet-950: #440e33;
+  --color-electric-violet-50: #f6f3ff;
+  --color-electric-violet-100: #eee9fe;
+  --color-electric-violet-200: #ded5ff;
+  --color-electric-violet-300: #c7b4fe;
+  --color-electric-violet-400: #ac89fc;
+  --color-electric-violet-500: #9259f9;
+  --color-electric-violet-600: #8233f0;
+  --color-electric-violet-700: #7525dc;
+  --color-electric-violet-800: #621eb9;
+  --color-electric-violet-900: #521b97;
+  --color-electric-violet-950: #320e67;
 
   /* Canvas */
   --color-glacier-200: #b9dee8;
@@ -63,20 +63,20 @@
 @layer base {
   :root {
     --bg-main: var(--color-white);
-    --bg-surface: var(--color-cod-gray-100);
+    --bg-surface: var(--color-cod-gray-300);
     --bg-surface-raised: var(--color-cod-gray-200);
-    --bg-surface-hover: var(--color-cod-gray-300);
+    --bg-surface-hover: var(--color-cod-gray-100);
 
     --text-main: var(--color-cod-gray-900);
     --text-muted: var(--color-cod-gray-600);
     --text-subtle: var(--color-cod-gray-400);
 
     --border-subtle: var(--color-cod-gray-200);
-    --ring-focus: var(--color-medium-red-violet-500);
+    --ring-focus: var(--color-electric-violet-500);
 
-    --brand-solid: var(--color-medium-red-violet-600);
-    --brand-muted: var(--color-medium-red-violet-500);
-    --brand-subtle: var(--color-medium-red-violet-400);
+    --brand-solid: var(--color-electric-violet-600);
+    --brand-muted: var(--color-electric-violet-500);
+    --brand-subtle: var(--color-electric-violet-400);
 
     --canvas-solid: var(--color-glacier-400);
     --canvas-muted: var(--color-glacier-300);
