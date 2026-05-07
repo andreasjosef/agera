@@ -63,9 +63,9 @@
 @layer base {
   :root {
     --bg-main: var(--color-white);
-    --bg-surface: var(--color-cod-gray-300);
+    --bg-surface: var(--color-cod-gray-100);
     --bg-surface-raised: var(--color-cod-gray-200);
-    --bg-surface-hover: var(--color-cod-gray-100);
+    --bg-surface-hover: var(--color-cod-gray-300);
 
     --text-main: var(--color-cod-gray-900);
     --text-muted: var(--color-cod-gray-600);
@@ -100,7 +100,7 @@
     padding-block: calc(var(--spacing) * 2);
 
     background-color: var(--_bg-primary);
-    color: var(--color-app-surface);
+    color: var(--color-app-bg);
 
     font-weight: bold;
 
