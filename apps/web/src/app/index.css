@@ -116,4 +116,10 @@
       outline-offset: 3px;
     }
   }
+
+  /* TODO: Use this class on other page containers */
+  .container {
+    width: min(90%, var(--container-2xl));
+    margin-inline: auto;
+  }
 }
