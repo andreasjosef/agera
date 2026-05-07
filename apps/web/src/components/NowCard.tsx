@@ -13,8 +13,8 @@ export default function NowCard() {
   if (error) return <p>{error.message}</p>;
 
   return (
-    <article className="bg-neutral-200 rounded-sm p-4 grid gap-y-6">
-      <div className="divide-y divide-gray-400 grid gap-y-4">
+    <article className="bg-app-surface rounded-sm p-4 grid gap-y-6">
+      <div className="divide-y divide-gray-200 grid gap-y-4">
         <header className="flex justify-between items-center pb-4">
           <div>
             <h2 className="text-2xl font-bold">{nextStep?.requirementTitle}</h2>
@@ -26,7 +26,7 @@ export default function NowCard() {
             </p>
           </div>
 
-          <span className="bg-neutral-400 p-2 rounded-full">
+          <span className="bg-brand-primary p-2 rounded-full text-app-bg">
             {nextStep?.category}
           </span>
         </header>
@@ -49,9 +49,7 @@ export default function NowCard() {
         </div>
       </div>
 
-      <button className="grid gap-y-4 px-5 py-3 text-neutral-900 bg-neutral-300 hover:bg-neutral-400 focus:bg-neutral-400 cursor-pointer">
-        Done
-      </button>
+      <button className="primary-button">Done</button>
     </article>
   );
 }

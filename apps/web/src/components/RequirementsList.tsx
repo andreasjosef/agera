@@ -11,7 +11,7 @@ export default function RequirementsList({
     <ul>
       {requirements.map((requirement) => (
         <li
-          className="flex items-center justify-between bg-neutral-200 p-2 mb-2"
+          className="flex items-center justify-between bg-app-surface p-2 mb-2"
           key={requirement.id}
         >
           <div>

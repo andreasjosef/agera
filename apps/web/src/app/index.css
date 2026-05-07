@@ -1,1 +1,119 @@
 @import "tailwindcss";
+
+@theme {
+  /* TODO: Use HSL ? */
+  /* TODO: Add state colors */
+
+  /* Brand */
+  --color-medium-red-violet-50: #fdf6fc;
+  --color-medium-red-violet-100: #fcebf9;
+  --color-medium-red-violet-200: #f7d7f1;
+  --color-medium-red-violet-300: #f1b6e3;
+  --color-medium-red-violet-400: #e78bd0;
+  --color-medium-red-violet-500: #d75eb9;
+  --color-medium-red-violet-600: #bf409d;
+  --color-medium-red-violet-700: #9a317c;
+  --color-medium-red-violet-800: #7e2a65;
+  --color-medium-red-violet-900: #682753;
+  --color-medium-red-violet-950: #440e33;
+
+  /* Canvas */
+  --color-glacier-200: #b9dee8;
+  --color-glacier-300: #88c6d8;
+  --color-glacier-400: #66b0c7;
+
+  /* Neutral */
+  --color-cod-gray-50: #fafafa;
+  --color-cod-gray-100: #f5f4f5;
+  --color-cod-gray-200: #e7e4e6;
+  --color-cod-gray-300: #d8d4d6;
+  --color-cod-gray-400: #aaa1a5;
+  --color-cod-gray-500: #7a7176;
+  --color-cod-gray-600: #5b5257;
+  --color-cod-gray-700: #463f43;
+  --color-cod-gray-800: #2a2729;
+  --color-cod-gray-900: #1b181a;
+  --color-cod-gray-950: #0c0a0b;
+
+  /* Backgrounds */
+  --color-app-bg: var(--bg-main);
+  --color-app-surface: var(--bg-surface);
+  --color-app-surface-raised: var(--bg-surface-raised);
+  --color-app-surface-hover: var(--bg-surface-hover);
+
+  /* Typography */
+  --color-content-main: var(--text-main);
+  --color-content-muted: var(--text-muted);
+  --color-content-subtle: var(--text-subtle);
+
+  /* Borders */
+  --color-app-border: var(--border-subtle);
+  --color-app-ring: var(--ring-focus);
+
+  /* Brand & States */
+  --color-brand-primary: var(--brand-solid);
+  --color-brand-hover: var(--brand-muted);
+  --color-brand-subtle: var(--brand-subtle);
+
+  --color-canvas-primary: var(--canvas-solid);
+  --color-canvas-hover: var(--canvas-muted);
+  --color-canvas-subtle: var(--canvas-subtle);
+}
+
+@layer base {
+  :root {
+    --bg-main: var(--color-white);
+    --bg-surface: var(--color-cod-gray-100);
+    --bg-surface-raised: var(--color-cod-gray-200);
+    --bg-surface-hover: var(--color-cod-gray-300);
+
+    --text-main: var(--color-cod-gray-900);
+    --text-muted: var(--color-cod-gray-600);
+    --text-subtle: var(--color-cod-gray-400);
+
+    --border-subtle: var(--color-cod-gray-200);
+    --ring-focus: var(--color-medium-red-violet-500);
+
+    --brand-solid: var(--color-medium-red-violet-600);
+    --brand-muted: var(--color-medium-red-violet-500);
+    --brand-subtle: var(--color-medium-red-violet-400);
+
+    --canvas-solid: var(--color-glacier-400);
+    --canvas-muted: var(--color-glacier-300);
+    --canvas-subtle: var(--color-glacier-200);
+  }
+
+  /* TODO: Dark mode*/
+
+  body {
+    color: var(--color-content-main);
+    background-color: var(--color-app-bg);
+  }
+}
+
+@layer components {
+  .primary-button {
+    --_bg-primary: var(--bg-primary, var(--color-brand-primary));
+    --_bg-hover: var(--bg-hover, var(--color-brand-hover));
+
+    padding-inline: calc(var(--spacing) * 4);
+    padding-block: calc(var(--spacing) * 2);
+
+    background-color: var(--_bg-primary);
+    color: var(--color-app-surface);
+
+    font-weight: bold;
+
+    border-radius: var(--radius-md);
+    cursor: pointer;
+
+    &:is(:hover, :focus) {
+      background-color: var(--_bg-hover);
+    }
+
+    &:focus {
+      outline: 2px solid var(--_bg-primary);
+      outline-offset: 3px;
+    }
+  }
+}

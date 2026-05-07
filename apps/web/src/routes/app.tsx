@@ -27,9 +27,9 @@ function RouteComponent() {
     <div className="h-screen grid grid-rows-[auto_1fr] overflow-hidden">
       <header className="p-6 flex justify-between">
         <h1 className="font-bold">CCPILOT</h1>
-        <nav className="flex gap-x-2">
+        <nav className="flex gap-x-2 items-center">
           <Link
-            className="px-3 py-1.5 font-semibold text-sm hover:text-neutral-800 hover:underline transition-all"
+            className="px-3 py-1.5 font-semibold text-sm hover:underline transition-all"
             to="/app/dashboard"
           >
             Settings
