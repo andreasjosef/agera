@@ -40,7 +40,7 @@ export default function CanvasIntegrationForm({
         <input
           name="token"
           type="password"
-          className="outline outline-blue-950 rounded-sm"
+          className="border-app-border border-2 p-1"
           id="canvas-token"
         />
       </label>

@@ -20,7 +20,7 @@ function RouteComponent() {
         </ul>
       </div>
 
-      <div>
+      <div className="max-w-2xl w-[90%] mx-auto">
         <Outlet />
       </div>
     </div>
