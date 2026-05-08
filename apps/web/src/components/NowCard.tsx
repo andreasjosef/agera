@@ -13,7 +13,7 @@ export default function NowCard() {
   if (error) return <p>{error.message}</p>;
 
   return (
-    <article className="bg-app-surface rounded-sm p-4 grid gap-y-6">
+    <article className="surface-container grid gap-y-6">
       <div className="divide-y divide-gray-200 grid gap-y-4">
         <header className="flex justify-between items-center pb-4">
           <div>

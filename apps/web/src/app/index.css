@@ -49,6 +49,7 @@
   /* Borders */
   --color-app-border: var(--border-subtle);
   --color-app-ring: var(--ring-focus);
+  --color-app-shadow: var(--surface-shadow);
 
   /* Brand & States */
   --color-brand-primary: var(--brand-solid);
@@ -62,16 +63,17 @@
 
 @layer base {
   :root {
-    --bg-main: var(--color-white);
-    --bg-surface: var(--color-cod-gray-100);
-    --bg-surface-raised: var(--color-cod-gray-200);
-    --bg-surface-hover: var(--color-cod-gray-300);
+    --bg-main: var(--color-cod-gray-100);
+    --bg-surface: var(--color-cod-gray-50);
+    --bg-surface-raised: var(--color-cod-gray-100);
+    --bg-surface-hover: var(--color-cod-gray-200);
 
     --text-main: var(--color-cod-gray-900);
     --text-muted: var(--color-cod-gray-600);
     --text-subtle: var(--color-cod-gray-400);
 
     --border-subtle: var(--color-cod-gray-200);
+    --surface-shadow: var(--color-cod-gray-200);
     --ring-focus: var(--color-electric-violet-500);
 
     --brand-solid: var(--color-electric-violet-600);
@@ -116,4 +118,22 @@
       outline-offset: 3px;
     }
   }
+
+  /* TODO: Use this class on other page containers */
+  .container {
+    width: min(90%, var(--container-2xl));
+    margin-inline: auto;
+  }
+
+  .surface-container {
+    padding: calc(var(--spacing) * 4);
+    background-color: var(--color-app-surface);
+
+    border: 1px solid var(--color-app-border);
+    border-radius: var(--radius-sm);
+
+    box-shadow: 2px 4px 0px var(--color-app-shadow);
+  }
+
+  /* TODO: Create input component class */
 }
