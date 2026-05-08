@@ -19,7 +19,7 @@ export interface IRequirementRepository {
   /**
    * Retrieves a single requirement from the persistence layer by its ID
    * */
-  findById: (reqId: string) => Promise<Result<Requirement>>;
+  findById: (userId: string, reqId: string) => Promise<Result<Requirement>>;
 
   /**
    * Retrieves all the requirements from the persistence layer
