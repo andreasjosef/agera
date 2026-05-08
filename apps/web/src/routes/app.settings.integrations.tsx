@@ -21,8 +21,8 @@ function RouteComponent() {
   // TODO: Fix and discuss sync status display issue
   // TODO: Implement SyncState component
   return (
-    <div>
-      <h2> Integrations </h2>
+    <>
+      <h3 className="text-xl font-medium"> Integrations </h3>
 
       {integration?.status === "NOT_FOUND" && (
         <CanvasIntegrationForm
@@ -35,10 +35,10 @@ function RouteComponent() {
       {/* TODO: Should this be a component ? */}
       {(integration?.status === "STABLE" ||
         integration?.status === "SYNCING") && (
-        <div className="bg-app-surface">
-          <header className="flex justify-between items-center">
-            <h3>Canvas</h3>
-            <span className="p-2 bg-green-500 rounded-2xl text-app-bg">
+        <div className="surface-container divide-y divide-cod-gray-200 grid gap-y-2">
+          <header className="flex justify-between items-center pb-2">
+            <h4>Canvas</h4>
+            <span className="p-2 bg-green-500 rounded-lg text-app-bg font-medium">
               Connected
             </span>
           </header>
@@ -60,6 +60,6 @@ function RouteComponent() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

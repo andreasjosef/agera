@@ -1,26 +1,52 @@
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Link,
+  linkOptions,
+  Outlet,
+} from "@tanstack/react-router";
 
 export const Route = createFileRoute("/app/settings")({
   component: RouteComponent,
 });
 
+const options = linkOptions([
+  {
+    to: "/app/settings/user",
+    label: "User Preferences",
+  },
+  {
+    to: "/app/settings/integrations",
+    label: "Integrations",
+  },
+]);
+
 function RouteComponent() {
   return (
-    <div className="container grid grid-cols-[auto_1fr] h-full">
-      <div className="px-2 bg-app-surface">
-        <h1>Settings</h1>
+    <div className="container grid grid-cols-[auto_1fr] h-full gap-x-2">
+      <div className="p-4 bg-app-surface flex flex-col gap-y-4 surface-container">
+        <h2 className="text-2xl font-bold">Settings</h2>
 
         <ul>
-          <li>
-            <Link to="/app/settings/user">User</Link>
-          </li>
-          <li>
-            <Link to="/app/settings/integrations">Integrations</Link>
-          </li>
+          {options.map((option) => {
+            return (
+              <li>
+                <Link
+                  className="p-2 block rounded-sm"
+                  {...option}
+                  key={option.to}
+                  activeProps={{
+                    className: "bg-app-surface-raised",
+                  }}
+                >
+                  {option.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
 
-      <div className="max-w-2xl w-[90%] mx-auto">
+      <div className="surface-container flex flex-col gap-y-4">
         <Outlet />
       </div>
     </div>

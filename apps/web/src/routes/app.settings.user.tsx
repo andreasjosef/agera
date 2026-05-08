@@ -9,7 +9,7 @@ function RouteComponent() {
 
   return (
     <div>
-      <h2>User Preferences</h2>
+      <h3 className="text-xl font-medium">User Preferences</h3>
     </div>
   );
 }
