@@ -122,4 +122,6 @@
     width: min(90%, var(--container-2xl));
     margin-inline: auto;
   }
+
+  /* TODO: Create input component class */
 }

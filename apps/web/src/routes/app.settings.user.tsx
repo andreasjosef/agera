@@ -5,5 +5,11 @@ export const Route = createFileRoute("/app/settings/user")({
 });
 
 function RouteComponent() {
-  return <div>User Settings</div>;
+  // TODO: Focus, energy level, maximum daily workload minutes.
+
+  return (
+    <div>
+      <h2>User Preferences</h2>
+    </div>
+  );
 }
