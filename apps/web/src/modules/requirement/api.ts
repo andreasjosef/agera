@@ -32,6 +32,21 @@ export const requirementQueryOptions = {
       return res.value;
     },
   }),
+  getById: (id: string) => {
+    return queryOptions({
+      queryKey: ["requirements", id],
+      queryFn: async () => {
+        const result = await safeFetchItem(
+          `http://localhost:4000/api/requirements/${id}`,
+          zodWrappedParser(RequirementSchema),
+        );
+
+        if (!result.ok) throw new Error(result.error);
+
+        return result.value;
+      },
+    });
+  },
   next: queryOptions({
     queryKey: ["requirements", "next"],
     queryFn: async () => {
