@@ -32,7 +32,7 @@ function RouteComponent() {
           <SyncState />
           <Link
             className="px-3 py-1.5 font-semibold text-sm hover:underline transition-all"
-            to="/app/dashboard"
+            to="/app/settings"
           >
             Settings
           </Link>

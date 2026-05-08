@@ -20,7 +20,7 @@ function OnboardingPage() {
       </header>
       <section className="mt-2">
         <ul className="text-center">
-          <Link to="/app/integrations/canvas">
+          <Link to="/app/settings/integrations">
             <li className="p-2 bg-neutral-100 border-2 border-neutral-300 rounded-sm hover:bg-neutral-300 hover:cursor-pointer">
               Canvas Instructure
             </li>
