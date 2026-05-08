@@ -1,47 +1,58 @@
-import { NewUser } from "@ccpilot/domain";
 import { Link } from "@tanstack/react-router";
+import { useForm} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signUpformSchema, type SignUpForm } from "@/Schemas/signUpFormSchema";
+
 
 export interface SignupFormProps {
-  onSubmit: (data: NewUser) => void;
+  onSubmit: (data: SignUpForm) => void;
   isLoading: boolean;
   error?: string;
 }
 
-export default function SignupForm({ onSubmit, isLoading }: SignupFormProps) {
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData) as unknown as NewUser;
-
-    onSubmit(data);
-  };
+export default function SignupForm({onSubmit, isLoading,}: SignupFormProps) {
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpForm>({
+    resolver: zodResolver(signUpformSchema),
+  });
 
   return (
     <div className="flex flex-col gap-y-4 w-full max-w-sm">
       <h2>Signup</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col w-sm gap-2">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-sm gap-2">
         <input
-          name="name"
+        {...register("name")}
           placeholder="What Should We Call You?"
           className="border-app-border border-2 p-2"
           type="text"
-          required
         />
+        <p>{errors.name?.message}</p>
+
         <input
-          name="email"
+        {...register("email")}
           placeholder="Please Enter Your Email"
           className="border-app-border border-2 p-2"
           type="email"
-          required
         />
+
+        <p>{errors.email?.message}</p>
+
         <input
-          name="password"
+        {...register("password")}
           placeholder="Choose a Password"
           className="border-app-border border-2 p-2"
           type="password"
-          required
         />
-        <button className="primary-button" type="submit">
+
+        <p>{errors.password?.message}</p>
+
+
+
+        <button disabled={isLoading} className="primary-button" type="submit">
           {isLoading ? "Signing you in..." : "Sign Up"}
         </button>
       </form>
