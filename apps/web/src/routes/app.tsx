@@ -26,7 +26,7 @@ export const Route = createFileRoute("/app")({
 function RouteComponent() {
   return (
     <div className="h-screen grid grid-rows-[auto_1fr] overflow-hidden">
-      <header className="p-6 flex justify-between">
+      <header className="p-6 flex justify-between items-center">
         <h1 className="font-bold">CCPILOT</h1>
         <nav className="flex gap-x-2 items-center">
           <SyncState />
