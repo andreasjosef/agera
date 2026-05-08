@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { integrationQueries } from "@/modules/integrations/api";
 import { useCanvasConnect, useSyncPolling } from "@/modules/integrations/hooks";
 import CanvasIntegrationForm from "@/components/CanvasIntegrationForm";
+import { useInitiateSync } from "@/modules/requirement/hooks";
 
 export const Route = createFileRoute("/app/settings/integrations")({
   component: RouteComponent,
@@ -13,12 +14,12 @@ function RouteComponent() {
     integrationQueries.getConnection("CANVAS"),
   );
 
-  const { pollingData, refetch } = useSyncPolling(
-    "CANVAS",
-    integration?.status,
-  );
+  const { pollingData } = useSyncPolling("CANVAS", integration?.status);
   const { mutate, connecting, syncData } = useCanvasConnect();
+  const { mutate: reSync } = useInitiateSync();
 
+  // TODO: Fix and discuss sync status display issue
+  // TODO: Implement SyncState component
   return (
     <div>
       <h2> Integrations </h2>
@@ -32,33 +33,33 @@ function RouteComponent() {
       )}
 
       {/* TODO: Should this be a component ? */}
-      {integration?.status === "STABLE" ||
-        (integration?.status === "SYNCING" && (
-          <div className="bg-app-surface">
-            <header className="flex justify-between items-center">
-              <h3>Canvas</h3>
-              <span className="p-2 bg-green-500 rounded-2xl text-app-bg">
-                Connected
-              </span>
-            </header>
-            <div className="grid">
-              <ul>
-                <li> Sync Status: {pollingData?.status}</li>
-                <li> Last Sync: {integration.lastSync?.toLocaleString()} </li>
-                <li> Total: {pollingData?.stats.total} </li>
-              </ul>
-              <button
-                className="primary-button ml-auto"
-                onClick={() => {
-                  console.log("re-sync");
-                  refetch();
-                }}
-              >
-                Re-sync
-              </button>
-            </div>
+      {(integration?.status === "STABLE" ||
+        integration?.status === "SYNCING") && (
+        <div className="bg-app-surface">
+          <header className="flex justify-between items-center">
+            <h3>Canvas</h3>
+            <span className="p-2 bg-green-500 rounded-2xl text-app-bg">
+              Connected
+            </span>
+          </header>
+          <div className="grid">
+            <ul>
+              <li> Sync Status: {pollingData?.status}</li>
+              <li> Last Sync: {integration.lastSync?.toLocaleString()} </li>
+              <li> Total: {pollingData?.stats.total} </li>
+            </ul>
+            <button
+              className="primary-button ml-auto disabled:bg-brand-subtle"
+              disabled={pollingData?.status === "PROCESSING"}
+              onClick={() => {
+                reSync();
+              }}
+            >
+              Re-sync
+            </button>
           </div>
-        ))}
+        </div>
+      )}
     </div>
   );
 }
