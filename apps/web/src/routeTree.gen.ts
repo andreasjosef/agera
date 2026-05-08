@@ -16,12 +16,15 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppTodayRouteImport } from './routes/app.today'
 import { Route as AppRequirementsRouteImport } from './routes/app.requirements'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppOnboardingRouteImport } from './routes/app.onboarding'
 import { Route as AppNowRouteImport } from './routes/app.now'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
 import { Route as AppRequirementsIndexRouteImport } from './routes/app.requirements.index'
 import { Route as AppRequirementsIdRouteImport } from './routes/app.requirements.$id'
 import { Route as AppIntegrationsCanvasRouteImport } from './routes/app.integrations.canvas'
+import { Route as AppSettingsUserRouteImport } from './routes/app.settings.user'
+import { Route as AppSettingsIntegrationsRouteImport } from './routes/app.settings.integrations'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -56,6 +59,9 @@ const AppTodayRoute = AppTodayRouteImport.update({
 const AppRequirementsRoute = AppRequirementsRouteImport.update({
   id: '/requirements',
   path: '/requirements',
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AppRoute,
 } as any)
 const AppOnboardingRoute = AppOnboardingRouteImport.update({
@@ -87,6 +93,16 @@ const AppIntegrationsCanvasRoute = AppIntegrationsCanvasRouteImport.update({
   id: '/integrations/canvas',
   path: '/integrations/canvas',
   getParentRoute: () => AppRoute,
+=======
+const AppSettingsUserRoute = AppSettingsUserRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => AppSettingsRoute,
+} as any)
+const AppSettingsIntegrationsRoute = AppSettingsIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => AppSettingsRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -103,6 +119,10 @@ export interface FileRoutesByFullPath {
   '/app/integrations/canvas': typeof AppIntegrationsCanvasRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/requirements/': typeof AppRequirementsIndexRoute
+  '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/': typeof AppIndexRoute
+  '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
+  '/app/settings/user': typeof AppSettingsUserRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -116,6 +136,10 @@ export interface FileRoutesByTo {
   '/app/integrations/canvas': typeof AppIntegrationsCanvasRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/requirements': typeof AppRequirementsIndexRoute
+
+  '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
+  '/app/settings/user': typeof AppSettingsUserRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -132,6 +156,9 @@ export interface FileRoutesById {
   '/app/integrations/canvas': typeof AppIntegrationsCanvasRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/requirements/': typeof AppRequirementsIndexRoute
+  '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
+  '/app/settings/user': typeof AppSettingsUserRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -149,6 +176,9 @@ export interface FileRouteTypes {
     | '/app/integrations/canvas'
     | '/app/requirements/$id'
     | '/app/requirements/'
+    | '/app/settings'
+    | '/app/settings/integrations'
+    | '/app/settings/user'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -158,10 +188,13 @@ export interface FileRouteTypes {
     | '/app/now'
     | '/app/onboarding'
     | '/app/today'
-    | '/app'
     | '/app/integrations/canvas'
     | '/app/requirements/$id'
     | '/app/requirements'
+    | '/app/settings'
+    | '/app'
+    | '/app/settings/integrations'
+    | '/app/settings/user'
   id:
     | '__root__'
     | '/'
@@ -173,10 +206,13 @@ export interface FileRouteTypes {
     | '/app/onboarding'
     | '/app/requirements'
     | '/app/today'
-    | '/app/'
     | '/app/integrations/canvas'
     | '/app/requirements/$id'
     | '/app/requirements/'
+    | '/app/settings'
+    | '/app/'
+    | '/app/settings/integrations'
+    | '/app/settings/user'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -235,6 +271,11 @@ declare module '@tanstack/react-router' {
       path: '/requirements'
       fullPath: '/app/requirements'
       preLoaderRoute: typeof AppRequirementsRouteImport
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/onboarding': {
@@ -278,6 +319,19 @@ declare module '@tanstack/react-router' {
       fullPath: '/app/integrations/canvas'
       preLoaderRoute: typeof AppIntegrationsCanvasRouteImport
       parentRoute: typeof AppRoute
+    '/app/settings/user': {
+      id: '/app/settings/user'
+      path: '/user'
+      fullPath: '/app/settings/user'
+      preLoaderRoute: typeof AppSettingsUserRouteImport
+      parentRoute: typeof AppSettingsRoute
+    }
+    '/app/settings/integrations': {
+      id: '/app/settings/integrations'
+      path: '/integrations'
+      fullPath: '/app/settings/integrations'
+      preLoaderRoute: typeof AppSettingsIntegrationsRouteImport
+      parentRoute: typeof AppSettingsRoute
     }
   }
 }
@@ -294,6 +348,18 @@ const AppRequirementsRouteChildren: AppRequirementsRouteChildren = {
 
 const AppRequirementsRouteWithChildren = AppRequirementsRoute._addFileChildren(
   AppRequirementsRouteChildren,
+interface AppSettingsRouteChildren {
+  AppSettingsIntegrationsRoute: typeof AppSettingsIntegrationsRoute
+  AppSettingsUserRoute: typeof AppSettingsUserRoute
+}
+
+const AppSettingsRouteChildren: AppSettingsRouteChildren = {
+  AppSettingsIntegrationsRoute: AppSettingsIntegrationsRoute,
+  AppSettingsUserRoute: AppSettingsUserRoute,
+}
+
+const AppSettingsRouteWithChildren = AppSettingsRoute._addFileChildren(
+  AppSettingsRouteChildren,
 )
 
 interface AppRouteChildren {
@@ -302,8 +368,8 @@ interface AppRouteChildren {
   AppOnboardingRoute: typeof AppOnboardingRoute
   AppRequirementsRoute: typeof AppRequirementsRouteWithChildren
   AppTodayRoute: typeof AppTodayRoute
+  AppSettingsRoute: typeof AppSettingsRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
-  AppIntegrationsCanvasRoute: typeof AppIntegrationsCanvasRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -312,8 +378,8 @@ const AppRouteChildren: AppRouteChildren = {
   AppOnboardingRoute: AppOnboardingRoute,
   AppRequirementsRoute: AppRequirementsRouteWithChildren,
   AppTodayRoute: AppTodayRoute,
+  AppSettingsRoute: AppSettingsRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
-  AppIntegrationsCanvasRoute: AppIntegrationsCanvasRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
