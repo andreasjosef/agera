@@ -193,7 +193,7 @@ importers:
 
   packages/cdd-monitor: {}
 
-  'packages/crypto ':
+  packages/crypto:
     dependencies:
       date-fns:
         specifier: ^4.1.0
@@ -250,7 +250,7 @@ importers:
     dependencies:
       '@ccpilot/crypto':
         specifier: workspace:*
-        version: 'link:../crypto '
+        version: link:../crypto
       '@ccpilot/domain':
         specifier: workspace:*
         version: link:../domain
