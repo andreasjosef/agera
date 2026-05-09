@@ -39,10 +39,8 @@ export default function LoginForm({
 
         <input
           {...register("email")}
-          name="email"
           className="border-app-border border-2 p-2"
           type="email"
-          required
           placeholder="Enter your email"
         />
 
@@ -50,10 +48,8 @@ export default function LoginForm({
 
         <input
           {...register("password")}
-          name="password"
           className="border-app-border border-2 p-2"
           type="password"
-          required
           placeholder="Enter your password"
         />
 
