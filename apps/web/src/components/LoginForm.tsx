@@ -1,40 +1,64 @@
 import { Link } from "@tanstack/react-router";
-
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginInFormSchema, type LoginInForm } from "@/Schemas/formSchema";
 
 export interface LoginFormProps {
-  onSubmit: (data: LoginFormData) => void;
+  onSubmit: (data: LoginInForm) => void;
   isLoading: boolean;
   error?: string;
 }
 
-export default function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
-  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData) as unknown as LoginFormData;
-    onSubmit(data);
-  };
+export default function LoginForm({
+  onSubmit,
+  isLoading,
+  error,
+}: LoginFormProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginInForm>({
+    resolver: zodResolver(loginInFormSchema),
+    mode: "onChange",
+    reValidateMode: "onBlur",
+  });
 
   return (
     <div className="flex flex-col gap-y-4 w-full max-w-sm">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col w-sm gap-2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col w-sm gap-2"
+      >
+        {error && (
+          <p className="bg-red-100 text-red-600 border border-red-400 p-2 rounded">
+            {error}
+          </p>
+        )}
+
         <input
+          {...register("email")}
           name="email"
           className="border-app-border border-2 p-2"
           type="email"
           required
+          placeholder="Enter your email"
         />
+
+        <p className="text-red-500 text-sm">{errors.email?.message}</p>
+
         <input
+          {...register("password")}
           name="password"
           className="border-app-border border-2 p-2"
           type="password"
           required
+          placeholder="Enter your password"
         />
+
+        <p className="text-red-500 text-sm">{errors.password?.message}</p>
+
         <button className="primary-button" type="submit">
           {isLoading ? "Logging you in..." : "Login"}
         </button>
