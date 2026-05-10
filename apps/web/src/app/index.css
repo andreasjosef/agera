@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca&family=Lexend:wght@100..900&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -45,6 +46,10 @@
   --color-content-main: var(--text-main);
   --color-content-muted: var(--text-muted);
   --color-content-subtle: var(--text-subtle);
+
+  --font-display: "Lexend Deca", sans-serif;
+  --font-body: "Lexend", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif;
 
   /* Borders */
   --color-app-border: var(--border-subtle);
@@ -132,7 +137,7 @@
     border: 1px solid var(--color-app-border);
     border-radius: var(--radius-sm);
 
-    box-shadow: 2px 4px 0px var(--color-app-shadow);
+    box-shadow: 3px 3px 0px var(--color-app-shadow);
   }
 
   /* TODO: Create input component class */
