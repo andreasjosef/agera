@@ -4,11 +4,15 @@
   "version": "1.0.0",
   "type": "module",
   "packageManager": "pnpm@10.32.1",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./src/theme.css",
+    "./fonts.css": "./src/fonts.css"
+  },
   "files": [
-    "dist"
+    "src"
   ],
   "scripts": {
     "dev": "storybook dev -p 6006",

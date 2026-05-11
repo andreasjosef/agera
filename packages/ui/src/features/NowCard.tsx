@@ -23,7 +23,12 @@ export function NowCard({ step, isLoading, error, onDone }: NowCardProps) {
         <Error message={error} />
       </Card>
     );
-  if (!step) return <p>No step available.</p>;
+  if (!step)
+    return (
+      <Card width="max-w-2xl">
+        <p>No step available.</p>
+      </Card>
+    );
 
   return (
     <Card width="max-w-2xl">
