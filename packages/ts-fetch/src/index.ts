@@ -32,8 +32,9 @@ export async function _fetchRaw<TOut>(
       body: payload ? JSON.stringify(payload) : undefined,
     });
 
-    if (!response.ok)
-      return fail(`HTTP ${response.status}: ${response.statusText}`);
+    // TODO: make this smarter -> should be able to pass throught result.error and handle more serious errors
+    // if (!response.ok)
+    //   return fail(`HTTP ${response.status}: ${response.statusText}`);
 
     // If no parser is provided, we treat it as a "Fire and Forget" (204 No Content style)
     if (!parser) return ok(null);
