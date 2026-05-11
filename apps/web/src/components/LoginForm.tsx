@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginInFormSchema, type LoginInForm } from "@/Schemas/formSchema";
+import { loginInFormSchema, type LoginInForm } from "@ccpilot/domain";
 
 export interface LoginFormProps {
   onSubmit: (data: LoginInForm) => void;
