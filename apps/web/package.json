@@ -22,8 +22,8 @@
     "@tanstack/react-router": "^1.168.3",
     "@tanstack/react-router-devtools": "^1.166.11",
     "lucide-react": "^1.14.0",
-    "react": "^19.0.2",
-    "react-dom": "^19.0.2",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "react-hook-form": "^7.75.0",
     "tailwindcss": "^4.2.2",
     "zod": "^4.3.6"
