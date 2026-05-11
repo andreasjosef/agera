@@ -33,12 +33,18 @@ export const authQueries = {
 };
 
 export const authMutations = {
-  signIn: (credentials: unknown) => {
-    return safePostItem(
+  signIn: async (credentials: unknown) => {
+    const result = await safePostItem(
       `${BASE_URL}/sign-in/email`,
       credentials,
       authUserParser,
     );
+
+    if (!result.ok) {
+      throw new Error(result.error);
+    }
+
+    return result.value;
   },
   signUp: (credentials: NewUser) => {
     return safePostItem(

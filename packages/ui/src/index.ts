@@ -6,3 +6,5 @@ export * from "./features/NowCard";
 
 // Primitives
 export * from "./primitives/Button";
+export * from "./primitives/Error";
+export * from "./primitives/Card";

@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginInFormSchema, type LoginInForm } from "@ccpilot/domain";
 
+import { Card, Error } from "@ccpilot/ui";
+
 export interface LoginFormProps {
   onSubmit: (data: LoginInForm) => void;
   isLoading: boolean;
@@ -31,11 +33,7 @@ export default function LoginForm({
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col w-sm gap-2"
       >
-        {error && (
-          <p className="bg-red-100 text-red-600 border border-red-400 p-2 rounded">
-            {error}
-          </p>
-        )}
+        {error && <Card children={<Error message={error} />} />}
 
         <input
           {...register("email")}

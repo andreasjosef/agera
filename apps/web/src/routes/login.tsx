@@ -19,6 +19,9 @@ function LoginPage() {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       navigate({ to: "/app" });
     },
+    onError: (error) => {
+      console.log("[LOGIN] query error: ", error.message);
+    },
   });
 
   return (
