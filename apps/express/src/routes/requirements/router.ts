@@ -20,5 +20,6 @@ requirementRouter.post(
   validateReq(NewRequirementSchema),
   handlers.createRequirement,
 );
+requirementRouter.get("/:requirementId", handlers.getRequirement);
 
 export default requirementRouter;

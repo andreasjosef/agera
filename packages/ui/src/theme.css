@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@source "../.storybook";
+@source "./**/*.stories.tsx";
+
+@theme {
+  /* TODO: Use HSL ? */
+  /* TODO: Add state colors */
+
+  /* Brand */
+  --color-electric-violet-50: #f6f3ff;
+  --color-electric-violet-100: #eee9fe;
+  --color-electric-violet-200: #ded5ff;
+  --color-electric-violet-300: #c7b4fe;
+  --color-electric-violet-400: #ac89fc;
+  --color-electric-violet-500: #9259f9;
+  --color-electric-violet-600: #8233f0;
+  --color-electric-violet-700: #7525dc;
+  --color-electric-violet-800: #621eb9;
+  --color-electric-violet-900: #521b97;
+  --color-electric-violet-950: #320e67;
+
+  /* Canvas */
+  --color-glacier-200: #b9dee8;
+  --color-glacier-300: #88c6d8;
+  --color-glacier-400: #66b0c7;
+
+  /* Neutral */
+  --color-cod-gray-50: #fafafa;
+  --color-cod-gray-100: #f5f4f5;
+  --color-cod-gray-200: #e7e4e6;
+  --color-cod-gray-300: #d8d4d6;
+  --color-cod-gray-400: #aaa1a5;
+  --color-cod-gray-500: #7a7176;
+  --color-cod-gray-600: #5b5257;
+  --color-cod-gray-700: #463f43;
+  --color-cod-gray-800: #2a2729;
+  --color-cod-gray-900: #1b181a;
+  --color-cod-gray-950: #0c0a0b;
+
+  /* Backgrounds */
+  --color-app-bg: var(--bg-main);
+  --color-app-surface: var(--bg-surface);
+  --color-app-surface-raised: var(--bg-surface-raised);
+  --color-app-surface-hover: var(--bg-surface-hover);
+
+  /* Typography */
+  --color-content-main: var(--text-main);
+  --color-content-muted: var(--text-muted);
+  --color-content-subtle: var(--text-subtle);
+
+  --font-display: "Lexend Deca", sans-serif;
+  --font-body: "Lexend", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif;
+
+  /* Borders */
+  --color-app-border: var(--border-subtle);
+  --color-app-ring: var(--ring-focus);
+  --color-app-shadow: var(--surface-shadow);
+
+  /* Brand & States */
+  --color-brand-primary: var(--brand-solid);
+  --color-brand-hover: var(--brand-muted);
+  --color-brand-subtle: var(--brand-subtle);
+
+  --color-canvas-primary: var(--canvas-solid);
+  --color-canvas-hover: var(--canvas-muted);
+  --color-canvas-subtle: var(--canvas-subtle);
+}
+
+@layer base {
+  :root {
+    --bg-main: var(--color-cod-gray-100);
+    --bg-surface: var(--color-cod-gray-50);
+    --bg-surface-raised: var(--color-cod-gray-100);
+    --bg-surface-hover: var(--color-cod-gray-200);
+
+    --text-main: var(--color-cod-gray-900);
+    --text-muted: var(--color-cod-gray-600);
+    --text-subtle: var(--color-cod-gray-400);
+
+    --border-subtle: var(--color-cod-gray-200);
+    --surface-shadow: var(--color-cod-gray-200);
+    --ring-focus: var(--color-electric-violet-500);
+
+    --brand-solid: var(--color-electric-violet-600);
+    --brand-muted: var(--color-electric-violet-500);
+    --brand-subtle: var(--color-electric-violet-400);
+
+    --canvas-solid: var(--color-glacier-400);
+    --canvas-muted: var(--color-glacier-300);
+    --canvas-subtle: var(--color-glacier-200);
+  }
+
+  /* TODO: Dark mode*/
+
+  body {
+    color: var(--color-content-main);
+    background-color: var(--color-app-bg);
+  }
+}
