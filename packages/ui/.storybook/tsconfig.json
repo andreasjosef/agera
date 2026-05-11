@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "vite/client"]
+  },
+  "include": [
+    "../src/vite-env.d.ts", // Point back to your declarations
+    "../src/**/*.ts",
+    "../src/**/*.tsx",
+    "./**/*.ts",
+    "./**/*.tsx"
+  ]
+}
