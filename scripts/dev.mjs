@@ -105,6 +105,8 @@ async function run() {
     "@ccpilot/express",
     "--filter",
     "@ccpilot/docs",
+    "--filter",
+    "@ccpilot/ui",
   ];
 
   const turbo = spawn(pnpmCmd, turboArgs, {

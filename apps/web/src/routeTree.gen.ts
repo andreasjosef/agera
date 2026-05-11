@@ -14,11 +14,16 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppTodayRouteImport } from './routes/app.today'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppRequirementsRouteImport } from './routes/app.requirements'
 import { Route as AppOnboardingRouteImport } from './routes/app.onboarding'
+import { Route as AppNowRouteImport } from './routes/app.now'
 import { Route as AppDashboardRouteImport } from './routes/app.dashboard'
+import { Route as AppRequirementsIndexRouteImport } from './routes/app.requirements.index'
 import { Route as AppSettingsUserRouteImport } from './routes/app.settings.user'
 import { Route as AppSettingsIntegrationsRouteImport } from './routes/app.settings.integrations'
+import { Route as AppRequirementsIdRouteImport } from './routes/app.requirements.$id'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -45,9 +50,19 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppTodayRoute = AppTodayRouteImport.update({
+  id: '/today',
+  path: '/today',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRequirementsRoute = AppRequirementsRouteImport.update({
+  id: '/requirements',
+  path: '/requirements',
   getParentRoute: () => AppRoute,
 } as any)
 const AppOnboardingRoute = AppOnboardingRouteImport.update({
@@ -55,10 +70,20 @@ const AppOnboardingRoute = AppOnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => AppRoute,
 } as any)
+const AppNowRoute = AppNowRouteImport.update({
+  id: '/now',
+  path: '/now',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => AppRoute,
+} as any)
+const AppRequirementsIndexRoute = AppRequirementsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRequirementsRoute,
 } as any)
 const AppSettingsUserRoute = AppSettingsUserRouteImport.update({
   id: '/user',
@@ -70,6 +95,11 @@ const AppSettingsIntegrationsRoute = AppSettingsIntegrationsRouteImport.update({
   path: '/integrations',
   getParentRoute: () => AppSettingsRoute,
 } as any)
+const AppRequirementsIdRoute = AppRequirementsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AppRequirementsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -77,22 +107,31 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
+  '/app/requirements': typeof AppRequirementsRouteWithChildren
   '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/today': typeof AppTodayRoute
   '/app/': typeof AppIndexRoute
+  '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
+  '/app/requirements/': typeof AppRequirementsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/today': typeof AppTodayRoute
   '/app': typeof AppIndexRoute
+  '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
+  '/app/requirements': typeof AppRequirementsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -101,11 +140,16 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/dashboard': typeof AppDashboardRoute
+  '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
+  '/app/requirements': typeof AppRequirementsRouteWithChildren
   '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/today': typeof AppTodayRoute
   '/app/': typeof AppIndexRoute
+  '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
+  '/app/requirements/': typeof AppRequirementsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,22 +159,31 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/dashboard'
+    | '/app/now'
     | '/app/onboarding'
+    | '/app/requirements'
     | '/app/settings'
+    | '/app/today'
     | '/app/'
+    | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
+    | '/app/requirements/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
     | '/signup'
     | '/app/dashboard'
+    | '/app/now'
     | '/app/onboarding'
     | '/app/settings'
+    | '/app/today'
     | '/app'
+    | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
+    | '/app/requirements'
   id:
     | '__root__'
     | '/'
@@ -138,11 +191,16 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/dashboard'
+    | '/app/now'
     | '/app/onboarding'
+    | '/app/requirements'
     | '/app/settings'
+    | '/app/today'
     | '/app/'
+    | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
+    | '/app/requirements/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -189,11 +247,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/today': {
+      id: '/app/today'
+      path: '/today'
+      fullPath: '/app/today'
+      preLoaderRoute: typeof AppTodayRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/settings': {
       id: '/app/settings'
       path: '/settings'
       fullPath: '/app/settings'
       preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/requirements': {
+      id: '/app/requirements'
+      path: '/requirements'
+      fullPath: '/app/requirements'
+      preLoaderRoute: typeof AppRequirementsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/onboarding': {
@@ -203,12 +275,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppOnboardingRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/now': {
+      id: '/app/now'
+      path: '/now'
+      fullPath: '/app/now'
+      preLoaderRoute: typeof AppNowRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/dashboard': {
       id: '/app/dashboard'
       path: '/dashboard'
       fullPath: '/app/dashboard'
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/app/requirements/': {
+      id: '/app/requirements/'
+      path: '/'
+      fullPath: '/app/requirements/'
+      preLoaderRoute: typeof AppRequirementsIndexRouteImport
+      parentRoute: typeof AppRequirementsRoute
     }
     '/app/settings/user': {
       id: '/app/settings/user'
@@ -224,8 +310,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSettingsIntegrationsRouteImport
       parentRoute: typeof AppSettingsRoute
     }
+    '/app/requirements/$id': {
+      id: '/app/requirements/$id'
+      path: '/$id'
+      fullPath: '/app/requirements/$id'
+      preLoaderRoute: typeof AppRequirementsIdRouteImport
+      parentRoute: typeof AppRequirementsRoute
+    }
   }
 }
+
+interface AppRequirementsRouteChildren {
+  AppRequirementsIdRoute: typeof AppRequirementsIdRoute
+  AppRequirementsIndexRoute: typeof AppRequirementsIndexRoute
+}
+
+const AppRequirementsRouteChildren: AppRequirementsRouteChildren = {
+  AppRequirementsIdRoute: AppRequirementsIdRoute,
+  AppRequirementsIndexRoute: AppRequirementsIndexRoute,
+}
+
+const AppRequirementsRouteWithChildren = AppRequirementsRoute._addFileChildren(
+  AppRequirementsRouteChildren,
+)
 
 interface AppSettingsRouteChildren {
   AppSettingsIntegrationsRoute: typeof AppSettingsIntegrationsRoute
@@ -243,15 +350,21 @@ const AppSettingsRouteWithChildren = AppSettingsRoute._addFileChildren(
 
 interface AppRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppNowRoute: typeof AppNowRoute
   AppOnboardingRoute: typeof AppOnboardingRoute
+  AppRequirementsRoute: typeof AppRequirementsRouteWithChildren
   AppSettingsRoute: typeof AppSettingsRouteWithChildren
+  AppTodayRoute: typeof AppTodayRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppNowRoute: AppNowRoute,
   AppOnboardingRoute: AppOnboardingRoute,
+  AppRequirementsRoute: AppRequirementsRouteWithChildren,
   AppSettingsRoute: AppSettingsRouteWithChildren,
+  AppTodayRoute: AppTodayRoute,
   AppIndexRoute: AppIndexRoute,
 }
 
