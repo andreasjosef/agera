@@ -5,6 +5,7 @@ import { AppLayout, AppSidebar, NavItem } from "@ccpilot/ui";
 import { LayoutDashboard, Settings } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
 import { NavLink } from "@/components/NavLink";
+import SyncState from "@/components/SyncState";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -48,7 +49,7 @@ function RouteComponent() {
           }
           footerContent={
             <>
-              <p className="p-2 text-center bg-cod-gray-200">Sync Status</p>
+              <SyncState />
               <LogoutButton />
               <NavLink to="/app/settings" label="Settings" icon={Settings} />
             </>
@@ -56,7 +57,7 @@ function RouteComponent() {
         />
       </div>
 
-      <div className="p-4">
+      <div className="p-4 overflow-y-scroll">
         <Outlet />
       </div>
     </AppLayout>

@@ -1,11 +1,6 @@
 import { NavLink } from "@/components/NavLink";
 import { Card } from "@ccpilot/ui";
-import {
-  createFileRoute,
-  Link,
-  linkOptions,
-  Outlet,
-} from "@tanstack/react-router";
+import { createFileRoute, linkOptions, Outlet } from "@tanstack/react-router";
 import { Settings, User } from "lucide-react";
 
 export const Route = createFileRoute("/app/settings")({
