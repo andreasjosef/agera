@@ -25,7 +25,7 @@ export function AppSidebar({ open, navLinks, footerContent }: AppSidebarProps) {
           <ul>{navLinks}</ul>
         </nav>
 
-        <footer className="mt-auto">{footerContent} </footer>
+        <footer className="mt-auto grid gap-y-2">{footerContent} </footer>
       </div>
     </Card>
   );
