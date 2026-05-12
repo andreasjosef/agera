@@ -20,21 +20,23 @@ export const Default: Story = {
   args: {
     children: (
       <>
-        <aside>
-          <AppSidebar open>
-            <div className="flex flex-col h-full">
-              <nav>
+        <div>
+          <AppSidebar
+            navLinks={
+              <>
                 <NavItem label="Cockpit" icon={LayoutDashboard} isActive />
                 <NavItem label="All" icon={GalleryHorizontalEnd} />
-              </nav>
-
-              <footer className="mt-auto">
+              </>
+            }
+            footerContent={
+              <>
                 <p className="p-2 text-center bg-cod-gray-200">Sync Status</p>
                 <NavItem label="Settings" icon={Settings} />
-              </footer>
-            </div>
-          </AppSidebar>
-        </aside>
+              </>
+            }
+            open
+          />
+        </div>
         <div className="p-4"> Cockpit Page </div>
       </>
     ),
@@ -45,9 +47,9 @@ export const SidebarClosed: Story = {
   args: {
     children: (
       <>
-        <aside>
+        <div>
           <AppSidebar open={false}></AppSidebar>
-        </aside>
+        </div>
         <div className="p-4"> Focus </div>
       </>
     ),

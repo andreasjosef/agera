@@ -1,12 +1,14 @@
+import React from "react";
 import { Button } from "../primitives/Button";
 import { Card } from "../primitives/Card";
 
 interface AppSidebarProps {
   open: boolean;
-  children?: React.ReactNode;
+  navLinks?: React.ReactNode;
+  footerContent?: React.ReactNode;
 }
 
-export function AppSidebar({ open, children }: AppSidebarProps) {
+export function AppSidebar({ open, navLinks, footerContent }: AppSidebarProps) {
   if (!open) {
     return (
       <Button className="" variant="ghost">
@@ -18,7 +20,13 @@ export function AppSidebar({ open, children }: AppSidebarProps) {
   return (
     <Card className="h-full w-min flex flex-col gap-y-4">
       <h1>CCPilot</h1>
-      {children}
+      <div className="flex flex-col h-full">
+        <nav>
+          <ul>{navLinks}</ul>
+        </nav>
+
+        <footer className="mt-auto">{footerContent} </footer>
+      </div>
     </Card>
   );
 }
