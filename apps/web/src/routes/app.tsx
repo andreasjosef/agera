@@ -4,6 +4,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { AppLayout, AppSidebar, NavItem } from "@ccpilot/ui";
 import { LayoutDashboard, Settings } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
+import { NavLink } from "@/components/NavLink";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -40,15 +41,7 @@ function RouteComponent() {
             <>
               {sidebarNavItems.map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="block">
-                    {({ isActive }) => (
-                      <NavItem
-                        label={item.label}
-                        icon={item.icon}
-                        isActive={isActive}
-                      />
-                    )}
-                  </Link>
+                  <NavLink key={item.to} {...item} />
                 </li>
               ))}
             </>
@@ -57,15 +50,7 @@ function RouteComponent() {
             <>
               <p className="p-2 text-center bg-cod-gray-200">Sync Status</p>
               <LogoutButton />
-              <Link to="/app/settings" className="block">
-                {({ isActive }) => (
-                  <NavItem
-                    label="Settings"
-                    icon={Settings}
-                    isActive={isActive}
-                  />
-                )}
-              </Link>
+              <NavLink to="/app/settings" label="Settings" icon={Settings} />
             </>
           }
         />
