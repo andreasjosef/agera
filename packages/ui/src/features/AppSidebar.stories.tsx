@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import AppSidebar from "./AppSidebar";
-import { SidebarLink } from "../primitives/SidebarLink";
+import { NavItem } from "../primitives/NavItem";
 import { GalleryHorizontalEnd, LayoutDashboard, Settings } from "lucide-react";
 
 const meta: Meta<typeof AppSidebar> = {
@@ -30,14 +30,14 @@ export const Default: Story = {
       // TODO: Make this a reusable mockup component ?
       <div className="flex flex-col h-full">
         <nav>
-          <SidebarLink label="Cockpit" icon={LayoutDashboard} isActive />
-          <SidebarLink label="All" icon={GalleryHorizontalEnd} />
+          <NavItem label="Cockpit" icon={LayoutDashboard} isActive />
+          <NavItem label="All" icon={GalleryHorizontalEnd} />
         </nav>
 
         <footer className="mt-auto">
           {/* TODO: Implement an actual component */}
           <p className="p-2 text-center bg-cod-gray-200">Sync Status</p>
-          <SidebarLink label="Settings" icon={Settings} />
+          <NavItem label="Settings" icon={Settings} />
         </footer>
       </div>
     ),
