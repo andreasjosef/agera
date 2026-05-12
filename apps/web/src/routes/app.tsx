@@ -1,9 +1,10 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { authQueries } from "@/modules/auth/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { AppLayout, NavItem } from "@ccpilot/ui";
+import AppSidebar from "../../../../packages/ui/src/features/AppSidebar";
+import { LayoutDashboard, Settings } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
-import ApplicationMenu from "@/components/ApplicationMenu";
-import SyncState from "@/components/SyncState";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -26,24 +27,42 @@ export const Route = createFileRoute("/app")({
 
 function RouteComponent() {
   return (
-    <div className="h-screen grid grid-rows-[auto_1fr] overflow-hidden">
-      <header className="p-6 flex justify-between items-center">
-        <h1 className="font-bold">CCPILOT</h1>
-        <ApplicationMenu />
-        <nav className="flex gap-x-2 items-center">
-          <SyncState />
-          <Link
-            className="px-3 py-1.5 font-semibold text-sm hover:underline transition-all"
-            to="/app/settings/integrations"
-          >
-            Settings
-          </Link>
-          <LogoutButton />
+    <AppLayout>
+      {/* TODO: Create a global state for sidebar open */}
+      <AppSidebar open>
+        <nav>
+          <ul>
+            <Link to="/app/now" className="block">
+              {({ isActive }) => (
+                <NavItem
+                  label="Cockpit"
+                  icon={LayoutDashboard}
+                  isActive={isActive}
+                />
+              )}
+            </Link>
+            <Link to="/app/requirements" className="block">
+              {({ isActive }) => (
+                <NavItem label="All" icon={Settings} isActive={isActive} />
+              )}
+            </Link>
+          </ul>
         </nav>
-      </header>
-      <main className="overflow-y-auto">
+
+        <footer className="mt-auto">
+          <p className="p-2 text-center bg-cod-gray-200">Sync Status</p>
+          <LogoutButton />
+          <Link to="/app/settings" className="block">
+            {({ isActive }) => (
+              <NavItem label="Settings" icon={Settings} isActive={isActive} />
+            )}
+          </Link>
+        </footer>
+      </AppSidebar>
+
+      <div className="p-4">
         <Outlet />
-      </main>
-    </div>
+      </div>
+    </AppLayout>
   );
 }
