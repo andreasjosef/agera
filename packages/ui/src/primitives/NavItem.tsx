@@ -1,18 +1,18 @@
 import { LucideIcon } from "lucide-react";
 
-interface SidebarLinkProps {
+interface NavItemProps {
   label: string;
   icon: LucideIcon;
   isActive?: boolean;
   onClick?: () => void;
 }
 
-export const SidebarLink = ({
+export const NavItem = ({
   label,
   icon: Icon,
   isActive,
   onClick,
-}: SidebarLinkProps) => {
+}: NavItemProps) => {
   return (
     <button
       onClick={onClick}

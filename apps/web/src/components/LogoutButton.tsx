@@ -1,15 +1,15 @@
 import { useSignOut } from "@/modules/auth/hooks";
+import { Button } from "@ccpilot/ui";
 
 export const LogoutButton = () => {
   const { logout, isLoggingOut } = useSignOut();
 
   return (
-    <button
-      className="primary-button"
+    <Button
+      children="Log Out"
       onClick={() => logout()}
       disabled={isLoggingOut}
-    >
-      {isLoggingOut ? "Leaving..." : "Log Out"}
-    </button>
+      isLoading={isLoggingOut}
+    />
   );
 };
