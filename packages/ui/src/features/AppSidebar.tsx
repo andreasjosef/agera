@@ -6,7 +6,7 @@ interface AppSidebarProps {
   children?: React.ReactNode;
 }
 
-export default function AppSidebar({ open, children }: AppSidebarProps) {
+export function AppSidebar({ open, children }: AppSidebarProps) {
   if (!open) {
     return (
       <Button className="" variant="ghost">
