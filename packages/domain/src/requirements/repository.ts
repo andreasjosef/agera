@@ -70,6 +70,11 @@ export interface IRequirementRepository {
   ) => Promise<Result<void>>;
 
   /**
+   * Marks a single step as completed
+   * */
+  completeStep: (stepId: string) => Promise<Result<void>>;
+
+  /**
    * Persists the generated steps and transitions the requirement status
    * */
   updateSteps: (
