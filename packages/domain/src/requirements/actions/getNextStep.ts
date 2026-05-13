@@ -17,7 +17,7 @@ export const getNextStepAction = async (
   const canditateBundles: EFEngineCandidate[] = userReqsResult.value
     .map((req) => ({
       req: req,
-      remainingSteps: req.steps, // TODO: again here I am passing all steps but that should be .filter(step => remaining)
+      remainingSteps: req.steps.filter((step) => !step.complete), // TODO: again here I am passing all steps but that should be .filter(step => remaining)
     }))
     .filter((candidate) => candidate.remainingSteps.length > 0);
 
