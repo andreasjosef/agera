@@ -41,6 +41,7 @@ export const toDomainStep = (row: StepsRow): Step => {
     estimatedMinutes: row.estimatedMinutes ? Number(row.estimatedMinutes) : 0,
     dependencyOrder: row.dependencyOrder ? Number(row.dependencyOrder) : 0,
     quickStartLinkHint: row.quickStartLinkHint ?? "",
+    complete: row.completed,
   });
 };
 

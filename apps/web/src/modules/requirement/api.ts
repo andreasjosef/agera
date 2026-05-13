@@ -1,14 +1,34 @@
 import {
+  _fetchRaw,
   fetchList,
   safeFetchItem,
   zodRawParser,
   zodWrappedParser,
 } from "@ccpilot/ts-fetch";
 import { RequirementSchema, ScoredStepSchema } from "@ccpilot/domain";
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 // TODO: Switch to zodWrappedParser when the /requirment endpoint is implemented
 const RequirementParser = zodRawParser(RequirementSchema);
+
+export const requirementMutations = {
+  finishStep: () =>
+    mutationOptions({
+      mutationKey: ["requirements", "finish"],
+      mutationFn: async (stepId: string) => {
+        const result = await _fetchRaw(
+          `http://localhost:4000/api/steps/finish/${stepId}`,
+          "POST",
+          {},
+          {},
+        );
+
+        if (!result.ok) throw new Error(result.error);
+
+        return result.value;
+      },
+    }),
+};
 
 export const requirementQueryOptions = {
   all: queryOptions({

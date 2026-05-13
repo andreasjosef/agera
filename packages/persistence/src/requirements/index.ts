@@ -9,6 +9,7 @@ import { getRecent } from "./methods/getRecent.ts";
 import { getAll } from "./methods/getAll.ts";
 import { getCountsByStatuses } from "./methods/getCountsByStatuses.ts";
 import { getTotalCount } from "./methods/getTotalCount.ts";
+import { completeStep } from "./methods/completeStep.ts";
 
 export const createRequirementRepo = (): IRequirementRepository => {
   return {
@@ -16,6 +17,7 @@ export const createRequirementRepo = (): IRequirementRepository => {
     findById,
     updateStatus,
     updateSteps,
+    completeStep,
     getSyncIncomplete,
     getRecent,
     getAll,

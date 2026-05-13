@@ -49,6 +49,7 @@ export const stepsTable = t.pgTable("steps", {
     .uuid("requirement_id")
     .references(() => requirementsTable.id, { onDelete: "cascade" }),
   action: t.text().notNull(),
+  completed: t.boolean().default(false),
   outcomeDefinition: t.text("outcome_definition").notNull(),
   curiosityTrigger: t.text("curiosity_trigger").notNull(),
   theWin: t.text("win").notNull(),
