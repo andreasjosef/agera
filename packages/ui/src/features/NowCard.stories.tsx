@@ -21,3 +21,11 @@ export const Default: Story = {
     onDone: (id) => alert(`Step ${id} marked as done!`),
   },
 };
+
+export const Loading: Story = {
+  render: () => <NowCard.Loading />,
+};
+
+export const Error: Story = {
+  render: () => <NowCard.Error message="Kunde inte ladda steget!" />,
+};
