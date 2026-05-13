@@ -17,4 +17,5 @@ export const mockStep: ScoredStep = {
     "Du har en visuell karta över hur informationen flödar, vilket gör kodningen 50% snabbare.",
   quickStartLinkHint:
     "Öppna din anteckningsbok eller Excalidraw och rita tre boxar: User, Step, Requirement.",
+  complete: false,
 };
