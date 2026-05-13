@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
-import TimeSelector from "./TimeSelector";
+import { TimeSelector } from "./TimeSelector";
 
 const meta: Meta<typeof TimeSelector> = {
   title: "Features/TimeSelector",
@@ -10,7 +10,8 @@ const meta: Meta<typeof TimeSelector> = {
     layout: "centered",
   },
   args: {
-    handleTimeSelect: fn((e) => {
+    setTime: fn(),
+    handleSelectSubmit: fn((e) => {
       e.preventDefault();
     }),
   },

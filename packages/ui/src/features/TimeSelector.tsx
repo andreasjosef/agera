@@ -5,7 +5,8 @@ import { mergeStyles } from "../utils";
 
 interface TimeSelectorProps {
   timeMs: number;
-  handleTimeSelect: (e: React.SyntheticEvent<HTMLFormElement>) => void;
+  setTime: (value: number) => void;
+  handleSelectSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void;
 }
 
 const timeOptions = [
@@ -15,16 +16,17 @@ const timeOptions = [
   { label: "4 h", value: 240 * 60 * 1000 },
 ] as const;
 
-export default function TimeSelector({
+export function TimeSelector({
   timeMs = 1800000,
-  handleTimeSelect,
+  setTime,
+  handleSelectSubmit,
 }: TimeSelectorProps) {
   return (
     <Card className="grid gap-y-2">
       <h3>Focus Time</h3>
       {/* TODO: This might be a primitive like radio menu or something */}
 
-      <form className="grid gap-y-2" onSubmit={handleTimeSelect}>
+      <form className="grid gap-y-2" onSubmit={handleSelectSubmit}>
         {/* TODO: We can probably make this more accessable, but use buttons for now */}
         <ul className="grid grid-cols-4 gap-x-2">
           {timeOptions.map(({ label, value }) => {
@@ -35,11 +37,12 @@ export default function TimeSelector({
                 <button
                   type="button"
                   className={mergeStyles(
-                    "rounded-sm border-2 p-2 w-full",
+                    "rounded-sm border-2 p-2 w-full cursor-pointer",
                     isActive
                       ? "bg-brand-primary text-app-bg border-brand-primary"
                       : "border-cod-gray-300 text-content-main",
                   )}
+                  onClick={() => setTime(value)}
                 >
                   {label}
                 </button>
