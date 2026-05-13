@@ -4,9 +4,9 @@ import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
 
 import { NowCard } from "@ccpilot/ui";
 
-import Timer from "@/components/Timer";
 import Heatmap from "@/components/Heatmap";
 import { useFinishStep, useNextStep } from "@/modules/requirement/hooks";
+import TimeSelectorManager from "@/components/TimeSelectorManager";
 
 export const Route = createFileRoute("/app/now")({
   component: RouteComponent,
@@ -25,7 +25,7 @@ function RouteComponent() {
       <NowDashboardLayout>
         <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
         <Heatmap />
-        <Timer />
+        <TimeSelectorManager />
       </NowDashboardLayout>
     </div>
   );
