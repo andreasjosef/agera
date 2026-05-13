@@ -63,6 +63,7 @@ export const StepSchema = z.object({
   id: z.uuid(),
   stepKey: z.string(),
   action: z.string(),
+  complete: z.boolean().default(false),
   outcomeDefinition: z.string(),
   curiosityTrigger: z.string(),
   theWin: z.string(),
