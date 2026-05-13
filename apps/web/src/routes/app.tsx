@@ -1,8 +1,10 @@
 import { Link, Outlet } from "@tanstack/react-router";
 import { authQueries } from "@/modules/auth/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { AppLayout, AppSidebar, NavItem } from "@ccpilot/ui";
+import { LayoutDashboard, Settings } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
-import ApplicationMenu from "@/components/ApplicationMenu";
+import { NavLink } from "@/components/NavLink";
 import SyncState from "@/components/SyncState";
 
 export const Route = createFileRoute("/app")({
@@ -24,26 +26,40 @@ export const Route = createFileRoute("/app")({
   },
 });
 
+const sidebarNavItems = [
+  { to: "/app/now", label: "Cockpit", icon: LayoutDashboard },
+  { to: "/app/requirements", label: "All", icon: Settings },
+] as const;
+
 function RouteComponent() {
   return (
-    <div className="h-screen grid grid-rows-[auto_1fr] overflow-hidden">
-      <header className="p-6 flex justify-between items-center">
-        <h1 className="font-bold">CCPILOT</h1>
-        <ApplicationMenu />
-        <nav className="flex gap-x-2 items-center">
-          <SyncState />
-          <Link
-            className="px-3 py-1.5 font-semibold text-sm hover:underline transition-all"
-            to="/app/settings/integrations"
-          >
-            Settings
-          </Link>
-          <LogoutButton />
-        </nav>
-      </header>
-      <main className="overflow-y-auto">
+    <AppLayout>
+      <div>
+        {/* TODO: Create a global state for sidebar open */}
+        <AppSidebar
+          open
+          navLinks={
+            <>
+              {sidebarNavItems.map((item) => (
+                <li key={item.to}>
+                  <NavLink key={item.to} {...item} />
+                </li>
+              ))}
+            </>
+          }
+          footerContent={
+            <>
+              <SyncState />
+              <LogoutButton />
+              <NavLink to="/app/settings" label="Settings" icon={Settings} />
+            </>
+          }
+        />
+      </div>
+
+      <div className="p-4 overflow-y-scroll">
         <Outlet />
-      </main>
-    </div>
+      </div>
+    </AppLayout>
   );
 }

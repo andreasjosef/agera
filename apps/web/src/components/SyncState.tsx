@@ -14,8 +14,8 @@ export default function SyncState() {
 
   /* TODO: Make this less distracting */
   return (
-    <span className="bg-canvas-primary text-app-bg p-2 rounded-2xl">
+    <p className="bg-canvas-primary text-app-bg p-2 rounded-2xl">
       Sync Status: {pollingData?.status}
-    </span>
+    </p>
   );
 }
