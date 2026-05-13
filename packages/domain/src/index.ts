@@ -7,9 +7,7 @@ export * from "./shared/context.ts";
 export * from "./requirements/index.ts";
 
 // Users
-export * from "./users/schema.ts";
-export * from "./users/types.ts";
-export * from "./users/repository.ts";
+export * from "./users/index.ts";
 
 // Integrations
 export * from "./integrations/index.ts";
