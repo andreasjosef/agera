@@ -7,29 +7,11 @@ import { Error } from "../primitives/Error";
 import { NowItem } from "../primitives/NowItem";
 
 export interface NowCardProps {
-  step?: ScoredStep;
-  isLoading?: boolean;
-  error?: string | null;
-  onDone?: (stepId: string) => void;
+  step: ScoredStep;
+  onDone: (stepId: string) => void;
 }
 
-export function NowCard({ step, isLoading, error, onDone }: NowCardProps) {
-  // TODO: should be improved
-  if (isLoading) return <p>Loading Next Step...</p>;
-
-  if (error)
-    return (
-      <Card width="max-w-2xl">
-        <Error message={error} />
-      </Card>
-    );
-  if (!step)
-    return (
-      <Card width="max-w-2xl">
-        <p>No step available.</p>
-      </Card>
-    );
-
+export function NowCard({ step, onDone }: NowCardProps) {
   return (
     <Card width="max-w-2xl">
       <article className="surface-container grid gap-y-6">
@@ -66,43 +48,25 @@ export function NowCard({ step, isLoading, error, onDone }: NowCardProps) {
               title="Hur börjar jag?"
               content={step.quickStartLinkHint}
             />
-
-            {/*
-            <section>
-              <header className="flex gap-2 items-center mb-2">
-                <Play className="stroke-brand-subtle" />
-                <h3 className="text-content-muted">
-                  Steg {step.dependencyOrder}
-                </h3>
-              </header>
-              <p className="text-lg leading-relaxed">{step.action}</p>
-            </section>
-            <section>
-              <header className="flex gap-2 items-center mb-2">
-                <Goal className="stroke-brand-subtle" />
-                <h3 className="text-content-muted">Varför?</h3>
-              </header>
-              <p className="text-lg leading-relaxed">
-                {step.outcomeDefinition}
-              </p>
-            </section>
-
-
-            <section>
-              <header className="flex gap-2 items-center mb-2">
-                <WandSparkles className="stroke-brand-subtle" />
-                <h3 className="text-content-muted">Hur börjar jag?</h3>
-              </header>
-              <p className="text-lg leading-relaxed">
-                {step.quickStartLinkHint}
-              </p>
-            </section>
-            */}
           </div>
         </div>
 
-        <Button variant="primary" children="Done" />
+        <Button
+          variant="primary"
+          children="Done"
+          onClick={() => onDone(step.id)}
+        />
       </article>
     </Card>
   );
 }
+
+NowCard.Empty = () => (
+  <Card>No Steps available. Connect your LMS to generate steps first!</Card>
+);
+NowCard.Loading = () => <Card>Loading...</Card>;
+NowCard.Error = ({ message }: { message: string }) => (
+  <Card>
+    <Error message={message} />
+  </Card>
+);
