@@ -1,8 +1,8 @@
 import { type IUserStatusRepository } from "@ccpilot/domain";
-import { toggleTimerStatus } from "./methods/toggleTimerStatus.ts";
+import { toggleTimerActive } from "./methods/toggleTimerActive.ts";
 
 export const createUserStatusRepository = (): IUserStatusRepository => {
   return {
-    toggleTimerStatus,
+    toggleTimerActive,
   };
 };
