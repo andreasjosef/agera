@@ -7,6 +7,7 @@ export * from "./layouts/AppLayout";
 // Features
 export * from "./features/NowCard";
 export * from "./features/AppSidebar";
+export * from "./features/UpcomingSteps";
 
 // Primitives
 export * from "./primitives/Button";
