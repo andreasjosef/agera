@@ -1,5 +1,5 @@
 import * as t from "drizzle-orm/pg-core";
-import { user } from "../db/schema";
+import { user } from "../db/schema.ts";
 
 export const userStatusTable = t.pgTable("status", {
   user_id: t

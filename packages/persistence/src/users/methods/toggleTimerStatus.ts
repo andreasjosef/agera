@@ -1,6 +1,6 @@
 import { db } from "../../db/client.ts";
 import { userStatusTable } from "../schema.ts";
-import { fail, ok, Result, UserStatus } from "@ccpilot/domain";
+import { fail, ok, type Result, type UserStatus } from "@ccpilot/domain";
 
 export const toggleTimerStatus = async (
   userId: string,
