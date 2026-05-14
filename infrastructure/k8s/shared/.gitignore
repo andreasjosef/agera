@@ -1,0 +1,7 @@
+# Ignorera alla råa YAML-filer i denna mapp (lösenord i klartext)
+*.yml
+*.yaml
+
+# MEN tillåt filer som uttryckligen heter sealed-* (krypterade)
+!sealed-*.yml
+!sealed-*.yaml
