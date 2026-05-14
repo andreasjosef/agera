@@ -9,7 +9,7 @@ import { useFinishStep, useNextStep } from "@/modules/requirement/hooks";
 import TimeSelectorManager from "@/components/TimeSelectorManager";
 import LiftOffButton from "@/components/LiftOffButton";
 
-export const Route = createFileRoute("/app/now")({
+export const Route = createFileRoute("/app/cockpit")({
   component: RouteComponent,
 });
 
