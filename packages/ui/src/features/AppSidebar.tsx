@@ -18,7 +18,7 @@ export function AppSidebar({ open, navLinks, footerContent }: AppSidebarProps) {
   }
 
   return (
-    <Card className="h-full w-min flex flex-col gap-y-4">
+    <div className="h-full flex flex-col gap-y-4 border-r border-cod-gray-300 p-2">
       <h1>CCPilot</h1>
       <div className="flex flex-col h-full">
         <nav>
@@ -27,6 +27,6 @@ export function AppSidebar({ open, navLinks, footerContent }: AppSidebarProps) {
 
         <footer className="mt-auto grid gap-y-2">{footerContent} </footer>
       </div>
-    </Card>
+    </div>
   );
 }
