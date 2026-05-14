@@ -11,7 +11,10 @@ export default function TimeSelectorManager() {
     <TimeSelector
       timeMs={timeMs}
       setTime={setTime}
-      handleSelectSubmit={(e) => e.preventDefault()}
+      handleSelectSubmit={(e) => {
+        e.preventDefault();
+        console.log("TODO: Update planning");
+      }}
     />
   );
 }

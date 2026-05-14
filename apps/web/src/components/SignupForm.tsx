@@ -20,6 +20,7 @@ export default function SignupForm({
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpForm>({
+    // FIXME: Seems like zod resolver does not fully support zod v4 yet
     resolver: zodResolver(signUpFormSchema),
     mode: "onChange",
     reValidateMode: "onBlur",
