@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: group4-ingress
+  namespace: doe25-group-4
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: test.labb.k3s.chas-lab.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend-service 
+                port:
+                  number: 80

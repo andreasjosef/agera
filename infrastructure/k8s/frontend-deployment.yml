@@ -19,7 +19,7 @@ spec:
         - name: gitlab-registry-secret
       containers:
         - name: frontend-container
-          image: registry.gitlab.com/chas-challenge-2026/grupp-4/web:latest 
+          image: registry.chas-lab.dev/chas-challenge-2026/group-4/frontend:latest
           ports:
             - name: http-web
               containerPort: 5173 
