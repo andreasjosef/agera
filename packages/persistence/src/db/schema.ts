@@ -4,6 +4,7 @@ import * as t from "drizzle-orm/pg-core";
 
 export * from "../integrations/schema.ts";
 export * from "../requirements/schema.ts";
+export * from "../users/schema.ts";
 
 /**
  * User Tables

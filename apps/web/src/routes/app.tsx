@@ -27,7 +27,7 @@ export const Route = createFileRoute("/app")({
 });
 
 const sidebarNavItems = [
-  { to: "/app/now", label: "Cockpit", icon: LayoutDashboard },
+  { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
   { to: "/app/requirements", label: "All", icon: Settings },
 ] as const;
 

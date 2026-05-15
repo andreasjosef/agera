@@ -9,6 +9,7 @@ import { authHandlerNode } from "@ccpilot/auth-betterauth";
 import requirementsRouter from "./routes/requirements/router.ts";
 import integrationsRouter from "./routes/integrations/router.ts";
 import stepsRouter from "./routes/steps/router.ts";
+import statusRouter from "./routes/status/router.ts";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.get("/health", (req, res) => {
 app.use("/api/requirements", requirementsRouter);
 app.use("/api/integrations", integrationsRouter);
 app.use("/api/steps", stepsRouter);
+app.use("/api/status", statusRouter);
 
 app.listen(PORT, () =>
   console.log(`[CCPILOT API] running on http://localhost:${PORT}`),

@@ -1,5 +1,7 @@
+import { type Result } from "../shared/result.ts";
 import { z } from "zod";
 
+// Schemas & Types
 export const UserIdentitySchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -38,5 +40,24 @@ export const loginInFormSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 
+export const UserStatusSchema = z.object({
+  timer_active: z.boolean(),
+});
+
+export type UserStatus = z.infer<typeof UserStatusSchema>;
 export type SignUpForm = z.infer<typeof signUpFormSchema>;
 export type LoginInForm = z.infer<typeof loginInFormSchema>;
+export type UserIdentity = z.infer<typeof UserIdentitySchema>;
+export type NewUser = z.infer<typeof NewUserSchema>;
+export type SafeUser = z.infer<typeof SafeUserSchema>;
+
+// Respository
+
+// TODO: Write proper docs, this doesn't help !
+/**
+ * Repository responsable for managing user status
+ * @group Definitions
+ */
+export interface IUserStatusRepository {
+  toggleTimerActive: (userId: string) => Promise<Result<UserStatus>>;
+}

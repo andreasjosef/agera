@@ -2,13 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
 
-import { NowCard } from "@ccpilot/ui";
+import { Button, NowCard } from "@ccpilot/ui";
 
-import Timer from "@/components/Timer";
 import Heatmap from "@/components/Heatmap";
 import { useFinishStep, useNextStep } from "@/modules/requirement/hooks";
+import TimeSelectorManager from "@/components/TimeSelectorManager";
+import LiftOffButton from "@/components/LiftOffButton";
 
-export const Route = createFileRoute("/app/now")({
+export const Route = createFileRoute("/app/cockpit")({
   component: RouteComponent,
 });
 
@@ -23,9 +24,12 @@ function RouteComponent() {
   return (
     <div className="h-full mx-auto max-w-6xl">
       <NowDashboardLayout>
-        <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
+        <div className="flex flex-col items-end gap-y-2">
+          <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
+          <LiftOffButton />
+        </div>
         <Heatmap />
-        <Timer />
+        <TimeSelectorManager />
       </NowDashboardLayout>
     </div>
   );
