@@ -18,6 +18,7 @@ spec:
       containers:
         - name: backend-container
           image: registry.chas-lab.dev/chas-challenge-2026/group-4/express:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
@@ -36,11 +37,9 @@ spec:
               value: "3000"
             - name: DATABASE_URL
               value: "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable"
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: backend-secrets
-                  key: SECRET_KEY
+          envFrom:
+            - secretRef:
+                name: backend-secrets
 ---
 apiVersion: v1
 kind: Service

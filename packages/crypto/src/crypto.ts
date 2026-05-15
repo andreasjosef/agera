@@ -1,7 +1,8 @@
 import crypto from "node:crypto";
 
 const algorithm = "aes-256-cbc";
-const encryptionKey = process.env.ENCRYPTION_KEY;
+const encryptionKey = process.env.SECRET_KEY;
+
 
 if (!encryptionKey) {
   throw new Error("SECRET_KEY environment variable is required");
@@ -36,3 +37,4 @@ export function decryptToken(data: string) {
   decrypted += decipher.final("utf-8");
   return decrypted;
 }
+
