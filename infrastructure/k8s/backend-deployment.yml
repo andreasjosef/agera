@@ -17,7 +17,7 @@ spec:
         - name: gitlab-registry-secret
       containers:
         - name: backend-container
-          image: registry.chas-lab.dev/chas-challenge-2026/group-4/backend:latest
+          image: registry.chas-lab.dev/chas-challenge-2026/group-4/express:latest
           ports:
             - containerPort: 3000
           env:

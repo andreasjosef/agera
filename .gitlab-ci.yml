@@ -10,6 +10,7 @@ stages:
 variables:
   PNPM_STORE_PATH: .pnpm-store
   FRONTEND_IMAGE: $CI_REGISTRY_IMAGE/web
+  BACKEND_IMAGE: $CI_REGISTRY_IMAGE/express
 cache:
     key:
      files:
@@ -40,6 +41,7 @@ build_documentation:
       paths:
        - apps/docs/dist/
       expire_in: 1 week
+
 build_frontend:
   stage: build
   image: docker:24.0.5
@@ -50,3 +52,14 @@ build_frontend:
   script:
     - docker build -t $FRONTEND_IMAGE:latest -f apps/web/Dockerfile .
     - docker push $FRONTEND_IMAGE:latest
+
+build_backend:
+  stage: build
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t $BACKEND_IMAGE:latest -f apps/express/Dockerfile .
+    - docker push $BACKEND_IMAGE:latest
