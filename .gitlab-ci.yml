@@ -3,9 +3,9 @@
 image: node:24-alpine
 
 stages:
+    - build
     - test
     - docs
-    - build
 
 variables:
   PNPM_STORE_PATH: .pnpm-store
