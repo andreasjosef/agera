@@ -19,10 +19,10 @@ spec:
         - name: gitlab-registry-secret
       containers:
         - name: frontend-container
-          image: registry.chas-lab.dev/chas-challenge-2026/group-4/frontend:latest
+          image: registry.chas-lab.dev/chas-challenge-2026/group-4/web:latest
           ports:
             - name: http-web
-              containerPort: 5173 
+              containerPort: 5173
           resources: 
             limits:
               cpu: "500m"
