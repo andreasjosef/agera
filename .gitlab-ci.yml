@@ -1,24 +1,27 @@
-
-
 image: node:24-alpine
 
 stages:
-    - build
-    - test
-    - docs
+  - build
+  - test
+  - docs
 
 variables:
   PNPM_STORE_PATH: .pnpm-store
   FRONTEND_IMAGE: $CI_REGISTRY_IMAGE/web
   BACKEND_IMAGE: $CI_REGISTRY_IMAGE/express
-cache:
-    key:
-     files:
-       - pnpm-lock.yaml
-    paths:
-       - $PNPM_STORE_PATH
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
 
-before_script:
+cache:
+  key:
+    files:
+      - pnpm-lock.yaml
+  paths:
+    - $PNPM_STORE_PATH
+
+.node_setup: &node_setup
+  before_script:
     - corepack enable
     - corepack prepare pnpm@latest --activate
     - pnpm config set store-dir $PNPM_STORE_PATH
@@ -47,20 +50,20 @@ build_backend:
     - docker push $BACKEND_IMAGE:latest
 
 test_job:
-    stage: test
-    script:
+  stage: test
+  <<: *node_setup  
+  script:
     - pnpm turbo run test
-    
+
 build_documentation:
-    stage: docs 
-    script:
-      - echo "Syncing README-file..."
-      - node scripts/sync-docs.mjs
-      - echo "Building Starlight documentation..."
-      - pnpm --filter docs build
-
-    artifacts:
-      paths:
-       - apps/docs/dist/
-      expire_in: 1 week
-
+  stage: docs
+  <<: *node_setup  
+  script:
+    - echo "Syncing README-file..."
+    - node scripts/sync-docs.mjs
+    - echo "Building Starlight documentation..."
+    - pnpm --filter docs build
+  artifacts:
+    paths:
+      - apps/docs/dist/
+    expire_in: 1 week
