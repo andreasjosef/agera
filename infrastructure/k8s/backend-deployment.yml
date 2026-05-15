@@ -3,10 +3,8 @@ kind: Deployment
 metadata:
   name: backend-deployment
   namespace: doe25-group-4
-  labels:
-    app: backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -21,32 +19,25 @@ spec:
         - name: backend-container
           image: registry.chas-lab.dev/chas-challenge-2026/group-4/backend:latest
           ports:
-            - name: http-api
-              containerPort: 3000
-          resources: 
-            limits:
-              cpu: "500m"
-              memory: "256Mi"
-            requests:
-              cpu: "250m"
-              memory: "128Mi"
+            - containerPort: 3000
           env:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: test-db-password
                   key: password
-            
             - name: DB_USER
               value: "ccpilot_app"
             - name: DB_NAME
               value: "ccpilot_db"
-            
             - name: DB_HOST
-              value: "postgres-service" 
-            
+              value: "postgres-service"
             - name: PORT
               value: "3000"
+            - name: DATABASE_URL
+              value: "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable"
+            - name: SECRET_KEY
+              value: "vi-vinnar-over-detta-nu-123"
 ---
 apiVersion: v1
 kind: Service
@@ -58,6 +49,6 @@ spec:
     app: backend
   ports:
     - protocol: TCP
-      port: 3000       
-      targetPort: 3000 
+      port: 3000
+      targetPort: 3000
   type: ClusterIP
