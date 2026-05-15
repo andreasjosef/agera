@@ -24,24 +24,6 @@ before_script:
     - pnpm config set store-dir $PNPM_STORE_PATH
     - pnpm install --frozen-lockfile
 
-test_job:
-    stage: test
-    script:
-    - pnpm turbo run test
-    
-build_documentation:
-    stage: docs 
-    script:
-      - echo "Syncing README-file..."
-      - node scripts/sync-docs.mjs
-      - echo "Building Starlight documentation..."
-      - pnpm --filter docs build
-
-    artifacts:
-      paths:
-       - apps/docs/dist/
-      expire_in: 1 week
-
 build_frontend:
   stage: build
   image: docker:24.0.5
@@ -63,3 +45,22 @@ build_backend:
   script:
     - docker build -t $BACKEND_IMAGE:latest -f apps/express/Dockerfile .
     - docker push $BACKEND_IMAGE:latest
+
+test_job:
+    stage: test
+    script:
+    - pnpm turbo run test
+    
+build_documentation:
+    stage: docs 
+    script:
+      - echo "Syncing README-file..."
+      - node scripts/sync-docs.mjs
+      - echo "Building Starlight documentation..."
+      - pnpm --filter docs build
+
+    artifacts:
+      paths:
+       - apps/docs/dist/
+      expire_in: 1 week
+

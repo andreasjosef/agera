@@ -5,6 +5,7 @@ RUN corepack enable
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY apps/express/package.json ./apps/express/
+COPY packages/domain/package.json ./packages/domain/
 
 RUN pnpm install --frozen-lockfile
 
