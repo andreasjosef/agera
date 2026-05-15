@@ -1,50 +1,49 @@
 image: node:24-alpine
 
 stages:
-    - test
-    - docs
-    - build
+  - test
+  - docs
+  - build
 
 variables:
   PNPM_STORE_PATH: .pnpm-store
   FRONTEND_IMAGE: $CI_REGISTRY_IMAGE/web
   BACKEND_IMAGE: $CI_REGISTRY_IMAGE/express
-cache:
-    key:
-     files:
-       - pnpm-lock.yaml
-    paths:
-       - $PNPM_STORE_PATH
 
-before_script:
+cache:
+  key:
+    files:
+      - pnpm-lock.yaml
+  paths:
+    - $PNPM_STORE_PATH
+
+test_job:
+  stage: test
+  script:
     - corepack enable
     - corepack prepare pnpm@latest --activate
     - pnpm config set store-dir $PNPM_STORE_PATH
     - pnpm install --frozen-lockfile
-
-test_job:
-    stage: test
-    script:
     - pnpm turbo run test
-    
-build_documentation:
-    stage: docs 
-    script:
-      - echo "Syncing README-file..."
-      - node scripts/sync-docs.mjs
-      - echo "Building Starlight documentation..."
-      - pnpm --filter docs build
 
-    artifacts:
-      paths:
-       - apps/docs/dist/
-      expire_in: 1 week
+build_documentation:
+  stage: docs 
+  script:
+    - corepack enable
+    - corepack prepare pnpm@latest --activate
+    - pnpm config set store-dir $PNPM_STORE_PATH
+    - pnpm install --frozen-lockfile
+    - echo "Syncing README-file..."
+    - node scripts/sync-docs.mjs
+    - pnpm --filter docs build
+  artifacts:
+    paths:
+      - apps/docs/dist/
+    expire_in: 1 week
 
 build_frontend:
   stage: build
   image: docker:24.0.5
-  services:
-    - docker:24.0.5-dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
@@ -54,8 +53,6 @@ build_frontend:
 build_backend:
   stage: build
   image: docker:24.0.5
-  services:
-    - docker:24.0.5-dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
