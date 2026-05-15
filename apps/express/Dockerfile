@@ -1,12 +1,14 @@
 FROM node:24-alpine
 WORKDIR /app
+
 RUN corepack enable
 
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY apps/express/package.json ./apps/express/
+
+RUN pnpm install --frozen-lockfile
+
 COPY . .
-
-RUN rm -rf node_modules apps/*/node_modules packages/*/node_modules
-
-RUN pnpm install
 
 WORKDIR /app/apps/express
 EXPOSE 3000
