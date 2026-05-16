@@ -45,6 +45,7 @@ build_frontend:
   stage: build
   image: docker:24.0.5
   before_script:
+    - unset DOCKER_HOST
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - docker build -t $FRONTEND_IMAGE:latest -f apps/web/Dockerfile .
@@ -54,6 +55,7 @@ build_backend:
   stage: build
   image: docker:24.0.5
   before_script:
+    - unset DOCKER_HOST
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - docker build -t $BACKEND_IMAGE:latest -f apps/express/Dockerfile .
