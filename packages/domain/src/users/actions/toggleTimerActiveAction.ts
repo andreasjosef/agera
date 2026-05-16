@@ -4,6 +4,7 @@ import type { IUserStatusRepository, UserStatus } from "../definitions.ts";
 export const toggleTimerActiveAction = async (
   repo: IUserStatusRepository,
   userId: string,
+  isActive: boolean,
 ): Promise<Result<UserStatus>> => {
-  return await repo.toggleTimerActive(userId);
+  return await repo.toggleTimerActive(userId, isActive);
 };
