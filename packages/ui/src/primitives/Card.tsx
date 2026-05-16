@@ -2,12 +2,14 @@ import React from "react";
 
 interface CardProps {
   children: React.ReactNode;
+  title?: string;
   width?: string;
   className?: string;
 }
 
 export const Card = ({
   children,
+  title,
   width = "w-full",
   className = "",
 }: CardProps) => {
@@ -26,6 +28,7 @@ export const Card = ({
         boxShadow: "3px 3px 0px var(--color-app-shadow)",
       }}
     >
+      {title && <h2 className="text-2xl font-semibold mb-4">{title}</h2>}
       {children}
     </div>
   );
