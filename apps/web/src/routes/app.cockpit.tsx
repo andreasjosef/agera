@@ -2,34 +2,32 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
 
-import { NowCard, UpcomingSteps } from "@ccpilot/ui";
+import { UpcomingSteps } from "@ccpilot/ui";
 
-import Timer from "@/components/Timer";
 import Heatmap from "@/components/Heatmap";
-import { useFinishStep, useNextStep } from "@/modules/requirement/hooks";
 import { requirementQueryOptions } from "@/modules/requirement/api";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import TimeSelectorManager from "@/components/TimeSelectorManager";
+import LiftOffButton from "@/components/LiftOffButton";
 
-export const Route = createFileRoute("/app/now")({
+export const Route = createFileRoute("/app/cockpit")({
   component: RouteComponent,
   loader: ({ context }) =>
     context.queryClient.ensureQueryData(requirementQueryOptions.preview),
 });
 
 function RouteComponent() {
-  const { nextStep, error, isLoading } = useNextStep();
   const { data: preview } = useSuspenseQuery(requirementQueryOptions.preview);
-
-  if (!nextStep) return <NowCard.Empty />;
-  if (isLoading) return <NowCard.Loading />;
-  if (error) return <NowCard.Error message={error.message} />;
 
   return (
     <div className="h-full mx-auto max-w-6xl">
       <NowDashboardLayout>
-        <UpcomingSteps steps={preview} />
+        <div className="flex flex-col items-end gap-y-2">
+          <UpcomingSteps steps={preview} />
+          <LiftOffButton />
+        </div>
+        <TimeSelectorManager />
         <Heatmap />
-        <Timer />
       </NowDashboardLayout>
     </div>
   );

@@ -13,7 +13,7 @@ export interface NowCardProps {
 
 export function NowCard({ step, onDone }: NowCardProps) {
   return (
-    <Card width="max-w-2xl">
+    <Card>
       <article className="surface-container grid gap-y-6">
         <div className="divide-y divide-gray-200 grid gap-y-4">
           <header className="flex justify-between items-center pb-4 mb-3">

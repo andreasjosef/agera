@@ -8,6 +8,7 @@ import {
   integrationsRepo,
   openrouterClient,
   reqRepo,
+  userStatusRepo,
 } from "../services/instances.ts";
 
 /**
@@ -54,6 +55,7 @@ export const appContext = async (
     repos: {
       requirements: reqRepo,
       integrations: integrationsRepo,
+      status: userStatusRepo,
     },
     services: {
       canvas: canvasClient,
