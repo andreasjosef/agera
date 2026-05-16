@@ -2,6 +2,7 @@ import { statusMutations } from "@/modules/cockpit/api";
 import { useTimer } from "@/modules/cockpit/store";
 import { PomodoroTimer } from "@ccpilot/ui";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";
 
@@ -31,6 +32,8 @@ export default function PomodoroTimerManager() {
     mutationFn: statusMutations.toggleStatusActive,
     mutationKey: ["status"],
   });
+
+  const navigate = useNavigate();
 
   // Handle running pomodoro, toggle user status and current mode
   useEffect(() => {
@@ -63,6 +66,7 @@ export default function PomodoroTimerManager() {
       }}
       handleStop={() => {
         toggleStatusActive(false);
+        navigate({ to: "/app/cockpit" });
       }}
     />
   );
