@@ -22,6 +22,6 @@ type Story = StoryObj<typeof TimeSelector>;
 
 export const Default: Story = {
   args: {
-    timeMs: 1800000, // 30 min
+    timeSeconds: 1800000, // 30 min
   },
 };

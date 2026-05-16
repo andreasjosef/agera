@@ -4,33 +4,34 @@ import { Card } from "../primitives/Card";
 import { mergeStyles } from "../utils";
 
 interface TimeSelectorProps {
-  timeMs: number;
+  timeSeconds: number;
   setTime: (value: number) => void;
   handleSelectSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void;
 }
 
+// Value in seconds
 const timeOptions = [
-  { label: "30 min", value: 30 * 60 * 1000 },
-  { label: "90 min", value: 90 * 60 * 1000 },
-  { label: "2 h", value: 120 * 60 * 1000 },
-  { label: "4 h", value: 240 * 60 * 1000 },
+  { label: "30 min", value: 30 * 60 },
+  { label: "90 min", value: 90 * 60 },
+  { label: "2 h", value: 120 * 60 },
+  { label: "4 h", value: 240 * 60 },
 ] as const;
 
 export function TimeSelector({
-  timeMs = 1800000,
+  timeSeconds = 30 * 60,
   setTime,
   handleSelectSubmit,
 }: TimeSelectorProps) {
   return (
     <Card className="grid gap-y-2">
-      <h3>Focus Time</h3>
+      <h3>Total Focus Time</h3>
       {/* TODO: This might be a primitive like radio menu or something */}
 
       <form className="grid gap-y-2" onSubmit={handleSelectSubmit}>
         {/* TODO: We can probably make this more accessable, but use buttons for now */}
         <ul className="grid grid-cols-4 gap-x-2">
           {timeOptions.map(({ label, value }) => {
-            const isActive = timeMs === value;
+            const isActive = timeSeconds === value;
 
             return (
               <li className="block">
@@ -51,7 +52,10 @@ export function TimeSelector({
           })}
         </ul>
 
-        <Button type="submit"> Select </Button>
+        <Button type="submit" onClick={handleSelectSubmit}>
+          {" "}
+          Select{" "}
+        </Button>
       </form>
     </Card>
   );
