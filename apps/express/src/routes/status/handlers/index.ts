@@ -1,1 +1,1 @@
-export { updateTimerStatus } from "./updateTimerStatus.ts";
+export { toggleStatus } from "./toggleStatus.ts";
