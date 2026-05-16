@@ -5,7 +5,11 @@ import {
   zodRawParser,
   zodWrappedParser,
 } from "@ccpilot/ts-fetch";
-import { RequirementSchema, ScoredStepSchema } from "@ccpilot/domain";
+import {
+  RequirementSchema,
+  ScoredStep,
+  ScoredStepSchema,
+} from "@ccpilot/domain";
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 // TODO: Switch to zodWrappedParser when the /requirment endpoint is implemented
@@ -77,6 +81,26 @@ export const requirementQueryOptions = {
 
       if (!result.ok) throw new Error(result.error);
 
+      return result.value;
+    },
+  }),
+  preview: queryOptions({
+    queryKey: ["requirements", "preview"],
+    queryFn: async () => {
+      const result = await fetchList<ScoredStep>(
+        "http://localhost:4000/api/requirements/preview",
+        zodRawParser(ScoredStepSchema),
+        {
+          extractArray: (data) => data.value,
+          onItemError: (item, err) => {
+            console.error("Failed to parse item:", err, item);
+          },
+        },
+      );
+
+      if (!result.ok) throw new Error(result.error);
+
+      console.log("[PREVIEW RESULT]: ", result.value);
       return result.value;
     },
   }),
