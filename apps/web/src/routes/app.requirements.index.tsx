@@ -1,4 +1,4 @@
-import RequirementsList from "@/components/RequirementsList";
+import { RequirementsList } from "@ccpilot/ui";
 import { requirementQueryOptions } from "@/modules/requirement/api";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
