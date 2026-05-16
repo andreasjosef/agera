@@ -1,5 +1,7 @@
+import { statusMutations } from "@/modules/cockpit/api";
 import { useTimer } from "@/modules/cockpit/store";
 import { PomodoroTimer } from "@ccpilot/ui";
+import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";
 
@@ -8,6 +10,7 @@ export default function PomodoroTimerManager() {
   const {
     mode,
     isPaused,
+    cyclesRemaining,
     timeRemainingSeconds,
     setTimeRemaining,
     setIsPaused,
@@ -16,6 +19,7 @@ export default function PomodoroTimerManager() {
     useShallow((state) => ({
       mode: state.mode,
       isPaused: state.isPaused,
+      cyclesRemaining: state.cyclesRemaining,
       timeRemainingSeconds: state.timeRemainingSeconds,
       setTimeRemaining: state.setTimeRemainingSeconds,
       setIsPaused: state.setIsPaused,
@@ -23,10 +27,18 @@ export default function PomodoroTimerManager() {
     })),
   );
 
-  useEffect(() => {
-    if (isPaused) return;
+  const { mutate: toggleStatusActive } = useMutation({
+    mutationFn: statusMutations.toggleStatusActive,
+    mutationKey: ["status"],
+  });
 
-    // NOTE: For now this just switches from 25 min to 5 min
+  // Handle running pomodoro, toggle user status and current mode
+  useEffect(() => {
+    if (isPaused) {
+      toggleStatusActive(false);
+      return;
+    }
+
     if (timeRemainingSeconds <= 0) {
       toggleMode();
     }
@@ -43,11 +55,14 @@ export default function PomodoroTimerManager() {
     <PomodoroTimer
       mode={mode}
       isPaused={isPaused}
+      cyclesRemaining={cyclesRemaining}
       timeRemainingSeconds={timeRemainingSeconds}
-      handleTogglePause={() => setIsPaused(!isPaused)}
+      handleTogglePause={() => {
+        toggleStatusActive(isPaused);
+        setIsPaused(!isPaused);
+      }}
       handleStop={() => {
-        // TODO: Toggle user status and navigate to /app/cockpit
-        console.log("handle stop");
+        toggleStatusActive(false);
       }}
     />
   );
