@@ -13,6 +13,7 @@ requirementRouter.use(appContext);
 
 requirementRouter.get("/", handlers.getRequirements);
 requirementRouter.get("/next", handlers.getNextStep);
+requirementRouter.get("/preview", handlers.getUpcomingSteps);
 requirementRouter.get("/sync/:provider", handlers.getSyncStatus);
 requirementRouter.post("/sync", handlers.initiateSync);
 requirementRouter.post(
