@@ -22,7 +22,8 @@ export const useTimer = create<TimerState>((set) => ({
   baseTime: 30 * 60,
   mode: "focus",
   isPaused: true,
-  timeRemainingSeconds: 5,
+  timeRemainingSeconds: 25 * 60,
+  // timeRemainingSeconds: 5, // If you want to test with shorter time
   cyclesRemaining: 1,
 
   setBaseTime: (seconds) => set({ baseTime: seconds }),
@@ -40,7 +41,8 @@ export const useTimer = create<TimerState>((set) => ({
       return {
         mode: isModeFocus ? "break" : "focus",
         isPaused: true,
-        timeRemainingSeconds: isModeFocus ? 5 : 5,
+        timeRemainingSeconds: isModeFocus ? 5 * 60 : 25 * 60,
+        // timeRemainingSeconds: isModeFocus ? 5 : 5, // For test
         cyclesRemaining,
       };
     });
