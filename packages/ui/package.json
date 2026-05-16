@@ -48,6 +48,8 @@
   },
   "dependencies": {
     "@ccpilot/domain": "workspace:*",
+    "@tanstack/react-router": "^1.168.3",
+    "date-fns": "^4.1.0",
     "lucide-react": "^1.14.0"
   }
 }
