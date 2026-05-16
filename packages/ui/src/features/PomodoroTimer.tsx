@@ -1,10 +1,12 @@
 import { Card } from "../primitives/Card";
 import { Button } from "../primitives/Button";
+import { ClockFading } from "lucide-react";
 
 interface PomodoroTimerProps {
   /* NOTE: In future we can have long break as well, so this is why unions are used */
   mode: "focus" | "break";
   isPaused: boolean;
+  cyclesRemaining: number;
   timeRemainingSeconds: number;
   handleTogglePause: () => void;
   handleStop: () => void;
@@ -13,6 +15,7 @@ interface PomodoroTimerProps {
 export function PomodoroTimer({
   mode,
   isPaused,
+  cyclesRemaining,
   timeRemainingSeconds,
   handleTogglePause,
   handleStop,
@@ -27,11 +30,16 @@ export function PomodoroTimer({
 
   return (
     <Card>
-      <h3>{mode === "focus" ? "Focus Time" : "Short Break Time"}</h3>
+      <header className="flex justify-between items-center">
+        <h3>{mode === "focus" ? "Focus Time" : "Short Break Time"}</h3>
+        <span className="flex gap-x-2">
+          <ClockFading /> {cyclesRemaining}
+        </span>
+      </header>
       <span className="font-bold"> {formatTime(timeRemainingSeconds)} </span>
       <div className="grid grid-cols-2 gap-x-2">
-        <Button onClick={handleTogglePause}>
-          {isPaused ? "Resume" : "Pause"}
+        <Button onClick={handleTogglePause} disabled={!cyclesRemaining}>
+          {isPaused ? "Start" : "Pause"}
         </Button>
         <Button onClick={handleStop}> Stop </Button>
       </div>
