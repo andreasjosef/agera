@@ -29,14 +29,16 @@ export function PomodoroTimer({
   };
 
   return (
-    <Card>
+    <Card className="grid gap-y-1">
       <header className="flex justify-between items-center">
         <h3>{mode === "focus" ? "Focus Time" : "Short Break Time"}</h3>
         <span className="flex gap-x-2">
           <ClockFading /> {cyclesRemaining}
         </span>
       </header>
-      <span className="font-bold"> {formatTime(timeRemainingSeconds)} </span>
+      <span className="font-bold text-2xl">
+        {formatTime(timeRemainingSeconds)}
+      </span>
       <div className="grid grid-cols-2 gap-x-2">
         <Button onClick={handleTogglePause} disabled={!cyclesRemaining}>
           {isPaused ? "Start" : "Pause"}
