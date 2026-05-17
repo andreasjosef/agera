@@ -1,8 +1,32 @@
 import { UserStatusSchema } from "@ccpilot/domain";
-import { safePostItem, zodWrappedParser } from "@ccpilot/ts-fetch";
+import {
+  safePostItem,
+  safeFetchItem,
+  zodWrappedParser,
+} from "@ccpilot/ts-fetch";
+import { queryOptions } from "@tanstack/react-query";
 
 const BASE_URL = "http://localhost:4000/api";
 const UserStatusResponseSchema = zodWrappedParser(UserStatusSchema);
+
+export const statusQueries = {
+  getStatusActive: () =>
+    queryOptions({
+      queryKey: ["status", "active"],
+      queryFn: async () => {
+        const result = await safeFetchItem(
+          `${BASE_URL}/status`,
+          UserStatusResponseSchema,
+        );
+
+        if (!result.ok) {
+          throw new Error(result.error);
+        }
+
+        return result.value;
+      },
+    }),
+};
 
 export const statusMutations = {
   toggleStatusActive: (isActive: boolean) => {

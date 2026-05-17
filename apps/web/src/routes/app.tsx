@@ -1,7 +1,7 @@
-import { Link, Outlet } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
 import { authQueries } from "@/modules/auth/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { AppLayout, AppSidebar, NavItem } from "@ccpilot/ui";
+import { AppLayout, AppSidebar } from "@ccpilot/ui";
 import { LayoutDashboard, Settings } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
 import { NavLink } from "@/components/NavLink";
@@ -32,6 +32,7 @@ const sidebarNavItems = [
 ] as const;
 
 function RouteComponent() {
+  // TODO: Display remaining pomodoro time in title
   return (
     <AppLayout>
       <div>

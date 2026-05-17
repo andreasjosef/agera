@@ -1,13 +1,12 @@
 import { statusMutations } from "@/modules/cockpit/api";
 import { useTimer } from "@/modules/cockpit/store";
 import { PomodoroTimer } from "@ccpilot/ui";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 export default function PomodoroTimerManager() {
-  // TODO: Display time remaining in title
   const {
     mode,
     isPaused,
@@ -27,10 +26,14 @@ export default function PomodoroTimerManager() {
       toggleMode: state.toggleMode,
     })),
   );
+  const queryClient = useQueryClient();
 
   const { mutate: toggleStatusActive } = useMutation({
     mutationFn: statusMutations.toggleStatusActive,
-    mutationKey: ["status"],
+    mutationKey: ["status", "toggle"],
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["status"] });
+    },
   });
 
   const navigate = useNavigate();
