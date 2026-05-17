@@ -63,4 +63,5 @@ export interface IUserStatusRepository {
     userId: string,
     isActive: boolean,
   ) => Promise<Result<UserStatus>>;
+  getTimerActive: (userId: string) => Promise<Result<UserStatus>>;
 }
