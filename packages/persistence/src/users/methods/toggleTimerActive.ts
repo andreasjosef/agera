@@ -4,7 +4,6 @@ import { fail, ok } from "@ccpilot/domain";
 
 export const toggleTimerActive = async (userId: string, isActive: boolean) => {
   try {
-    // TODO: Implement actual toggling
     const [row] = await db
       .insert(userStatusTable)
       .values({
