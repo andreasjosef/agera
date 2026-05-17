@@ -1,7 +1,7 @@
 import { type ContextHandler } from "../../../middleware/context.ts";
 import { fail, ok, toggleTimerActiveAction } from "@ccpilot/domain";
 
-export const toggleStatus: ContextHandler = async (req, res) => {
+export const toggleActiveStatus: ContextHandler = async (req, res) => {
   const { ctx } = res.locals;
   const { isActive }: { isActive: boolean } = req.body;
 
