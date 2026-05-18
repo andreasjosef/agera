@@ -4,17 +4,9 @@ import { requirementQueryOptions } from "@/modules/requirement/api";
 import { Button } from "@ccpilot/ui";
 
 import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
-
-import { Button, UpcomingSteps } from "@ccpilot/ui";
-
-import { requirementQueryOptions } from "@/modules/requirement/api";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import TimeSelectorManager from "@/components/TimeSelectorManager";
 import BodyDoublingSwitchManager from "@/components/BodyDoublingSwitchManager";
-
 import TimeSelectorManager from "@/components/TimeSelectorManager";
 import { UpcomingStepsSection } from "@/components/UpcomingStepsWidget";
-
 
 export const Route = createFileRoute("/app/cockpit")({
   component: RouteComponent,
