@@ -74,6 +74,7 @@ export function calculatePriority(
       priorityScore: priorityScoreFinal,
       effectiveDeadline,
       requirementTitle: req.title,
+      requirementId: req.id,
     } as ScoredStep;
   });
 
