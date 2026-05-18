@@ -10,7 +10,7 @@ export default function NowDashboardLayout({
   return (
     <div className="grid h-full grid-cols-[1fr_380px] gap-8 items-start">
       <main className="h-full">{nextStep}</main>
-      <aside className="flex flex-col gap-6 sticky top-10">
+      <aside className="flex flex-col gap-6">
         <div className="w-full">{heatmap}</div>
         <div className="w-full">{timer}</div>
       </aside>
