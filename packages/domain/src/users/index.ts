@@ -1,4 +1,4 @@
 export * from "./definitions.ts";
-export * from "./actions/toggleTimerActive.ts";
-export * from "./actions/getTimerActive.ts";
-export * from "./actions/getActiveTimerCount.ts";
+export * from "./actions/toggleActive.ts";
+export * from "./actions/getIsActive.ts";
+export * from "./actions/getActiveCount.ts";
