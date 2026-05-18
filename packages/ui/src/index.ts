@@ -9,8 +9,8 @@ export * from "./features/NowCard";
 export * from "./features/AppSidebar";
 export * from "./features/UpcomingSteps";
 export * from "./features/TimeSelector";
-export * from "./features/RequirementsList"
 export * from "./features/PomodoroTimer";
+export * from "./features/RequirementCard"
 
 // Primitives
 export * from "./primitives/Button";
