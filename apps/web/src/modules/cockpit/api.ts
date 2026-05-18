@@ -10,12 +10,12 @@ const BASE_URL = "http://localhost:4000/api";
 const UserStatusResponseSchema = zodWrappedParser(UserStatusSchema);
 
 export const statusQueries = {
-  getStatusActive: () =>
+  getIsActiveStatus: () =>
     queryOptions({
       queryKey: ["status", "active"],
       queryFn: async () => {
         const result = await safeFetchItem(
-          `${BASE_URL}/status`,
+          `${BASE_URL}/status/me`,
           UserStatusResponseSchema,
         );
 
@@ -26,7 +26,8 @@ export const statusQueries = {
         return result.value;
       },
     }),
-  getStatusActiveCount: () =>
+
+  getActiveStatusCount: () =>
     queryOptions({
       queryKey: ["status", "count"],
       queryFn: async () => {
