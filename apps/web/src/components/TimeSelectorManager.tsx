@@ -1,18 +1,23 @@
-import { useCockpitSettings } from "@/modules/cockpit/store";
+import { useTimer } from "@/modules/cockpit/store";
 import { TimeSelector } from "@ccpilot/ui";
 import { useShallow } from "zustand/react/shallow";
 
 export default function TimeSelectorManager() {
-  const { timeMs, setTime } = useCockpitSettings(
-    useShallow((state) => ({ timeMs: state.timeMs, setTime: state.setTime })),
+  const { baseTime, setBaseTime, submitBaseTime } = useTimer(
+    useShallow((state) => ({
+      baseTime: state.baseTime,
+      setBaseTime: state.setBaseTime,
+      submitBaseTime: state.submitBaseTime,
+    })),
   );
 
   return (
     <TimeSelector
-      timeMs={timeMs}
-      setTime={setTime}
+      timeSeconds={baseTime}
+      setTime={setBaseTime}
       handleSelectSubmit={(e) => {
         e.preventDefault();
+        submitBaseTime();
         console.log("TODO: Update planning");
       }}
     />

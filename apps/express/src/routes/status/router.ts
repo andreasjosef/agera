@@ -9,6 +9,7 @@ const statusRouter = Router();
 statusRouter.use(authenticateUser);
 statusRouter.use(appContext);
 
-statusRouter.post("/timer/toggle", handlers.updateTimerStatus);
+statusRouter.get("/", handlers.getActiveStatus);
+statusRouter.post("/toggle", handlers.toggleActiveStatus);
 
 export default statusRouter;
