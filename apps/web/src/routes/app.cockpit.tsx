@@ -4,10 +4,10 @@ import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
 
 import { Button, UpcomingSteps } from "@ccpilot/ui";
 
-import Heatmap from "@/components/Heatmap";
 import { requirementQueryOptions } from "@/modules/requirement/api";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import TimeSelectorManager from "@/components/TimeSelectorManager";
+import BodyDoublingSwitchManager from "@/components/BodyDoublingSwitchManager";
 
 export const Route = createFileRoute("/app/cockpit")({
   component: RouteComponent,
@@ -27,7 +27,7 @@ function RouteComponent() {
           <Button onClick={() => navigate({ to: "/app" })}> Lift Off </Button>
         </div>
         <TimeSelectorManager />
-        <Heatmap />
+        <BodyDoublingSwitchManager />
       </NowDashboardLayout>
     </div>
   );
