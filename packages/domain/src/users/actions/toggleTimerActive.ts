@@ -1,7 +1,7 @@
 import { type Result } from "../../shared/result.ts";
 import type { IUserStatusRepository, UserStatus } from "../definitions.ts";
 
-export const toggleTimerActiveAction = async (
+export const toggleTimerActive = async (
   repo: IUserStatusRepository,
   userId: string,
   isActive: boolean,

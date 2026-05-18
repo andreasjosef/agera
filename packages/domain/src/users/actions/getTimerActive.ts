@@ -1,7 +1,7 @@
 import { type Result } from "../../shared/result.ts";
 import type { IUserStatusRepository, UserStatus } from "../definitions.ts";
 
-export const getTimerActiveAction = async (
+export const getTimerActive = async (
   repo: IUserStatusRepository,
   userId: string,
 ): Promise<Result<UserStatus>> => {
