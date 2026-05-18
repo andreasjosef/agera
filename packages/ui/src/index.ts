@@ -12,9 +12,11 @@ export * from "./features/TimeSelector";
 export * from "./features/PomodoroTimer";
 export * from "./features/BodyDoublingSwitch";
 export * from "./features/BodyDoublingDisplay";
+export * from "./features/RequirementCard"
 
 // Primitives
 export * from "./primitives/Button";
 export * from "./primitives/Error";
 export * from "./primitives/Card";
 export * from "./primitives/NavItem";
+export * from "./primitives/RequirementAnchor";

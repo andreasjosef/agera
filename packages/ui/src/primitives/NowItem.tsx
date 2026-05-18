@@ -1,8 +1,9 @@
 import { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 interface NowItemProps {
   icon: LucideIcon;
-  title: string;
+  title: ReactNode;
   content: string;
   iconClassName?: string; // NOTE: This can be used for example to change stroke color
 }

@@ -107,6 +107,7 @@ export const ScoredStepSchema = StepSchema.extend({
   priorityScore: z.number(),
   effectiveDeadline: z.coerce.date(),
   requirementTitle: z.string(),
+  requirementId: z.string(),
 });
 export type ScoredStep = z.infer<typeof ScoredStepSchema>;
 
