@@ -10,9 +10,11 @@ export * from "./features/AppSidebar";
 export * from "./features/UpcomingSteps";
 export * from "./features/TimeSelector";
 export * from "./features/PomodoroTimer";
+export * from "./features/RequirementCard"
 
 // Primitives
 export * from "./primitives/Button";
 export * from "./primitives/Error";
 export * from "./primitives/Card";
 export * from "./primitives/NavItem";
+
