@@ -6,5 +6,5 @@ export const userStatusTable = t.pgTable("user_status", {
     .text("user_id")
     .primaryKey()
     .references(() => user.id, { onDelete: "cascade" }),
-  timer_active: t.boolean("timer_active").notNull().default(false),
+  active: t.boolean("active").notNull().default(false),
 });

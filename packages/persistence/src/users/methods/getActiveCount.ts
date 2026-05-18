@@ -3,12 +3,12 @@ import { fail, ok } from "@ccpilot/domain";
 import { db } from "../../db/client.ts";
 import { userStatusTable } from "../schema.ts";
 
-export const getActiveTimerCount = async () => {
+export const getActiveCount = async () => {
   try {
     const [row] = await db
       .select({ count: count() })
       .from(userStatusTable)
-      .where(eq(userStatusTable.timer_active, true));
+      .where(eq(userStatusTable.active, true));
 
     return ok(row);
   } catch (err) {
