@@ -2,6 +2,8 @@ import { NowCard } from "@ccpilot/ui";
 import { useFinishStep, useNextStep } from "@/modules/requirement/hooks";
 import { createFileRoute } from "@tanstack/react-router";
 import PomodoroTimerManager from "@/components/PomodoroTimerManager";
+import BodyDoublingDisplayManager from "@/components/BodyDoublingDisplayManager";
+import { useBodyDoubling } from "@/modules/cockpit/store";
 
 export const Route = createFileRoute("/app/")({
   component: RouteComponent,
@@ -10,6 +12,7 @@ export const Route = createFileRoute("/app/")({
 function RouteComponent() {
   const { nextStep, error, isLoading } = useNextStep();
   const { mutate: finish } = useFinishStep();
+  const isEnabled = useBodyDoubling((store) => store.isEnabled);
 
   if (!nextStep)
     return (
@@ -29,7 +32,10 @@ function RouteComponent() {
   return (
     <div className="max-w-4xl mx-auto grid grid-cols-[2fr_1fr] items-start gap-x-2">
       <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
-      <PomodoroTimerManager />
+      <div className="grid gap-y-2">
+        <PomodoroTimerManager />
+        {isEnabled && <BodyDoublingDisplayManager />}
+      </div>
     </div>
   );
 }

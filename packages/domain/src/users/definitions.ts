@@ -41,10 +41,19 @@ export const loginInFormSchema = z.object({
 });
 
 export const UserStatusSchema = z.object({
-  timer_active: z.boolean(),
+  active: z.boolean(),
+});
+
+export const ActiveTimerCountSchema = z.object({
+  count: z.number(),
+});
+
+export const ToggleActiveStatusSchema = z.object({
+  isActive: z.boolean(),
 });
 
 export type UserStatus = z.infer<typeof UserStatusSchema>;
+export type ActiveUserCount = z.infer<typeof ActiveTimerCountSchema>;
 export type SignUpForm = z.infer<typeof signUpFormSchema>;
 export type LoginInForm = z.infer<typeof loginInFormSchema>;
 export type UserIdentity = z.infer<typeof UserIdentitySchema>;
@@ -59,9 +68,10 @@ export type SafeUser = z.infer<typeof SafeUserSchema>;
  * @group Definitions
  */
 export interface IUserStatusRepository {
-  toggleTimerActive: (
+  toggleActive: (
     userId: string,
     isActive: boolean,
   ) => Promise<Result<UserStatus>>;
-  getTimerActive: (userId: string) => Promise<Result<UserStatus>>;
+  getIsActive: (userId: string) => Promise<Result<UserStatus>>;
+  getActiveCount: () => Promise<Result<ActiveUserCount>>;
 }

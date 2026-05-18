@@ -1,10 +1,12 @@
 import { type IUserStatusRepository } from "@ccpilot/domain";
-import { toggleTimerActive } from "./methods/toggleTimerActive.ts";
-import { getTimerActive } from "./methods/getTimerActive.ts";
+import { getActiveCount } from "./methods/getActiveCount.ts";
+import { getIsActive } from "./methods/getIsActive.ts";
+import { toggleActive } from "./methods/toggleActive.ts";
 
 export const createUserStatusRepository = (): IUserStatusRepository => {
   return {
-    toggleTimerActive,
-    getTimerActive,
+    toggleActive,
+    getIsActive,
+    getActiveCount,
   };
 };

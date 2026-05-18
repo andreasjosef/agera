@@ -1,2 +1,3 @@
-export { toggleActiveStatus } from "./toggleActiveStauts.ts";
-export { getActiveStatus } from "./getActiveStatus.ts";
+export { toggleActiveStatus } from "./toggleActiveStatus.ts";
+export { getIsActiveStatus } from "./getIsActiveStatus.ts";
+export { getActiveStatusCount } from "./getActiveStatusCount.ts";
