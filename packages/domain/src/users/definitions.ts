@@ -48,6 +48,10 @@ export const ActiveTimerCountSchema = z.object({
   count: z.number(),
 });
 
+export const ToggleActiveStatusSchema = z.object({
+  isActive: z.boolean(),
+});
+
 export type UserStatus = z.infer<typeof UserStatusSchema>;
 export type ActiveTimerCount = z.infer<typeof ActiveTimerCountSchema>;
 export type SignUpForm = z.infer<typeof signUpFormSchema>;
