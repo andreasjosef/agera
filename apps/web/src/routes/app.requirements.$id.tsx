@@ -2,7 +2,7 @@ import { requirementQueryOptions } from "@/modules/requirement/api";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import RequirementProgressBar from "@/components/RequirementProgressBar";
-import { Check, Clock } from "lucide-react";
+import RequirementStepStatus from "@/components/RequirementStepStatus";
 
 export const Route = createFileRoute("/app/requirements/$id")({
   component: RouteComponent,
@@ -16,6 +16,8 @@ function RouteComponent() {
   const { id } = Route.useParams();
 
   const { data: requirement } = useQuery(requirementQueryOptions.getById(id));
+
+  const nextStepIndex = requirement?.steps.findIndex((step) => !step.complete);
 
   return (
     <div className="bg-app-surface px-15 py-10 flex flex-col gap-5">
@@ -47,15 +49,10 @@ function RouteComponent() {
                 <p className="pt-1 text-content-main">{step.action}</p>
               </div>
 
-              {step.complete ? (
-                <div className="flex gap-2 items-center rounded-md border border-emerald-300 bg-emerald-50 px-4 py-1.75 text-sm text-emerald-600">
-                  <Check className="h-5 w-5" /> Genomförd
-                </div>
-              ) : (
-                <div className="flex gap-2 items-center rounded-md border border-stone-200 bg-stone-50 px-4 py-1.75 text-sm font-medium text-stone-600">
-                  <Clock className="h-5 w-5" /> Kommande
-                </div>
-              )}
+              <RequirementStepStatus
+                complete={step.complete}
+                isNextStep={index === nextStepIndex}
+              />
             </div>
 
             {index !== requirement.steps.length - 1 && (
