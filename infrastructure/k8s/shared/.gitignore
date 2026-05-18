@@ -1,0 +1,7 @@
+
+*.yml
+*.yaml
+
+
+!sealed-*.yml
+!sealed-*.yaml
