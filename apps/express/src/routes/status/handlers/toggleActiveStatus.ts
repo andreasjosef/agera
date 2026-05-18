@@ -1,5 +1,5 @@
 import { type ContextHandler } from "../../../middleware/context.ts";
-import { fail, ok, toggleTimerActive } from "@ccpilot/domain";
+import { fail, ok, toggleActive } from "@ccpilot/domain";
 
 export const toggleActiveStatus: ContextHandler = async (req, res) => {
   const { ctx } = res.locals;
@@ -8,7 +8,7 @@ export const toggleActiveStatus: ContextHandler = async (req, res) => {
   const userId = ctx.userId;
   const userStatusRepo = ctx.repos.status;
 
-  const result = await toggleTimerActive(userStatusRepo, userId, isActive);
+  const result = await toggleActive(userStatusRepo, userId, isActive);
 
   if (!result.ok) {
     return res.status(500).json(fail("Failed to toggle user status"));

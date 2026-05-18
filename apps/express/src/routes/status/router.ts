@@ -11,8 +11,8 @@ const statusRouter = Router();
 statusRouter.use(authenticateUser);
 statusRouter.use(appContext);
 
-statusRouter.get("/", handlers.getActiveStatus);
-statusRouter.get("/count", handlers.getActiveCount);
+statusRouter.get("/me", handlers.getIsActiveStatus);
+statusRouter.get("/count", handlers.getActiveStatusCount);
 statusRouter.post(
   "/toggle",
   validateReq(ToggleActiveStatusSchema),
