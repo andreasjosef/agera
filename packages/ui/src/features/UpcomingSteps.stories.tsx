@@ -17,5 +17,8 @@ type Story = StoryObj<typeof UpcomingSteps>;
 export const Default: Story = {
   args: {
     steps: mockUpcomingSteps,
+    RequirementLink: ({ children }) => (
+      <span className="cursor-pointer hover:underline">{children}</span>
+    ),
   },
 };
