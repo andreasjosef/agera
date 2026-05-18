@@ -59,5 +59,9 @@ export type SafeUser = z.infer<typeof SafeUserSchema>;
  * @group Definitions
  */
 export interface IUserStatusRepository {
-  toggleTimerActive: (userId: string) => Promise<Result<UserStatus>>;
+  toggleTimerActive: (
+    userId: string,
+    isActive: boolean,
+  ) => Promise<Result<UserStatus>>;
+  getTimerActive: (userId: string) => Promise<Result<UserStatus>>;
 }

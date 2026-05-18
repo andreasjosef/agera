@@ -1,35 +1,33 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
 
-import { Button, NowCard } from "@ccpilot/ui";
+import { Button, UpcomingSteps } from "@ccpilot/ui";
 
 import Heatmap from "@/components/Heatmap";
-import { useFinishStep, useNextStep } from "@/modules/requirement/hooks";
+import { requirementQueryOptions } from "@/modules/requirement/api";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import TimeSelectorManager from "@/components/TimeSelectorManager";
-import LiftOffButton from "@/components/LiftOffButton";
 
 export const Route = createFileRoute("/app/cockpit")({
   component: RouteComponent,
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData(requirementQueryOptions.preview),
 });
 
 function RouteComponent() {
-  const { nextStep, error, isLoading } = useNextStep();
-  const { mutate: finish } = useFinishStep();
-
-  if (!nextStep) return <NowCard.Empty />;
-  if (isLoading) return <NowCard.Loading />;
-  if (error) return <NowCard.Error message={error.message} />;
+  const { data: preview } = useSuspenseQuery(requirementQueryOptions.preview);
+  const navigate = useNavigate();
 
   return (
     <div className="h-full mx-auto max-w-6xl">
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
-          <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
-          <LiftOffButton />
+          <UpcomingSteps steps={preview} />
+          <Button onClick={() => navigate({ to: "/app" })}> Lift Off </Button>
         </div>
-        <Heatmap />
         <TimeSelectorManager />
+        <Heatmap />
       </NowDashboardLayout>
     </div>
   );

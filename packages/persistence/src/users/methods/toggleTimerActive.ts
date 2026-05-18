@@ -1,24 +1,22 @@
-import { sql } from "drizzle-orm";
 import { db } from "../../db/client.ts";
 import { userStatusTable } from "../schema.ts";
 import { fail, ok } from "@ccpilot/domain";
 
-export const toggleTimerActive = async (userId: string) => {
+export const toggleTimerActive = async (userId: string, isActive: boolean) => {
   try {
-    // TODO: Implement actual toggling
     const [row] = await db
       .insert(userStatusTable)
       .values({
         user_id: userId,
-        timer_active: true,
+        timer_active: isActive,
       })
       .onConflictDoUpdate({
         target: userStatusTable.user_id,
-        set: { timer_active: sql`NOT ${userStatusTable.timer_active}` },
+        set: { timer_active: isActive },
       })
       .returning();
 
-    console.log("[STATUS REPO]: timer status toggled !");
+    console.log("[STATUS REPO]: timer status toggled !", row.timer_active);
     return ok({ timer_active: row.timer_active });
   } catch (err) {
     console.error("[STATUS REPO] failed to toggle timer status ");

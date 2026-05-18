@@ -7,8 +7,10 @@ export * from "./layouts/AppLayout";
 // Features
 export * from "./features/NowCard";
 export * from "./features/AppSidebar";
+export * from "./features/UpcomingSteps";
 export * from "./features/TimeSelector";
 export * from "./features/RequirementsList"
+export * from "./features/PomodoroTimer";
 
 // Primitives
 export * from "./primitives/Button";
