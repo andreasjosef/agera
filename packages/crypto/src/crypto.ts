@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 
 const algorithm = "aes-256-cbc";
-const encryptionKey = process.env.SECRET_KEY;
+const encryptionKey = process.env.ENCRYPTION_KEY;
 
 
 if (!encryptionKey) {
