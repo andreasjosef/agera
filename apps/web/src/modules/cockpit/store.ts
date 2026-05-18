@@ -18,6 +18,11 @@ interface TimerState {
   submitBaseTime: () => void;
 }
 
+interface BodyDoublingState {
+  isEnabled: boolean;
+  setIsEnabled: (value: boolean) => void;
+}
+
 export const useTimer = create<TimerState>((set) => ({
   baseTime: 30 * 60,
   mode: "focus",
@@ -60,4 +65,9 @@ export const useTimer = create<TimerState>((set) => ({
       };
     });
   },
+}));
+
+export const useBodyDoubling = create<BodyDoublingState>((set) => ({
+  isEnabled: true,
+  setIsEnabled: (value) => set({ isEnabled: value }),
 }));

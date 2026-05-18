@@ -1,4 +1,4 @@
-import { UserStatusSchema } from "@ccpilot/domain";
+import { ActiveTimerCountSchema, UserStatusSchema } from "@ccpilot/domain";
 import {
   safePostItem,
   safeFetchItem,
@@ -17,6 +17,22 @@ export const statusQueries = {
         const result = await safeFetchItem(
           `${BASE_URL}/status`,
           UserStatusResponseSchema,
+        );
+
+        if (!result.ok) {
+          throw new Error(result.error);
+        }
+
+        return result.value;
+      },
+    }),
+  getStatusActiveCount: () =>
+    queryOptions({
+      queryKey: ["status", "count"],
+      queryFn: async () => {
+        const result = await safeFetchItem(
+          `${BASE_URL}/status/count`,
+          zodWrappedParser(ActiveTimerCountSchema),
         );
 
         if (!result.ok) {
