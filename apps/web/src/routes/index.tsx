@@ -1,4 +1,5 @@
 import { authQueries } from "@/modules/auth/api";
+import { Button } from "@ccpilot/ui";
 import { createFileRoute, isRedirect, redirect } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 
@@ -34,14 +35,15 @@ function RouteComponent() {
 
       <main className="max-w-xl mt-36 mx-56">
         <h2 className="text-4xl mb-2 font-medium">
-          Executive function as a service
+          Exekutiv funktion som en tjänst.
         </h2>
         <p className="text-lg mb-4 text-content-muted">
-          Navigera i vuxenutbildning genom dina styrkor istället för att
-          dräneras av exekutiva brister.
+          Navigera i vuxenutbildningen genom dina styrkor – nyfikenhet och
+          hyperfokus – istället för det administrativa kaos som dränerar din
+          energi.
         </p>
         <Link className="primary-button" to="/signup">
-          Get Started
+          <Button>Kom Igång!</Button>
         </Link>
       </main>
 
