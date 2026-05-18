@@ -17,7 +17,7 @@ function LoginPage() {
     mutationFn: authMutations.signIn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate({ to: "/app" });
+      navigate({ to: "/app/cockpit" });
     },
     onError: (error) => {
       console.log("[LOGIN] query error: ", error.message);

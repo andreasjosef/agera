@@ -6,6 +6,7 @@ import { LayoutDashboard, Settings } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
 import { NavLink } from "@/components/NavLink";
 import SyncState from "@/components/SyncState";
+import { Suspense } from "react";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -51,15 +52,23 @@ function RouteComponent() {
           footerContent={
             <>
               <SyncState />
-              <LogoutButton />
               <NavLink to="/app/settings" label="Settings" icon={Settings} />
+              <LogoutButton />
             </>
           }
         />
       </div>
 
       <div className="p-4 overflow-y-scroll">
-        <Outlet />
+        <Suspense
+          fallback={
+            <div className="flex h-[60vh] w-full items-center justify-center font-display text-sm font-medium uppercase tracking-widest text-content-subtle animate-pulse">
+              Loading ...
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
       </div>
     </AppLayout>
   );

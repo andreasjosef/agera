@@ -14,6 +14,7 @@ const queryClient = new QueryClient();
 const router = createRouter({
   routeTree,
   context: { queryClient },
+  defaultPreload: "intent",
 });
 
 // Type safety for the router
