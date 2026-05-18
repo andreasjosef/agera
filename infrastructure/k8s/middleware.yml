@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: api-stripper
+  namespace: doe25-group-4
+spec:
+  stripPrefix:
+    prefixes:
+      - /api

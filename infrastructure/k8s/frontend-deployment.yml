@@ -38,4 +38,18 @@ spec:
             periodSeconds: 10
           env:
             - name: VITE_API_URL
-              value: "http://backend-service:3000"
+              value: "/api"   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: doe25-group-4
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5173    
+  type: ClusterIP

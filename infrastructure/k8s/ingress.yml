@@ -4,12 +4,20 @@ metadata:
   name: group4-ingress
   namespace: doe25-group-4
   annotations:
-    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: doe25-group-4-api-stripper@kubernetescrd
 spec:
+  ingressClassName: traefik
   rules:
-    - host: test.labb.k3s.chas-lab.dev
+    - host: c4g-group4.cc.k3s.chas-lab.dev
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service
+                port:
+                  number: 3000
           - path: /
             pathType: Prefix
             backend:
