@@ -14,9 +14,9 @@ function RouteComponent() {
   return (
     <>
       <nav className="mb-8">
-        <button className="primary-button bg-app-surface-raised text-content-main font-medium text-3xl">
+        <h2 className="primary-button bg-app-surface-raised text-content-main font-medium text-3xl">
           Mina Uppdrag
-        </button>
+        </h2>
       </nav>
 
       <ul className="grid grid-cols-3 gap-5">
