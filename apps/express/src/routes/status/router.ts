@@ -10,6 +10,7 @@ statusRouter.use(authenticateUser);
 statusRouter.use(appContext);
 
 statusRouter.get("/", handlers.getActiveStatus);
+statusRouter.get("/count", handlers.getActiveCount);
 statusRouter.post("/toggle", handlers.toggleActiveStatus);
 
 export default statusRouter;
