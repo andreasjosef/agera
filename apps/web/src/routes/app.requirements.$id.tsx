@@ -4,6 +4,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import RequirementProgressBar from "@/components/RequirementProgressBar";
 import RequirementStepStatus from "@/components/RequirementStepStatus";
 
+import { Card } from "@ccpilot/ui";
+
 export const Route = createFileRoute("/app/requirements/$id")({
   component: RouteComponent,
   loader: ({ context, params }) =>
@@ -20,7 +22,7 @@ function RouteComponent() {
   const nextStepIndex = requirement?.steps.findIndex((step) => !step.complete);
 
   return (
-    <div className="bg-app-surface px-15 py-10 flex flex-col gap-5 mx-2 my-8">
+    <Card className="bg-app-surface px-15 py-10 flex flex-col gap-5 mx-2 my-8">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-medium text-content-main ">
@@ -63,6 +65,6 @@ function RouteComponent() {
           </li>
         ))}
       </ul>
-    </div>
+    </Card>
   );
 }
