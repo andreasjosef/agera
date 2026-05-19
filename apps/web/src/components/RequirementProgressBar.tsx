@@ -21,8 +21,8 @@ const RequirementProgressBar = ({ requirement }: RequirementProgressProps) => {
         {progress === 100 ? (
           <>
             <CheckCircle2
-              className="h-4 w-4 text-green-500 "
-              strokeWidth={2.3}
+              className="h-4.5 w-4.5 text-violet-500"
+              strokeWidth={2.5}
             />
             <span>Alla steg är avklarade!</span>
           </>

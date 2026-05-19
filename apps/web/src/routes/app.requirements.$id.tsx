@@ -20,7 +20,7 @@ function RouteComponent() {
   const nextStepIndex = requirement?.steps.findIndex((step) => !step.complete);
 
   return (
-    <div className="bg-app-surface px-15 py-10 flex flex-col gap-5">
+    <div className="bg-app-surface px-15 py-10 flex flex-col gap-5 mx-2 my-8">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-3xl font-medium text-content-main ">
@@ -46,7 +46,9 @@ function RouteComponent() {
                   {step.dependencyOrder}
                 </div>
 
-                <p className="pt-1 text-content-main">{step.action}</p>
+                <p className="pt-1 text-content-main cursor-pointer">
+                  {step.action}
+                </p>
               </div>
 
               <RequirementStepStatus
