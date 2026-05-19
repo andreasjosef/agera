@@ -111,4 +111,16 @@
       grid-template-areas: "upcoming settings";
     }
   }
+
+  .now-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "controls" "now-card";
+
+    /* lg breakpoint */
+    @media (width >= 64rem) {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "now-card controls";
+    }
+  }
 }
