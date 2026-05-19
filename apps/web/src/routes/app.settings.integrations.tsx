@@ -38,9 +38,9 @@ function RouteComponent() {
         <div className="surface-container divide-y divide-cod-gray-200 grid gap-y-2">
           <header className="flex justify-between items-center pb-2">
             <h4>Canvas</h4>
-            <span className="p-2 bg-green-500 rounded-lg text-app-bg font-medium">
-              Connected
-            </span>
+            <div className="pulse-dot bg-green-500">
+              <span className="sr-only">Connected</span>
+            </div>
           </header>
           <div className="grid">
             <ul>
