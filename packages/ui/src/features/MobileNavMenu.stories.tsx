@@ -21,13 +21,13 @@ export const Default: Story = {
     navLinks: (
       <>
         <li>
-          <NavItem label="Cockpit" icon={LayoutDashboard} isActive iconOnly />
+          <NavItem label="Cockpit" icon={LayoutDashboard} isActive />
         </li>
         <li>
-          <NavItem label="All" icon={GalleryHorizontalEnd} iconOnly />
+          <NavItem label="All" icon={GalleryHorizontalEnd} />
         </li>
         <li>
-          <NavItem label="Settings" icon={Settings} iconOnly />
+          <NavItem label="Settings" icon={Settings} />
         </li>
       </>
     ),
