@@ -46,7 +46,7 @@ function RouteComponent() {
   // TODO: Display remaining pomodoro time in title
   return (
     <AppLayout>
-      <div className="hidden sm:block">
+      <div className="hidden md:block">
         {/* TODO: Create a global state for sidebar open */}
         <AppSidebar
           open
@@ -81,7 +81,7 @@ function RouteComponent() {
         </Suspense>
       </div>
 
-      <div className="sm:hidden block">
+      <div className="md:hidden block">
         <MobileNavMenu
           navLinks={
             <>
