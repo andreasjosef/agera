@@ -1,8 +1,8 @@
 import { Outlet } from "@tanstack/react-router";
 import { authQueries } from "@/modules/auth/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { AppLayout, AppSidebar } from "@ccpilot/ui";
-import { LayoutDashboard, Settings } from "lucide-react";
+import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
+import { GalleryHorizontalEnd, LayoutDashboard, Settings } from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
 import { NavLink } from "@/components/NavLink";
 import SyncState from "@/components/SyncState";
@@ -29,14 +29,24 @@ export const Route = createFileRoute("/app")({
 
 const sidebarNavItems = [
   { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
-  { to: "/app/requirements", label: "All", icon: Settings },
+  { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
+] as const;
+
+const mobileNavItems = [
+  { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
+  { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
+  {
+    to: "/app/settings/integrations",
+    label: "All",
+    icon: Settings,
+  },
 ] as const;
 
 function RouteComponent() {
   // TODO: Display remaining pomodoro time in title
   return (
     <AppLayout>
-      <div>
+      <div className="hidden sm:block">
         {/* TODO: Create a global state for sidebar open */}
         <AppSidebar
           open
@@ -69,6 +79,20 @@ function RouteComponent() {
         >
           <Outlet />
         </Suspense>
+      </div>
+
+      <div className="sm:hidden block">
+        <MobileNavMenu
+          navLinks={
+            <>
+              {mobileNavItems.map((item) => (
+                <li key={item.to}>
+                  <NavLink key={item.to} {...item} iconOnly />
+                </li>
+              ))}
+            </>
+          }
+        />
       </div>
     </AppLayout>
   );
