@@ -18,7 +18,7 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full mx-auto max-w-6xl">
+    <div className="h-full container">
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
           <UpcomingStepsSection />
