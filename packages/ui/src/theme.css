@@ -93,9 +93,22 @@
   }
 
   /* TODO: Dark mode*/
-
   body {
     color: var(--color-content-main);
     background-color: var(--color-app-bg);
+  }
+}
+
+@layer utilities {
+  .cockpit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "settings" "upcoming";
+
+    /* lg breakpoint */
+    @media (width >= 64rem) {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "upcoming settings";
+    }
   }
 }
