@@ -53,9 +53,7 @@ function StepInfo({ icon: Icon, label, value, iconClassName }: StepInfoProps) {
 }
 
 export function StepDetail({ step }: StepDetailProps) {
-  const isComplete = step.complete;
-
-  const status = isComplete
+  const status = step.complete
     ? {
         text: "Klar",
         badge: "Klar",
@@ -144,12 +142,10 @@ export function StepDetail({ step }: StepDetailProps) {
           </StepDetailRow>
         </Card>
 
-        <div
-          className={`mt-6 rounded-2xl border px-5 py-4 ${status.containerClass}`}
-        >
+        <Card>
           <div className="flex items-center justify-between">
             <p className={`text-sm font-medium ${status.textClass}`}>
-              {isComplete
+              {step.complete
                 ? "Det här steget är klart."
                 : "Det här steget är inte klart ännu."}
             </p>
@@ -160,7 +156,7 @@ export function StepDetail({ step }: StepDetailProps) {
               {status.badge}
             </span>
           </div>
-        </div>
+        </Card>
       </div>
     </Card>
   );
