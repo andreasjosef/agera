@@ -99,6 +99,17 @@
   }
 }
 
+@layer components {
+  .pulse-dot {
+    width: calc(var(--spacing) * 3);
+    height: calc(var(--spacing) * 3);
+
+    border-radius: calc(infinity * 1px);
+
+    animation: var(--animate-pulse);
+  }
+}
+
 @layer utilities {
   .cockpit-grid {
     display: grid;
@@ -127,5 +138,10 @@
   .gallary-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  }
+
+  .container {
+    width: min(90%, var(--container-6xl));
+    margin-inline: auto;
   }
 }
