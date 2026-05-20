@@ -5,6 +5,7 @@ import type {
   NewRequirement,
   StepGenerationStatus,
   NewStep,
+  Step,
 } from "./definitions.ts";
 /**
  * The IRequirementRepository defines the contract between the domain
@@ -20,6 +21,11 @@ export interface IRequirementRepository {
    * Retrieves a single requirement from the persistence layer by its ID
    * */
   findById: (userId: string, reqId: string) => Promise<Result<Requirement>>;
+
+  /**
+   * Retrieves a single requirement from the persistence layer by its ID
+   * */
+  findStepById: (userId: string, stepId: string) => Promise<Result<Step>>;
 
   /**
    * Retrieves all the requirements from the persistence layer

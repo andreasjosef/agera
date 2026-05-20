@@ -72,6 +72,7 @@ export const StepSchema = z.object({
   estimatedMinutes: z.coerce.number(),
   dependencyOrder: z.coerce.number(),
   quickStartLinkHint: z.string(),
+  requirementId: z.string(),
 });
 export type Step = z.infer<typeof StepSchema>;
 
