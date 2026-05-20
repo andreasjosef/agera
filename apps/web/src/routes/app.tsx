@@ -8,10 +8,11 @@ import {
   LayoutDashboard,
   Settings,
 } from "lucide-react";
-import { LogoutButton } from "@/components/LogoutButton";
 import { NavLink } from "@/components/NavLink";
 import SyncState from "@/components/SyncState";
 import { Suspense } from "react";
+import { useApp } from "@/modules/store";
+import { useShallow } from "zustand/react/shallow";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -55,13 +56,20 @@ const mobileNavItems = [
 ] as const;
 
 function RouteComponent() {
+  const { isSidebarOpen, setIsSidebarOpen } = useApp(
+    useShallow((state) => ({
+      isSidebarOpen: state.isSidebarOpen,
+      setIsSidebarOpen: state.setIsSidebarOpen,
+    })),
+  );
   // TODO: Display remaining pomodoro time in title
   return (
     <AppLayout>
       <div className="hidden md:block">
         {/* TODO: Create a global state for sidebar open */}
         <AppSidebar
-          open
+          isOpen={isSidebarOpen}
+          setIsOpen={setIsSidebarOpen}
           navLinks={
             <>
               {sidebarNavItems.map((item) => (
