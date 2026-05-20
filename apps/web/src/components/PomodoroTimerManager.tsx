@@ -1,5 +1,6 @@
 import { statusMutations } from "@/modules/cockpit/api";
 import { useTimer } from "@/modules/cockpit/store";
+import { useApp } from "@/modules/store";
 import { PomodoroTimer } from "@ccpilot/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
@@ -26,6 +27,8 @@ export default function PomodoroTimerManager() {
       toggleMode: state.toggleMode,
     })),
   );
+  const setIsSidebarOpen = useApp((store) => store.setIsSidebarOpen);
+
   const queryClient = useQueryClient();
 
   const { mutate: toggleStatusActive } = useMutation({
@@ -65,10 +68,12 @@ export default function PomodoroTimerManager() {
       timeRemainingSeconds={timeRemainingSeconds}
       handleTogglePause={() => {
         toggleStatusActive(isPaused);
+        setIsSidebarOpen(!isPaused);
         setIsPaused(!isPaused);
       }}
       handleStop={() => {
         toggleStatusActive(false);
+        setIsSidebarOpen(true);
         navigate({ to: "/app/cockpit" });
       }}
     />
