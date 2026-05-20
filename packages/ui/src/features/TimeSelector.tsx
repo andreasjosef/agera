@@ -6,6 +6,7 @@ import { mergeStyles } from "../utils";
 interface TimeSelectorProps {
   timeSeconds: number;
   setTime: (value: number) => void;
+  title?: string;
 }
 
 // Value in seconds
@@ -19,10 +20,11 @@ const timeOptions = [
 export function TimeSelector({
   timeSeconds = 30 * 60,
   setTime,
+  title = "Total Focus Time",
 }: TimeSelectorProps) {
   return (
     <Card className="grid gap-y-2">
-      <h3>Total Focus Time</h3>
+      <h3>{title}</h3>
       {/* TODO: This might be a primitive like radio menu or something */}
 
       {/* TODO: We can probably make this more accessable, but use buttons for now */}

@@ -10,5 +10,5 @@ export default function TimeSelectorManager() {
     })),
   );
 
-  return <TimeSelector timeSeconds={baseTime} setTime={setBaseTime} />;
+  return <TimeSelector timeSeconds={baseTime} setTime={setBaseTime} title="Hur mycket tid har du just nu?" />;
 }

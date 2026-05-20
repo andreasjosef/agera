@@ -4,15 +4,21 @@ import { Card } from "../primitives/Card";
 interface BodyDoublingSwitchProps {
   enabled: boolean;
   setIsEnable: (enabled: boolean) => void;
+  title?: string;
+  onLabel?: string;
+  offLabel?: string;
 }
 
 export function BodyDoublingSwitch({
   enabled,
   setIsEnable,
+  title = "Body Doubling",
+  onLabel = "On",
+  offLabel = "Off",
 }: BodyDoublingSwitchProps) {
   return (
     <Card className="grid gap-y-2">
-      <h3>Body Doubling</h3>
+      <h3>{title}</h3>
       <div className="grid grid-cols-2 gap-x-2">
         <button
           type="button"
@@ -24,7 +30,7 @@ export function BodyDoublingSwitch({
           )}
           onClick={() => setIsEnable(true)}
         >
-          On
+{onLabel}
         </button>
 
         <button
@@ -37,7 +43,7 @@ export function BodyDoublingSwitch({
           )}
           onClick={() => setIsEnable(false)}
         >
-          Off
+{offLabel}
         </button>
       </div>
     </Card>

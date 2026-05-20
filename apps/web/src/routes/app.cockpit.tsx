@@ -35,7 +35,7 @@ function RouteComponent() {
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
           <UpcomingStepsSection />
-          <Button onClick={handleLiftoff}>Lift Off</Button>
+          <Button onClick={handleLiftoff}>STARTA PASSET</Button>
         </div>
         <TimeSelectorManager />
         <BodyDoublingSwitchManager />
