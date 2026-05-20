@@ -8,7 +8,7 @@ interface StepStatusProps {
 const RequirementStepStatus = ({ complete, isNextStep }: StepStatusProps) => {
   if (complete) {
     return (
-      <div className="flex items-center gap-2 rounded-md border border-emerald-300 bg-emerald-50 px-4 py-1.75 text-sm text-emerald-600">
+      <div className="flex items-center gap-2 rounded-md border border-state-success px-4 py-1.75 text-sm text-state-success">
         <Check className="size-5" />
         <span className="sr-only @md:not-sr-only"> Genomförd </span>
       </div>
@@ -17,7 +17,7 @@ const RequirementStepStatus = ({ complete, isNextStep }: StepStatusProps) => {
 
   if (isNextStep) {
     return (
-      <div className="flex items-center gap-2 rounded-md border border-red-300 bg-red-50 px-4 py-1.75 text-sm text-red-600">
+      <div className="flex items-center gap-2 rounded-md border border-state-info  px-4 py-1.75 text-sm text-state-info">
         <CircleAlert className="size-5" />
         <span className="sr-only @md:not-sr-only"> Nästa steg </span>
       </div>
