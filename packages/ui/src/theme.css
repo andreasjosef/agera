@@ -66,6 +66,12 @@
   --color-canvas-primary: var(--canvas-solid);
   --color-canvas-hover: var(--canvas-muted);
   --color-canvas-subtle: var(--canvas-subtle);
+
+  /* NOTE: Just assigned colors directly here for now since we don't really need shades of these colors i think */
+  --color-state-success: #3de92e;
+  --color-state-caution: #dcd114;
+  --color-state-danger: #f70c1a;
+  --color-state-info: #268ddf;
 }
 
 @layer base {
