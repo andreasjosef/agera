@@ -54,12 +54,12 @@ function RouteComponent() {
       </header>
 
       <main>
-        <section className="py-24 px-4">
+        <section className="py-16 md:py-24 px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-display text-5xl leading-tight mb-4 text-content-main">
+            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl leading-tight mb-4 text-content-main">
               Exekutiv funktion som en tjänst.
             </h2>
-            <p className="text-lg mb-8 text-content-muted max-w-xl">
+            <p className="text-base md:text-lg mb-8 text-content-muted max-w-xl">
               Navigera i vuxenutbildningen genom dina styrkor – nyfikenhet och
               hyperfokus – istället för det administrativa kaos som dränerar din
               energi.
@@ -70,16 +70,16 @@ function RouteComponent() {
           </div>
         </section>
 
-        <section className="bg-app-surface py-24 px-4">
+        <section className="bg-app-surface py-16 md:py-24 px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-display text-3xl mb-4 font-medium">
+            <h2 className="font-display text-2xl sm:text-3xl mb-4 font-medium">
               Varför CCPilot?
             </h2>
-            <blockquote className="border-l-4 border-brand-primary pl-4 italic text-lg font-semibold mb-4 text-content-main">
+            <blockquote className="border-l-4 border-brand-primary pl-4 italic text-base md:text-lg font-semibold mb-4 text-content-main">
               Begåvade individer faller ur systemet på grund av administrativa
               hinder, inte brist på intelligens.
             </blockquote>
-            <p className="text-lg mb-4 text-content-muted">
+            <p className="text-base md:text-lg mb-4 text-content-muted">
               Att studera med ADHD eller andra NPF-diagnoser innebär ofta att
               den största utmaningen inte är själva kursinnehållet, utan allt
               runt omkring. CCPilot är byggt för att jämna ut spelplanen och öka
@@ -89,9 +89,9 @@ function RouteComponent() {
           </div>
         </section>
 
-        <section className="bg-app-bg py-24 px-4">
+        <section className="bg-app-bg py-16 md:py-24 px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="font-display text-3xl mb-12 text-center font-medium">
+            <h2 className="font-display text-2xl sm:text-3xl mb-12 text-center font-medium">
               Hur det fungerar – Tre steg mot ett enklare studieliv
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -100,7 +100,7 @@ function RouteComponent() {
                   <div className="w-10 h-10 rounded-sm bg-brand-primary text-white font-display flex items-center justify-center mb-4 text-sm font-bold">
                     {i + 1}
                   </div>
-                  <h3 className="font-display text-lg font-semibold mb-2">
+                  <h3 className="font-display text-base md:text-lg font-semibold mb-2">
                     {step.title}
                   </h3>
                   <p className="text-content-muted">{step.description}</p>
