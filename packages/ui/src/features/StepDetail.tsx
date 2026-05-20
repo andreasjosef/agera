@@ -16,30 +16,50 @@ export interface StepDetailProps {
 
 interface StepDetailRowProps {
   label: string;
-  children: React.ReactNode;
+  value: string;
 }
 
 interface StepInfoProps {
   icon: LucideIcon;
   label: string;
   value: React.ReactNode;
-  iconClassName: string;
+  iconClass: string;
 }
 
-function StepDetailRow({ label, children }: StepDetailRowProps) {
+const STATUS_CONFIG = {
+  complete: {
+    text: "Klar",
+    badge: "Klar",
+    icon: CircleCheck,
+    iconClass: "bg-emerald-100 text-emerald-600",
+    textClass: "text-green-900",
+    badgeClass: "bg-green-100 text-green-700",
+  },
+
+  incomplete: {
+    text: "Inte Klar",
+    badge: "Pågående",
+    icon: X,
+    iconClass: "bg-red-100 text-red-600",
+    textClass: "text-zinc-700",
+    badgeClass: "bg-zinc-200 text-zinc-700",
+  },
+};
+
+function StepDetailRow({ label, value }: StepDetailRowProps) {
   return (
     <div className="grid grid-cols-3 items-center gap-4">
       <h2 className="text-sm font-medium text-content-main">{label}</h2>
 
-      <div className="col-span-2 text-sm text-content-muted">{children}</div>
+      <div className="col-span-2 text-sm text-content-muted">{value}</div>
     </div>
   );
 }
 
-function StepInfo({ icon: Icon, label, value, iconClassName }: StepInfoProps) {
+function StepInfo({ icon: Icon, label, value, iconClass }: StepInfoProps) {
   return (
     <div className="flex items-center gap-6 p-4">
-      <div className={`rounded-xl p-3 ${iconClassName}`}>
+      <div className={`rounded-xl p-3 ${iconClass}`}>
         <Icon className="size-5" />
       </div>
 
@@ -53,50 +73,41 @@ function StepInfo({ icon: Icon, label, value, iconClassName }: StepInfoProps) {
 }
 
 export function StepDetail({ step }: StepDetailProps) {
+  const detailRows = [
+    { label: "Din uppgift", value: step.action },
+    { label: "Det här ska du göra", value: step.curiosityTrigger },
+    { label: "Ditt mål", value: step.outcomeDefinition },
+    { label: "Tips för att starta", value: step.quickStartLinkHint },
+  ];
+
   const status = step.complete
-    ? {
-        text: "Klar",
-        badge: "Klar",
-        icon: CircleCheck,
-        iconClass: "bg-emerald-100 text-emerald-600",
-        containerClass: "border-green-100 bg-green-50",
-        textClass: "text-green-900",
-        badgeClass: "bg-green-100 text-green-700",
-      }
-    : {
-        text: "Inte Klar",
-        badge: "Pågående",
-        icon: X,
-        iconClass: "bg-red-100 text-red-600",
-        containerClass: "border-zinc-200 bg-zinc-50",
-        textClass: "text-zinc-700",
-        badgeClass: "bg-zinc-200 text-zinc-700",
-      };
+    ? STATUS_CONFIG.complete
+    : STATUS_CONFIG.incomplete;
 
   const infoItems = [
     {
       icon: Tag,
       label: "Kategori",
       value: step.category.charAt(0).toUpperCase() + step.category.slice(1),
-      iconClassName: "bg-violet-100 text-violet-600",
+      iconClass: "bg-violet-100 text-violet-600",
     },
     {
       icon: ChartNoAxesColumnIncreasing,
       label: "Svårighetsgrad",
       value: step.complexity,
-      iconClassName: "bg-orange-100 text-orange-600",
+      iconClass: "bg-orange-100 text-orange-600",
     },
     {
       icon: Clock,
       label: "Beräknad Tid",
       value: `${step.estimatedMinutes} min`,
-      iconClassName: "bg-blue-100 text-blue-600",
+      iconClass: "bg-blue-100 text-blue-600",
     },
     {
       icon: status.icon,
       label: "Status",
       value: status.text,
-      iconClassName: status.iconClass,
+      iconClass: status.iconClass,
     },
   ];
 
@@ -121,25 +132,19 @@ export function StepDetail({ step }: StepDetailProps) {
               icon={item.icon}
               label={item.label}
               value={item.value}
-              iconClassName={item.iconClassName}
+              iconClass={item.iconClass}
             />
           ))}
         </Card>
 
         <Card className="flex flex-col gap-8">
-          <StepDetailRow label="Din uppgift">{step.action}</StepDetailRow>
-
-          <StepDetailRow label="Det här ska du göra">
-            {step.curiosityTrigger}
-          </StepDetailRow>
-
-          <StepDetailRow label="Ditt mål">
-            {step.outcomeDefinition}
-          </StepDetailRow>
-
-          <StepDetailRow label="Tips för att starta">
-            {step.quickStartLinkHint}
-          </StepDetailRow>
+          {detailRows.map((row) => (
+            <StepDetailRow
+              key={row.label}
+              label={row.label}
+              value={row.value}
+            />
+          ))}
         </Card>
 
         <Card>
