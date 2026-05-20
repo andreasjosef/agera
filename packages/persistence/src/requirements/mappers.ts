@@ -23,6 +23,7 @@ export const toDomainRequirement = (
     steps: steps,
     source: dbRow.source,
     status: dbRow.status,
+    requirementSummary: dbRow.requirementSummary ?? undefined,
     updatedAt: dbRow.updatedAt,
   };
 };
