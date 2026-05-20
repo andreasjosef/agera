@@ -25,7 +25,7 @@ function RouteComponent() {
   return (
     <Card width="container h-full">
       <div className="grid grid-cols-[auto_1fr] h-full gap-x-2">
-        <div className="p-4 bg-app-surface flex flex-col surface-container">
+        <div className="bg-app-surface flex flex-col surface-container">
           <div className="grid gap-y-4">
             <h2 className="md:text-2xl text-xl font-bold">Settings</h2>
 

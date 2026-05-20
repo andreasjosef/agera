@@ -16,21 +16,21 @@ function RouteComponent() {
 
   if (!nextStep)
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="container">
         <NowCard.Empty />
       </div>
     );
   if (error) return <NowCard.Error message={error.message} />;
   if (isLoading)
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="container">
         <NowCard.Loading />
       </div>
     );
 
   // TODO: Lets make it a grid to fit other components nicely */
   return (
-    <div className="max-w-4xl mx-auto now-grid items-start gap-2">
+    <div className="container now-grid items-start gap-2">
       <div className="[grid-area:now-card]">
         <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
       </div>
