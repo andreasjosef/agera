@@ -42,6 +42,7 @@ export const toDomainStep = (row: StepsRow): Step => {
     dependencyOrder: row.dependencyOrder ? Number(row.dependencyOrder) : 0,
     quickStartLinkHint: row.quickStartLinkHint ?? "",
     complete: row.completed,
+    requirementId: row.requirement_id!,
   });
 };
 
