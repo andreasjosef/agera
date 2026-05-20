@@ -7,7 +7,7 @@ interface ErrorProps {
 export function Error({ message }: ErrorProps) {
   return (
     <div className="flex gap-2">
-      <CircleX className="stroke-red-400" />
+      <CircleX className="stroke-state-danger" />
       <p>{message}</p>
     </div>
   );

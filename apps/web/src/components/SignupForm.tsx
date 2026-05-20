@@ -35,7 +35,7 @@ export default function SignupForm({
           className="flex flex-col w-sm gap-2"
         >
           {error && (
-            <p className="bg-red-100 text-red-600 border border-red-400 p-2 rounded">
+            <p className="bg-red-100 text-state-danger border border-state-danger p-2 rounded">
               {error}
             </p>
           )}
@@ -45,7 +45,7 @@ export default function SignupForm({
             className="rounded-sm border-app-border border-2 p-2"
             type="text"
           />
-          <p className="text-red-500 text-sm">{errors.name?.message}</p>
+          <p className="text-state-danger text-sm">{errors.name?.message}</p>
 
           <input
             {...register("email")}
@@ -54,7 +54,7 @@ export default function SignupForm({
             type="email"
           />
 
-          <p className="text-red-500 text-sm">{errors.email?.message}</p>
+          <p className="text-state-danger text-sm">{errors.email?.message}</p>
 
           <input
             {...register("password")}
@@ -63,7 +63,9 @@ export default function SignupForm({
             type="password"
           />
 
-          <p className="text-red-500 text-sm">{errors.password?.message}</p>
+          <p className="text-state-danger text-sm">
+            {errors.password?.message}
+          </p>
 
           <Button
             children="Sign Up"
@@ -74,7 +76,7 @@ export default function SignupForm({
         </form>
 
         <p>
-          Already have an account?{" "}
+          Already have an account?
           <Link
             className="text-brand-primary underline font-semibold hover:text-brand-hover visited:text-brand-primary"
             to="/login"

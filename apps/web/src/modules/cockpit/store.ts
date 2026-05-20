@@ -15,7 +15,6 @@ interface TimerState {
   setTimeRemainingSeconds: (seconds: number) => void;
   setIsPaused: (isPaused: boolean) => void;
   toggleMode: () => void;
-  submitBaseTime: () => void;
 }
 
 interface BodyDoublingState {
@@ -31,7 +30,6 @@ export const useTimer = create<TimerState>((set) => ({
   // timeRemainingSeconds: 5, // If you want to test with shorter time
   cyclesRemaining: 1,
 
-  setBaseTime: (seconds) => set({ baseTime: seconds }),
   setTimeRemainingSeconds: (seconds) => set({ timeRemainingSeconds: seconds }),
   setIsPaused: (isPaused) => set({ isPaused }),
   toggleMode: () => {
@@ -52,12 +50,13 @@ export const useTimer = create<TimerState>((set) => ({
       };
     });
   },
-  submitBaseTime: () => {
-    return set((state) => {
-      const cycles = Math.floor(state.baseTime / 1800);
+  setBaseTime: (seconds) => {
+    return set(() => {
+      const cycles = Math.floor(seconds / 1800);
       console.log("cycles amount", cycles);
 
       return {
+        baseTime: seconds,
         isPaused: true,
         mode: "focus",
         timeRemainingSeconds: 25 * 60,
