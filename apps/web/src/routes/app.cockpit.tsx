@@ -22,7 +22,7 @@ function RouteComponent() {
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
           <UpcomingStepsSection />
-          <Button onClick={() => navigate({ to: "/app" })}> Lift Off </Button>
+          <Button onClick={() => navigate({ to: "/app/now" })}>Lift Off</Button>
         </div>
         <TimeSelectorManager />
         <BodyDoublingSwitchManager />

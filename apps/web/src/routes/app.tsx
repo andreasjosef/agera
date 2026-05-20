@@ -2,7 +2,12 @@ import { Outlet } from "@tanstack/react-router";
 import { authQueries } from "@/modules/auth/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
-import { GalleryHorizontalEnd, LayoutDashboard, Settings } from "lucide-react";
+import {
+  BookA,
+  GalleryHorizontalEnd,
+  LayoutDashboard,
+  Settings,
+} from "lucide-react";
 import { LogoutButton } from "@/components/LogoutButton";
 import { NavLink } from "@/components/NavLink";
 import SyncState from "@/components/SyncState";
@@ -29,11 +34,13 @@ export const Route = createFileRoute("/app")({
 
 const sidebarNavItems = [
   { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
+  { to: "/app/now", label: "Now", icon: BookA },
   { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
 ] as const;
 
 const mobileNavItems = [
   { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
+  { to: "/app/now", label: "Now", icon: BookA },
   { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
   {
     to: "/app/settings/integrations",

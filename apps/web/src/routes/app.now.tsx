@@ -5,7 +5,7 @@ import PomodoroTimerManager from "@/components/PomodoroTimerManager";
 import BodyDoublingDisplayManager from "@/components/BodyDoublingDisplayManager";
 import { useBodyDoubling } from "@/modules/cockpit/store";
 
-export const Route = createFileRoute("/app/")({
+export const Route = createFileRoute("/app/now")({
   component: RouteComponent,
 });
 
