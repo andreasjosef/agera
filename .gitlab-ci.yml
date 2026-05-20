@@ -92,7 +92,9 @@ build_backend:
 
 deploy_to_k8s:
   stage: deploy
-  image: bitnami/kubectl:latest
+  image: 
+    name: bitnami/kubectl:latest
+    entrypoint: [""] 
   script:
     - mkdir -p ~/.kube
     - echo "$KUBECONFIG_B64" | base64 -d > ~/.kube/config
