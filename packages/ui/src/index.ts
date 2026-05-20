@@ -12,7 +12,8 @@ export * from "./features/TimeSelector";
 export * from "./features/PomodoroTimer";
 export * from "./features/BodyDoublingSwitch";
 export * from "./features/BodyDoublingDisplay";
-export * from "./features/RequirementCard"
+export * from "./features/RequirementCard";
+export * from "./features/StepDetail";
 
 // Primitives
 export * from "./primitives/Button";
