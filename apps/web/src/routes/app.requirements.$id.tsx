@@ -19,7 +19,15 @@ function RouteComponent() {
 
   const { data: requirement } = useQuery(requirementQueryOptions.getById(id));
 
-  const nextStepIndex = requirement?.steps.findIndex((step) => !step.complete);
+  {
+    /* NOTE: For now we just sort the steps here in place. But this should ideally be part of a filter and sort bar*/
+  }
+  const stepsSorted = [...(requirement?.steps ?? [])].sort((a, b) => {
+    if (a.complete !== b.complete) return a.complete ? 1 : -1;
+    return a.dependencyOrder - b.dependencyOrder;
+  });
+
+  const nextStepIndex = stepsSorted.findIndex((step) => !step.complete);
 
   return (
     <Card className="bg-app-surface px-10 py-10 lg:px-15 flex flex-col gap-5 @container">
@@ -37,7 +45,7 @@ function RouteComponent() {
       </div>
 
       <ul>
-        {requirement?.steps.map((step, index) => (
+        {stepsSorted.map((step, index) => (
           <li
             key={step.stepKey}
             className="flex flex-col items-start gap-4 py-3"
@@ -59,7 +67,7 @@ function RouteComponent() {
               />
             </div>
 
-            {index !== requirement.steps.length - 1 && (
+            {index !== stepsSorted.length - 1 && (
               <div className="my-2 h-0.5 w-full bg-zinc-200/60" />
             )}
           </li>
