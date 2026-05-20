@@ -1,3 +1,4 @@
+import { mergeStyles } from "../utils";
 import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -23,7 +24,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={variantStyles[variant]}
+      className={mergeStyles(variantStyles[variant], className)}
       disabled={isLoading || props.disabled}
       {...props}
     >
