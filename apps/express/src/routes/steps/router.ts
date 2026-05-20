@@ -9,6 +9,7 @@ const stepsRouter = Router();
 stepsRouter.use(authenticateUser);
 stepsRouter.use(appContext);
 
+stepsRouter.get("/:id", handlers.getStepById);
 stepsRouter.post("/finish/:id", handlers.finishStep);
 
 export default stepsRouter;
