@@ -2,6 +2,7 @@ import { type IRequirementRepository } from "@ccpilot/domain";
 
 import { save } from "./methods/save.ts";
 import { findById } from "./methods/findById.ts";
+import { findStepById } from "./methods/findStepById.ts";
 import { updateStatus } from "./methods/updateStatus.ts";
 import { updateSteps } from "./methods/updateSteps.ts";
 import { getSyncIncomplete } from "./methods/getSyncIncomplete.ts";
@@ -15,6 +16,7 @@ export const createRequirementRepo = (): IRequirementRepository => {
   return {
     save,
     findById,
+    findStepById,
     updateStatus,
     updateSteps,
     completeStep,

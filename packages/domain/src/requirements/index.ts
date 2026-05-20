@@ -11,3 +11,4 @@ export * from "./actions/syncCanvasReqs.ts";
 export * from "./actions/generateSteps.ts";
 export * from "./actions/getNextStep.ts";
 export * from "./actions/getPreview.ts";
+export * from "./actions/getStepById.ts";
