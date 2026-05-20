@@ -19,7 +19,7 @@ function RouteComponent() {
         </h2>
       </nav>
 
-      <ul className="grid grid-cols-3 gap-5">
+      <ul className="gallary-grid gap-2">
         {requirements
           .sort((a, b) => new Date(a.due).getTime() - new Date(b.due).getTime())
           .map((requirement, index) => (

@@ -66,6 +66,12 @@
   --color-canvas-primary: var(--canvas-solid);
   --color-canvas-hover: var(--canvas-muted);
   --color-canvas-subtle: var(--canvas-subtle);
+
+  /* NOTE: Just assigned colors directly here for now since we don't really need shades of these colors i think */
+  --color-state-success: #3de92e;
+  --color-state-caution: #dcd114;
+  --color-state-danger: #f70c1a;
+  --color-state-info: #268ddf;
 }
 
 @layer base {
@@ -93,9 +99,55 @@
   }
 
   /* TODO: Dark mode*/
-
   body {
     color: var(--color-content-main);
     background-color: var(--color-app-bg);
+  }
+}
+
+@layer components {
+  .pulse-dot {
+    width: calc(var(--spacing) * 3);
+    height: calc(var(--spacing) * 3);
+
+    border-radius: calc(infinity * 1px);
+
+    animation: var(--animate-pulse);
+  }
+}
+
+@layer utilities {
+  .cockpit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "settings" "upcoming";
+
+    /* lg breakpoint */
+    @media (width >= 64rem) {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "upcoming settings";
+    }
+  }
+
+  .now-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "controls" "now-card";
+
+    /* lg breakpoint */
+    @media (width >= 64rem) {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "now-card controls";
+    }
+  }
+
+  .gallary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  }
+
+  .container {
+    width: min(90%, var(--container-6xl));
+    margin-inline: auto;
   }
 }

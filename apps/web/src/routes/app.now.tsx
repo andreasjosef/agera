@@ -5,7 +5,7 @@ import PomodoroTimerManager from "@/components/PomodoroTimerManager";
 import BodyDoublingDisplayManager from "@/components/BodyDoublingDisplayManager";
 import { useBodyDoubling } from "@/modules/cockpit/store";
 
-export const Route = createFileRoute("/app/")({
+export const Route = createFileRoute("/app/now")({
   component: RouteComponent,
 });
 
@@ -16,23 +16,25 @@ function RouteComponent() {
 
   if (!nextStep)
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="container">
         <NowCard.Empty />
       </div>
     );
   if (error) return <NowCard.Error message={error.message} />;
   if (isLoading)
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="container">
         <NowCard.Loading />
       </div>
     );
 
   // TODO: Lets make it a grid to fit other components nicely */
   return (
-    <div className="max-w-4xl mx-auto grid grid-cols-[2fr_1fr] items-start gap-x-2">
-      <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
-      <div className="grid gap-y-2">
+    <div className="container now-grid items-start gap-2">
+      <div className="[grid-area:now-card]">
+        <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
+      </div>
+      <div className="grid gap-y-2 [grid-area:controls]">
         <PomodoroTimerManager />
         {isEnabled && <BodyDoublingDisplayManager />}
       </div>

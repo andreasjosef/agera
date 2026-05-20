@@ -32,3 +32,10 @@ export const Secondary: Story = {
     children: "Skip For Today",
   },
 };
+
+export const Ghost: Story = {
+  args: {
+    variant: "ghost",
+    children: "Logout",
+  },
+};

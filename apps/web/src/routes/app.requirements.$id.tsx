@@ -22,8 +22,8 @@ function RouteComponent() {
   const nextStepIndex = requirement?.steps.findIndex((step) => !step.complete);
 
   return (
-    <Card className="bg-app-surface px-15 py-10 flex flex-col gap-5 mx-2 my-8">
-      <div className="flex items-center justify-between">
+    <Card className="bg-app-surface px-10 py-10 lg:px-15 flex flex-col gap-5 @container">
+      <div className="flex flex-col @2xl:flex-row @2xl:justify-between @2xl:items-center">
         <div>
           <h2 className="text-3xl font-medium text-content-main ">
             {requirement?.title}

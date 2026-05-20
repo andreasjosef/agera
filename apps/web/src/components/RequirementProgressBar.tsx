@@ -16,7 +16,7 @@ const RequirementProgressBar = ({ requirement }: RequirementProgressProps) => {
   const progress = totalSteps === 0 ? 0 : (completedSteps / totalSteps) * 100;
 
   return (
-    <div className="w-2/7 space-y-2">
+    <div className="space-y-2">
       <div className="text-sm font-medium flex items-center gap-2.5">
         {progress === 100 ? (
           <>

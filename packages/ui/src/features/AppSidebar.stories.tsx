@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppSidebar } from "./AppSidebar";
 import { NavItem } from "../primitives/NavItem";
-import { GalleryHorizontalEnd, LayoutDashboard, Settings } from "lucide-react";
+import {
+  BookA,
+  GalleryHorizontalEnd,
+  LayoutDashboard,
+  Settings,
+} from "lucide-react";
 
 const meta: Meta<typeof AppSidebar> = {
   title: "Features/AppSidebar",
@@ -29,6 +34,7 @@ export const Default: Story = {
     navLinks: (
       <>
         <NavItem label="Cockpit" icon={LayoutDashboard} isActive />
+        <NavItem label="Now" icon={BookA} />
         <NavItem label="All" icon={GalleryHorizontalEnd} />
       </>
     ),
