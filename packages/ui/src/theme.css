@@ -136,7 +136,7 @@
 
     /* lg breakpoint */
     @media (width >= 64rem) {
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr 17.5rem;
       grid-template-areas: "now-card controls";
     }
   }
