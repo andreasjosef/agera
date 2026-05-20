@@ -28,7 +28,7 @@ export const NavItem = ({
         size={18}
         className={isActive ? "stroke-white" : "stroke-content-muted"}
       />
-      <span className="tracking-wide sr-only md:not-sr-only">{label}</span>
+      <span className="tracking-wide max-md:sr-only">{label}</span>
     </button>
   );
 };
