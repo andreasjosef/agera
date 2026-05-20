@@ -87,7 +87,7 @@ function RouteComponent() {
             <>
               {mobileNavItems.map((item) => (
                 <li key={item.to}>
-                  <NavLink key={item.to} {...item} iconOnly />
+                  <NavLink key={item.to} {...item} />
                 </li>
               ))}
             </>
