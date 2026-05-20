@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { MobileNavMenu } from "../features/MobileNavMenu";
 import { NavItem } from "../primitives/NavItem";
-import { GalleryHorizontalEnd, LayoutDashboard, Settings } from "lucide-react";
+import {
+  BookA,
+  GalleryHorizontalEnd,
+  LayoutDashboard,
+  Settings,
+} from "lucide-react";
 
 const meta: Meta<typeof MobileNavMenu> = {
   title: "Features/MobileNavMenu",
@@ -22,6 +27,9 @@ export const Default: Story = {
       <>
         <li>
           <NavItem label="Cockpit" icon={LayoutDashboard} isActive />
+        </li>
+        <li>
+          <NavItem label="Now" icon={BookA} isActive />
         </li>
         <li>
           <NavItem label="All" icon={GalleryHorizontalEnd} />
