@@ -34,7 +34,7 @@ export const Default: Story = {
     navLinks: (
       <>
         <NavItem label="Cockpit" icon={LayoutDashboard} isActive />
-        <NavItem label="Now" icon={BookA} isActive />
+        <NavItem label="Now" icon={BookA} />
         <NavItem label="All" icon={GalleryHorizontalEnd} />
       </>
     ),

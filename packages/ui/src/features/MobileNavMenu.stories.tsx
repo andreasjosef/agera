@@ -29,7 +29,7 @@ export const Default: Story = {
           <NavItem label="Cockpit" icon={LayoutDashboard} isActive />
         </li>
         <li>
-          <NavItem label="Now" icon={BookA} isActive />
+          <NavItem label="Now" icon={BookA} />
         </li>
         <li>
           <NavItem label="All" icon={GalleryHorizontalEnd} />
