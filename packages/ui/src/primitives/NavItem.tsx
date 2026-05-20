@@ -18,7 +18,7 @@ export const NavItem = ({
     <button
       onClick={onClick}
       className={mergeStyles(
-        "w-full flex items-center gap-2 px-3 py-2 rounded-sm font-display text-sm font-medium transition-all duration-200 cursor-pointer text-clip",
+        "w-full flex items-center gap-2 px-3 py-2 rounded-sm font-display text-sm font-medium transition-all duration-200 cursor-pointer",
         isActive
           ? "bg-brand-primary text-white"
           : "text-content-muted hover:text-content-subtle",
