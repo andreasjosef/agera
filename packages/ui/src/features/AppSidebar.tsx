@@ -20,7 +20,7 @@ export function AppSidebar({
       <aside
         className={mergeStyles(
           "h-full transition-all duration-300 ease-out overflow-hidden",
-          isOpen ? "w-64 opacity-100" : "w-0 opacity-0",
+          isOpen ? "w-48 opacity-100" : "w-0 opacity-0",
         )}
       >
         <div className="flex h-full flex-col gap-y-4 border-r border-cod-gray-300 p-2 whitespace-nowrap">

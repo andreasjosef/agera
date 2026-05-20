@@ -14,6 +14,7 @@ export const updateSteps = async (
   reqId: string,
   steps: NewStep[],
   status: StepGenerationStatus,
+  requirementSummary?: string,
 ) => {
   try {
     await db.transaction(async (tx) => {
@@ -26,7 +27,7 @@ export const updateSteps = async (
 
       await tx
         .update(requirementsTable)
-        .set({ status })
+        .set({ status, requirementSummary })
         .where(eq(requirementsTable.id, reqId));
     });
 

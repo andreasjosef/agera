@@ -36,8 +36,8 @@ function RouteComponent() {
           <h2 className="text-3xl font-medium text-content-main ">
             {requirement?.title}
           </h2>
-          <p className="text-content-muted py-2">
-            Den här uppgiften har totalt {requirement?.steps.length} Steg
+          <p className="text-content-muted max-w-2xl py-2">
+            {requirement?.requirementSummary}
           </p>
         </div>
 

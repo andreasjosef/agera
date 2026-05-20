@@ -33,6 +33,7 @@ export const requirementsTable = t.pgTable(
     type: requirementType().default("assignment").notNull(),
     source: requirementSource().default("CANVAS").notNull(),
     status: syncStatus().default("RAW").notNull(),
+    requirementSummary: t.text("requirement_summary"),
     updatedAt: t
       .timestamp("updated_at")
       .defaultNow()

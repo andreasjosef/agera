@@ -87,5 +87,6 @@ export interface IRequirementRepository {
     reqId: string,
     steps: NewStep[],
     status: StepGenerationStatus,
+    requirementSummary?: string,
   ) => Promise<Result<void>>;
 }
