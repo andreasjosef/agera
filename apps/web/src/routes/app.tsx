@@ -36,6 +36,11 @@ const sidebarNavItems = [
   { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
   { to: "/app/now", label: "Now", icon: BookA },
   { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
+  {
+    to: "/app/settings",
+    label: "Settings",
+    icon: Settings,
+  },
 ] as const;
 
 const mobileNavItems = [
@@ -43,8 +48,8 @@ const mobileNavItems = [
   { to: "/app/now", label: "Now", icon: BookA },
   { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
   {
-    to: "/app/settings/integrations",
-    label: "All",
+    to: "/app/settings",
+    label: "Settings",
     icon: Settings,
   },
 ] as const;
@@ -69,8 +74,6 @@ function RouteComponent() {
           footerContent={
             <>
               <SyncState />
-              <NavLink to="/app/settings" label="Settings" icon={Settings} />
-              <LogoutButton />
             </>
           }
         />
