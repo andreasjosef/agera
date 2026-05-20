@@ -4,6 +4,7 @@ stages:
   - test
   - docs
   - build
+  - deploy
 
 variables:
   PNPM_STORE_PATH: .pnpm-store
@@ -25,6 +26,11 @@ test_job:
     - pnpm config set store-dir $PNPM_STORE_PATH
     - pnpm install --frozen-lockfile
     - pnpm turbo run test
+  rules:
+    - changes:
+      - apps/**/*
+      - packages/**/*
+      - pnpm-lock.yaml
 
 build_documentation:
   stage: docs 
@@ -40,31 +46,58 @@ build_documentation:
     paths:
       - apps/docs/dist/
     expire_in: 1 week
+  rules:
+    - changes:
+      - apps/docs/**/*
+      - scripts/**/*
+      - README.md
 
 build_frontend:
   stage: build
-  image: docker:24.0.5
+  image: docker:latest
   services:
-    - docker:24.0.5-dind  
+    - docker:dind  
   variables:
     DOCKER_HOST: tcp://docker:2375  
     DOCKER_TLS_CERTDIR: ""
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
     - docker build -t $FRONTEND_IMAGE:latest -f apps/web/Dockerfile .
     - docker push $FRONTEND_IMAGE:latest
+  rules:
+    - changes:
+      - apps/web/**/*
+      - packages/**/*
+      - pnpm-lock.yaml
 
 build_backend:
   stage: build
-  image: docker:24.0.5
+  image: docker:latest
   services:
-    - docker:24.0.5-dind  
+    - docker:dind  
   variables:
     DOCKER_HOST: tcp://docker:2375
     DOCKER_TLS_CERTDIR: ""
   before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
   script:
     - docker build -t $BACKEND_IMAGE:latest -f apps/express/Dockerfile .
     - docker push $BACKEND_IMAGE:latest
+  rules:
+    - changes:
+      - apps/express/**/*
+      - packages/**/*
+      - pnpm-lock.yaml
+
+deploy_to_k8s:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    - export KUBECONFIG=$KUBECONFIG_DATA
+    - kubectl apply -f infrastructure/k8s/
+    - kubectl rollout restart deployment backend-deployment -n doe25-group-4
+    - kubectl rollout restart deployment frontend-deployment -n doe25-group-4
+    - kubectl get pods -n doe25-group-4
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
