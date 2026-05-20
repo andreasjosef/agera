@@ -96,9 +96,7 @@ deploy_to_k8s:
     name: bitnami/kubectl:latest
     entrypoint: [""]
   script:
-    - echo "$KUBECONFIG_DATA" > /tmp/kubeconfig
-    - export KUBECONFIG=/tmp/kubeconfig
-    
+    - export KUBECONFIG=$KUBECONFIG_DATA
     - kubectl apply -f infrastructure/k8s/
     - kubectl rollout restart deployment backend-deployment -n doe25-group-4
     - kubectl rollout restart deployment frontend-deployment -n doe25-group-4
