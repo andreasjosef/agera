@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronsRightLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { mergeStyles } from "../utils";
 
 interface AppSidebarProps {
@@ -16,24 +16,30 @@ export function AppSidebar({
   footerContent,
 }: AppSidebarProps) {
   return (
-    <div className="flex gap-x-2 items-start h-full " aria-expanded={isOpen}>
+    <div className="flex gap-x-2 items-start h-full" aria-expanded={isOpen}>
       <aside
         className={mergeStyles(
-          "h-full flex-col gap-y-4 border-r border-cod-gray-300 p-2 transition-discrete",
-          isOpen ? "flex" : "hidden",
+          "h-full transition-all duration-300 ease-out overflow-hidden",
+          isOpen ? "w-64 opacity-100" : "w-0 opacity-0",
         )}
       >
-        <h1>CCPilot</h1>
-        <div className="flex flex-col h-full">
-          <nav>
-            <ul>{navLinks}</ul>
-          </nav>
+        <div className="flex h-full flex-col gap-y-4 border-r border-cod-gray-300 p-2 whitespace-nowrap">
+          <h1>CCPilot</h1>
+          <div className="flex flex-col h-full">
+            <nav>
+              <ul>{navLinks}</ul>
+            </nav>
 
-          <footer className="mt-auto grid gap-y-2">{footerContent} </footer>
+            <footer className="mt-auto grid gap-y-2">{footerContent} </footer>
+          </div>
         </div>
       </aside>
       <button className="cursor-pointer p-2" onClick={() => setIsOpen(!isOpen)}>
-        <ChevronsRightLeft stroke="var(--color-cod-gray-700)" />
+        {isOpen ? (
+          <ChevronLeft stroke="var(--color-cod-gray-700)" />
+        ) : (
+          <ChevronRight stroke="var(--color-cod-gray-700)" />
+        )}
       </button>
     </div>
   );
