@@ -90,7 +90,7 @@ build_backend:
       - packages/**/*
       - pnpm-lock.yaml
 
-deploy_to_k8s:
+deploy_to_staging:
   stage: deploy
   image: 
     name: bitnami/kubectl:latest
@@ -99,8 +99,23 @@ deploy_to_k8s:
     - mkdir -p ~/.kube
     - echo "$KUBECONFIG_B64" | base64 -d > ~/.kube/config
     - export KUBECONFIG=~/.kube/config
-    - kubectl apply -f infrastructure/k8s/
+    - kubectl apply -f infrastructure/k8s/shared/
     - kubectl rollout restart deployment backend-deployment -n doe25-group-4
     - kubectl rollout restart deployment frontend-deployment -n doe25-group-4
   rules:
     - if: $CI_COMMIT_BRANCH == "dev"
+
+deploy_to_production:
+  stage: deploy
+  image: 
+    name: bitnami/kubectl:latest
+    entrypoint: [""] 
+  script:
+    - mkdir -p ~/.kube
+    - echo "$KUBECONFIG_B64" | base64 -d > ~/.kube/config
+    - export KUBECONFIG=~/.kube/config
+    - kubectl apply -f infrastructure/k8s/prod/
+    - kubectl rollout restart deployment backend-deployment -n doe25-group-4-prod
+    - kubectl rollout restart deployment frontend-deployment -n doe25-group-4-prod
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
