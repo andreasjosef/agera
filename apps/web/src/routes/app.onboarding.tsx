@@ -1,5 +1,7 @@
+import { ConnectionGuide } from "@ccpilot/ui";
 import { useSession } from "@/modules/auth/hooks";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { Info } from "lucide-react";
 
 export const Route = createFileRoute("/app/onboarding")({
   component: OnboardingPage,
@@ -9,7 +11,7 @@ function OnboardingPage() {
   const { user } = useSession();
 
   return (
-    <div className="flex flex-col gap-y-4 w-full max-w-2xl mx-auto">
+    <div className="grid">
       <header className="mt-18">
         <h2 className="text-xl mb-2 font-bold">Welcome {user?.name}</h2>
         <p className="text-content-muted">
@@ -19,12 +21,24 @@ function OnboardingPage() {
         </p>
       </header>
       <section className="mt-2">
-        <ul className="text-center">
-          <Link to="/app/settings/integrations">
-            <li className="p-2 bg-neutral-100 border-2 border-neutral-300 rounded-sm hover:bg-neutral-300 hover:cursor-pointer">
+        <ul className="grid gap-y-2">
+          <li className="p-2 bg-neutral-100 border-2 border-neutral-300 rounded-sm hover:bg-neutral-300 hover:cursor-pointer">
+            <Link
+              className="flex gap-x-2 justify-center"
+              to="/app/settings/integrations"
+            >
               Canvas Instructure
-            </li>
-          </Link>
+            </Link>
+          </li>
+          <li className="p-2 bg-neutral-100 border-2 border-neutral-300 rounded-sm hover:bg-neutral-300 hover:cursor-pointer">
+            <Link
+              className="flex gap-x-2 justify-center"
+              to="/app/guides/canvas"
+            >
+              <Info />
+              Hur hittar jag min token från Canvas ?
+            </Link>
+          </li>
         </ul>
       </section>
     </div>

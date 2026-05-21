@@ -2,6 +2,7 @@ import { ScoredStep } from "@ccpilot/domain";
 
 export const mockStep: ScoredStep = {
   id: "step_123",
+  requirementId: "",
   requirementTitle: "u12 - Projektarbete",
   estimatedMinutes: 25,
   effectiveDeadline: new Date("2026-06-01"),
@@ -18,12 +19,12 @@ export const mockStep: ScoredStep = {
     "Du har en visuell karta över hur informationen flödar, vilket gör kodningen 50% snabbare.",
   quickStartLinkHint:
     "Öppna din anteckningsbok eller Excalidraw och rita tre boxar: User, Step, Requirement.",
-  complete: false,
 };
 
 export const mockUpcomingSteps: ScoredStep[] = [
   {
     id: "step_124",
+    requirementId: "",
     requirementTitle: "u12 - Projektarbete",
     estimatedMinutes: 45,
     effectiveDeadline: new Date("2026-06-01"),
@@ -44,6 +45,7 @@ export const mockUpcomingSteps: ScoredStep[] = [
   },
   {
     id: "step_125",
+    requirementId: "",
     requirementTitle: "u12 - Projektarbete",
     estimatedMinutes: 30,
     effectiveDeadline: new Date("2026-06-02"),
@@ -64,6 +66,7 @@ export const mockUpcomingSteps: ScoredStep[] = [
   },
   {
     id: "step_126",
+    requirementId: "",
     requirementTitle: "u12 - Projektarbete",
     estimatedMinutes: 60,
     effectiveDeadline: new Date("2026-06-03"),
@@ -80,5 +83,27 @@ export const mockUpcomingSteps: ScoredStep[] = [
       "Användaren kan nu se sin framtid, vilket minskar stressen över vad som kommer härnäst.",
     quickStartLinkHint:
       "Börja med en enkel map() över mockSteps och använd din nya NavItem-primitiv för varje rad.",
+  },
+];
+
+export const mockConnectionGuideSteps = [
+  {
+    title: "Logga in",
+    content: "Logga in på ditt Canvas-konto för att komma till din översikt.",
+  },
+  {
+    title: "Öppna inställningar",
+    content:
+      "Klicka på 'Konto' i sidomenyn och välj sedan 'Inställningar' i listan.",
+  },
+  {
+    title: "Skapa token",
+    content:
+      "Skrolla ner till 'Godkända integreringar' och klicka på '+ Ny åtkomsttoken'. Generera din token och kopiera den.",
+  },
+  {
+    title: "Anslut konto",
+    content:
+      "Gå tillbaka hit och klistra in din token i integrationsinställningarna för att slutföra installationen.",
   },
 ];
