@@ -8,12 +8,12 @@ import {
   LayoutDashboard,
   Settings,
 } from "lucide-react";
+import BackButtonManager from "@/components/BackButtonManager";
 import { NavLink } from "@/components/NavLink";
 import SyncState from "@/components/SyncState";
 import { Suspense } from "react";
 import { useApp } from "@/modules/store";
 import { useShallow } from "zustand/react/shallow";
-import BackButton from "@/components/BackButton";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -90,7 +90,7 @@ function RouteComponent() {
 
       <div className="p-4 overflow-y-scroll">
         <div className="flex flex-col gap-y-2 container h-full">
-          <BackButton />
+          <BackButtonManager />
           <Suspense
             fallback={
               <div className="flex h-[60vh] w-full items-center justify-center font-display text-sm font-medium uppercase tracking-widest text-content-subtle animate-pulse">
