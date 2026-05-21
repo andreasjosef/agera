@@ -32,7 +32,7 @@ const STATUS_CONFIG = {
     badge: "Klar",
     icon: CircleCheck,
     iconClass: "bg-emerald-100 text-emerald-600",
-    textClass: "text-green-900",
+    textClass: "text-green-700",
     badgeClass: "bg-green-100 text-green-700",
   },
 
@@ -75,8 +75,8 @@ function StepInfo({ icon: Icon, label, value, iconClass }: StepInfoProps) {
 export function StepDetail({ step }: StepDetailProps) {
   const detailRows = [
     { label: "Din uppgift", value: step.action },
-    { label: "Det här ska du göra", value: step.curiosityTrigger },
-    { label: "Ditt mål", value: step.outcomeDefinition },
+    { label: "Det här ska du tänka på", value: step.curiosityTrigger },
+    { label: "Målet", value: step.outcomeDefinition },
     { label: "Tips för att starta", value: step.quickStartLinkHint },
   ];
 
@@ -112,8 +112,8 @@ export function StepDetail({ step }: StepDetailProps) {
   ];
 
   return (
-    <Card className="p-18">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-7">
+    <Card>
+      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 pt-5 pb-6.5">
         <div className="space-y-1.5">
           <h1 className="flex items-center gap-2 text-2xl">
             <Info />
