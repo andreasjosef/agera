@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: group4-ingress
   namespace: doe25-group-4
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: doe25-group-4-api-rate-limit@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
