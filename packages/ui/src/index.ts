@@ -13,6 +13,8 @@ export * from "./features/PomodoroTimer";
 export * from "./features/RequirementCard";
 export * from "./features/BodyDoublingSwitch";
 export * from "./features/BodyDoublingDisplay";
+export * from "./features/RequirementCard";
+export * from "./features/StepDetail";
 export * from "./features/MobileNavMenu";
 
 // Primitives

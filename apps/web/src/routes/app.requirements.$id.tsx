@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import RequirementProgressBar from "@/components/RequirementProgressBar";
 import RequirementStepStatus from "@/components/RequirementStepStatus";
+import { Link } from "@tanstack/react-router";
 
 import { Card } from "@ccpilot/ui";
 
@@ -50,22 +51,24 @@ function RouteComponent() {
             key={step.stepKey}
             className="flex flex-col items-start gap-4 py-3"
           >
-            <div className="flex items-center justify-between w-full">
+            <Link
+              to={`/app/step/$id`}
+              params={{ id: step.id }}
+              className="flex items-center justify-between w-full cursor-pointer"
+            >
               <div className="flex  gap-3">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-electric-violet-200 text-sm font-semibold text-electric-violet-700">
                   {step.dependencyOrder}
                 </div>
 
-                <p className="pt-1 text-content-main cursor-pointer">
-                  {step.action}
-                </p>
+                <p className="pt-1 text-content-main">{step.action}</p>
               </div>
 
               <RequirementStepStatus
                 complete={step.complete}
                 isNextStep={index === nextStepIndex}
               />
-            </div>
+            </Link>
 
             {index !== stepsSorted.length - 1 && (
               <div className="my-2 h-0.5 w-full bg-zinc-200/60" />

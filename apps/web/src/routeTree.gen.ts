@@ -19,6 +19,7 @@ import { Route as AppOnboardingRouteImport } from './routes/app.onboarding'
 import { Route as AppNowRouteImport } from './routes/app.now'
 import { Route as AppCockpitRouteImport } from './routes/app.cockpit'
 import { Route as AppRequirementsIndexRouteImport } from './routes/app.requirements.index'
+import { Route as AppStepIdRouteImport } from './routes/app.step.$id'
 import { Route as AppSettingsUserRouteImport } from './routes/app.settings.user'
 import { Route as AppSettingsIntegrationsRouteImport } from './routes/app.settings.integrations'
 import { Route as AppRequirementsIdRouteImport } from './routes/app.requirements.$id'
@@ -73,6 +74,11 @@ const AppRequirementsIndexRoute = AppRequirementsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRequirementsRoute,
 } as any)
+const AppStepIdRoute = AppStepIdRouteImport.update({
+  id: '/step/$id',
+  path: '/step/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSettingsUserRoute = AppSettingsUserRouteImport.update({
   id: '/user',
   path: '/user',
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
+  '/app/step/$id': typeof AppStepIdRoute
   '/app/requirements/': typeof AppRequirementsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
+  '/app/step/$id': typeof AppStepIdRoute
   '/app/requirements': typeof AppRequirementsIndexRoute
 }
 export interface FileRoutesById {
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
+  '/app/step/$id': typeof AppStepIdRoute
   '/app/requirements/': typeof AppRequirementsIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
+    | '/app/step/$id'
     | '/app/requirements/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
+    | '/app/step/$id'
     | '/app/requirements'
   id:
     | '__root__'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
+    | '/app/step/$id'
     | '/app/requirements/'
   fileRoutesById: FileRoutesById
 }
@@ -260,6 +272,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRequirementsIndexRouteImport
       parentRoute: typeof AppRequirementsRoute
     }
+    '/app/step/$id': {
+      id: '/app/step/$id'
+      path: '/step/$id'
+      fullPath: '/app/step/$id'
+      preLoaderRoute: typeof AppStepIdRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/settings/user': {
       id: '/app/settings/user'
       path: '/user'
@@ -318,6 +337,7 @@ interface AppRouteChildren {
   AppOnboardingRoute: typeof AppOnboardingRoute
   AppRequirementsRoute: typeof AppRequirementsRouteWithChildren
   AppSettingsRoute: typeof AppSettingsRouteWithChildren
+  AppStepIdRoute: typeof AppStepIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -326,6 +346,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppOnboardingRoute: AppOnboardingRoute,
   AppRequirementsRoute: AppRequirementsRouteWithChildren,
   AppSettingsRoute: AppSettingsRouteWithChildren,
+  AppStepIdRoute: AppStepIdRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)

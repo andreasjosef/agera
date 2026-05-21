@@ -27,7 +27,15 @@ export const getStepByIdAction = async (
     .sort((a, b) => a.dependencyOrder - b.dependencyOrder);
 
   const targetIdx = remainingSteps.findIndex((s) => s.id === stepId);
-  if (targetIdx === -1) return fail("Step is already completed");
+  if (targetIdx === -1) {
+    return ok({
+      ...stepResult.value,
+      priorityScore: 0,
+      effectiveDeadline: new Date(reqResult.value.due),
+      requirementTitle: reqResult.value.title,
+      requirementId: stepResult.value.requirementId,
+    });
+  }
 
   const candidateBundle: EFEngineCandidate = {
     req: reqResult.value,
