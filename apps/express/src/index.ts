@@ -15,6 +15,10 @@ import integrationsRouter from "./routes/integrations/router.ts";
 import stepsRouter from "./routes/steps/router.ts";
 import statusRouter from "./routes/status/router.ts";
 
+// TEMP FOR PROBLEM LOGGING WITH DB
+import { db } from "@ccpilot/persistence";
+import { sql } from "drizzle-orm";
+
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
@@ -26,21 +30,7 @@ app.use(
   }),
 );
 
-//app.all("/api/auth/*splat", authHandlerNode);
-
-app.all("/api/auth/*splat", async (req, res) => {
-  try {
-    await authHandlerNode(req, res);
-  } catch (err) {
-    console.error("[AUTH HANDLER ERROR]", err);
-    res
-      .status(500)
-      .json({
-        ok: false,
-        error: err instanceof Error ? err.message : String(err),
-      });
-  }
-});
+app.all("/api/auth/*splat", authHandlerNode);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -54,9 +44,21 @@ app.use("/api/integrations", integrationsRouter);
 app.use("/api/steps", stepsRouter);
 app.use("/api/status", statusRouter);
 
+// TEMPORARY TEST FOR DB HEALTH IN PROD
+app.get("/health/db", async (req, res) => {
+  try {
+    await db.execute(sql`SELECT 1`);
+    res.status(200).json(ok("DB connected"));
+  } catch (err) {
+    res.status(500).json({
+      ok: false,
+      error: err instanceof Error ? err.message : "Unknown DB error",
+    });
+  }
+});
+
 /**
  * Final safety net. If something lands here it is a critical system error.
- * Everything else I handled with domain error codes and railway repsonses innan
  **/
 app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
   const isError = err instanceof Error;
