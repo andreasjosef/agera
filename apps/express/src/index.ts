@@ -26,7 +26,21 @@ app.use(
   }),
 );
 
-app.all("/api/auth/*splat", authHandlerNode);
+//app.all("/api/auth/*splat", authHandlerNode);
+
+app.all("/api/auth/*splat", async (req, res) => {
+  try {
+    await authHandlerNode(req, res);
+  } catch (err) {
+    console.error("[AUTH HANDLER ERROR]", err);
+    res
+      .status(500)
+      .json({
+        ok: false,
+        error: err instanceof Error ? err.message : String(err),
+      });
+  }
+});
 
 app.use(express.json());
 app.use(cookieParser());
