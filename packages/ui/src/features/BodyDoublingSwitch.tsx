@@ -18,7 +18,7 @@ export function BodyDoublingSwitch({
 }: BodyDoublingSwitchProps) {
   return (
     <Card className="grid gap-y-2">
-      <h3>{title}</h3>
+      <h3 className="text-lg font-semibold">{title}</h3>
       <div className="grid grid-cols-2 gap-x-2">
         <button
           type="button"
@@ -30,7 +30,7 @@ export function BodyDoublingSwitch({
           )}
           onClick={() => setIsEnable(true)}
         >
-{onLabel}
+          {onLabel}
         </button>
 
         <button
@@ -43,7 +43,7 @@ export function BodyDoublingSwitch({
           )}
           onClick={() => setIsEnable(false)}
         >
-{offLabel}
+          {offLabel}
         </button>
       </div>
     </Card>

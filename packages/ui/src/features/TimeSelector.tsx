@@ -1,5 +1,3 @@
-import React from "react";
-import { Button } from "../primitives/Button";
 import { Card } from "../primitives/Card";
 import { mergeStyles } from "../utils";
 
@@ -24,7 +22,7 @@ export function TimeSelector({
 }: TimeSelectorProps) {
   return (
     <Card className="grid gap-y-2">
-      <h3>{title}</h3>
+      <h3 className="text-lg font-semibold">{title}</h3>
       {/* TODO: This might be a primitive like radio menu or something */}
 
       {/* TODO: We can probably make this more accessable, but use buttons for now */}
