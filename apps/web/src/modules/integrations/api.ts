@@ -11,10 +11,10 @@ import {
 import { queryOptions } from "@tanstack/react-query";
 
 // TODO: Use proxy instead
-const BASE_URL = "http://localhost:4000/api";
+const BASE_URL = `${import.meta.env.VITE_API_URL ?? "http://localhost:4000"}/api`;
+
 const SyncStatusResponseParser = zodWrappedParser(SyncStatusResponseSchema);
 
-// TODO: This should send a request to /integrations and parse integrations response
 export const integrationMutations = {
   connectCanvas: (data: unknown) => {
     return safePostItem(

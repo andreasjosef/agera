@@ -35,6 +35,12 @@ spec:
               value: "postgres-service"
             - name: PORT
               value: "3000"
+            - name: NODE_ENV
+              value: "production"
+            - name: BETTER_AUTH_URL
+              value: "https://c4g-group4.cc.k3s.chas-lab.dev/api/auth"
+            - name: TRUSTED_ORIGINS
+              value: "https://c4g-group4.cc.k3s.chas-lab.dev"
             - name: DATABASE_URL
               value: "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable"
             - name: ENCRYPTION_KEY
