@@ -30,7 +30,7 @@ type Story = StoryObj<typeof AppSidebar>;
 
 export const Default: Story = {
   args: {
-    open: true,
+    isOpen: true,
     navLinks: (
       <>
         <NavItem label="Cockpit" icon={LayoutDashboard} isActive />
@@ -49,6 +49,6 @@ export const Default: Story = {
 };
 export const Closed: Story = {
   args: {
-    open: false,
+    isOpen: false,
   },
 };
