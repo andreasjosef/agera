@@ -1,12 +1,10 @@
-import React from "react";
-import { Button } from "../primitives/Button";
 import { Card } from "../primitives/Card";
 import { mergeStyles } from "../utils";
 
 interface TimeSelectorProps {
   timeSeconds: number;
   setTime: (value: number) => void;
-  handleSelectSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void;
+  title?: string;
 }
 
 // Value in seconds
@@ -20,43 +18,36 @@ const timeOptions = [
 export function TimeSelector({
   timeSeconds = 30 * 60,
   setTime,
-  handleSelectSubmit,
+  title = "Total Focus Time",
 }: TimeSelectorProps) {
   return (
     <Card className="grid gap-y-2">
-      <h3>Total Focus Time</h3>
+      <h3 className="text-lg font-semibold">{title}</h3>
       {/* TODO: This might be a primitive like radio menu or something */}
 
-      <form className="grid gap-y-2" onSubmit={handleSelectSubmit}>
-        {/* TODO: We can probably make this more accessable, but use buttons for now */}
-        <ul className="grid grid-cols-4 gap-x-2">
-          {timeOptions.map(({ label, value }) => {
-            const isActive = timeSeconds === value;
+      {/* TODO: We can probably make this more accessable, but use buttons for now */}
+      <ul className="grid grid-cols-4 gap-x-2">
+        {timeOptions.map(({ label, value }) => {
+          const isActive = timeSeconds === value;
 
-            return (
-              <li className="block">
-                <button
-                  type="button"
-                  className={mergeStyles(
-                    "rounded-sm border-2 p-2 w-full cursor-pointer",
-                    isActive
-                      ? "bg-brand-primary text-app-bg border-brand-primary"
-                      : "border-cod-gray-300 text-content-main",
-                  )}
-                  onClick={() => setTime(value)}
-                >
-                  {label}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-
-        <Button type="submit" onClick={handleSelectSubmit}>
-          {" "}
-          Select{" "}
-        </Button>
-      </form>
+          return (
+            <li className="block">
+              <button
+                type="button"
+                className={mergeStyles(
+                  "rounded-sm border-2 p-2 w-full cursor-pointer",
+                  isActive
+                    ? "bg-brand-primary text-app-bg border-brand-primary"
+                    : "border-cod-gray-300 text-content-main",
+                )}
+                onClick={() => setTime(value)}
+              >
+                {label}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </Card>
   );
 }

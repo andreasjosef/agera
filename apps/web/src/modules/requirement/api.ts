@@ -12,7 +12,8 @@ import {
 } from "@ccpilot/domain";
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
-// TODO: Switch to zodWrappedParser when the /requirment endpoint is implemented
+const BASE_URL = `${import.meta.env.VITE_API_URL ?? "http://localhost:4000"}/api`;
+
 const RequirementParser = zodRawParser(RequirementSchema);
 
 export const requirementMutations = {
@@ -21,7 +22,7 @@ export const requirementMutations = {
       mutationKey: ["requirements", "finish"],
       mutationFn: async (stepId: string) => {
         const result = await _fetchRaw(
-          `http://localhost:4000/api/steps/finish/${stepId}`,
+          `${BASE_URL}/steps/finish/${stepId}`,
           "POST",
           {},
           {},
@@ -39,7 +40,7 @@ export const requirementQueryOptions = {
     queryKey: ["requirements"],
     queryFn: async () => {
       const res = await fetchList(
-        "http://localhost:4000/api/requirements",
+        `${BASE_URL}/requirements`,
         RequirementParser,
         {
           extractArray: (data) => data.value,
@@ -61,7 +62,7 @@ export const requirementQueryOptions = {
       queryKey: ["requirements", id],
       queryFn: async () => {
         const result = await safeFetchItem(
-          `http://localhost:4000/api/requirements/${id}`,
+          `${BASE_URL}/requirements/${id}`,
           zodWrappedParser(RequirementSchema),
         );
 
@@ -75,7 +76,7 @@ export const requirementQueryOptions = {
     queryKey: ["requirements", "next"],
     queryFn: async () => {
       const result = await safeFetchItem(
-        "http://localhost:4000/api/requirements/next",
+        `${BASE_URL}/requirements/next`,
         zodWrappedParser(ScoredStepSchema),
       );
 
@@ -88,7 +89,7 @@ export const requirementQueryOptions = {
     queryKey: ["requirements", "preview"],
     queryFn: async () => {
       const result = await fetchList<ScoredStep>(
-        "http://localhost:4000/api/requirements/preview",
+        `${BASE_URL}/requirements/preview`,
         zodRawParser(ScoredStepSchema),
         {
           extractArray: (data) => data.value,

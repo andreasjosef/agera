@@ -10,5 +10,5 @@ export default function BodyDoublingSwitchManager() {
     })),
   );
 
-  return <BodyDoublingSwitch enabled={isEnabled} setIsEnable={setIsEnabled} />;
+  return <BodyDoublingSwitch enabled={isEnabled} setIsEnable={setIsEnabled} title="Vill du ser hur många plugga med dig?" onLabel="Ja, starta" offLabel="Nej, själv" />;
 }

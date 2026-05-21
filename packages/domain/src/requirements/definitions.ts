@@ -72,6 +72,7 @@ export const StepSchema = z.object({
   estimatedMinutes: z.coerce.number(),
   dependencyOrder: z.coerce.number(),
   quickStartLinkHint: z.string(),
+  requirementId: z.string(),
 });
 export type Step = z.infer<typeof StepSchema>;
 
@@ -89,6 +90,7 @@ export const RequirementSchema = z.object({
   status: StepGenerationStatusSchema,
   updatedAt: z.coerce.date(),
   integrationId: z.string().optional(),
+  requirementSummary: z.string().optional(),
 });
 export type Requirement = z.infer<typeof RequirementSchema>;
 
@@ -99,8 +101,9 @@ export type Requirement = z.infer<typeof RequirementSchema>;
 /** Used when creating a new step */
 export const NewStepSchema = StepSchema.omit({
   id: true,
+  requirementId: true,
 });
-export type NewStep = Omit<Step, "id">;
+export type NewStep = z.infer<typeof NewStepSchema>;
 
 /** Used by the ef-engine */
 export const ScoredStepSchema = StepSchema.extend({
@@ -116,6 +119,7 @@ export const NewRequirementSchema = RequirementSchema.omit({
   id: true,
   status: true,
   updatedAt: true,
+  requirementSummary: true,
 });
 export type NewRequirement = z.infer<typeof NewRequirementSchema>;
 

@@ -7,10 +7,7 @@ interface BodyDoublingDisplayProps {
 export function BodyDoublingDisplay({ activeCount }: BodyDoublingDisplayProps) {
   return (
     <Card className="flex items-center gap-x-2">
-      <span
-        className="size-3 bg-brand-primary rounded-full animate-pulse"
-        aria-hidden="true"
-      ></span>
+      <span className="pulse-dot bg-brand-primary" aria-hidden="true"></span>
       <span>{activeCount} active students</span>
     </Card>
   );

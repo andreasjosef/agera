@@ -51,6 +51,7 @@ async function processReqLLM(
       id,
       llmResult.value.steps,
       "COMPLETE",
+      llmResult.value.requirement_summary,
     );
     console.log(
       "[STEP GEN] completed for: ",

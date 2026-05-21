@@ -1,32 +1,46 @@
 import React from "react";
-import { Button } from "../primitives/Button";
-import { Card } from "../primitives/Card";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { mergeStyles } from "../utils";
 
 interface AppSidebarProps {
-  open: boolean;
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
   navLinks?: React.ReactNode;
   footerContent?: React.ReactNode;
 }
 
-export function AppSidebar({ open, navLinks, footerContent }: AppSidebarProps) {
-  if (!open) {
-    return (
-      <Button className="" variant="ghost">
-        Exit Focus
-      </Button>
-    );
-  }
-
+export function AppSidebar({
+  isOpen,
+  setIsOpen,
+  navLinks,
+  footerContent,
+}: AppSidebarProps) {
   return (
-    <div className="h-full flex flex-col gap-y-4 border-r border-cod-gray-300 p-2">
-      <h1>CCPilot</h1>
-      <div className="flex flex-col h-full">
-        <nav>
-          <ul>{navLinks}</ul>
-        </nav>
+    <div className="flex gap-x-2 items-start h-full" aria-expanded={isOpen}>
+      <aside
+        className={mergeStyles(
+          "h-full transition-all duration-300 ease-out overflow-hidden",
+          isOpen ? "w-48 opacity-100" : "w-0 opacity-0",
+        )}
+      >
+        <div className="flex h-full flex-col gap-y-4 border-r border-cod-gray-300 p-2 whitespace-nowrap">
+          <h1>CCPilot</h1>
+          <div className="flex flex-col h-full">
+            <nav>
+              <ul>{navLinks}</ul>
+            </nav>
 
-        <footer className="mt-auto grid gap-y-2">{footerContent} </footer>
-      </div>
+            <footer className="mt-auto grid gap-y-2">{footerContent} </footer>
+          </div>
+        </div>
+      </aside>
+      <button className="cursor-pointer p-2" onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? (
+          <ChevronLeft stroke="var(--color-cod-gray-700)" />
+        ) : (
+          <ChevronRight stroke="var(--color-cod-gray-700)" />
+        )}
+      </button>
     </div>
   );
 }

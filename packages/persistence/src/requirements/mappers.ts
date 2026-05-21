@@ -23,6 +23,7 @@ export const toDomainRequirement = (
     steps: steps,
     source: dbRow.source,
     status: dbRow.status,
+    requirementSummary: dbRow.requirementSummary ?? undefined,
     updatedAt: dbRow.updatedAt,
   };
 };
@@ -42,6 +43,7 @@ export const toDomainStep = (row: StepsRow): Step => {
     dependencyOrder: row.dependencyOrder ? Number(row.dependencyOrder) : 0,
     quickStartLinkHint: row.quickStartLinkHint ?? "",
     complete: row.completed,
+    requirementId: row.requirement_id!,
   });
 };
 

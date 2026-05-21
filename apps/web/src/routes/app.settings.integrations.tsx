@@ -4,6 +4,7 @@ import { integrationQueries } from "@/modules/integrations/api";
 import { useCanvasConnect, useSyncPolling } from "@/modules/integrations/hooks";
 import CanvasIntegrationForm from "@/components/CanvasIntegrationForm";
 import { useInitiateSync } from "@/modules/requirement/hooks";
+import { Button } from "@ccpilot/ui";
 
 export const Route = createFileRoute("/app/settings/integrations")({
   component: RouteComponent,
@@ -38,9 +39,9 @@ function RouteComponent() {
         <div className="surface-container divide-y divide-cod-gray-200 grid gap-y-2">
           <header className="flex justify-between items-center pb-2">
             <h4>Canvas</h4>
-            <span className="p-2 bg-green-500 rounded-lg text-app-bg font-medium">
-              Connected
-            </span>
+            <div className="pulse-dot bg-state-success">
+              <span className="sr-only">Connected</span>
+            </div>
           </header>
           <div className="grid">
             <ul>
@@ -48,15 +49,15 @@ function RouteComponent() {
               <li> Last Sync: {integration.lastSync?.toLocaleString()} </li>
               <li> Total: {pollingData?.stats.total} </li>
             </ul>
-            <button
-              className="primary-button ml-auto disabled:bg-brand-subtle"
-              disabled={pollingData?.status === "PROCESSING"}
+            <Button
+              className="ml-auto disabled:bg-brand-subtle"
+              isLoading={pollingData?.status === "PROCESSING"}
               onClick={() => {
                 reSync();
               }}
             >
               Re-sync
-            </button>
+            </Button>
           </div>
         </div>
       )}

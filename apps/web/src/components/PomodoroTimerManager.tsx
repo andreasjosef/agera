@@ -1,4 +1,5 @@
 import { statusMutations } from "@/modules/cockpit/api";
+import { useToggleAcitve } from "@/modules/cockpit/hooks";
 import { useTimer } from "@/modules/cockpit/store";
 import { PomodoroTimer } from "@ccpilot/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -26,15 +27,7 @@ export default function PomodoroTimerManager() {
       toggleMode: state.toggleMode,
     })),
   );
-  const queryClient = useQueryClient();
-
-  const { mutate: toggleStatusActive } = useMutation({
-    mutationFn: statusMutations.toggleStatusActive,
-    mutationKey: ["status", "toggle"],
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["status"] });
-    },
-  });
+  const { toggleStatusActive } = useToggleAcitve();
 
   const navigate = useNavigate();
 

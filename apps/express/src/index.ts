@@ -17,8 +17,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 app.use(
   cors({
-    // TODO: Add production domain to allowed origins
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://c4g-group4.cc.k3s.chas-lab.dev"],
     credentials: true,
   }),
 );

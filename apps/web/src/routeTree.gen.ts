@@ -13,11 +13,10 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppIndexRouteImport } from './routes/app.index'
-import { Route as AppTodayRouteImport } from './routes/app.today'
 import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppRequirementsRouteImport } from './routes/app.requirements'
 import { Route as AppOnboardingRouteImport } from './routes/app.onboarding'
+import { Route as AppNowRouteImport } from './routes/app.now'
 import { Route as AppCockpitRouteImport } from './routes/app.cockpit'
 import { Route as AppRequirementsIndexRouteImport } from './routes/app.requirements.index'
 import { Route as AppStepIdRouteImport } from './routes/app.step.$id'
@@ -45,16 +44,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppTodayRoute = AppTodayRouteImport.update({
-  id: '/today',
-  path: '/today',
-  getParentRoute: () => AppRoute,
-} as any)
 const AppSettingsRoute = AppSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -68,6 +57,11 @@ const AppRequirementsRoute = AppRequirementsRouteImport.update({
 const AppOnboardingRoute = AppOnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNowRoute = AppNowRouteImport.update({
+  id: '/now',
+  path: '/now',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCockpitRoute = AppCockpitRouteImport.update({
@@ -107,11 +101,10 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/cockpit': typeof AppCockpitRoute
+  '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/requirements': typeof AppRequirementsRouteWithChildren
   '/app/settings': typeof AppSettingsRouteWithChildren
-  '/app/today': typeof AppTodayRoute
-  '/app/': typeof AppIndexRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
@@ -120,13 +113,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/cockpit': typeof AppCockpitRoute
+  '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/settings': typeof AppSettingsRouteWithChildren
-  '/app/today': typeof AppTodayRoute
-  '/app': typeof AppIndexRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
@@ -140,11 +133,10 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/cockpit': typeof AppCockpitRoute
+  '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/requirements': typeof AppRequirementsRouteWithChildren
   '/app/settings': typeof AppSettingsRouteWithChildren
-  '/app/today': typeof AppTodayRoute
-  '/app/': typeof AppIndexRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
@@ -159,11 +151,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/cockpit'
+    | '/app/now'
     | '/app/onboarding'
     | '/app/requirements'
     | '/app/settings'
-    | '/app/today'
-    | '/app/'
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
@@ -172,13 +163,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/app'
     | '/login'
     | '/signup'
     | '/app/cockpit'
+    | '/app/now'
     | '/app/onboarding'
     | '/app/settings'
-    | '/app/today'
-    | '/app'
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
@@ -191,11 +182,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/cockpit'
+    | '/app/now'
     | '/app/onboarding'
     | '/app/requirements'
     | '/app/settings'
-    | '/app/today'
-    | '/app/'
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
@@ -240,20 +230,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/': {
-      id: '/app/'
-      path: '/'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/today': {
-      id: '/app/today'
-      path: '/today'
-      fullPath: '/app/today'
-      preLoaderRoute: typeof AppTodayRouteImport
-      parentRoute: typeof AppRoute
-    }
     '/app/settings': {
       id: '/app/settings'
       path: '/settings'
@@ -273,6 +249,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/app/onboarding'
       preLoaderRoute: typeof AppOnboardingRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/now': {
+      id: '/app/now'
+      path: '/now'
+      fullPath: '/app/now'
+      preLoaderRoute: typeof AppNowRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/cockpit': {
@@ -350,6 +333,7 @@ const AppSettingsRouteWithChildren = AppSettingsRoute._addFileChildren(
 
 interface AppRouteChildren {
   AppCockpitRoute: typeof AppCockpitRoute
+  AppNowRoute: typeof AppNowRoute
   AppOnboardingRoute: typeof AppOnboardingRoute
   AppRequirementsRoute: typeof AppRequirementsRouteWithChildren
   AppSettingsRoute: typeof AppSettingsRouteWithChildren
@@ -360,6 +344,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppCockpitRoute: AppCockpitRoute,
+  AppNowRoute: AppNowRoute,
   AppOnboardingRoute: AppOnboardingRoute,
   AppRequirementsRoute: AppRequirementsRouteWithChildren,
   AppSettingsRoute: AppSettingsRouteWithChildren,
