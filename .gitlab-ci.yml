@@ -115,7 +115,7 @@ deploy_to_production:
     - echo "$KUBECONFIG_B64" | base64 -d > ~/.kube/config
     - export KUBECONFIG=~/.kube/config
     - kubectl apply -f infrastructure/k8s/prod/
-    - kubectl rollout restart deployment backend-deployment -n doe25-group-4-prod
-    - kubectl rollout restart deployment frontend-deployment -n doe25-group-4-prod
+    - kubectl rollout restart deployment backend-deployment -n doe25-group-4
+    - kubectl rollout restart deployment frontend-deployment -n doe25-group-4
   rules:
     - if: $CI_COMMIT_BRANCH == "main"

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: postgres-config
-  namespace: doe25-group-4-prod
+  namespace: doe25-group-4
 data:
   POSTGRES_USER: "ccpilot_app"
   POSTGRES_DB: "ccpilot_db"
