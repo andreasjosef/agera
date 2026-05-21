@@ -39,11 +39,6 @@ app.get("/health", (req, res) => {
   res.status(200).json(ok("Up and running !"));
 });
 
-app.use("/api/requirements", requirementsRouter);
-app.use("/api/integrations", integrationsRouter);
-app.use("/api/steps", stepsRouter);
-app.use("/api/status", statusRouter);
-
 // TEMPORARY TEST FOR DB HEALTH IN PROD
 app.get("/health/db", async (req, res) => {
   try {
@@ -56,6 +51,11 @@ app.get("/health/db", async (req, res) => {
     });
   }
 });
+
+app.use("/api/requirements", requirementsRouter);
+app.use("/api/integrations", integrationsRouter);
+app.use("/api/steps", stepsRouter);
+app.use("/api/status", statusRouter);
 
 /**
  * Final safety net. If something lands here it is a critical system error.
