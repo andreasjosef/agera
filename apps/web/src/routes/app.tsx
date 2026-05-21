@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Settings,
 } from "lucide-react";
+import BackButtonManager from "@/components/BackButtonManager";
 import { NavLink } from "@/components/NavLink";
 import SyncState from "@/components/SyncState";
 import { Suspense } from "react";
@@ -88,15 +89,18 @@ function RouteComponent() {
       </div>
 
       <div className="p-4 overflow-y-scroll">
-        <Suspense
-          fallback={
-            <div className="flex h-[60vh] w-full items-center justify-center font-display text-sm font-medium uppercase tracking-widest text-content-subtle animate-pulse">
-              Loading ...
-            </div>
-          }
-        >
-          <Outlet />
-        </Suspense>
+        <div className="flex flex-col gap-y-2 container h-full">
+          <BackButtonManager />
+          <Suspense
+            fallback={
+              <div className="flex h-[60vh] w-full items-center justify-center font-display text-sm font-medium uppercase tracking-widest text-content-subtle animate-pulse">
+                Loading ...
+              </div>
+            }
+          >
+            <Outlet />
+          </Suspense>
+        </div>
       </div>
 
       <div className="md:hidden block">

@@ -28,9 +28,8 @@ function RouteComponent() {
       </div>
     );
 
-  // TODO: Lets make it a grid to fit other components nicely */
   return (
-    <div className="container now-grid items-start gap-2">
+    <div className="now-grid items-start gap-2">
       <div className="[grid-area:now-card]">
         <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
       </div>

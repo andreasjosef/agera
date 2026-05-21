@@ -16,6 +16,7 @@ export * from "./features/BodyDoublingDisplay";
 export * from "./features/RequirementCard";
 export * from "./features/StepDetail";
 export * from "./features/MobileNavMenu";
+export * from "./features/BackButton";
 
 // Primitives
 export * from "./primitives/Button";

@@ -31,7 +31,7 @@ function RouteComponent() {
   };
 
   return (
-    <div className="h-full container">
+    <div className="h-full">
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
           <UpcomingStepsSection />
