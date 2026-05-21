@@ -62,11 +62,14 @@ kind: Service
 metadata:
   name: backend-service
   namespace: doe25-group-4
+  labels:
+    app: backend-service    
 spec:
   selector:
     app: backend
   ports:
-    - protocol: TCP
+    - name: http            
+      protocol: TCP
       port: 3000
       targetPort: 3000
   type: ClusterIP
