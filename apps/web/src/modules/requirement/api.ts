@@ -72,6 +72,23 @@ export const requirementQueryOptions = {
       },
     });
   },
+
+  stepById: (id: string) => {
+    return queryOptions({
+      queryKey: ["step", id],
+      queryFn: async () => {
+        const result = await safeFetchItem(
+          `${BASE_URL}/steps/${id}`,
+          zodWrappedParser(ScoredStepSchema),
+        );
+
+        if (!result.ok) throw new Error(result.error);
+
+        return result.value;
+      },
+    });
+  },
+
   next: queryOptions({
     queryKey: ["requirements", "next"],
     queryFn: async () => {
