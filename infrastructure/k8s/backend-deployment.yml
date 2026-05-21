@@ -41,6 +41,11 @@ spec:
               value: "https://c4g-group4.cc.k3s.chas-lab.dev/api/auth"
             - name: TRUSTED_ORIGINS
               value: "https://c4g-group4.cc.k3s.chas-lab.dev"
+            - name: BETTER_AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: backend-secrets
+                  key: BETTER_AUTH_SECRET
             - name: DATABASE_URL
               value: "postgres://$(DB_USER):$(DB_PASSWORD)@$(DB_HOST):5432/$(DB_NAME)?sslmode=disable"
             - name: ENCRYPTION_KEY
