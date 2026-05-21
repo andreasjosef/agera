@@ -36,6 +36,11 @@ app.use("/api/integrations", integrationsRouter);
 app.use("/api/steps", stepsRouter);
 app.use("/api/status", statusRouter);
 
+app.use((err, req, res, next) => {
+  console.error("[ERROR]", err);
+  res.status(500).json({ ok: false, error: err?.message || "Internal server error" });
+});
+
 app.listen(PORT, () =>
   console.log(`[CCPILOT API] running on http://localhost:${PORT}`),
 );
