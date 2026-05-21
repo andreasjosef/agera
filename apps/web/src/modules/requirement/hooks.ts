@@ -48,7 +48,7 @@ export const useInitiateSync = () => {
       console.log("initiateSync");
 
       const result = await safePostItem(
-        `${import.meta.env.VITE_API_URL ?? "http://localhost:4000"}/api/requirements/sync`,
+        "/api/requirements/sync",
         {},
         zodRawParser(SyncStatusSchema),
       );

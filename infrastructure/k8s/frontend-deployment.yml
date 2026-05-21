@@ -36,9 +36,6 @@ spec:
               port: 5173
             initialDelaySeconds: 5
             periodSeconds: 10
-          env:
-            - name: VITE_API_URL
-              value: "/api"   
 ---
 apiVersion: v1
 kind: Service

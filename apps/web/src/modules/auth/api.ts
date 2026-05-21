@@ -8,7 +8,7 @@ import {
 
 import { SafeUserSchema, NewUser } from "@ccpilot/domain";
 
-const BASE_URL = `${import.meta.env.VITE_API_URL ?? "http://localhost:4000"}/api/auth`;
+const BASE_URL = "/api/auth";
 
 const authUserParser = zodWrappedParser(SafeUserSchema);
 
