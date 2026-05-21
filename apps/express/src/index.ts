@@ -35,12 +35,12 @@ app.all("/api/auth/*splat", authHandlerNode);
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/health", (req, res) => {
+app.get("/api/health", (req, res) => {
   res.status(200).json(ok("Up and running !"));
 });
 
 // TEMPORARY TEST FOR DB HEALTH IN PROD
-app.get("/health/db", async (req, res) => {
+app.get("/api/health/db", async (req, res) => {
   try {
     await db.execute(sql`SELECT 1`);
     res.status(200).json(ok("DB connected"));
