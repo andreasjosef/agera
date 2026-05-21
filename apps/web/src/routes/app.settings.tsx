@@ -23,7 +23,7 @@ const options = linkOptions([
 
 function RouteComponent() {
   return (
-    <Card width="container h-full">
+    <Card width="h-full">
       <div className="grid grid-cols-[auto_1fr] h-full gap-x-2">
         <div className="bg-app-surface flex flex-col surface-container">
           <div className="grid gap-y-4">

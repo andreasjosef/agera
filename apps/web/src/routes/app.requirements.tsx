@@ -6,7 +6,7 @@ export const Route = createFileRoute("/app/requirements")({
 
 function RouteComponent() {
   return (
-    <div className="container">
+    <div>
       <Outlet />
     </div>
   );
