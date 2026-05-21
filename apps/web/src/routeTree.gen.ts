@@ -23,6 +23,7 @@ import { Route as AppStepIdRouteImport } from './routes/app.step.$id'
 import { Route as AppSettingsUserRouteImport } from './routes/app.settings.user'
 import { Route as AppSettingsIntegrationsRouteImport } from './routes/app.settings.integrations'
 import { Route as AppRequirementsIdRouteImport } from './routes/app.requirements.$id'
+import { Route as AppGuidesCanvasRouteImport } from './routes/app.guides.canvas'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -94,6 +95,11 @@ const AppRequirementsIdRoute = AppRequirementsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => AppRequirementsRoute,
 } as any)
+const AppGuidesCanvasRoute = AppGuidesCanvasRouteImport.update({
+  id: '/guides/canvas',
+  path: '/guides/canvas',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/requirements': typeof AppRequirementsRouteWithChildren
   '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/guides/canvas': typeof AppGuidesCanvasRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/guides/canvas': typeof AppGuidesCanvasRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/requirements': typeof AppRequirementsRouteWithChildren
   '/app/settings': typeof AppSettingsRouteWithChildren
+  '/app/guides/canvas': typeof AppGuidesCanvasRoute
   '/app/requirements/$id': typeof AppRequirementsIdRoute
   '/app/settings/integrations': typeof AppSettingsIntegrationsRoute
   '/app/settings/user': typeof AppSettingsUserRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/app/onboarding'
     | '/app/requirements'
     | '/app/settings'
+    | '/app/guides/canvas'
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/app/now'
     | '/app/onboarding'
     | '/app/settings'
+    | '/app/guides/canvas'
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/app/onboarding'
     | '/app/requirements'
     | '/app/settings'
+    | '/app/guides/canvas'
     | '/app/requirements/$id'
     | '/app/settings/integrations'
     | '/app/settings/user'
@@ -300,6 +312,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRequirementsIdRouteImport
       parentRoute: typeof AppRequirementsRoute
     }
+    '/app/guides/canvas': {
+      id: '/app/guides/canvas'
+      path: '/guides/canvas'
+      fullPath: '/app/guides/canvas'
+      preLoaderRoute: typeof AppGuidesCanvasRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -337,6 +356,7 @@ interface AppRouteChildren {
   AppOnboardingRoute: typeof AppOnboardingRoute
   AppRequirementsRoute: typeof AppRequirementsRouteWithChildren
   AppSettingsRoute: typeof AppSettingsRouteWithChildren
+  AppGuidesCanvasRoute: typeof AppGuidesCanvasRoute
   AppStepIdRoute: typeof AppStepIdRoute
 }
 
@@ -346,6 +366,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppOnboardingRoute: AppOnboardingRoute,
   AppRequirementsRoute: AppRequirementsRouteWithChildren,
   AppSettingsRoute: AppSettingsRouteWithChildren,
+  AppGuidesCanvasRoute: AppGuidesCanvasRoute,
   AppStepIdRoute: AppStepIdRoute,
 }
 
