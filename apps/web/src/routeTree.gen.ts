@@ -337,8 +337,6 @@ interface AppRouteChildren {
   AppOnboardingRoute: typeof AppOnboardingRoute
   AppRequirementsRoute: typeof AppRequirementsRouteWithChildren
   AppSettingsRoute: typeof AppSettingsRouteWithChildren
-  AppTodayRoute: typeof AppTodayRoute
-  AppIndexRoute: typeof AppIndexRoute
   AppStepIdRoute: typeof AppStepIdRoute
 }
 
@@ -348,8 +346,6 @@ const AppRouteChildren: AppRouteChildren = {
   AppOnboardingRoute: AppOnboardingRoute,
   AppRequirementsRoute: AppRequirementsRouteWithChildren,
   AppSettingsRoute: AppSettingsRouteWithChildren,
-  AppTodayRoute: AppTodayRoute,
-  AppIndexRoute: AppIndexRoute,
   AppStepIdRoute: AppStepIdRoute,
 }
 
