@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
@@ -36,9 +36,20 @@ app.use("/api/integrations", integrationsRouter);
 app.use("/api/steps", stepsRouter);
 app.use("/api/status", statusRouter);
 
-app.use((err, req, res, next) => {
-  console.error("[ERROR]", err);
-  res.status(500).json({ ok: false, error: err?.message || "Internal server error" });
+/**
+ * Final safety net. If something lands here it is a critical system error.
+ * Everything else I handled with domain error codes and railway repsonses innan
+ **/
+app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+  const isError = err instanceof Error;
+  const message = isError ? err.message : "Unknown Error";
+
+  console.error(`[CCPILOT SYSTEM ERROR]: ${message}`);
+
+  res.status(500).json({
+    ok: false,
+    error: message,
+  });
 });
 
 app.listen(PORT, () =>
