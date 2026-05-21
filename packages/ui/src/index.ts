@@ -17,6 +17,7 @@ export * from "./features/RequirementCard";
 export * from "./features/StepDetail";
 export * from "./features/MobileNavMenu";
 export * from "./features/BackButton";
+export * from "./features/ConnectionGuide";
 
 // Primitives
 export * from "./primitives/Button";
@@ -24,3 +25,4 @@ export * from "./primitives/Error";
 export * from "./primitives/Card";
 export * from "./primitives/NavItem";
 export * from "./primitives/RequirementAnchor";
+export * from "./primitives/GuideStepItem";
