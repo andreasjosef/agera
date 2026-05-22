@@ -6,15 +6,15 @@ interface NowDashboardLayoutProps {
 export default function NowDashboardLayout({
   children,
 }: NowDashboardLayoutProps) {
-  const [upcoming, timeSelector, bodyDoubling] = Children.toArray(children);
+  const [upcoming, timeSelector, bodyDoubling, liftOff] =
+    Children.toArray(children);
   return (
     <div className="cockpit-grid h-full gap-4 items-start content-start">
       <div className="h-full [grid-area:upcoming]">{upcoming}</div>
 
-      <div className="flex flex-col gap-6 [grid-area:settings]">
-        {timeSelector}
-        {bodyDoubling}
-      </div>
+      <div className="[grid-area:time]">{timeSelector}</div>
+      <div className="[grid-area:body-doubling]">{bodyDoubling}</div>
+      <div className="[grid-area:lift-off] grid"> {liftOff} </div>
     </div>
   );
 }

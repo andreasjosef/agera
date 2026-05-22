@@ -30,11 +30,14 @@ function RouteComponent() {
 
   return (
     <div className="now-grid items-start gap-2">
+      <div className="[grid-area:pomodoro]">
+        <PomodoroTimerManager />
+      </div>
+
       <div className="[grid-area:now-card]">
         <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
       </div>
-      <div className="grid gap-y-2 [grid-area:controls]">
-        <PomodoroTimerManager />
+      <div className="[grid-area:body-doubling]">
         {isEnabled && <BodyDoublingDisplayManager />}
       </div>
     </div>
