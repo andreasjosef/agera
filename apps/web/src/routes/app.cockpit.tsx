@@ -1,20 +1,20 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { requirementQueryOptions } from "@/modules/requirement/api";
-
 import { Button } from "@ccpilot/ui";
+import { Suspense } from "react";
 
 import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
+
 import BodyDoublingSwitchManager from "@/components/BodyDoublingSwitchManager";
 import TimeSelectorManager from "@/components/TimeSelectorManager";
 import { UpcomingStepsSection } from "@/components/UpcomingStepsWidget";
+import { EnergySelectorWidget } from "@/components/EnergySelectorWidget";
+
 import { useApp } from "@/modules/store";
 import { useTimer } from "@/modules/cockpit/store";
 import { useToggleAcitve } from "@/modules/cockpit/hooks";
 
 export const Route = createFileRoute("/app/cockpit")({
   component: RouteComponent,
-  loader: ({ context }) =>
-    context.queryClient.ensureQueryData(requirementQueryOptions.preview),
 });
 
 function RouteComponent() {
@@ -34,11 +34,29 @@ function RouteComponent() {
     <div className="h-full">
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
-          <UpcomingStepsSection />
+          <Suspense
+            fallback={
+              <div className="grid gap-3 w-full">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="animate-pulse rounded-xl bg-app-surface-hover h-24 w-full"
+                  />
+                ))}
+              </div>
+            }
+          >
+            <UpcomingStepsSection />
+          </Suspense>
+          {/* TODO / NOTE: this should probaly become an orchestrator component which whould make
+          this file much cleaner as a lot of the imports related in here are the state this button handles */}
           <Button onClick={handleLiftoff}>STARTA PASSET</Button>
         </div>
-        <TimeSelectorManager />
-        <BodyDoublingSwitchManager />
+        <div>
+          <TimeSelectorManager />
+          <BodyDoublingSwitchManager />
+          <EnergySelectorWidget />
+        </div>
       </NowDashboardLayout>
     </div>
   );
