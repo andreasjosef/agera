@@ -2,7 +2,7 @@ import { mergeStyles } from "../utils";
 import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost";
+  variant?: "primary" | "secondary" | "ghost" | "outline" | "muted";
   isLoading?: boolean;
 }
 
@@ -13,6 +13,10 @@ const variantStyles = {
     "cursor-pointer relative text-brand-primary border border-brand-primary uppercase px-6 py-2 rounded-sm font-display font-semibold tracking-widest transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none hover:bg-brand-hover hover:border-transparent hover:text-white",
   ghost:
     "text-brand-primary cursor-pointer hover:text-brand-hover hover:underline focus:text-brand-hover focus:underline disabled:opacity-50 disabled:pointer-events-none relative",
+  outline:
+    "cursor-pointer relative border-2 border-content-subtle text-content-main uppercase px-6 py-2 rounded-sm font-display font-semibold tracking-wider transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none hover:bg-app-surface-hover",
+  muted:
+    "cursor-pointer relative bg-app-surface-hover text-content-main uppercase px-6 py-2 rounded-sm font-display font-semibold tracking-wider transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none hover:bg-app-surface-hover",
 };
 
 export function Button({

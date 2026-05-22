@@ -35,12 +35,16 @@ export const Route = createFileRoute("/app")({
 });
 
 const sidebarNavItems = [
-  { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
-  { to: "/app/now", label: "Now", icon: BookA },
-  { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
+  { to: "/app/cockpit", label: "Översikt", icon: LayoutDashboard },
+  { to: "/app/now", label: "Fokus", icon: BookA },
+  {
+    to: "/app/requirements",
+    label: "Alla Uppgifter",
+    icon: GalleryHorizontalEnd,
+  },
   {
     to: "/app/settings",
-    label: "Settings",
+    label: "Intsällningar",
     icon: Settings,
   },
 ] as const;
