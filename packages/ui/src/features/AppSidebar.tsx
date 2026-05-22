@@ -24,7 +24,10 @@ export function AppSidebar({
         )}
       >
         <div className="flex h-full flex-col gap-y-4 border-r border-cod-gray-300 p-2 whitespace-nowrap">
-          <h1>CCPilot</h1>
+          <h1 className="pl-2 font-display text-2xl font-bold">
+            Agera
+            <span className="inline-block ml-1 w-3 h-3 rounded-full bg-brand-primary align-middle" />
+          </h1>
           <div className="flex flex-col h-full">
             <nav>
               <ul>{navLinks}</ul>

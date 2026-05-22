@@ -26,7 +26,7 @@ const steps = [
   {
     title: "Insamling",
     description:
-      "Sluta leta efter deadlines på tre olika ställen. CCPilot samlar automatiskt in krav, uppgifter och scheman från fragmenterade källor som Canvas, Slack och e-post.",
+      "Sluta leta efter deadlines på tre olika ställen. Agera samlar automatiskt in krav, uppgifter och scheman från fragmenterade källor som Canvas, Slack och e-post.",
   },
   {
     title: "Nedbrytning",
@@ -43,13 +43,14 @@ const steps = [
 function RouteComponent() {
   return (
     <div className="min-h-screen grid grid-rows-[auto_1fr_auto]">
-      <header className="flex justify-between p-4 max-w-7xl mx-auto w-full">
-        <h1 className="font-display text-xl font-bold tracking-tight">
-          CCPILOT
+      <header className="flex justify-between p-6 max-w-7xl mx-auto w-full">
+        <h1 className="font-display text-2xl font-bold">
+          Agera
+          <span className="inline-block ml-1 w-3 h-3 rounded-full bg-brand-primary align-middle" />
         </h1>
 
-        <Link className="font-medium" to="/login">
-          Login
+        <Link to="/login">
+          <Button variant="outline">Login</Button>
         </Link>
       </header>
 
@@ -60,9 +61,9 @@ function RouteComponent() {
               Exekutiv funktion som en tjänst.
             </h2>
             <p className="text-base md:text-lg mb-8 text-content-muted max-w-xl">
-              Navigera i vuxenutbildningen genom dina styrkor – nyfikenhet och
-              hyperfokus – istället för det administrativa kaos som dränerar din
-              energi.
+              Agera hjälper dig att navigera i vuxenutbildningen genom dina
+              styrkor – nyfikenhet och hyperfokus – istället för det
+              administrativa kaos som dränerar din energi.
             </p>
             <Link className="inline-block" to="/signup">
               <Button>Kom Igång!</Button>
@@ -73,7 +74,7 @@ function RouteComponent() {
         <section className="bg-app-surface py-16 md:py-24 px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="font-display text-2xl sm:text-3xl mb-4 font-medium">
-              Varför CCPilot?
+              Varför Agera?
             </h2>
             <blockquote className="border-l-4 border-brand-primary pl-4 italic text-base md:text-lg font-semibold mb-4 text-content-main">
               Begåvade individer faller ur systemet på grund av administrativa
@@ -82,7 +83,7 @@ function RouteComponent() {
             <p className="text-base md:text-lg mb-4 text-content-muted">
               Att studera med ADHD eller andra NPF-diagnoser innebär ofta att
               den största utmaningen inte är själva kursinnehållet, utan allt
-              runt omkring. CCPilot är byggt för att jämna ut spelplanen och öka
+              runt omkring. Agera är byggt för att jämna ut spelplanen och öka
               tillgängligheten i akademiska miljöer. Vi tar hand om strukturen,
               så att du kan lägga din energi på att lära dig.
             </p>
