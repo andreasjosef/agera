@@ -1,6 +1,7 @@
 import { Card } from "../primitives/Card";
 import { SelectList } from "../primitives/SelectList";
 
+// TODO: This should actually be moved into the domain
 export type EnergyLevel = "low" | "high";
 
 const energyOptions = [
