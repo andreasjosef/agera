@@ -37,12 +37,19 @@ export function AppSidebar({
           </div>
         </div>
       </aside>
-      <button className="cursor-pointer p-2" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className="group relative cursor-pointer p-2"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Hide sidebar" : "Show sidebar"}
+      >
         {isOpen ? (
           <ChevronLeft stroke="var(--color-cod-gray-700)" />
         ) : (
           <ChevronRight stroke="var(--color-cod-gray-700)" />
         )}
+        <span className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2 py-1 text-xs font-medium rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none bg-brand-primary text-white z-10">
+          {isOpen ? "Hide sidebar" : "Show sidebar"}
+        </span>
       </button>
     </div>
   );
