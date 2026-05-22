@@ -11,7 +11,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "ghost"],
+      options: ["primary", "secondary", "ghost", "outline", "muted"],
     },
   },
 };
@@ -37,5 +37,19 @@ export const Ghost: Story = {
   args: {
     variant: "ghost",
     children: "Logout",
+  },
+};
+
+export const Outline: Story = {
+  args: {
+    variant: "outline",
+    children: "Login",
+  },
+};
+
+export const Muted: Story = {
+  args: {
+    variant: "muted",
+    children: "Cancel",
   },
 };
