@@ -5,6 +5,7 @@ interface TimeSelectorProps {
   timeSeconds: number;
   setTime: (value: number) => void;
   title?: string;
+  selectionMessage: string;
 }
 
 // Value in seconds
@@ -19,12 +20,12 @@ export function TimeSelector({
   timeSeconds = 30 * 60,
   setTime,
   title = "Total Focus Time",
+  selectionMessage,
 }: TimeSelectorProps) {
   return (
     <Card className="grid gap-y-2">
       <h3 className="text-lg font-semibold">{title}</h3>
       {/* TODO: This might be a primitive like radio menu or something */}
-
       {/* TODO: We can probably make this more accessable, but use buttons for now */}
       <ul className="grid grid-cols-4 gap-x-2">
         {timeOptions.map(({ label, value }) => {
@@ -48,6 +49,10 @@ export function TimeSelector({
           );
         })}
       </ul>
+
+      <p className="text-base text-cod-gray-700 font-medium">
+        {selectionMessage}
+      </p>
     </Card>
   );
 }
