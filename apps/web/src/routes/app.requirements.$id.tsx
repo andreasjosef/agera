@@ -6,6 +6,7 @@ import RequirementStepStatus from "@/components/RequirementStepStatus";
 import { Link } from "@tanstack/react-router";
 
 import { Card } from "@ccpilot/ui";
+import BackButtonManager from "@/components/BackButtonManager";
 
 export const Route = createFileRoute("/app/requirements/$id")({
   component: RouteComponent,
@@ -32,6 +33,7 @@ function RouteComponent() {
 
   return (
     <Card className="bg-app-surface px-10 py-10 lg:px-15 flex flex-col gap-5 @container">
+      <BackButtonManager />
       <div className="flex flex-col @2xl:flex-row @2xl:justify-between @2xl:items-center">
         <div>
           <h2 className="text-3xl font-medium text-content-main ">

@@ -1,6 +1,7 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Button } from "@ccpilot/ui";
 import { Suspense } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+
+import { Button, Card } from "@ccpilot/ui";
 
 import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
 
@@ -37,14 +38,17 @@ function RouteComponent() {
           <EnergySelectorWidget />
           <Suspense
             fallback={
-              <div className="grid gap-3 w-full">
+              <Card
+                className="grid gap-3 min-h-72 w-full"
+                title="Kommande Steg"
+              >
                 {[1, 2, 3].map((i) => (
                   <div
                     key={i}
                     className="animate-pulse rounded-xl bg-app-surface-hover h-24 w-full"
                   />
                 ))}
-              </div>
+              </Card>
             }
           >
             <UpcomingStepsSection />

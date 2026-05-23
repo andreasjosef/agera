@@ -1,10 +1,10 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
 
 import { authMutations } from "@/modules/auth/api";
 
 import LoginForm from "@/components/LoginForm";
-import BackButtonManager from "@/components/BackButtonManager";
+import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -18,14 +18,17 @@ function LoginPage() {
     mutationFn: authMutations.signIn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate({ to: "/app" });
+      navigate({ to: "/app/cockpit" });
     },
   });
 
   return (
     <div>
       <header className="p-2">
-        <BackButtonManager />
+        <Link to="/" className="flex gap-1 items-center text-brand-primary hover:text-brand-hover transition-colors duration-200">
+          <ArrowLeft size={18} />
+          <span>Tillbaka till hemsidan</span>
+        </Link>
       </header>
 
       <div className="grid min-h-screen place-items-center p-4">

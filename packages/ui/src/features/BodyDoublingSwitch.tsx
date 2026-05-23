@@ -21,7 +21,7 @@ export function BodyDoublingSwitch({
       <h3 className="text-lg font-semibold">
         {activeCount > 0 ? (
           <>
-            Vill du joina
+            Vill du joina{" "}
             <span className="text-brand-primary">{activeCount}</span> andra som
             jobbar nu ?
           </>

@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { requirementQueryOptions } from "@/modules/requirement/api";
 import { StepDetail } from "@ccpilot/ui";
+import BackButtonManager from "@/components/BackButtonManager";
 
 export const Route = createFileRoute("/app/step/$id")({
   component: RouteComponent,
@@ -20,6 +21,7 @@ function RouteComponent() {
   return (
     <div className="h-screen flex items-center">
       <div className="mx-auto w-full max-w-305">
+        <BackButtonManager />
         <StepDetail step={step} />
       </div>
     </div>
