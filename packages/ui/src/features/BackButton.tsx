@@ -32,7 +32,7 @@ export function BackButton({ canGoBack, handleBack }: BackButtonProps) {
   return (
     <>
       <Button className="self-start" variant="ghost" onClick={handleBack}>
-        Tillbaka
+        Stäng
       </Button>
     </>
   );
