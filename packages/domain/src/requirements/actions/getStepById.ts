@@ -9,6 +9,7 @@ import {
 export const getStepByIdAction = async (
   ctx: AppContext,
   stepId: string,
+  energyLevel: number = 9,
 ): Promise<Result<ScoredStep>> => {
   const stepResult = await ctx.repos.requirements.findStepById(
     ctx.userId,
@@ -44,7 +45,7 @@ export const getStepByIdAction = async (
 
   const scored = calculatePriority([candidateBundle], {
     realityFactor: 1,
-    userEnergy: 9,
+    userEnergy: energyLevel,
     horizonHours: 72,
   });
 

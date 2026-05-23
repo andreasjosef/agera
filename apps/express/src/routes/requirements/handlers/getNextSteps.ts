@@ -10,10 +10,11 @@ export const getUpcomingSteps: ContextHandler = async (req, res) => {
   const { ctx } = res.locals;
 
   const limit = req.query.limit ? Number(req.query.limit) : 3;
+  const energyLevel = Math.min(9, Math.max(1, Number(req.query.energyLevel) || 9));
 
   console.log("[REQ ROUTER] Generating preview with limit:", limit);
 
-  const upcomingStepsResult = await getPreviewAction(ctx, limit);
+  const upcomingStepsResult = await getPreviewAction(ctx, limit, energyLevel);
 
   if (!upcomingStepsResult) {
     return res

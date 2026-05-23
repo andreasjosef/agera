@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { EnergyLevel } from "@ccpilot/ui";
 
 interface TimerState {
   // Setup (Cockpit)
@@ -80,4 +81,14 @@ export const useTimer = create<TimerState>((set) => ({
 export const useBodyDoubling = create<BodyDoublingState>((set) => ({
   isEnabled: true,
   setIsEnabled: (value) => set({ isEnabled: value }),
+}));
+
+interface EnergyState {
+  energyLevel: EnergyLevel;
+  setEnergyLevel: (level: EnergyLevel) => void;
+}
+
+export const useEnergy = create<EnergyState>((set) => ({
+  energyLevel: "high",
+  setEnergyLevel: (level) => set({ energyLevel: level }),
 }));

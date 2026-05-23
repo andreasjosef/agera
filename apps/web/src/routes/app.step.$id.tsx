@@ -6,6 +6,10 @@ import { StepDetail } from "@ccpilot/ui";
 
 export const Route = createFileRoute("/app/step/$id")({
   component: RouteComponent,
+  loader: ({ context, params }) =>
+    context.queryClient.ensureQueryData(
+      requirementQueryOptions.stepById(params.id),
+    ),
 });
 
 function RouteComponent() {

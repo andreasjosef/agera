@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { PanelLeft, PanelLeftClose } from "lucide-react";
 import { mergeStyles } from "../utils";
 
 interface AppSidebarProps {
@@ -43,10 +43,12 @@ export function AppSidebar({
         aria-label={isOpen ? "Hide sidebar" : "Show sidebar"}
       >
         {isOpen ? (
-          <ChevronLeft stroke="var(--color-cod-gray-700)" />
+          <PanelLeftClose stroke="var(--color-cod-gray-700)" />
         ) : (
-          <ChevronRight stroke="var(--color-cod-gray-700)" />
+          <PanelLeft stroke="var(--color-cod-gray-700)" />
         )}
+
+        {/* Shows Open/Close Sidebar on hover */}
         <span className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2 py-1 text-xs font-medium rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none bg-brand-primary text-white z-10">
           {isOpen ? "Hide sidebar" : "Show sidebar"}
         </span>
