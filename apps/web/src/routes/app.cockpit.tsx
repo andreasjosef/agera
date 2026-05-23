@@ -34,6 +34,7 @@ function RouteComponent() {
     <div className="h-full">
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
+          <EnergySelectorWidget />
           <Suspense
             fallback={
               <div className="grid gap-3 w-full">
@@ -48,15 +49,12 @@ function RouteComponent() {
           >
             <UpcomingStepsSection />
           </Suspense>
-          {/* TODO / NOTE: this should probaly become an orchestrator component which whould make
+        </div>
+        <TimeSelectorManager />
+        <BodyDoublingSwitchManager />
+        {/* TODO / NOTE: this should probaly become an orchestrator component which whould make
           this file much cleaner as a lot of the imports related in here are the state this button handles */}
-          <Button onClick={handleLiftoff}>STARTA PASSET</Button>
-        </div>
-        <div>
-          <TimeSelectorManager />
-          <BodyDoublingSwitchManager />
-          <EnergySelectorWidget />
-        </div>
+        <Button onClick={handleLiftoff}>STARTA PASSET</Button>
       </NowDashboardLayout>
     </div>
   );
