@@ -24,6 +24,9 @@ export const Default: Story = {
 
     return (
       <BodyDoublingSwitch
+        onLabel="Ja, starta"
+        offLabel="Nej, själv"
+        activeCount={42}
         enabled={isEnabled}
         setIsEnable={(val) => {
           setIsEnabled(val);

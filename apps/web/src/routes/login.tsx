@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { authMutations } from "@/modules/auth/api";
 
 import LoginForm from "@/components/LoginForm";
+import BackButtonManager from "@/components/BackButtonManager";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -17,20 +18,23 @@ function LoginPage() {
     mutationFn: authMutations.signIn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate({ to: "/app/cockpit" });
-    },
-    onError: (error) => {
-      console.log("[LOGIN] query error: ", error.message);
+      navigate({ to: "/app" });
     },
   });
 
   return (
-    <div className="grid min-h-screen place-items-center p-4 ">
-      <LoginForm
-        onSubmit={(data: { email: string; password: string }) => mutate(data)}
-        isLoading={isPending}
-        error={error?.message}
-      />
+    <div>
+      <header className="p-2">
+        <BackButtonManager />
+      </header>
+
+      <div className="grid min-h-screen place-items-center p-4">
+        <LoginForm
+          onSubmit={(data: { email: string; password: string }) => mutate(data)}
+          isLoading={isPending}
+          error={error?.message}
+        />
+      </div>
     </div>
   );
 }

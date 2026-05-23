@@ -11,9 +11,6 @@ const meta: Meta<typeof TimeSelector> = {
   },
   args: {
     setTime: fn(),
-    handleSelectSubmit: fn((e) => {
-      e.preventDefault();
-    }),
   },
 };
 
@@ -22,6 +19,7 @@ type Story = StoryObj<typeof TimeSelector>;
 
 export const Default: Story = {
   args: {
-    timeSeconds: 1800000, // 30 min
+    timeSeconds: 30 * 60, // 30 min
+    selectionMessage: "Ett kort och fokuserat pass. Nu kör vi!",
   },
 };
