@@ -20,6 +20,7 @@
     "dotenv": "^17.4.1",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
+    "express-prometheus-middleware": "^1.2.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {

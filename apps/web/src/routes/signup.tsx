@@ -1,3 +1,4 @@
+import BackButtonManager from "@/components/BackButtonManager";
 import SignupForm from "@/components/SignupForm";
 import { authMutations } from "@/modules/auth/api";
 import { NewUser } from "@ccpilot/domain";
@@ -21,12 +22,17 @@ function SignupPage() {
   });
 
   return (
-    <div className="grid min-h-screen place-items-center p-4">
-      <SignupForm
-        onSubmit={(data: NewUser) => mutate(data)}
-        isLoading={isPending}
-        error={error?.message}
-      />
+    <div>
+      <header className="p-2">
+        <BackButtonManager />
+      </header>
+      <div className="grid min-h-screen place-items-center p-4">
+        <SignupForm
+          onSubmit={(data: NewUser) => mutate(data)}
+          isLoading={isPending}
+          error={error?.message}
+        />
+      </div>
     </div>
   );
 }

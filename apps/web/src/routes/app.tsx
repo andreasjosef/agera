@@ -92,7 +92,7 @@ function RouteComponent() {
         />
       </div>
 
-      <div className="p-4 overflow-y-scroll">
+      <div className="overflow-y-scroll my-4">
         <div className="flex flex-col gap-y-2 container h-full">
           <BackButtonManager />
           <Suspense

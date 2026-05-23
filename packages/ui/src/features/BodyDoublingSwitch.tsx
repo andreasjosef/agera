@@ -4,7 +4,7 @@ import { Card } from "../primitives/Card";
 interface BodyDoublingSwitchProps {
   enabled: boolean;
   setIsEnable: (enabled: boolean) => void;
-  title?: string;
+  activeCount: number;
   onLabel?: string;
   offLabel?: string;
 }
@@ -12,13 +12,23 @@ interface BodyDoublingSwitchProps {
 export function BodyDoublingSwitch({
   enabled,
   setIsEnable,
-  title = "Body Doubling",
+  activeCount,
   onLabel = "On",
   offLabel = "Off",
 }: BodyDoublingSwitchProps) {
   return (
     <Card className="grid gap-y-2">
-      <h3 className="text-lg font-semibold">{title}</h3>
+      <h3 className="text-lg font-semibold">
+        {activeCount > 0 ? (
+          <>
+            Vill du joina
+            <span className="text-brand-primary">{activeCount}</span> andra som
+            jobbar nu ?
+          </>
+        ) : (
+          `Vill du ser hur många plugga med dig?`
+        )}
+      </h3>
       <div className="grid grid-cols-2 gap-x-2">
         <button
           type="button"
