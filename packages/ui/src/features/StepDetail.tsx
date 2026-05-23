@@ -1,5 +1,6 @@
+import { ReactNode } from "react";
 import { Card } from "../primitives/Card";
-import { ScoredStep } from "@ccpilot/domain";
+import { ScoredStep, StepType } from "@ccpilot/domain";
 import { minutesToHours } from "date-fns";
 import {
   Tag,
@@ -12,67 +13,18 @@ import {
 
 export interface StepDetailProps {
   step: ScoredStep;
-  assignmentTitle?: string;
 }
 
-interface StepDetailRowProps {
-  label: string;
-  value: string;
-}
-
-interface StepInfoProps {
-  icon: LucideIcon;
-  label: string;
-  value: React.ReactNode;
-  iconClass: string;
-}
-
-const STATUS_CONFIG = {
-  complete: {
-    text: "Avklarad",
-    icon: CircleCheck,
-    iconClass: "text-emerald-500",
-  },
-  incomplete: {
-    text: "Ej påbörjad",
-    icon: Circle,
-    iconClass: "text-zinc-400 stroke-[1.5]",
-  },
+const categoryConfig: Record<StepType, { label: string; color: string }> = {
+  admin: { label: "Admin", color: "text-sky-500" },
+  deepwork: { label: "Deep Work", color: "text-purple-500" },
+  research: { label: "Research", color: "text-blue-500" },
+  planning: { label: "Planning", color: "text-amber-500" },
+  polish: { label: "Polish", color: "text-pink-500" },
+  decisions: { label: "Beslut", color: "text-emerald-500" },
 };
 
-function StepDetailRow({ label, value }: StepDetailRowProps) {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6 py-6 border-b border-zinc-100 last:border-0">
-      <h2 className="text-sm font-semibold text-zinc-800 tracking-wide uppercase md:normal-case md:text-base">
-        {label}
-      </h2>
-      <div className="md:col-span-2 text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
-        {value}
-      </div>
-    </div>
-  );
-}
-
-function StepInfo({ icon: Icon, label, value, iconClass }: StepInfoProps) {
-  return (
-    <div className="flex items-center gap-4 py-2 px-1">
-      <div className={`${iconClass}`}>
-        <Icon className="size-5 stroke-[1.75]" />
-      </div>
-      <div className="space-y-0.5">
-        <h3 className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
-          {label}
-        </h3>
-        <div className="text-sm font-semibold text-zinc-800">{value}</div>
-      </div>
-    </div>
-  );
-}
-
-export function StepDetail({
-  step,
-  assignmentTitle = "U12 - Projektarbete Chas Challenge",
-}: StepDetailProps) {
+export function StepDetail({ step }: StepDetailProps) {
   const detailRows = [
     { label: "Din uppgift", value: step.action },
     { label: "Reflektion & Fokus", value: step.curiosityTrigger },
@@ -81,15 +33,17 @@ export function StepDetail({
   ];
 
   const status = step.complete
-    ? STATUS_CONFIG.complete
-    : STATUS_CONFIG.incomplete;
+    ? StepDetail.StatusConfig.complete
+    : StepDetail.StatusConfig.incomplete;
 
   const infoItems = [
     {
       icon: Tag,
       label: "Kategori",
-      value: step.category.charAt(0).toUpperCase() + step.category.slice(1),
-      iconClass: "text-violet-500",
+      value:
+        categoryConfig[step.category]?.label ??
+        step.category.charAt(0).toUpperCase() + step.category.slice(1),
+      iconClass: categoryConfig[step.category]?.color ?? "text-violet-500",
     },
     {
       icon: BarChart3,
@@ -118,21 +72,23 @@ export function StepDetail({
     <Card>
       <div className="mx-auto flex w-full max-w-4xl flex-col gap-8 px-4 py-8">
         <div className="space-y-2">
-          <div className="flex items-center gap-2 text-sm text-zinc-400 font-medium">
-            <span>{assignmentTitle}</span>
+          <div className="flex items-center gap-2 text-sm text-content-subtle font-medium">
+            <span>{step.requirementTitle}</span>
             <span>•</span>
-            <span className="text-violet-600 font-semibold uppercase tracking-wider text-xs">
-              {step.category}
+            <span
+              className={`font-semibold uppercase tracking-wider text-xs ${categoryConfig[step.category]?.color ?? "text-brand-primary"}`}
+            >
+              {categoryConfig[step.category]?.label ?? step.category}
             </span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 leading-tight">
+          <h1 className="text-2xl md:text-3xl font-bold text-content-main leading-tight">
             {step.action}
           </h1>
         </div>
 
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4 py-4 px-6 rounded border border-app-border">
           {infoItems.map((item) => (
-            <StepInfo
+            <StepDetail.Info
               key={item.label}
               icon={item.icon}
               label={item.label}
@@ -144,7 +100,7 @@ export function StepDetail({
 
         <div className="flex flex-col mt-2">
           {detailRows.map((row) => (
-            <StepDetailRow
+            <StepDetail.Row
               key={row.label}
               label={row.label}
               value={row.value}
@@ -155,3 +111,61 @@ export function StepDetail({
     </Card>
   );
 }
+
+StepDetail.StatusConfig = {
+  complete: {
+    text: "Avklarad",
+    icon: CircleCheck,
+    iconClass: "text-emerald-500",
+  },
+  incomplete: {
+    text: "Ej påbörjad",
+    icon: Circle,
+    iconClass: "text-zinc-400 stroke-[1.5]",
+  },
+};
+
+StepDetail.Row = function StepDetailRow({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6 py-6 border-b border-zinc-100 last:border-0">
+      <h2 className="text-sm font-semibold text-zinc-800 tracking-wide uppercase md:normal-case md:text-base">
+        {label}
+      </h2>
+      <div className="md:col-span-2 text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
+        {value}
+      </div>
+    </div>
+  );
+};
+
+StepDetail.Info = function StepDetailInfo({
+  icon: Icon,
+  label,
+  value,
+  iconClass,
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: ReactNode;
+  iconClass: string;
+}) {
+  return (
+    <div className="flex items-center gap-4 py-2 px-1">
+      <div className={iconClass}>
+        <Icon className="size-5 stroke-[1.75]" />
+      </div>
+      <div className="space-y-0.5">
+        <h3 className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
+          {label}
+        </h3>
+        <div className="text-sm font-semibold text-zinc-800">{value}</div>
+      </div>
+    </div>
+  );
+};
