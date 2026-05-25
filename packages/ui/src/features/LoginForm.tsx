@@ -1,5 +1,6 @@
 import { Card } from "../primitives/Card";
 import { Button } from "../primitives/Button";
+import { LabeledInput } from "@/primitives/LabeledInput";
 
 interface LoginFormData {
   email: string;

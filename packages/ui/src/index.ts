@@ -20,6 +20,7 @@ export * from "./features/BackButton";
 export * from "./features/ConnectionGuide";
 export * from "./features/EnergySelector";
 export * from "./features/StepFilter";
+export * from "./features/LoginForm";
 
 // Primitives
 export * from "./primitives/Button";
@@ -28,3 +29,4 @@ export * from "./primitives/Card";
 export * from "./primitives/NavItem";
 export * from "./primitives/RequirementAnchor";
 export * from "./primitives/GuideStepItem";
+export * from "./primitives/LabeledInput";
