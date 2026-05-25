@@ -49,10 +49,6 @@ app.get("/api/health", (req, res) => {
   res.status(200).json(ok("Up and running !"));
 });
 
-app.get("/api/health", (req, res) => {
-  res.status(200).json(ok("Up and running !"));
-});
-
 // TEMPORARY TEST FOR DB HEALTH IN PROD
 app.get("/api/health/db", async (req, res) => {
   try {
