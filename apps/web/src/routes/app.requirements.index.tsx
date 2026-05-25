@@ -2,6 +2,7 @@ import { RequirementCardLink } from "@/components/RequirementCardLink";
 import { requirementQueryOptions } from "@/modules/requirement/api";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { Suspense } from "react";
 
 export const Route = createFileRoute("/app/requirements/")({
   component: RouteComponent,
@@ -10,6 +11,25 @@ export const Route = createFileRoute("/app/requirements/")({
 });
 
 function RouteComponent() {
+  return (
+    <Suspense
+      fallback={
+        <div className="gallary-grid gap-2">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="animate-pulse rounded-xl bg-app-surface-hover h-32 w-full"
+            />
+          ))}
+        </div>
+      }
+    >
+      <Content />
+    </Suspense>
+  );
+}
+
+function Content() {
   const { data: requirements } = useSuspenseQuery(requirementQueryOptions.all);
   return (
     <>

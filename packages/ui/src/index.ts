@@ -18,6 +18,8 @@ export * from "./features/StepDetail";
 export * from "./features/MobileNavMenu";
 export * from "./features/BackButton";
 export * from "./features/ConnectionGuide";
+export * from "./features/EnergySelector";
+export * from "./features/StepFilter";
 
 // Primitives
 export * from "./primitives/Button";

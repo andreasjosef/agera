@@ -9,6 +9,7 @@ import {
 export const getPreviewAction = async (
   ctx: AppContext,
   limit: number = 3,
+  energyLevel: number = 9,
 ): Promise<Result<ScoredStep[]>> => {
   const userReqsResult = await ctx.repos.requirements.getAll(ctx.userId);
   if (!userReqsResult.ok) return fail("Could not load requirements!");
@@ -29,7 +30,7 @@ export const getPreviewAction = async (
 
     const winners = calculatePriority(candidateBundles, {
       realityFactor: 1,
-      userEnergy: 9,
+      userEnergy: energyLevel,
       horizonHours: 72,
     });
 

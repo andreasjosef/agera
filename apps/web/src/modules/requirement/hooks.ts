@@ -2,17 +2,19 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { requirementMutations, requirementQueryOptions } from "./api";
 import { safePostItem, zodRawParser } from "@ccpilot/ts-fetch";
 import { SyncStatusSchema } from "@ccpilot/domain";
+import { useEnergy } from "@/modules/cockpit/store";
 
 /**
  * Retrieves the singular, highest-priority next task currently calculated by the EF-Engine
  * **/
 export const useNextStep = () => {
   const queryClient = useQueryClient();
+  const energyLevel = useEnergy((s) => s.energyLevel);
   const {
     data: nextStep,
     isLoading,
     error,
-  } = useQuery(requirementQueryOptions.next);
+  } = useQuery(requirementQueryOptions.next(energyLevel));
 
   const refresh = () => {
     queryClient.invalidateQueries({ queryKey: ["requirements", "next"] });

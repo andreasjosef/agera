@@ -1,8 +1,10 @@
 import { create } from "zustand";
+import type { EnergyLevel } from "@ccpilot/ui";
 
 interface TimerState {
   // Setup (Cockpit)
   baseTime: number;
+  selectionMessage: string;
 
   // Execution (Now)
   mode: "focus" | "break";
@@ -22,8 +24,17 @@ interface BodyDoublingState {
   setIsEnabled: (value: boolean) => void;
 }
 
+// TODO: Should this be map object be here ?
+const selectionTimeMessages = {
+  1: "Kort och intensivt. Nu kör vi!", // 30 min
+  3: "Perfekt för att hitta ditt flow.", // 90 min
+  4: "Ambitiöst! Dags att djupdyka.", // 2 h
+  8: "Ett maraton! Glöm inte pauser.", // 4 h
+};
+
 export const useTimer = create<TimerState>((set) => ({
   baseTime: 30 * 60,
+  selectionMessage: selectionTimeMessages[1],
   mode: "focus",
   isPaused: true,
   timeRemainingSeconds: 25 * 60,
@@ -53,10 +64,11 @@ export const useTimer = create<TimerState>((set) => ({
   setBaseTime: (seconds) => {
     return set(() => {
       const cycles = Math.floor(seconds / 1800);
-      console.log("cycles amount", cycles);
+      const message = selectionTimeMessages[cycles as 1 | 3 | 4 | 8];
 
       return {
         baseTime: seconds,
+        selectionMessage: message,
         isPaused: true,
         mode: "focus",
         timeRemainingSeconds: 25 * 60,
@@ -69,4 +81,14 @@ export const useTimer = create<TimerState>((set) => ({
 export const useBodyDoubling = create<BodyDoublingState>((set) => ({
   isEnabled: true,
   setIsEnabled: (value) => set({ isEnabled: value }),
+}));
+
+interface EnergyState {
+  energyLevel: EnergyLevel;
+  setEnergyLevel: (level: EnergyLevel) => void;
+}
+
+export const useEnergy = create<EnergyState>((set) => ({
+  energyLevel: "high",
+  setEnergyLevel: (level) => set({ energyLevel: level }),
 }));

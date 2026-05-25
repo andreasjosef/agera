@@ -120,24 +120,26 @@
   .cockpit-grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-areas: "settings" "upcoming";
+    grid-template-areas: "time" "upcoming" "body-doubling" "lift-off";
 
     /* lg breakpoint */
     @media (width >= 64rem) {
       grid-template-columns: 1fr auto;
-      grid-template-areas: "upcoming settings";
+      grid-template-rows: auto auto 1fr;
+      grid-template-areas: "upcoming time" "upcoming body-doubling" "upcoming lift-off";
     }
   }
 
   .now-grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-areas: "controls" "now-card";
+    grid-template-areas: "pomodoro" "now-card" "body-doubling";
 
     /* lg breakpoint */
     @media (width >= 64rem) {
       grid-template-columns: 1fr 17.5rem;
-      grid-template-areas: "now-card controls";
+      grid-template-rows: auto 1fr;
+      grid-template-areas: "now-card pomodoro" "now-card body-doubling";
     }
   }
 
@@ -147,7 +149,7 @@
   }
 
   .container {
-    width: min(90%, var(--container-6xl));
+    width: min(95%, var(--container-6xl));
     margin-inline: auto;
   }
 }

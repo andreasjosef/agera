@@ -92,13 +92,12 @@ function RouteComponent() {
         />
       </div>
 
-      <div className="p-4 overflow-y-scroll">
+      <div className="overflow-y-scroll my-4">
         <div className="flex flex-col gap-y-2 container h-full">
-          <BackButtonManager />
           <Suspense
             fallback={
-              <div className="flex h-[60vh] w-full items-center justify-center font-display text-sm font-medium uppercase tracking-widest text-content-subtle animate-pulse">
-                Loading ...
+              <div className="h-1 w-full overflow-hidden rounded-full bg-transparent">
+                <div className="h-full w-full origin-left animate-pulse rounded-full bg-brand-subtle" />
               </div>
             }
           >

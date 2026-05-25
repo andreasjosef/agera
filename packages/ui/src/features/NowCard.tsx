@@ -1,10 +1,11 @@
 import { ScoredStep } from "@ccpilot/domain";
-import { Play, Goal, WandSparkles } from "lucide-react";
+import { Play, Goal, WandSparkles, Cable } from "lucide-react";
 
 import { Button } from "../primitives/Button";
 import { Card } from "../primitives/Card";
 import { Error } from "../primitives/Error";
 import { NowItem } from "../primitives/NowItem";
+import { Link } from "@tanstack/react-router";
 
 export interface NowCardProps {
   step: ScoredStep;
@@ -62,7 +63,18 @@ export function NowCard({ step, onDone }: NowCardProps) {
 }
 
 NowCard.Empty = () => (
-  <Card>No Steps available. Connect your LMS to generate steps first!</Card>
+  <Card className="min-h-96 grid place-content-center gap-y-2 text-center">
+    <Cable className="mx-auto size-8" />
+    <h2 className="text-xl font-display font-semibold text-center text-balance">
+      Inga steg finns tillgängliga. Anslut ditt Canvas för att få det !
+    </h2>
+    <Link
+      className="text-brand-primary underline font-medium hover:text-brand-hover focus:text-brand-hover"
+      to="/app/settings/integrations"
+    >
+      Gå till inställningar
+    </Link>
+  </Card>
 );
 NowCard.Loading = () => <Card>Loading...</Card>;
 NowCard.Error = ({ message }: { message: string }) => (

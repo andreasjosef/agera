@@ -11,6 +11,7 @@ import {
   ScoredStepSchema,
 } from "@ccpilot/domain";
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
+import type { EnergyLevel } from "@ccpilot/ui";
 
 const BASE_URL = "/api";
 
@@ -89,37 +90,43 @@ export const requirementQueryOptions = {
     });
   },
 
-  next: queryOptions({
-    queryKey: ["requirements", "next"],
-    queryFn: async () => {
-      const result = await safeFetchItem(
-        `${BASE_URL}/requirements/next`,
-        zodWrappedParser(ScoredStepSchema),
-      );
+  next: (energyLevel: EnergyLevel) => {
+    const energyValue = energyLevel === "high" ? 9 : 1;
+    return queryOptions({
+      queryKey: ["requirements", "next", energyLevel],
+      queryFn: async () => {
+        const result = await safeFetchItem(
+          `${BASE_URL}/requirements/next?energyLevel=${energyValue}`,
+          zodWrappedParser(ScoredStepSchema),
+        );
 
-      if (!result.ok) throw new Error(result.error);
+        if (!result.ok) throw new Error(result.error);
 
-      return result.value;
-    },
-  }),
-  preview: queryOptions({
-    queryKey: ["requirements", "preview"],
-    queryFn: async () => {
-      const result = await fetchList<ScoredStep>(
-        `${BASE_URL}/requirements/preview`,
-        zodRawParser(ScoredStepSchema),
-        {
-          extractArray: (data) => data.value,
-          onItemError: (item, err) => {
-            console.error("Failed to parse item:", err, item);
+        return result.value;
+      },
+    });
+  },
+  preview: (energyLevel: EnergyLevel) => {
+    const energyValue = energyLevel === "high" ? 9 : 1;
+    return queryOptions({
+      queryKey: ["requirements", "preview", energyLevel],
+      queryFn: async () => {
+        const result = await fetchList<ScoredStep>(
+          `${BASE_URL}/requirements/preview?energyLevel=${energyValue}`,
+          zodRawParser(ScoredStepSchema),
+          {
+            extractArray: (data) => data.value,
+            onItemError: (item, err) => {
+              console.error("Failed to parse item:", err, item);
+            },
           },
-        },
-      );
+        );
 
-      if (!result.ok) throw new Error(result.error);
+        if (!result.ok) throw new Error(result.error);
 
-      console.log("[PREVIEW RESULT]: ", result.value);
-      return result.value;
-    },
-  }),
+        console.log("[PREVIEW RESULT]: ", result.value);
+        return result.value;
+      },
+    });
+  },
 };

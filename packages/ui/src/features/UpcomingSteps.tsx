@@ -11,8 +11,16 @@ export interface UpcomingStepsProps {
 }
 
 export function UpcomingSteps({ steps, RequirementLink }: UpcomingStepsProps) {
+  if (steps.length <= 0) {
+    return (
+      <Card className="min-h-72" title="Kommande Steg">
+        <p>Alla steg är klara, bra jobbat !</p>
+      </Card>
+    );
+  }
+
   return (
-    <Card title="Kommande Steg">
+    <Card className="min-h-72" title="Kommande Steg">
       <ul className="flex flex-col gap-8">
         {steps.map((step) => {
           return (

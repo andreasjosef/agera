@@ -1,5 +1,7 @@
+import { statusQueries } from "@/modules/cockpit/api";
 import { useBodyDoubling } from "@/modules/cockpit/store";
 import { BodyDoublingSwitch } from "@ccpilot/ui";
+import { useQuery } from "@tanstack/react-query";
 import { useShallow } from "zustand/react/shallow";
 
 export default function BodyDoublingSwitchManager() {
@@ -10,5 +12,15 @@ export default function BodyDoublingSwitchManager() {
     })),
   );
 
-  return <BodyDoublingSwitch enabled={isEnabled} setIsEnable={setIsEnabled} title="Vill du ser hur många plugga med dig?" onLabel="Ja, starta" offLabel="Nej, själv" />;
+  const { data } = useQuery(statusQueries.getActiveStatusCount());
+
+  return (
+    <BodyDoublingSwitch
+      enabled={isEnabled}
+      activeCount={data?.count || 0}
+      setIsEnable={setIsEnabled}
+      onLabel="Ja, starta"
+      offLabel="Nej, själv"
+    />
+  );
 }

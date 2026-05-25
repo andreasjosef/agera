@@ -2,7 +2,7 @@ import { BackButton } from "@ccpilot/ui";
 import { useCanGoBack, useRouter } from "@tanstack/react-router";
 import { useCallback } from "react";
 
-export default function BackButtonManager() {
+export default function BackButtonApp() {
   const router = useRouter();
   const canGoBack = useCanGoBack();
 

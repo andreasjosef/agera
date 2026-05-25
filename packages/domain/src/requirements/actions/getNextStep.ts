@@ -8,6 +8,7 @@ import {
 
 export const getNextStepAction = async (
   ctx: AppContext,
+  energyLevel: number = 9,
 ): Promise<Result<ScoredStep | null>> => {
   // get the reqs for the user
   const userReqsResult = await ctx.repos.requirements.getAll(ctx.userId);
@@ -26,7 +27,7 @@ export const getNextStepAction = async (
   // TODO: whole context is currently hardcoded and should in the end come from userSettings
   const winners = calculatePriority(canditateBundles, {
     realityFactor: 1,
-    userEnergy: 9,
+    userEnergy: energyLevel,
     horizonHours: 72,
   });
 
