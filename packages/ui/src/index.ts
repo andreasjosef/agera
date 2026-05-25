@@ -20,6 +20,7 @@ export * from "./features/BackButton";
 export * from "./features/ConnectionGuide";
 export * from "./features/EnergySelector";
 export * from "./features/StepFilter";
+export * from "./features/WelcomeCard";
 
 // Primitives
 export * from "./primitives/Button";
