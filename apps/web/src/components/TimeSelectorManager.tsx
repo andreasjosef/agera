@@ -15,7 +15,7 @@ export default function TimeSelectorManager() {
     <TimeSelector
       timeSeconds={baseTime}
       setTime={setBaseTime}
-      title="Hur mycket tid har du just nu?"
+      title="Hur länge vill du plugga?"
       selectionMessage={selectionMessage}
     />
   );
