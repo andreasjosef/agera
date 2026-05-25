@@ -18,3 +18,31 @@ export const Default: Story = {
     username: "Guenther",
   },
 };
+
+export const Morning: Story = {
+  args: {
+    username: "Guenther",
+    hour: 8,
+  },
+};
+
+export const Day: Story = {
+  args: {
+    username: "Guenther",
+    hour: 14,
+  },
+};
+
+export const Evening: Story = {
+  args: {
+    username: "Guenther",
+    hour: 19,
+  },
+};
+
+export const Night: Story = {
+  args: {
+    username: "Guenther",
+    hour: 1,
+  },
+};
