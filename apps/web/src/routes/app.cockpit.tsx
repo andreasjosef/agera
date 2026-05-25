@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
-import { Button, Card } from "@ccpilot/ui";
+import { Card, WelcomeCard } from "@ccpilot/ui";
 
 import NowDashboardLayout from "@/components/layouts/NowDashboardLayout";
 
@@ -13,6 +13,7 @@ import { EnergySelectorWidget } from "@/components/EnergySelectorWidget";
 import { useApp } from "@/modules/store";
 import { useTimer } from "@/modules/cockpit/store";
 import { useToggleAcitve } from "@/modules/cockpit/hooks";
+import { useSession } from "@/modules/auth/hooks";
 
 export const Route = createFileRoute("/app/cockpit")({
   component: RouteComponent,
@@ -23,6 +24,7 @@ function RouteComponent() {
   const setIsSidebarOpen = useApp((store) => store.setIsSidebarOpen);
   const setIsPause = useTimer((store) => store.setIsPaused);
   const { toggleStatusActive } = useToggleAcitve();
+  const { user } = useSession();
 
   const handleLiftoff = () => {
     navigate({ to: "/app/now" });
@@ -32,7 +34,8 @@ function RouteComponent() {
   };
 
   return (
-    <div className="h-full">
+    <div className="h-full flex flex-col gap-y-2">
+      {user && <WelcomeCard username={user.name} onStartPass={handleLiftoff} />}
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
           <EnergySelectorWidget />
@@ -56,9 +59,6 @@ function RouteComponent() {
         </div>
         <TimeSelectorManager />
         <BodyDoublingSwitchManager />
-        {/* TODO / NOTE: this should probaly become an orchestrator component which whould make
-          this file much cleaner as a lot of the imports related in here are the state this button handles */}
-        <Button onClick={handleLiftoff}>STARTA PASSET</Button>
       </NowDashboardLayout>
     </div>
   );
