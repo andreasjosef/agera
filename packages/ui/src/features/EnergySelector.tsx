@@ -19,8 +19,11 @@ export function EnergySelector({
   setEnergyLevel,
 }: EnergySelectorProps) {
   return (
-    <Card className="grid gap-y-2">
-      <h3 className="text-lg font-semibold">Vad är din Energi Nivå idag?</h3>
+    <Card className="grid gap-y-2" noShadow={true}>
+      {/*<h3 className="text-lg font-semibold">Vad är din Energi Nivå idag?</h3>*/}
+      <h3 className="text-xs font-bold tracking-widest text-content-muted uppercase mb-3">
+        Dagens Energinvivå?
+      </h3>
       <SelectList
         options={energyOptions}
         value={energyLevel}

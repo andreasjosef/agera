@@ -1,5 +1,6 @@
 import { mergeStyles } from "../utils";
 import { Card } from "../primitives/Card";
+import { Users } from "lucide-react";
 
 interface BodyDoublingSwitchProps {
   enabled: boolean;
@@ -13,48 +14,51 @@ export function BodyDoublingSwitch({
   enabled,
   setIsEnable,
   activeCount,
-  onLabel = "On",
-  offLabel = "Off",
+  onLabel = "Gå med i flödet",
+  offLabel = "Själv",
 }: BodyDoublingSwitchProps) {
   return (
-    <Card className="grid gap-y-2">
-      <h3 className="text-lg font-semibold">
-        {activeCount > 0 ? (
-          <>
-            Vill du joina{" "}
-            <span className="text-brand-primary">{activeCount}</span> andra som
-            jobbar nu ?
-          </>
-        ) : (
-          `Vill du ser hur många plugga med dig?`
-        )}
-      </h3>
-      <div className="grid grid-cols-2 gap-x-2">
-        <button
-          type="button"
-          className={mergeStyles(
-            "rounded-sm border-2 p-2 w-full cursor-pointer",
-            enabled
-              ? "bg-brand-primary text-app-bg border-brand-primary"
-              : "border-cod-gray-300 text-content-main",
-          )}
-          onClick={() => setIsEnable(true)}
-        >
-          {onLabel}
-        </button>
+    <Card>
+      <div className="grid space-y-4">
+        <div className="flex items-center gap-2">
+          <Users className="size-4 text-content-muted stroke-2" />
+          <h3 className="text-xs font-bold tracking-widest text-content-muted uppercase">
+            Hur vill du plugga?
+          </h3>
+        </div>
 
-        <button
-          type="button"
-          className={mergeStyles(
-            "rounded-sm border-2 p-2 w-full cursor-pointer",
-            !enabled
-              ? "bg-brand-primary text-app-bg border-brand-primary"
-              : "border-cod-gray-300 text-content-main",
-          )}
-          onClick={() => setIsEnable(false)}
-        >
-          {offLabel}
-        </button>
+        <div className="grid grid-cols-2 gap-1 p-1 bg-app-surface-raised rounded-xl">
+          <button
+            type="button"
+            onClick={() => setIsEnable(false)}
+            className={mergeStyles(
+              "py-2 text-sm font-semibold cursor-pointer rounded-lg",
+              !enabled
+                ? "bg-white text-content-main shadow-sm"
+                : "text-content-muted",
+            )}
+          >
+            {offLabel}
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsEnable(true)}
+            className={mergeStyles(
+              "py-2 px-2 text-sm font-semibold rounded-lg flex items-center justify-center gap-2 cursor-pointer",
+              enabled
+                ? "bg-white text-content-main shadow-sm"
+                : "text-content-muted",
+            )}
+          >
+            <span
+              className={mergeStyles(
+                "size-2 rounded-full bg-brand-primary shrink-0",
+                enabled ? "animate-pulse opacity-100" : "opacity-0",
+              )}
+            />
+            {onLabel} ({activeCount})
+          </button>
+        </div>
       </div>
     </Card>
   );

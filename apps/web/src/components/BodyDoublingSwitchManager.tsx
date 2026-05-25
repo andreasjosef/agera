@@ -19,8 +19,6 @@ export default function BodyDoublingSwitchManager() {
       enabled={isEnabled}
       activeCount={data?.count || 0}
       setIsEnable={setIsEnabled}
-      onLabel="Ja, starta"
-      offLabel="Nej, själv"
     />
   );
 }
