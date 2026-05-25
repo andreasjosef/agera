@@ -49,6 +49,7 @@ export const StepTypeValues = [
   "decisions",
 ] as const;
 export const StepTypeSchema = z.enum(StepTypeValues);
+export type StepType = z.infer<typeof StepTypeSchema>;
 
 //======================================================================
 // Core Entities
