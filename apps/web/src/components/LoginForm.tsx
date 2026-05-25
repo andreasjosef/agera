@@ -1,75 +1,70 @@
-import { Link } from "@tanstack/react-router";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Card, LabeledInput } from "@ccpilot/ui";
+import { SubmitHandler, useForm } from "react-hook-form";
+
 import { loginInFormSchema, type LoginInForm } from "@ccpilot/domain";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { authMutations } from "@/modules/auth/api";
 
-import { Button, Card, Error } from "@ccpilot/ui";
+export default function LoginForm() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
-export interface LoginFormProps {
-  onSubmit: (data: LoginInForm) => void;
-  isLoading: boolean;
-  error?: string;
-}
-
-export default function LoginForm({
-  onSubmit,
-  isLoading,
-  error,
-}: LoginFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<LoginInForm>({
+    formState: { isLoading, errors },
+  } = useForm({
     resolver: zodResolver(loginInFormSchema),
-    mode: "onChange",
-    reValidateMode: "onBlur",
   });
 
+  const { mutate } = useMutation({
+    mutationFn: authMutations.signIn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["auth"] });
+      navigate({ to: "/app/cockpit" });
+    },
+  });
+
+  const onSubmit: SubmitHandler<LoginInForm> = (data) => {
+    mutate(data);
+  };
+
   return (
-    <Card width="max-w-lg">
-      <div className="flex font-body flex-col gap-y-4 w-full">
-        <h2 className="text-2xl text-content-main font-semibold font-display">
-          Välkommen tillbaka!
+    <Card className="max-w-2xl">
+      <div className="flex flex-col gap-y-6">
+        <h2 className="font-display text-2xl font-bold text-content-main">
+          Välkommen
         </h2>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col w-sm gap-2"
-        >
-          {error && <Card children={<Error message={error} />} />}
 
-          <input
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <LabeledInput
+            label="E-post"
+            error={errors.email?.message}
+            placeholder="pilot@ccpilot.se"
             {...register("email")}
-            className="rounded-sm border-app-border border-2 p-2"
-            type="email"
-            placeholder="Enter your email"
           />
 
-          <p className="text-red-500 text-sm">{errors.email?.message}</p>
-
-          <input
-            {...register("password")}
-            className="rounded-sm border-app-border border-2 p-2"
+          <LabeledInput
+            label="Lösenord"
+            error={errors.password?.message}
             type="password"
-            placeholder="Enter your password"
+            {...register("password")}
           />
 
-          <p className="text-red-500 text-sm">{errors.password?.message}</p>
-
-          <Button
-            type="submit"
-            children="Login"
-            disabled={isLoading}
-            isLoading={isLoading}
-          />
+          <Button type="submit" isLoading={isLoading} className="mt-2">
+            Logga in
+          </Button>
         </form>
-        <p>
-          Need an account?{" "}
+
+        <p className="text-center text-sm text-content-muted">
+          Behöver du ett konto?
           <Link
-            className="text-brand-primary underline font-semibold hover:text-brand-hover visited:text-brand-primary"
             to="/signup"
+            className="text-purple-600 underline font-semibold hover:text-purple-700"
           >
-            Sign Up!
+            Skapa ett här!
           </Link>
         </p>
       </div>

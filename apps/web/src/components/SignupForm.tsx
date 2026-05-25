@@ -1,87 +1,76 @@
-import { Link } from "@tanstack/react-router";
-import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpFormSchema, type SignUpForm } from "@ccpilot/domain";
-import { Button, Card } from "@ccpilot/ui";
+import { Button, Card, LabeledInput } from "@ccpilot/ui";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { authMutations } from "@/modules/auth/api";
 
-export interface SignupFormProps {
-  onSubmit: (data: SignUpForm) => void;
-  isLoading: boolean;
-  error?: string;
-}
+export default function SignupForm() {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
-export default function SignupForm({
-  onSubmit,
-  isLoading,
-  error,
-}: SignupFormProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isLoading },
   } = useForm<SignUpForm>({
     // FIXME: Seems like zod resolver does not fully support zod v4 yet
     resolver: zodResolver(signUpFormSchema),
-    mode: "onChange",
-    reValidateMode: "onBlur",
   });
 
+  const { mutate } = useMutation({
+    mutationFn: authMutations.signUp,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["auth"] });
+      navigate({ to: "/app/cockpit" });
+    },
+  });
+
+  const onSubmit: SubmitHandler<SignUpForm> = (data) => {
+    mutate(data);
+  };
+
   return (
-    <Card width="max-w-xl">
-      <div className="flex flex-col gap-y-4 w-full">
-        <h2 className="text-2xl font-semibold">Skapa ett Konto</h2>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col w-sm gap-2"
-        >
-          {error && (
-            <p className="bg-red-100 text-state-danger border border-state-danger p-2 rounded">
-              {error}
-            </p>
-          )}
-          <input
+    <Card className="max-w-2xl">
+      <div className="flex flex-col gap-y-6">
+        <h2 className="font-display text-2xl font-bold text-content-main">
+          Skapa ett konto
+        </h2>
+
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <LabeledInput
+            label="Namn"
+            error={errors.name?.message}
             {...register("name")}
-            placeholder="What Should We Call You?"
-            className="rounded-sm border-app-border border-2 p-2"
-            type="text"
           />
-          <p className="text-state-danger text-sm">{errors.name?.message}</p>
 
-          <input
+          <LabeledInput
+            label="E-post"
+            error={errors.email?.message}
+            placeholder="pilot@ccpilot.se"
             {...register("email")}
-            placeholder="Please Enter Your Email"
-            className="rounded-sm border-app-border border-2 p-2"
-            type="email"
           />
 
-          <p className="text-state-danger text-sm">{errors.email?.message}</p>
-
-          <input
-            {...register("password")}
-            placeholder="Choose a Password"
-            className="rounded-sm border-app-border border-2 p-2"
+          <LabeledInput
+            label="Lösenord"
+            error={errors.password?.message}
             type="password"
+            {...register("password")}
           />
 
-          <p className="text-state-danger text-sm">
-            {errors.password?.message}
-          </p>
-
-          <Button
-            children="Sign Up"
-            type="submit"
-            isLoading={isLoading}
-            disabled={isLoading}
-          />
+          <Button type="submit" isLoading={isLoading} className="mt-2">
+            Skapa konto
+          </Button>
         </form>
 
-        <p>
-          Already have an account?
+        <p className="text-center text-sm text-content-muted">
+          Har du ett konto?
           <Link
-            className="text-brand-primary underline font-semibold hover:text-brand-hover visited:text-brand-primary"
             to="/login"
+            className="text-purple-600 underline font-semibold hover:text-purple-700"
           >
-            Login!
+            Logga in här!
           </Link>
         </p>
       </div>
