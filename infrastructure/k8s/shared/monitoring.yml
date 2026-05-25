@@ -46,6 +46,7 @@ spec:
           annotations:
             summary: "Backend has received no traffic for 15m"
 ---
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -56,25 +57,12 @@ metadata:
 data:
   code4good-dashboard.json: |
     {
-      "title": "Code4Good Dashboard",
-      "uid": "code4good-dashboard",
+      "title": "Code4Good (doe25-group-4)",
+      "uid": "code4good-doe25-group-4",
       "schemaVersion": 39,
       "time": { "from": "now-1h", "to": "now" },
       "refresh": "30s",
-      "tags": ["chas-academy", "doe25", "code4good"],
-      "templating": {
-        "list": [
-          {
-            "name": "namespace",
-            "type": "query",
-            "datasource": { "type": "prometheus", "uid": "prometheus" },
-            "query": "label_values(http_request_duration_seconds_count, namespace)",
-            "current": { "text": "doe25-group-4", "value": "doe25-group-4" },
-            "refresh": 1,
-            "includeAll": false
-          }
-        ]
-      },
+      "tags": ["chas-academy", "doe25", "doe25-group-4"],
       "panels": [
         {
           "id": 1,
@@ -84,7 +72,7 @@ data:
           "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
           "targets": [
             {
-              "expr": "sum by (path) (rate(http_request_duration_seconds_count{namespace=\"$namespace\",path!=\"/metrics\"}[1m]))",
+              "expr": "sum by (path) (rate(http_request_duration_seconds_count{namespace=\"doe25-group-4\",path!=\"/metrics\"}[1m]))",
               "legendFormat": "{{path}}",
               "refId": "A"
             }
@@ -99,7 +87,7 @@ data:
           "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
           "targets": [
             {
-              "expr": "sum(rate(http_request_duration_seconds_count{namespace=\"$namespace\",status_code=~\"5..\",path!=\"/metrics\"}[5m])) / clamp_min(sum(rate(http_request_duration_seconds_count{namespace=\"$namespace\",path!=\"/metrics\"}[5m])), 1)",
+              "expr": "sum(rate(http_request_duration_seconds_count{namespace=\"doe25-group-4\",status_code=~\"5..\",path!=\"/metrics\"}[5m])) / clamp_min(sum(rate(http_request_duration_seconds_count{namespace=\"doe25-group-4\",path!=\"/metrics\"}[5m])), 1)",
               "legendFormat": "5xx ratio",
               "refId": "A"
             }
@@ -114,7 +102,7 @@ data:
           "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum by (path, le) (rate(http_request_duration_seconds_bucket{namespace=\"$namespace\",path!=\"/metrics\"}[5m])))",
+              "expr": "histogram_quantile(0.95, sum by (path, le) (rate(http_request_duration_seconds_bucket{namespace=\"doe25-group-4\",path!=\"/metrics\"}[5m])))",
               "legendFormat": "{{path}}",
               "refId": "A"
             }
@@ -129,7 +117,7 @@ data:
           "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
           "targets": [
             {
-              "expr": "sum by (status_code) (increase(http_request_duration_seconds_count{namespace=\"$namespace\",path!=\"/metrics\"}[5m]))",
+              "expr": "sum by (status_code) (increase(http_request_duration_seconds_count{namespace=\"doe25-group-4\",path!=\"/metrics\"}[5m]))",
               "legendFormat": "{{status_code}}",
               "refId": "A"
             }
