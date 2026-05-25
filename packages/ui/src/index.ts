@@ -19,6 +19,7 @@ export * from "./features/MobileNavMenu";
 export * from "./features/BackButton";
 export * from "./features/ConnectionGuide";
 export * from "./features/EnergySelector";
+export * from "./features/EnergySlider";
 export * from "./features/StepFilter";
 export * from "./features/WelcomeCard";
 
