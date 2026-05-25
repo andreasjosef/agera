@@ -1,4 +1,4 @@
-import { Button, Card, LabeledInput } from "@ccpilot/ui";
+import { Button, Card, LabeledInput, Error } from "@ccpilot/ui";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { loginInFormSchema, type LoginInForm } from "@ccpilot/domain";
@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authMutations } from "@/modules/auth/api";
+import { useState } from "react";
 
 export default function LoginForm() {
   const queryClient = useQueryClient();
@@ -18,12 +19,16 @@ export default function LoginForm() {
   } = useForm({
     resolver: zodResolver(loginInFormSchema),
   });
+  const [rootError, setRootError] = useState<string | null>(null);
 
   const { mutate } = useMutation({
     mutationFn: authMutations.signIn,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       navigate({ to: "/app/cockpit" });
+    },
+    onError: (err) => {
+      setRootError(err.message);
     },
   });
 
@@ -37,6 +42,8 @@ export default function LoginForm() {
         <h2 className="font-display text-2xl font-bold text-content-main">
           Välkommen
         </h2>
+
+        {rootError && <Error message={rootError} />}
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <LabeledInput

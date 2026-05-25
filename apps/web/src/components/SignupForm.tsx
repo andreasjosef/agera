@@ -5,6 +5,7 @@ import { signUpFormSchema, type SignUpForm } from "@ccpilot/domain";
 import { Button, Card, Error, LabeledInput } from "@ccpilot/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authMutations } from "@/modules/auth/api";
+import { useState } from "react";
 
 export default function SignupForm() {
   const queryClient = useQueryClient();
@@ -18,12 +19,16 @@ export default function SignupForm() {
     // FIXME: Seems like zod resolver does not fully support zod v4 yet
     resolver: zodResolver(signUpFormSchema),
   });
+  const [rootError, setRootError] = useState<string | null>(null);
 
   const { mutate } = useMutation({
     mutationFn: authMutations.signUp,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
       navigate({ to: "/app/cockpit" });
+    },
+    onError: (err) => {
+      setRootError(err.message);
     },
   });
 
@@ -37,6 +42,8 @@ export default function SignupForm() {
         <h2 className="font-display text-2xl font-bold text-content-main">
           Skapa ett konto
         </h2>
+
+        {rootError && <Error message={rootError} />}
 
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <LabeledInput
