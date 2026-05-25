@@ -49,15 +49,15 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: code4good-dashboard-v2
+  name: code4good-dashboard
   namespace: doe25-group-4
   labels:
     grafana_dashboard: "1"
 data:
   code4good-dashboard.json: |
     {
-      "title": "Code4Good V2 (doe25-group-4)",
-      "uid": "code4good-doe25-group-4-v2",
+      "title": "Code4Good (doe25-group-4)",
+      "uid": "code4good-doe25-group-4",
       "schemaVersion": 39,
       "time": { "from": "now-1h", "to": "now" },
       "refresh": "30s",
