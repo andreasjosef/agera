@@ -4,11 +4,11 @@ import { ScoredStep, StepType } from "@ccpilot/domain";
 import { minutesToHours } from "date-fns";
 import {
   Tag,
-  Circle,
   CircleCheck,
   Clock,
   BarChart3,
   LucideIcon,
+  CircleDashed,
 } from "lucide-react";
 
 export interface StepDetailProps {
@@ -26,7 +26,7 @@ const categoryConfig: Record<StepType, { label: string; color: string }> = {
 
 export function StepDetail({ step }: StepDetailProps) {
   const detailRows = [
-    { label: "Din uppgift", value: step.action },
+    // { label: "Din uppgift", value: step.action }, // This feels redundant to me
     { label: "Reflektion & Fokus", value: step.curiosityTrigger },
     { label: "Målet", value: step.outcomeDefinition },
     { label: "Kom igång-resurser", value: step.quickStartLinkHint },
@@ -40,9 +40,7 @@ export function StepDetail({ step }: StepDetailProps) {
     {
       icon: Tag,
       label: "Kategori",
-      value:
-        categoryConfig[step.category]?.label ??
-        step.category.charAt(0).toUpperCase() + step.category.slice(1),
+      value: categoryConfig[step.category].label,
       iconClass: categoryConfig[step.category]?.color ?? "text-violet-500",
     },
     {
@@ -69,14 +67,14 @@ export function StepDetail({ step }: StepDetailProps) {
   ];
 
   return (
-    <Card>
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-8 px-4 py-8">
+    <Card className="max-w-5xl ">
+      <div className="mx-auto flex w-full flex-col gap-8 px-12 py-8">
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm text-content-subtle font-medium">
             <span>{step.requirementTitle}</span>
             <span>•</span>
             <span
-              className={`font-semibold uppercase tracking-wider text-xs ${categoryConfig[step.category]?.color ?? "text-brand-primary"}`}
+              className={`font-semibold uppercase tracking-wider text-xs ${categoryConfig[step.category].color}`}
             >
               {categoryConfig[step.category]?.label ?? step.category}
             </span>
@@ -86,7 +84,7 @@ export function StepDetail({ step }: StepDetailProps) {
           </h1>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 py-4 px-6 rounded border border-app-border">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-4 py-4 px-6 rounded border border-app-border">
           {infoItems.map((item) => (
             <StepDetail.Info
               key={item.label}
@@ -120,8 +118,8 @@ StepDetail.StatusConfig = {
   },
   incomplete: {
     text: "Ej påbörjad",
-    icon: Circle,
-    iconClass: "text-zinc-400 stroke-[1.5]",
+    icon: CircleDashed,
+    iconClass: "text-zinc-400 stroke-[2]",
   },
 };
 
@@ -133,11 +131,11 @@ StepDetail.Row = function StepDetailRow({
   value: string;
 }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6 py-6 border-b border-zinc-100 last:border-0">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-6 py-6 border-b border-zinc-200 last:border-0">
       <h2 className="text-sm font-semibold text-zinc-800 tracking-wide uppercase md:normal-case md:text-base">
         {label}
       </h2>
-      <div className="md:col-span-2 text-base md:text-lg text-zinc-600 leading-relaxed font-normal">
+      <div className="md:col-span-2 text-base md:text-lg text-content-muted leading-relaxed font-normal">
         {value}
       </div>
     </div>
@@ -158,13 +156,13 @@ StepDetail.Info = function StepDetailInfo({
   return (
     <div className="flex items-center gap-4 py-2 px-1">
       <div className={iconClass}>
-        <Icon className="size-5 stroke-[1.75]" />
+        <Icon className="size-5 stroke-2" />
       </div>
       <div className="space-y-0.5">
-        <h3 className="text-xs font-medium text-zinc-400 uppercase tracking-wider">
+        <h3 className="text-xs font-medium text-content-subtle uppercase tracking-wider">
           {label}
         </h3>
-        <div className="text-sm font-semibold text-zinc-800">{value}</div>
+        <div className="text-sm font-semibold text-content-main">{value}</div>
       </div>
     </div>
   );
