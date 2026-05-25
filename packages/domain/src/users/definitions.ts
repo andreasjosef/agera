@@ -21,23 +21,23 @@ export const signUpFormSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(2, "Name must be at least 2 characters")
-    .max(40, "Too long! Name must be 40 characters or less")
-    .regex(/^[A-Za-z]+$/, "Name can only contain letters"),
+    .min(2, "Namnet måste vara minst 2 tecken")
+    .max(40, "För långt! Namnet får vara max 40 tecken")
+    .regex(/^[A-Za-zÅÄÖåäöé -]+$/, "Namnet får endast innehålla bokstäver"),
 
-  email: z.email().trim(),
+  email: z.email("Ogiltig e-postadress").trim(),
 
   password: z
     .string()
-    .min(8, "Password must be 8 or more characters")
-    .max(30, "Too long! Password must be 30 characters or less")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number"),
+    .min(8, "Lösenordet måste vara minst 8 tecken")
+    .max(30, "För långt! Lösenordet får vara max 30 tecken")
+    .regex(/[A-ZÅÄÖ]/, "Lösenordet måste innehålla minst en stor bokstav")
+    .regex(/[0-9]/, "Lösenordet måste innehålla minst en siffra"),
 });
 
 export const loginInFormSchema = z.object({
-  email: z.email().trim(),
-  password: z.string().min(1, "Password is required"),
+  email: z.email("Ogiltig e-postadress").trim(),
+  password: z.string().min(1, "Lösenordet är obligatoriskt"),
 });
 
 export const UserStatusSchema = z.object({

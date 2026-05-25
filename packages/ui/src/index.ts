@@ -21,6 +21,7 @@ export * from "./features/ConnectionGuide";
 export * from "./features/EnergySelector";
 export * from "./features/EnergySlider";
 export * from "./features/StepFilter";
+export * from "./features/LoginForm";
 export * from "./features/WelcomeCard";
 
 // Primitives
@@ -30,3 +31,4 @@ export * from "./primitives/Card";
 export * from "./primitives/NavItem";
 export * from "./primitives/RequirementAnchor";
 export * from "./primitives/GuideStepItem";
+export * from "./primitives/LabeledInput";
