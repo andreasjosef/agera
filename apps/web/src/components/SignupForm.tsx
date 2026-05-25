@@ -2,7 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpFormSchema, type SignUpForm } from "@ccpilot/domain";
-import { Button, Card, LabeledInput } from "@ccpilot/ui";
+import { Button, Card, Error, LabeledInput } from "@ccpilot/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authMutations } from "@/modules/auth/api";
 
