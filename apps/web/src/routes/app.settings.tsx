@@ -3,12 +3,12 @@ import { NavLink } from "@/components/NavLink";
 import { Card, mergeStyles } from "@ccpilot/ui";
 import {
   createFileRoute,
+  Link,
   linkOptions,
   Outlet,
   useLocation,
 } from "@tanstack/react-router";
-import { Settings, User } from "lucide-react";
-import BackButtonManager from "@/components/BackButtonManager";
+import { ArrowLeft, Settings, User } from "lucide-react";
 
 export const Route = createFileRoute("/app/settings")({
   component: RouteComponent,
@@ -62,9 +62,13 @@ function RouteComponent() {
             !isRoot ? "flex" : "hidden md:flex",
           )}
         >
-          <div className="md:hidden block">
-            <BackButtonManager />
-          </div>
+          <Link
+            to="/app/settings"
+            className="flex gap-1 items-center text-brand-primary hover:text-brand-hover transition-colors duration-200"
+          >
+            <ArrowLeft size={18} />
+            <span>Tillbaka</span>
+          </Link>
 
           <Outlet />
         </div>
