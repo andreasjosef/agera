@@ -19,11 +19,9 @@ function RouteComponent() {
   const { mutate, connecting, syncData } = useCanvasConnect();
   const { mutate: reSync } = useInitiateSync();
 
-  // TODO: Fix and discuss sync status display issue
-  // TODO: Implement SyncState component
   return (
     <>
-      <h3 className="text-xl font-medium"> Integrations </h3>
+      <h3 className="text-xl font-medium"> Integrationer </h3>
 
       {integration?.status === "NOT_FOUND" && (
         <CanvasIntegrationForm
