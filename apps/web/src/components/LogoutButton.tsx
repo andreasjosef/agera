@@ -10,7 +10,7 @@ export const LogoutButton = ({ className }: LogoutButtonProps) => {
 
   return (
     <Button
-      children="Log Out"
+      children="Logga ut"
       variant="secondary"
       onClick={() => logout()}
       disabled={isLoggingOut}

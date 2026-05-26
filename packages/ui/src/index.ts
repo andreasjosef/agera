@@ -22,6 +22,8 @@ export * from "./features/EnergySlider";
 export * from "./features/StepFilter";
 export * from "./features/LoginForm";
 export * from "./features/WelcomeCard";
+export * from "./features/SyncState";
+export * from "./features/ConfettiSwitch";
 
 // Primitives
 export * from "./primitives/Button";
@@ -31,3 +33,6 @@ export * from "./primitives/NavItem";
 export * from "./primitives/RequirementAnchor";
 export * from "./primitives/GuideStepItem";
 export * from "./primitives/LabeledInput";
+
+// Utils
+export * from "./utils";

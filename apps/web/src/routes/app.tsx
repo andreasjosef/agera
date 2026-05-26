@@ -10,11 +10,13 @@ import {
   List,
   Settings,
 } from "lucide-react";
+
 import { NavLink } from "@/components/NavLink";
-import SyncState from "@/components/SyncState";
+
 import { Suspense } from "react";
 import { useApp } from "@/modules/store";
 import { useShallow } from "zustand/react/shallow";
+import SyncStateManager from "@/components/SyncStateManager";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -44,7 +46,7 @@ const sidebarNavItems = [
     icon: List,
   },
   {
-    to: "/app/settings",
+    to: "/app/settings/integrations",
     label: "Intsällningar",
     icon: Settings,
   },
@@ -55,7 +57,7 @@ const mobileNavItems = [
   { to: "/app/now", label: "Now", icon: CircleDot },
   { to: "/app/requirements", label: "All", icon: List },
   {
-    to: "/app/settings",
+    to: "/app/settings/integrations",
     label: "Settings",
     icon: Settings,
   },
@@ -87,7 +89,7 @@ function RouteComponent() {
           }
           footerContent={
             <>
-              <SyncState />
+              <SyncStateManager />
             </>
           }
         />
