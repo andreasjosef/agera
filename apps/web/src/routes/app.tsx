@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import { Outlet } from "@tanstack/react-router";
-import { authQueries } from "@/modules/auth/api";
+import { useHotkey } from "@tanstack/react-hotkeys";
+import { CircleDot, LayoutDashboard, List, Settings } from "lucide-react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
 import {
@@ -70,6 +72,11 @@ function RouteComponent() {
       setIsSidebarOpen: state.setIsSidebarOpen,
     })),
   );
+
+  useHotkey("Mod+L", () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  });
+
   // TODO: Display remaining pomodoro time in title
   return (
     <AppLayout>
