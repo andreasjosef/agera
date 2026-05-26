@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Card, ConfettiSwitch } from "@ccpilot/ui";
 
 export const Route = createFileRoute("/app/settings/user")({
   component: RouteComponent,
@@ -9,7 +10,9 @@ function RouteComponent() {
 
   return (
     <div>
-      <h3 className="text-xl font-medium">User Preferences</h3>
+      <h3 className="text-xl font-medium">Preferencer</h3>
+
+      <ConfettiSwitch />
     </div>
   );
 }

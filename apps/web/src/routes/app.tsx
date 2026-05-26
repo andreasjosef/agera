@@ -4,11 +4,21 @@ import { useHotkey } from "@tanstack/react-hotkeys";
 import { CircleDot, LayoutDashboard, List, Settings } from "lucide-react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
-import { authQueries } from "@/modules/auth/api";
-import { useApp } from "@/modules/store";
+import {
+  BookA,
+  CircleDot,
+  GalleryHorizontalEnd,
+  LayoutDashboard,
+  List,
+  Settings,
+} from "lucide-react";
+
 import { NavLink } from "@/components/NavLink";
-import SyncState from "@/components/SyncState";
+
+import { Suspense } from "react";
+import { useApp } from "@/modules/store";
 import { useShallow } from "zustand/react/shallow";
+import SyncStateManager from "@/components/SyncStateManager";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -38,7 +48,7 @@ const sidebarNavItems = [
     icon: List,
   },
   {
-    to: "/app/settings",
+    to: "/app/settings/integrations",
     label: "Intsällningar",
     icon: Settings,
   },
@@ -49,7 +59,7 @@ const mobileNavItems = [
   { to: "/app/now", label: "Now", icon: CircleDot },
   { to: "/app/requirements", label: "All", icon: List },
   {
-    to: "/app/settings",
+    to: "/app/settings/integrations",
     label: "Settings",
     icon: Settings,
   },
@@ -86,7 +96,7 @@ function RouteComponent() {
           }
           footerContent={
             <>
-              <SyncState />
+              <SyncStateManager />
             </>
           }
         />
