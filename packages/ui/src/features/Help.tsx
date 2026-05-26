@@ -36,7 +36,7 @@ const helpSteps = [
     number: "04",
     title: "Track progress & join the flow",
     description:
-      "Mark tasks as completed to move forward through your study plan. Choose between studying alone in Solo Mode or joining Flow Mode to study together with others.",
+      "Mark tasks as completed to move forward through your study plan. Choose between studying alone in or to study together with others.",
     buttonText: "Explore Flow Mode →",
     icon: CircleCheck,
   },
@@ -79,7 +79,7 @@ function HelpStepCard({
           <p className="text-sm text-mist-500">{description}</p>
         </div>
 
-        <button className="mt-4 px-6 py-1.5 rounded-2xl border transition text-sm">
+        <button className="mt-4 px-6 py-1.75 border text-sm w-full rounded-2xl bg-violet-600 hover:bg-violet-700 text-white font-medium transition-all cursor-pointer">
           {buttonText}
         </button>
       </div>
