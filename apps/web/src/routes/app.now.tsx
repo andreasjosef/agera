@@ -28,7 +28,7 @@ function RouteComponent() {
     <>
       <Link
         to="/app/cockpit"
-        className="flex gap-1 items-center py-2 text-brand-primary hover:text-brand-hover transition-colors duration-200"
+        className="flex gap-1 text-sm font-medium items-center py-2 text-content-subtle hover:text-brand-hover transition-colors duration-200"
       >
         <ArrowLeft size={18} />
         <span>Till Översikt</span>
