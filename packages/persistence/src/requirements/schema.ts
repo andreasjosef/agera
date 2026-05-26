@@ -28,6 +28,7 @@ export const requirementsTable = t.pgTable(
     integrationId: t
       .uuid()
       .references(() => integrationsTable.id, { onDelete: "cascade" }),
+    externalId: t.varchar("externalId", { length: 255 }), // ny
     title: t.varchar({ length: 255 }).notNull(),
     due: t.varchar({ length: 255 }).notNull(),
     type: requirementType().default("assignment").notNull(),
@@ -40,7 +41,13 @@ export const requirementsTable = t.pgTable(
       .notNull()
       .$onUpdate(() => new Date()),
   },
-  (table) => [t.index("req_integration_idx").on(table.integrationId)],
+
+  (table) => [
+    t.index("req_integration_idx").on(table.integrationId),
+    t
+      .unique("uq_integration_external_id")
+      .on(table.integrationId, table.externalId),
+  ],
 );
 
 export const stepsTable = t.pgTable("steps", {

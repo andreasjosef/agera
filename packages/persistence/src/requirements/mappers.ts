@@ -25,6 +25,8 @@ export const toDomainRequirement = (
     status: dbRow.status,
     requirementSummary: dbRow.requirementSummary ?? undefined,
     updatedAt: dbRow.updatedAt,
+    integrationId: dbRow.integrationId ?? undefined,
+    externalId: dbRow.externalId ?? "",
   };
 };
 

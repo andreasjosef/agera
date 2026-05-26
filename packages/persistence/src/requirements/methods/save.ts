@@ -13,6 +13,10 @@ export const save = async (req: NewRequirement, userId: string) => {
       source: req.source,
       user_id: userId,
       integrationId: req.integrationId,
+      externalId: req.externalId, // ny
+    })
+    .onConflictDoNothing({
+      target: [requirementsTable.integrationId, requirementsTable.externalId],
     })
     .returning();
 
