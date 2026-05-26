@@ -33,7 +33,7 @@ function RouteComponent() {
 
   return (
     <Card width="h-full">
-      <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full gap-x-2">
+      <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full gap-x-4">
         <div
           className={mergeStyles(
             "bg-app-surface flex-col surface-container",
