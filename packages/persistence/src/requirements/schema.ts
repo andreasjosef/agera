@@ -28,7 +28,7 @@ export const requirementsTable = t.pgTable(
     integrationId: t
       .uuid()
       .references(() => integrationsTable.id, { onDelete: "cascade" }),
-    externalId: t.varchar("externalId", { length: 255 }), // ny
+    externalId: t.varchar("external_id", { length: 255 }),
     title: t.varchar({ length: 255 }).notNull(),
     due: t.varchar({ length: 255 }).notNull(),
     type: requirementType().default("assignment").notNull(),
