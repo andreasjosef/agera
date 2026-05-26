@@ -8,12 +8,13 @@ import {
   LayoutDashboard,
   Settings,
 } from "lucide-react";
-import BackButtonManager from "@/components/BackButtonManager";
+
 import { NavLink } from "@/components/NavLink";
-import SyncState from "@/components/SyncState";
+
 import { Suspense } from "react";
 import { useApp } from "@/modules/store";
 import { useShallow } from "zustand/react/shallow";
+import SyncStateManager from "@/components/SyncStateManager";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -86,7 +87,7 @@ function RouteComponent() {
           }
           footerContent={
             <>
-              <SyncState />
+              <SyncStateManager />
             </>
           }
         />
