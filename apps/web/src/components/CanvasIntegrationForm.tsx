@@ -40,7 +40,7 @@ export default function CanvasIntegrationForm({
       onSubmit={handleSubmit}
     >
       <LabeledInput
-        label="Canvas Access Token"
+        label="Canvas Åtkomsttoken"
         type="password"
         id="canvas-token"
       />
@@ -50,7 +50,7 @@ export default function CanvasIntegrationForm({
         type="submit"
         disabled={isLoading}
       >
-        Connect
+        Anslut
       </Button>
 
       {errorMessage && <p> {errorMessage} </p>}
