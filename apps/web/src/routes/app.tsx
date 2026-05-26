@@ -1,24 +1,17 @@
 import { Suspense } from "react";
 import { Outlet } from "@tanstack/react-router";
 import { useHotkey } from "@tanstack/react-hotkeys";
-import { CircleDot, LayoutDashboard, List, Settings } from "lucide-react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
-import {
-  BookA,
-  CircleDot,
-  GalleryHorizontalEnd,
-  LayoutDashboard,
-  List,
-  Settings,
-} from "lucide-react";
-
-import { NavLink } from "@/components/NavLink";
-
-import { Suspense } from "react";
-import { useApp } from "@/modules/store";
 import { useShallow } from "zustand/react/shallow";
+
+import { CircleDot, LayoutDashboard, List, Settings } from "lucide-react";
+import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
+
+import { useApp } from "@/modules/store";
 import SyncStateManager from "@/components/SyncStateManager";
+
+import { authQueries } from "@/modules/auth/api";
+import { NavLink } from "@/components/NavLink";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
