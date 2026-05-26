@@ -28,6 +28,7 @@ export type TokenProvider = z.infer<typeof TokenProviderSchema>;
 // Schemas & Types
 // ======================================================================
 export type Integration = {
+  id: string;
   provider: TokenProvider;
   token: string;
   lastSync?: Date;
