@@ -1,4 +1,5 @@
 import { type IntegrationToken } from "@ccpilot/domain";
+import { Button, LabeledInput } from "@ccpilot/ui";
 import { useState } from "react";
 
 interface CanvasIntegrationFormProps {
@@ -38,23 +39,19 @@ export default function CanvasIntegrationForm({
       className="grid bg-app-surface p-4 gap-y-4 surface-container"
       onSubmit={handleSubmit}
     >
-      <label className="grid gap-y-2" htmlFor="canvas-token">
-        <span className="font-medium">Canvas Access Token:</span>
-        <input
-          name="token"
-          type="password"
-          className="border-app-border border-2 p-1"
-          id="canvas-token"
-        />
-      </label>
+      <LabeledInput
+        label="Canvas Access Token"
+        type="password"
+        id="canvas-token"
+      />
 
-      <button
+      <Button
         className="primary-button bg-canvas-primary outline-canvas-primary hover:bg-canvas-hover focus:bg-canvas-hover"
         type="submit"
         disabled={isLoading}
       >
         Connect
-      </button>
+      </Button>
 
       {errorMessage && <p> {errorMessage} </p>}
     </form>
