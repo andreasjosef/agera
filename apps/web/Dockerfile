@@ -6,14 +6,13 @@ WORKDIR /app
 
 COPY . .
 
-
 RUN pnpm install
 
 RUN pnpm --filter @ccpilot/web build
 
 FROM nginx:alpine
 
-RUN sed -i 's/listen\(.*\)80;/listen 5173;/' /etc/nginx/conf.d/default.conf
+COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=builder /app/apps/web/dist /usr/share/nginx/html
 
