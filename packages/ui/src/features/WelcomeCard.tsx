@@ -72,23 +72,46 @@ export function WelcomeCard({
     iconClass,
   } = config[period];
 
+  const today = new Date();
+  const swedishDate = capitalize(
+    today.toLocaleDateString("sv-SE", {
+      weekday: "long",
+      day: "numeric",
+      month: "short",
+    }),
+  );
+
   return (
     <Card className={gradient}>
-      <div className="gap-4">
-        <div className="flex justify-between gap-2">
-          <h2 className="font-display text-2xl font-semibold">
-            {greeting} {username}
-          </h2>
-          <PeriodIcon className={`size-6 stroke-[1.75] ${iconClass}`} />
-        </div>
-        <p className="text-content-muted text-sm">{message}</p>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-left gap-4 py-2 w-full">
+        <div className="space-y-1 flex-1 w-full">
+          <div className="flex justify-between items-center gap-2.5">
+            <h2 className="font-display text-2xl font-bold text-zinc-900">
+              {greeting} {username}
+            </h2>
 
-        {onStartPass && (
-          <Button onClick={onStartPass} className="w-52">
-            STARTA PASSET
-          </Button>
-        )}
+            <div className="flex flex-col-reverse gap-4 justify-between">
+              <PeriodIcon
+                className={`ml-auto size-6 stroke-[1.75] ${iconClass}`}
+              />
+              <div className="mt-auto self-end text-xs font-bold tracking-wider uppercase text-zinc-400">
+                {swedishDate}
+              </div>
+            </div>
+          </div>
+          <p className="text-zinc-500 text-sm font-medium">{message}</p>
+        </div>
+        <div className="flex sm:justify-end items-center">
+          {onStartPass && (
+            <Button onClick={onStartPass} className="w-30 rounded-xl">
+              Börja
+            </Button>
+          )}
+        </div>
       </div>
     </Card>
   );
+}
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

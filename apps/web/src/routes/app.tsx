@@ -4,11 +4,12 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
 import {
   BookA,
+  CircleDot,
   GalleryHorizontalEnd,
   LayoutDashboard,
+  List,
   Settings,
 } from "lucide-react";
-import BackButtonManager from "@/components/BackButtonManager";
 import { NavLink } from "@/components/NavLink";
 import SyncState from "@/components/SyncState";
 import { Suspense } from "react";
@@ -36,11 +37,11 @@ export const Route = createFileRoute("/app")({
 
 const sidebarNavItems = [
   { to: "/app/cockpit", label: "Översikt", icon: LayoutDashboard },
-  { to: "/app/now", label: "Fokus", icon: BookA },
+  { to: "/app/now", label: "Fokus", icon: CircleDot },
   {
     to: "/app/requirements",
     label: "Alla Uppgifter",
-    icon: GalleryHorizontalEnd,
+    icon: List,
   },
   {
     to: "/app/settings",
@@ -51,8 +52,8 @@ const sidebarNavItems = [
 
 const mobileNavItems = [
   { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
-  { to: "/app/now", label: "Now", icon: BookA },
-  { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
+  { to: "/app/now", label: "Now", icon: CircleDot },
+  { to: "/app/requirements", label: "All", icon: List },
   {
     to: "/app/settings",
     label: "Settings",
