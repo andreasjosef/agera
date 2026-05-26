@@ -10,48 +10,48 @@ import {
 const helpSteps = [
   {
     number: "01",
-    title: "Connect your Canvas account",
+    title: "Anslut ditt Canvas-konto",
     description:
-      "Connect your Canvas API to automatically sync assignments, deadlines into Agera so you can manage all your studies in one place.",
-    buttonText: "Connect account →",
+      "Anslut ditt Canvas API för att automatiskt synkronisera uppgifter och deadlines till Agera så att du kan hantera alla dina studier på ett och samma ställe.",
+    buttonText: "Anslut konto →",
     icon: User,
   },
   {
     number: "02",
-    title: "Set your energy & focus level",
+    title: "Ställ in din energi- och fokusnivå",
     description:
-      "Use the energy slider to show how focused or tired you feel. Agera adjusts your study recommendations based on your energy.",
-    buttonText: "Adjust energy →",
+      "Använd energireglaget för att visa hur fokuserad eller trött du känner dig. Agera anpassar dina studie­rekommendationer baserat på din energi.",
+    buttonText: "Justera energi →",
     icon: SlidersHorizontal,
   },
   {
     number: "03",
-    title: "Start a study session",
+    title: "Starta en studiesession",
     description:
-      "Open the Focus page to begin studying. Use the built-in study timer to stay consistent, complete tasks step-by-step, and track your overall progress.",
-    buttonText: "Go to Focus →",
+      "Öppna Fokus-sidan för att börja studera. Använd den inbyggda studietimern för att hålla dig konsekvent, slutföra uppgifter steg för steg och följa dina framsteg.",
+    buttonText: "Gå till Fokus →",
     icon: NotepadText,
   },
   {
     number: "04",
-    title: "Track progress & join the flow",
+    title: "Följ framsteg & gå med i flödet",
     description:
-      "Mark tasks as completed to move forward through your study plan. Choose between studying alone in or to study together with others.",
-    buttonText: "Explore Flow Mode →",
+      "Markera uppgifter som slutförda för att gå vidare i din studieplan och hålla koll på dina framsteg. Välj mellan att studera ensam eller tillsammans med andra för extra motivation och fokus.",
+    buttonText: "Utforska Flow-läget →",
     icon: CircleCheck,
   },
 ];
 
 const infoCards = [
   {
-    title: "How the Focus page works",
+    title: "Så fungerar Fokus-sidan",
     description:
-      "The Focus page is your main study workspace. You can start a timer, view active assignments, track completed tasks, and stay concentrated during study sessions without distractions.",
+      "Fokus-sidan är din huvudsakliga studieyta. Du kan starta en timer, visa aktiva uppgifter, följa slutförda uppgifter och hålla koncentrationen under studiesessioner utan distraktioner.",
   },
   {
-    title: "Solo Mode vs Flow Mode",
+    title: "Solo-läge vs Flow-läge",
     description:
-      "Solo Mode is designed for independent studying with your own pace and schedule. Flow Mode allows you to join shared study sessions and stay motivated together with other students.",
+      "Solo-läget är utformat för självständiga studier i din egen takt och enligt ditt eget schema. Flow-läget låter dig delta i gemensamma studiesessioner och hålla motivationen uppe tillsammans med andra studenter.",
   },
 ];
 
@@ -91,15 +91,15 @@ export function Help() {
   return (
     <Card>
       <div className="w-full">
-        <div>
+        <div className="mb-8">
           <h1 className="flex gap-2 items-center text-3xl">
             <CircleQuestionMark className="w-7.5 h-7.5 bg-orange-400 rounded-full text-white" />
-            Help Center
+            Hjälpcenter
           </h1>
 
           <p className="text-mist-500 mt-1">
-            Everything you need to get started with Agera and stay focused while
-            studying.
+            Allt du behöver för att komma igång med Agera och hålla fokus medan
+            du studerar.
           </p>
         </div>
 
