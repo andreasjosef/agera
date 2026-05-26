@@ -44,7 +44,7 @@ const sidebarNavItems = [
     icon: GalleryHorizontalEnd,
   },
   {
-    to: "/app/settings",
+    to: "/app/settings/integrations",
     label: "Intsällningar",
     icon: Settings,
   },
@@ -55,7 +55,7 @@ const mobileNavItems = [
   { to: "/app/now", label: "Now", icon: BookA },
   { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
   {
-    to: "/app/settings",
+    to: "/app/settings/integrations",
     label: "Settings",
     icon: Settings,
   },
