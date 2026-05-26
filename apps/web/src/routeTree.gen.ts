@@ -17,6 +17,7 @@ import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppRequirementsRouteImport } from './routes/app.requirements'
 import { Route as AppOnboardingRouteImport } from './routes/app.onboarding'
 import { Route as AppNowRouteImport } from './routes/app.now'
+import { Route as AppHelpRouteImport } from './routes/app.help'
 import { Route as AppCockpitRouteImport } from './routes/app.cockpit'
 import { Route as AppRequirementsIndexRouteImport } from './routes/app.requirements.index'
 import { Route as AppStepIdRouteImport } from './routes/app.step.$id'
@@ -65,6 +66,11 @@ const AppNowRoute = AppNowRouteImport.update({
   path: '/now',
   getParentRoute: () => AppRoute,
 } as any)
+const AppHelpRoute = AppHelpRouteImport.update({
+  id: '/help',
+  path: '/help',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppCockpitRoute = AppCockpitRouteImport.update({
   id: '/cockpit',
   path: '/cockpit',
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/cockpit': typeof AppCockpitRoute
+  '/app/help': typeof AppHelpRoute
   '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/requirements': typeof AppRequirementsRouteWithChildren
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/cockpit': typeof AppCockpitRoute
+  '/app/help': typeof AppHelpRoute
   '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/settings': typeof AppSettingsRouteWithChildren
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/app/cockpit': typeof AppCockpitRoute
+  '/app/help': typeof AppHelpRoute
   '/app/now': typeof AppNowRoute
   '/app/onboarding': typeof AppOnboardingRoute
   '/app/requirements': typeof AppRequirementsRouteWithChildren
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/cockpit'
+    | '/app/help'
     | '/app/now'
     | '/app/onboarding'
     | '/app/requirements'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/cockpit'
+    | '/app/help'
     | '/app/now'
     | '/app/onboarding'
     | '/app/settings'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/app/cockpit'
+    | '/app/help'
     | '/app/now'
     | '/app/onboarding'
     | '/app/requirements'
@@ -268,6 +280,13 @@ declare module '@tanstack/react-router' {
       path: '/now'
       fullPath: '/app/now'
       preLoaderRoute: typeof AppNowRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/help': {
+      id: '/app/help'
+      path: '/help'
+      fullPath: '/app/help'
+      preLoaderRoute: typeof AppHelpRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/cockpit': {
@@ -352,6 +371,7 @@ const AppSettingsRouteWithChildren = AppSettingsRoute._addFileChildren(
 
 interface AppRouteChildren {
   AppCockpitRoute: typeof AppCockpitRoute
+  AppHelpRoute: typeof AppHelpRoute
   AppNowRoute: typeof AppNowRoute
   AppOnboardingRoute: typeof AppOnboardingRoute
   AppRequirementsRoute: typeof AppRequirementsRouteWithChildren
@@ -362,6 +382,7 @@ interface AppRouteChildren {
 
 const AppRouteChildren: AppRouteChildren = {
   AppCockpitRoute: AppCockpitRoute,
+  AppHelpRoute: AppHelpRoute,
   AppNowRoute: AppNowRoute,
   AppOnboardingRoute: AppOnboardingRoute,
   AppRequirementsRoute: AppRequirementsRouteWithChildren,
