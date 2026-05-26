@@ -1,9 +1,10 @@
 import { NowCard } from "@ccpilot/ui";
 import { useFinishStep, useNextStep } from "@/modules/requirement/hooks";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import PomodoroTimerManager from "@/components/PomodoroTimerManager";
 import BodyDoublingDisplayManager from "@/components/BodyDoublingDisplayManager";
 import { useBodyDoubling } from "@/modules/cockpit/store";
+import { ArrowLeft } from "lucide-react";
 
 export const Route = createFileRoute("/app/now")({
   component: RouteComponent,
@@ -24,17 +25,26 @@ function RouteComponent() {
   if (isLoading) return <NowCard.Loading />;
 
   return (
-    <div className="now-grid items-start gap-2">
-      <div className="[grid-area:pomodoro]">
-        <PomodoroTimerManager />
-      </div>
+    <>
+      <Link
+        to="/app/cockpit"
+        className="flex gap-1 items-center py-2 text-brand-primary hover:text-brand-hover transition-colors duration-200"
+      >
+        <ArrowLeft size={18} />
+        <span>Till Översikt</span>
+      </Link>
+      <div className="now-grid items-start gap-2">
+        <div className="[grid-area:pomodoro]">
+          <PomodoroTimerManager />
+        </div>
 
-      <div className="[grid-area:now-card]">
-        <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
+        <div className="[grid-area:now-card]">
+          <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
+        </div>
+        <div className="[grid-area:body-doubling]">
+          {isEnabled && <BodyDoublingDisplayManager />}
+        </div>
       </div>
-      <div className="[grid-area:body-doubling]">
-        {isEnabled && <BodyDoublingDisplayManager />}
-      </div>
-    </div>
+    </>
   );
 }
