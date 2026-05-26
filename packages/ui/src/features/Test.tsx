@@ -118,7 +118,10 @@ interface CreateRequirementFormProps {
   onSubmit: (e: React.SyntheticEvent<HTMLFormElement>) => void;
 }
 
-export function Test({ isPending, onSubmit }: CreateRequirementFormProps) {
+export function TestManualCreate({
+  isPending,
+  onSubmit,
+}: CreateRequirementFormProps) {
   return (
     <Card className="bg-white border border-zinc-100 p-8 rounded-2xl">
       <div className="mx-auto w-full max-w-2xl px-4 py-8">
@@ -244,5 +247,388 @@ export function Test({ isPending, onSubmit }: CreateRequirementFormProps) {
         </form>
       </div>
     </Card>
+  );
+}
+
+import {
+  Radio,
+  Sparkles,
+  SlidersHorizontal,
+  PlayCircle,
+  AlertCircle,
+  HelpCircle,
+} from "lucide-react";
+
+export function TestGallery() {
+  const guideSteps = [
+    {
+      icon: Radio,
+      iconClass: "text-blue-500 bg-blue-50",
+      title: "1. Automatisk Insamling",
+      subtitle: "Canvas & Systemintegration",
+      description:
+        "Agera lyssnar i bakgrunden och samlar automatiskt in dina deadlines, moduler och scheman från fragmenterade källor. Sluta leta på tre olika ställen.",
+    },
+    {
+      icon: Sparkles,
+      iconClass: "text-purple-500 bg-purple-50",
+      title: "2. Intelligent Nedbrytning",
+      subtitle: "Vår LLM-Motor hanterar kaoset",
+      description:
+        "Stora kursmål skapar ofta en oöverstiglig starttröskel. Ageras motor bryter omedelbart ner komplexa uppgifter till logiska, lätthanterliga mikrosteg berikade med start-tips.",
+    },
+    {
+      icon: SlidersHorizontal,
+      iconClass: "text-amber-500 bg-amber-50",
+      title: "3. Kontextuell Avstämning",
+      subtitle: "Ställ in dagens intention",
+      description:
+        "När du kliver in i Cockpit drar du i reglagen för att berätta hur mycket energi du har och hur länge du vill plugga. Systemet döljer automatiskt allt irrelevant brus.",
+    },
+    {
+      icon: PlayCircle,
+      iconClass: "text-emerald-500 bg-emerald-50",
+      title: "4. Isolerat Fokusläge",
+      subtitle: "Ett enda steg i taget",
+      description:
+        "När du klickar på Börja låser systemet in dig i en distraktionsfri miljö. Ingen valstatus, ingen beslutsångest—bara det steg du valt att göra just nu.",
+    },
+  ];
+
+  return (
+    <div className="mx-auto w-full max-w-4xl px-4 py-8">
+      {/* View Header */}
+      <div className="mb-8 space-y-1">
+        <div className="flex items-center gap-2 text-zinc-400">
+          <HelpCircle className="size-5 stroke-[1.75]" />
+          <span className="text-xs font-bold tracking-widest uppercase">
+            Guide
+          </span>
+        </div>
+        <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
+          Hur fungerar Agera?
+        </h1>
+        <p className="text-sm text-zinc-500 font-medium">
+          Exekutiv funktion som en tjänst – en snabböversikt.
+        </p>
+      </div>
+
+      {/* Grid Flow Matrix */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {guideSteps.map((step, idx) => {
+          const Icon = step.icon;
+          return (
+            <Card
+              key={idx}
+              className="bg-white border border-zinc-100 shadow-sm p-6 rounded-2xl flex gap-4 items-start"
+            >
+              <div className={`p-3 rounded-xl shrink-0 ${step.iconClass}`}>
+                <Icon className="size-5 stroke-[1.75]" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-sm font-bold tracking-wider text-zinc-400 uppercase text-[11px]">
+                  {step.subtitle}
+                </h3>
+                <h2 className="text-lg font-bold text-zinc-800 leading-snug">
+                  {step.title}
+                </h2>
+                <p className="text-sm text-zinc-500 leading-relaxed pt-1">
+                  {step.description}
+                </p>
+              </div>
+            </Card>
+          );
+        })}
+      </div>
+
+      {/* MVP Focus Section: Curveballs feature highlight */}
+      <Card className="mt-8 bg-linear-to-br from-zinc-50 to-white border border-zinc-100 rounded-2xl p-6">
+        <div className="flex gap-4 items-start">
+          <div className="p-3 rounded-xl bg-zinc-900 text-white shrink-0">
+            <AlertCircle className="size-5 stroke-[1.75]" />
+          </div>
+          <div className="space-y-1">
+            <h2 className="text-base font-bold text-zinc-900">
+              Hantera oförutsedda sidospår (Curveballs)
+            </h2>
+            <p className="text-sm text-zinc-500 leading-relaxed">
+              Lärare skickar sällan allt via Canvas. När ett viktigt mejl
+              trillar in eller en ny instruktion ges i Slack, använder du
+              funktionen{" "}
+              <strong className="text-zinc-800">
+                \"Lägg till krav manuellt\"
+              </strong>{" "}
+              för att direkt trycka in uppgiften i Ageras nedbrytningsmotor.
+            </p>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+export function TestWOLinks() {
+  const guideSteps = [
+    {
+      icon: Radio,
+      iconClass: "text-blue-500 bg-blue-50",
+      title: "1. Automatisk Insamling",
+      subtitle: "Canvas & Systemintegration",
+      description:
+        "Agera lyssnar i bakgrunden och samlar automatiskt in dina deadlines, moduler och scheman från fragmenterade källor. Sluta leta efter information på tre olika ställen.",
+    },
+    {
+      icon: Sparkles,
+      iconClass: "text-purple-500 bg-purple-50",
+      title: "2. Intelligent Nedbrytning",
+      subtitle: "Vår LLM-motor hanterar kaoset",
+      description:
+        "Stora kursmål skapar ofta en oöverstiglig starttröskel. Ageras motor bryter omedelbart ner komplexa uppgifter till logiska, lätthanterliga mikrosteg berikade med praktiska start-tips.",
+    },
+    {
+      icon: SlidersHorizontal,
+      iconClass: "text-amber-500 bg-amber-50",
+      title: "3. Kontextuell Avstämning",
+      subtitle: "Ställ in dagens intention",
+      description:
+        "När du kliver in i Cockpit drar du i reglagen för att berätta hur mycket energi du har och hur länge du vill plugga. Systemet döljer automatiskt allt irrelevant brus.",
+    },
+    {
+      icon: PlayCircle,
+      iconClass: "text-emerald-500 bg-emerald-50",
+      title: "4. Isolerat Fokusläge",
+      subtitle: "Ett enda steg i taget",
+      description:
+        "När du klickar på Börja låser systemet in dig i en distraktionsfri miljö. Ingen valstatus eller beslutsångest—bara det enskilda steg du har valt att göra just nu.",
+    },
+  ];
+
+  return (
+    <Card className="mx-auto w-full max-w-3xl px-8 py-8">
+      {/* View Header */}
+      <div className="mb-12 space-y-1">
+        <div className="flex items-center gap-2 text-zinc-400">
+          <HelpCircle className="size-5 stroke-[1.75]" />
+          <span className="text-xs font-bold tracking-widest uppercase">
+            Guide
+          </span>
+        </div>
+        <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
+          Hur fungerar Agera?
+        </h1>
+        <p className="text-sm text-zinc-500 font-medium">
+          Exekutiv funktion som en tjänst – en steg-för-steg-översikt.
+        </p>
+      </div>
+
+      {/* Vertical Timeline List Layout */}
+      {/* This introduces a thin vertical thread on the left that links the step blocks sequentially */}
+      <div className="relative border-l-2 border-zinc-100/80 pl-6 ml-4 space-y-10">
+        {guideSteps.map((step, idx) => {
+          const Icon = step.icon;
+          return (
+            <div key={idx} className="relative group">
+              {/* Timeline Indicator Badge Node Accent */}
+              <div
+                className={`absolute -left-[37px] top-1.5 p-1.5 rounded-xl border-2 border-white bg-white shadow-sm shrink-0 group-hover:scale-105 transition-transform ${step.iconClass}`}
+              >
+                <Icon className="size-4 stroke-[1.75]" />
+              </div>
+
+              {/* Step Text Content Stack */}
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase block">
+                  {step.subtitle}
+                </span>
+                <h2 className="text-lg font-bold text-zinc-800 leading-snug">
+                  {step.title}
+                </h2>
+                <p className="text-base text-zinc-500 font-normal leading-relaxed max-w-2xl pt-1">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Dynamic Curveball Handler Info Block */}
+      <div className="mt-12 pt-8 border-t border-zinc-100">
+        <Card className="bg-linear-to-br from-zinc-50 via-zinc-50/20 to-white border border-zinc-100 rounded-2xl p-6 shadow-none">
+          <div className="flex gap-4 items-start">
+            <div className="p-2.5 rounded-xl bg-zinc-900 text-white shrink-0">
+              <AlertCircle className="size-5 stroke-[1.75]" />
+            </div>
+            <div className="space-y-1">
+              <h2 className="text-base font-bold text-zinc-900">
+                Hantera oförutsedda sidospår (Curveballs)
+              </h2>
+              <p className="text-sm text-zinc-500 leading-relaxed font-normal">
+                Lärare skickar sällan allt via Canvas. När ett viktigt mejl
+                trillar in eller en ny instruktion ges i Slack, använder du
+                funktionen{" "}
+                <strong className="text-zinc-800 font-semibold">
+                  "Lägg till krav manuellt"
+                </strong>{" "}
+                för att direkt trycka in uppgiften i Ageras nedbrytningsmotor så
+                den kan hanteras i ditt vanliga flöde.
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </Card>
+  );
+}
+
+import { ArrowRight } from "lucide-react";
+
+export interface HelpOverviewGuideProps {
+  onNavigateToIntegration?: () => void; // Callback for Step 1
+  onNavigateToBreakdown?: () => void; // Callback for Step 2
+  onNavigateToCockpit?: () => void; // Callback for Step 3
+  onNavigateToFocus?: () => void; // Callback for Step 4
+  onNavigateToManualAdd?: () => void; // Callback for the Curveball Action
+}
+
+export function Test({
+  onNavigateToIntegration,
+  onNavigateToBreakdown,
+  onNavigateToCockpit,
+  onNavigateToFocus,
+  onNavigateToManualAdd,
+}: HelpOverviewGuideProps) {
+  const guideSteps = [
+    {
+      icon: Radio,
+      iconClass: "text-blue-500 bg-blue-50",
+      title: "1. Automatisk Insamling",
+      subtitle: "Canvas & Systemintegration",
+      description:
+        "Agera lyssnar i bakgrunden och samlar automatiskt in dina deadlines, moduler och scheman från fragmenterade källor. Sluta leta efter information på tre olika ställen.",
+      callback: onNavigateToIntegration,
+      linkLabel: "Visa mina anslutna kurser",
+    },
+    {
+      icon: Sparkles,
+      iconClass: "text-purple-500 bg-purple-50",
+      title: "2. Intelligent Nedbrytning",
+      subtitle: "Vår LLM-motor hanterar kaoset",
+      description:
+        "Stora kursmål skapar ofta en oöverstiglig starttröskel. Ageras motor bryter omedelbart ner komplexa uppgifter till logiska, lätthanterliga mikrosteg berikade med praktiska start-tips.",
+      callback: onNavigateToBreakdown,
+      linkLabel: "Se studieplanering",
+    },
+    {
+      icon: SlidersHorizontal,
+      iconClass: "text-amber-500 bg-amber-50",
+      title: "3. Kontextuell Avstämning",
+      subtitle: "Ställ in dagens intention",
+      description:
+        "När du kliver in i Cockpit drar du i reglagen för att berätta hur mycket energi du har och hur länge du vill plugga. Systemet döljer automatiskt allt irrelevant brus.",
+      callback: onNavigateToCockpit,
+      linkLabel: "Gå till Cockpit",
+    },
+    {
+      icon: PlayCircle,
+      iconClass: "text-emerald-500 bg-emerald-50",
+      title: "4. Isolerat Fokusläge",
+      subtitle: "Ett enda steg i taget",
+      description:
+        "När du klickar på Börja låser systemet in dig i en distraktionsfri miljö. Ingen valstatus eller beslutsångest—bara det enskilda steg du har valt att göra just nu.",
+      callback: onNavigateToFocus,
+      linkLabel: "Öppna fokusläge",
+    },
+  ];
+
+  return (
+    <div className="mx-auto w-full max-w-3xl px-4 py-8">
+      <div className="mb-12 space-y-1">
+        <div className="flex items-center gap-2 text-zinc-400">
+          <HelpCircle className="size-5 stroke-[1.75]" />
+          <span className="text-xs font-bold tracking-widest uppercase">
+            Guide
+          </span>
+        </div>
+        <h1 className="text-2xl font-bold text-zinc-900 tracking-tight">
+          Hur fungerar Agera?
+        </h1>
+        <p className="text-sm text-zinc-500 font-medium">
+          Exekutiv funktion som en tjänst – en steg-för-steg-översikt.
+        </p>
+      </div>
+
+      <div className="relative border-l-2 border-zinc-100/80 pl-6 ml-4 space-y-10">
+        {guideSteps.map((step, idx) => {
+          const Icon = step.icon;
+          return (
+            <div key={idx} className="relative group">
+              {/* Timeline Indicator Badge Node Accent */}
+              <div
+                className={`absolute -left-[37px] top-1.5 p-1.5 rounded-xl border-2 border-white bg-white shadow-sm shrink-0 transition-transform ${step.iconClass}`}
+              >
+                <Icon className="size-4 stroke-[1.75]" />
+              </div>
+
+              {/* Step Text Content Stack */}
+              <div className="space-y-1">
+                <span className="text-[10px] font-bold tracking-widest text-zinc-400 uppercase block">
+                  {step.subtitle}
+                </span>
+                <h2 className="text-lg font-bold text-zinc-800 leading-snug">
+                  {step.title}
+                </h2>
+                <p className="text-base text-zinc-500 font-normal leading-relaxed max-w-2xl pt-1">
+                  {step.description}
+                </p>
+
+                {/* Interactive Action Link (only renders if callback prop is provided) */}
+                {step.callback && (
+                  <button
+                    onClick={step.callback}
+                    className="pt-2 flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-primary/80 hover:underline transition-all cursor-pointer"
+                  >
+                    {step.linkLabel}
+                    <ArrowRight className="size-3.5" />
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-12 pt-8 border-t border-zinc-100">
+        <Card className="bg-linear-to-br from-zinc-50 via-zinc-50/20 to-white border border-zinc-100 rounded-2xl p-6 shadow-none">
+          <div className="flex flex-col sm:flex-row gap-4 items-start justify-between">
+            <div className="flex gap-4 items-start">
+              <div className="p-2.5 rounded-xl bg-zinc-900 text-white shrink-0">
+                <AlertCircle className="size-5 stroke-[1.75]" />
+              </div>
+              <div className="space-y-1 max-w-xl">
+                <h2 className="text-base font-bold text-zinc-900">
+                  Hantera oförutsedda sidospår
+                </h2>
+                <p className="text-sm text-zinc-500 leading-relaxed font-normal">
+                  Lärare skickar sällan allt via Canvas. När ett viktigt mejl
+                  trillar in eller en ny instruktion ges i Slack, djuplänkar du
+                  direkt för att manuellt skjuta in kravet i motorn.
+                </p>
+              </div>
+            </div>
+
+            {/* Interactive Callback Trigger for the Manual Input form */}
+            {onNavigateToManualAdd && (
+              <button
+                onClick={onNavigateToManualAdd}
+                className="mt-2 sm:mt-0 px-4 py-2 text-xs font-bold uppercase tracking-wider text-zinc-700 bg-white border border-zinc-200 hover:bg-zinc-50 rounded-xl shadow-sm transition-all whitespace-nowrap cursor-pointer self-end sm:self-center"
+              >
+                Testa lägga till krav
+              </button>
+            )}
+          </div>
+        </Card>
+      </div>
+    </div>
   );
 }
