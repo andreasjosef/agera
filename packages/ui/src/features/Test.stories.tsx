@@ -14,5 +14,11 @@ export default meta;
 type Story = StoryObj<typeof Test>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    onNavigateToIntegration: () => console.log("Navigate"),
+    onNavigateToBreakdown: () => console.log("Navigate"),
+    onNavigateToCockpit: () => console.log("Navigate"),
+    onNavigateToFocus: () => console.log("Navigate"),
+    onNavigateToManualAdd: () => console.log("Navigate"),
+  },
 };
