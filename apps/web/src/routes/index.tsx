@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
 
       if (user) {
         throw redirect({
-          to: "/app",
+          to: "/app/cockpit",
         });
       }
     } catch (e) {
