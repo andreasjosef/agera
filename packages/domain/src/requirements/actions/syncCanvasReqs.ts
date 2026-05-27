@@ -51,6 +51,7 @@ export const syncCanvasReqsAction = async (
     const requirement: NewRequirement = {
       title: assignement.title.trim(),
       source: "CANVAS",
+      url: assignement.url,
       due: assignement.due,
       steps: [],
       type: "assignment",
