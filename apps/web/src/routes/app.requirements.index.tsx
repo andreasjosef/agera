@@ -31,6 +31,24 @@ function RouteComponent() {
 
 function Content() {
   const { data: requirements } = useSuspenseQuery(requirementQueryOptions.all);
+
+  const sortedRequirements = [...requirements].sort(
+    (a, b) => new Date(a.due).getTime() - new Date(b.due).getTime(),
+  );
+
+  if (sortedRequirements.length === 0) {
+    return (
+      <div className="min-h-96 grid place-content-center text-center gap-3">
+        <h2 className="text-3xl font-medium text-content-main">
+          Mina Uppdrag
+        </h2>
+        <p className="text-content-muted">
+          Du har inga uppdrag just nu.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <>
       <nav className="mb-8">
@@ -40,13 +58,11 @@ function Content() {
       </nav>
 
       <ul className="gallary-grid gap-2">
-        {requirements
-          .sort((a, b) => new Date(a.due).getTime() - new Date(b.due).getTime())
-          .map((requirement, index) => (
-            <li key={requirement.id}>
-              <RequirementCardLink requirement={requirement} index={index} />
-            </li>
-          ))}
+        {sortedRequirements.map((requirement, index) => (
+          <li key={requirement.id}>
+            <RequirementCardLink requirement={requirement} index={index} />
+          </li>
+        ))}
       </ul>
     </>
   );
