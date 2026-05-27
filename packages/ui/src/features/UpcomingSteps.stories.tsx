@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { UpcomingSteps } from "./UpcomingSteps";
-import { mockUpcomingSteps } from "../mocks/steps";
+import { mockRequirements, mockUpcomingSteps } from "../mocks/steps";
 
 const meta: Meta<typeof UpcomingSteps> = {
   title: "Features/UpcomingSteps",
@@ -17,6 +17,7 @@ type Story = StoryObj<typeof UpcomingSteps>;
 export const Default: Story = {
   args: {
     steps: mockUpcomingSteps,
+    requirements: mockRequirements,
     RequirementLink: ({ children }) => (
       <span className="cursor-pointer hover:underline">{children}</span>
     ),

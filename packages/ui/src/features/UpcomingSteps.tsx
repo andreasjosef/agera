@@ -1,22 +1,39 @@
-import { ScoredStep } from "@ccpilot/domain";
+import { Requirement, ScoredStep } from "@ccpilot/domain";
 import { Card } from "../primitives/Card";
 import { ReactNode, useMemo, useState } from "react";
+import { differenceInDays } from "date-fns";
 
 export interface UpcomingStepsProps {
   steps: ScoredStep[];
+  requirements?: Requirement[];
   RequirementLink: React.ComponentType<{ id: string; children: ReactNode }>;
 }
 
-const CATEGORY_LABELS: Record<string, string> = {
-  admin: "Admin",
-  deepwork: "Deepwork",
-  research: "Research",
-  planning: "Planning",
-  polish: "Polish",
-  decisions: "Beslut",
-};
+function dueText(due: string): string {
+  const days = differenceInDays(new Date(due), new Date());
+  if (days === 0) return "Idag";
+  if (days > 0) return `Om ${days} dagar`;
+  return `För ${Math.abs(days)} dagar sedan`;
+}
 
-export function UpcomingSteps({ steps, RequirementLink }: UpcomingStepsProps) {
+function typeBadgeColor(type: string): string {
+  switch (type) {
+    case "assignment":
+      return "bg-amber-100 text-amber-700";
+    case "lecture":
+      return "bg-blue-100 text-blue-700";
+    case "message":
+      return "bg-green-100 text-green-700";
+    default:
+      return "bg-zinc-100 text-zinc-700";
+  }
+}
+
+export function UpcomingSteps({
+  steps,
+  requirements,
+  RequirementLink,
+}: UpcomingStepsProps) {
   const [activeTab, setActiveTab] = useState<"flow" | "all">("flow");
 
   const groupedSteps = useMemo(() => {
@@ -39,6 +56,14 @@ export function UpcomingSteps({ steps, RequirementLink }: UpcomingStepsProps) {
       return b[0].priorityScore - a[0].priorityScore;
     });
   }, [steps]);
+
+  const relevantRequirements = useMemo(() => {
+    if (!requirements) return [];
+    const reqIds = new Set(steps.map((s) => s.requirementId));
+    return requirements
+      .filter((req) => reqIds.has(req.id))
+      .sort((a, b) => new Date(a.due).getTime() - new Date(b.due).getTime());
+  }, [steps, requirements]);
 
   if (steps.length <= 0) {
     return (
@@ -83,7 +108,7 @@ export function UpcomingSteps({ steps, RequirementLink }: UpcomingStepsProps) {
                     : "border-transparent text-content-subtle hover:text-zinc-600"
                 }`}
               >
-                Uppgifter
+                Mer om Uppgifterna
               </button>
             </div>
             <span className="text-xs font-semibold text-content-main bg-zinc-50 px-2.5 py-1 rounded-md border border-zinc-100">
@@ -118,8 +143,56 @@ export function UpcomingSteps({ steps, RequirementLink }: UpcomingStepsProps) {
               ))}
             </div>
           ) : (
-            <div className="py-8 text-center text-sm text-content-subtle font-medium">
-              TODO
+            <div className="space-y-3">
+              {relevantRequirements.length > 0 ? (
+                relevantRequirements.map((req) => {
+                  const totalSteps = req.steps.length;
+                  const completedSteps = req.steps.filter(
+                    (s) => s.complete,
+                  ).length;
+                  return (
+                    <RequirementLink key={req.id} id={req.id}>
+                      <div className="rounded-lg border border-app-border px-4 py-3 cursor-pointer mb-2">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <h4 className="text-sm font-semibold text-content-main truncate">
+                              {req.title}
+                            </h4>
+                            <p className="text-xs text-content-muted mt-0.5">
+                              {dueText(req.due)}
+                            </p>
+                          </div>
+                          <span
+                            className={`shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide ${typeBadgeColor(req.type)}`}
+                          >
+                            {req.type}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between mt-2">
+                          <span className="text-xs text-content-subtle">
+                            {completedSteps}/{totalSteps} Steg Klar
+                          </span>
+                          <div className="w-16 h-2 bg-app-surface-hover rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-brand-primary rounded-full transition-all"
+                              style={{
+                                width:
+                                  totalSteps > 0
+                                    ? `${(completedSteps / totalSteps) * 100}%`
+                                    : "0%",
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </RequirementLink>
+                  );
+                })
+              ) : (
+                <div className="py-8 text-center text-sm text-content-subtle font-medium">
+                  Inga uppgifter ännu.
+                </div>
+              )}
             </div>
           )}
         </div>
