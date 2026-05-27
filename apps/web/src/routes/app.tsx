@@ -48,7 +48,7 @@ const sidebarNavItems = [
   },
   {
     to: "/app/settings/integrations",
-    label: "Intsällningar",
+    label: "Inställningar",
     icon: Settings,
   },
   {
