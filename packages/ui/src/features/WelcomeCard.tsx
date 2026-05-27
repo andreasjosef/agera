@@ -83,30 +83,27 @@ export function WelcomeCard({
 
   return (
     <Card className={gradient}>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-left gap-4 py-2 w-full">
-        <div className="space-y-1 flex-1 w-full">
-          <div className="flex justify-between items-center gap-2.5">
-            <h2 className="font-display text-2xl font-bold text-zinc-900">
+      <div className="flex justify-between w-full py-3">
+        <div className="space-y-3">
+          <header>
+            <h2 className="font-display text-3xl font-bold text-zinc-800">
               {greeting} {username}
             </h2>
-
-            <div className="flex flex-col-reverse gap-4 justify-between">
-              <PeriodIcon
-                className={`ml-auto size-6 stroke-[1.75] ${iconClass}`}
-              />
-              <div className="mt-auto self-end text-xs font-bold tracking-wider uppercase text-zinc-400">
-                {swedishDate}
-              </div>
-            </div>
-          </div>
-          <p className="text-zinc-500 text-sm font-medium">{message}</p>
-        </div>
-        <div className="flex sm:justify-end items-center">
+            <p className="text-content-subtle text-base font-medium">
+              {message}
+            </p>
+          </header>
           {onStartPass && (
-            <Button onClick={onStartPass} className="w-30 rounded-xl">
+            <Button onClick={onStartPass} className="rounded-lg w-max">
               Börja
             </Button>
           )}
+        </div>
+        <div className="space-y-2">
+          <div className="self-end text-xs font-bold tracking-wider uppercase text-content-subtle">
+            {swedishDate}
+          </div>
+          <PeriodIcon className={`ml-auto size-6 stroke-[1.75] ${iconClass}`} />
         </div>
       </div>
     </Card>

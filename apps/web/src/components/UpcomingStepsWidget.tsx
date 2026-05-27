@@ -9,8 +9,15 @@ export function UpcomingStepsSection() {
   const { data: preview, isLoading } = useSuspenseQuery(
     requirementQueryOptions.preview(energyLevel),
   );
+  const { data: requirements } = useSuspenseQuery(requirementQueryOptions.all);
 
-  if (isLoading) return <p>Colecting next Steps</p>;
+  if (isLoading) return <p>Collecting next Steps</p>;
 
-  return <UpcomingSteps steps={preview} RequirementLink={RequirementNavLink} />;
+  return (
+    <UpcomingSteps
+      steps={preview}
+      requirements={requirements}
+      RequirementLink={RequirementNavLink}
+    />
+  );
 }

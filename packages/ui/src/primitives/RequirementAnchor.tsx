@@ -5,7 +5,7 @@ export function RequirementAnchor({
   return (
     <span
       {...props}
-      className="font-semibold cursor-pointer text-brand-primary hover:underline"
+      className="font-semibold cursor-pointer text-brand-primary"
     >
       {children}
     </span>
