@@ -20,7 +20,8 @@ export const createLLMClient = (): LLMClientInterface => {
       const payload: LLMRequest = {
         // model: "openrouter/free",
         //model: "minimax/minimax-m2.7",
-        model: "google/gemini-2.5-flash-lite",
+        //model: "google/gemini-2.5-flash-lite",
+        model: "anthropic/claude-opus-4.6",
         //model: "openrouter/auto",
         messages: [
           { role: "system", content: system },
