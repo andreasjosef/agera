@@ -64,7 +64,7 @@ export default function SignupForm() {
             label="Lösenord"
             error={errors.password?.message}
             type="password"
-            placeholder="Minst 8 Tecken + Siffra + Versal"
+            placeholder="••••••••"
             {...register("password")}
           />
 
@@ -73,7 +73,7 @@ export default function SignupForm() {
           </Button>
         </form>
 
-        <p className="text-center text-sm text-content-muted">
+        <p className="text-center text-sm text-content-muted flex gap-2 justify-center">
           Har du ett konto?
           <Link
             to="/login"
