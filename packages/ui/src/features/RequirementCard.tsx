@@ -1,6 +1,7 @@
 import { Card } from "../primitives/Card";
 import { Requirement } from "@ccpilot/domain";
 import { formatDistanceToNow } from "date-fns";
+import { sv } from "date-fns/locale";
 
 interface RequirementCardProps {
   requirement: Requirement;
@@ -16,7 +17,7 @@ export const RequirementCard = ({
       <div className="flex flex-col justify-between gap-4 flex-1">
         <div className="flex items-center justify-between">
           <div className="bg-electric-violet-100 text-electric-violet-700 py-1 px-3 rounded-2xl text-sm font-medium">
-            In Progress
+            Pågående
           </div>
 
           {index !== undefined && (
@@ -39,6 +40,7 @@ export const RequirementCard = ({
             <div className="text-sm font-semibold text-content-main">
               {formatDistanceToNow(new Date(requirement.due), {
                 addSuffix: true,
+                locale: sv,
               })}
             </div>
           </div>
