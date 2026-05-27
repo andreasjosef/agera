@@ -36,7 +36,7 @@ function RouteComponent() {
       <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full gap-x-4">
         <div
           className={mergeStyles(
-            "bg-app-surface flex-col surface-container border-r border-cod-gray-200 pr-6",
+            "bg-app-surface flex-col surface-container border-r border-cod-gray-200 pr-6 py-8",
             isRoot ? "flex" : "hidden md:flex py-8",
           )}
         >
