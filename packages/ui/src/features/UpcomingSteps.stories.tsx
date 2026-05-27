@@ -19,7 +19,7 @@ export const Default: Story = {
     steps: mockUpcomingSteps,
     requirements: mockRequirements,
     RequirementLink: ({ children }) => (
-      <span className="cursor-pointer hover:underline">{children}</span>
+      <span className="cursor-pointer">{children}</span>
     ),
   },
 };
