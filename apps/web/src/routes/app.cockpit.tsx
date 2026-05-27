@@ -11,7 +11,7 @@ import { UpcomingStepsSection } from "@/components/UpcomingStepsWidget";
 import { EnergySelectorWidget } from "@/components/EnergySelectorWidget";
 
 import { useApp } from "@/modules/store";
-import { useTimer } from "@/modules/cockpit/store";
+import { useBodyDoubling, useTimer } from "@/modules/cockpit/store";
 import { useToggleAcitve } from "@/modules/cockpit/hooks";
 import { useSession } from "@/modules/auth/hooks";
 
@@ -23,11 +23,12 @@ function RouteComponent() {
   const navigate = useNavigate();
   const setIsSidebarOpen = useApp((store) => store.setIsSidebarOpen);
   const setIsPause = useTimer((store) => store.setIsPaused);
+  const bodyDoublingEnabled = useBodyDoubling((store) => store.isEnabled);
   const { toggleStatusActive } = useToggleAcitve();
   const { user } = useSession();
 
   const handleLiftoff = () => {
-    navigate({ to: "/app/now" });
+    navigate({ to: "/app/now", search: { bodyDoublingEnabled } });
     toggleStatusActive(true);
     setIsSidebarOpen(false);
     setIsPause(false);

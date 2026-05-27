@@ -5,15 +5,22 @@ import PomodoroTimerManager from "@/components/PomodoroTimerManager";
 import BodyDoublingDisplayManager from "@/components/BodyDoublingDisplayManager";
 import { useBodyDoubling } from "@/modules/cockpit/store";
 import { ArrowLeft } from "lucide-react";
+import z from "zod";
+
+const NowSearchSchema = z.object({
+  bodyDoublingEnabled: z.boolean(),
+});
 
 export const Route = createFileRoute("/app/now")({
   component: RouteComponent,
+  validateSearch: NowSearchSchema,
 });
 
 function RouteComponent() {
   const { nextStep, error, isLoading } = useNextStep();
   const { mutate: finish } = useFinishStep();
   const isEnabled = useBodyDoubling((store) => store.isEnabled);
+  const { bodyDoublingEnabled } = Route.useSearch();
 
   if (!nextStep)
     return (
@@ -42,7 +49,7 @@ function RouteComponent() {
           <NowCard step={nextStep} onDone={() => finish(nextStep.id)} />
         </div>
         <div className="[grid-area:body-doubling]">
-          {isEnabled && <BodyDoublingDisplayManager />}
+          {bodyDoublingEnabled && <BodyDoublingDisplayManager />}
         </div>
       </div>
     </>
