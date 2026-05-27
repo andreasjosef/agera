@@ -25,6 +25,7 @@ export const requirementsTable = t.pgTable(
   {
     id: t.uuid("id").primaryKey().defaultRandom(),
     user_id: t.text().references(() => user.id),
+    url: t.text().notNull(),
     integrationId: t
       .uuid()
       .references(() => integrationsTable.id, { onDelete: "cascade" }),

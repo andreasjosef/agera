@@ -18,6 +18,7 @@ export const toDomainRequirement = (
   return {
     id: dbRow.id,
     title: dbRow.title,
+    url: dbRow.url,
     due: dbRow.due,
     type: dbRow.type,
     steps: steps,

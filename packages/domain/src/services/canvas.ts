@@ -3,6 +3,7 @@ import { type Result } from "../shared/result.ts";
 
 export const CanvasAssignmentSchema = z.object({
   id: z.string(),
+  url: z.string(),
   title: z.string(),
   due: z.string(),
   description: z.string(),
