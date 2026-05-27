@@ -8,6 +8,7 @@ export const save = async (req: NewRequirement, userId: string) => {
     .insert(requirementsTable)
     .values({
       title: req.title,
+      url: req.url,
       due: req.due,
       type: req.type,
       source: req.source,
