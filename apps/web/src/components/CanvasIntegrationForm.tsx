@@ -42,6 +42,7 @@ export default function CanvasIntegrationForm({
       <LabeledInput
         label="Canvas Åtkomsttoken"
         type="password"
+        name="token"
         id="canvas-token"
       />
 
