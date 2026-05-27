@@ -48,7 +48,6 @@ export const statusQueries = {
 
 export const statusMutations = {
   toggleStatusActive: (isActive: boolean) => {
-    console.log("[COCKPIT API] status toggle", isActive);
     return safePostItem(
       `${BASE_URL}/status/toggle`,
       { isActive },
