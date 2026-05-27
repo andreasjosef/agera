@@ -11,7 +11,7 @@ function OnboardingPage() {
   const { user } = useSession();
 
   return (
-    <div className="grid">
+    <div className="grid max-w-220 mx-auto gap-5">
       <header className="mt-18">
         <h2 className="text-xl mb-2 font-bold">Welcome {user?.name}</h2>
         <p className="text-content-muted">
