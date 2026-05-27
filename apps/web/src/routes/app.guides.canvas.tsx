@@ -14,7 +14,7 @@ const canvasConnectionGuideSteps = [
       <a
         href="https://chasacademy.instructure.com/profile/settings"
         target="_blank"
-        className="flex h-10 w-1/5 items-center justify-center gap-2 rounded-md border border-violet-300 bg-white px-4 text-sm font-medium text-violet-600"
+        className="flex h-10 w-full items-center justify-center gap-2 rounded-md border border-violet-300 bg-white px-4 text-sm font-medium text-brand-primary"
       >
         <SquareArrowOutUpRight className="h-4 w-4" />
         Ta mig till Canvas
