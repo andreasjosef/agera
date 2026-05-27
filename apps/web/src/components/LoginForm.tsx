@@ -45,7 +45,7 @@ export default function LoginForm() {
 
         {rootError && <Error message={rootError} />}
 
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 ">
           <LabeledInput
             label="E-post"
             error={errors.email?.message}
@@ -56,6 +56,7 @@ export default function LoginForm() {
           <LabeledInput
             label="Lösenord"
             error={errors.password?.message}
+            placeholder="••••••••"
             type="password"
             {...register("password")}
           />
@@ -65,7 +66,7 @@ export default function LoginForm() {
           </Button>
         </form>
 
-        <p className="text-center text-sm text-content-muted">
+        <p className="text-center text-sm text-content-muted flex gap-2 justify-center">
           Behöver du ett konto?{" "}
           <Link
             to="/signup"
