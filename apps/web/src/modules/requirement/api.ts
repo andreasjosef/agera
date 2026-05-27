@@ -11,7 +11,6 @@ import {
   ScoredStepSchema,
 } from "@ccpilot/domain";
 import { mutationOptions, queryOptions } from "@tanstack/react-query";
-import type { EnergyLevel } from "@ccpilot/ui";
 
 const BASE_URL = "/api";
 
@@ -90,13 +89,12 @@ export const requirementQueryOptions = {
     });
   },
 
-  next: (energyLevel: EnergyLevel) => {
-    const energyValue = energyLevel === "high" ? 9 : 1;
+  next: (energyLevel: number) => {
     return queryOptions({
       queryKey: ["requirements", "next", energyLevel],
       queryFn: async () => {
         const result = await safeFetchItem(
-          `${BASE_URL}/requirements/next?energyLevel=${energyValue}`,
+          `${BASE_URL}/requirements/next?energyLevel=${energyLevel}`,
           zodWrappedParser(ScoredStepSchema),
         );
 
@@ -106,13 +104,12 @@ export const requirementQueryOptions = {
       },
     });
   },
-  preview: (energyLevel: EnergyLevel) => {
-    const energyValue = energyLevel === "high" ? 9 : 1;
+  preview: (energyLevel: number) => {
     return queryOptions({
       queryKey: ["requirements", "preview", energyLevel],
       queryFn: async () => {
         const result = await fetchList<ScoredStep>(
-          `${BASE_URL}/requirements/preview?energyLevel=${energyValue}`,
+          `${BASE_URL}/requirements/preview?energyLevel=${energyLevel}`,
           zodRawParser(ScoredStepSchema),
           {
             extractArray: (data) => data.value,

@@ -13,9 +13,17 @@ export const syncCanvasReqsAction = async (
 ): Promise<Result<void>> => {
   await ctx.repos.integrations.updateStatus(ctx.userId, "CANVAS", "SYNCING");
   const canvas = ctx.services.canvas;
+  const integration = await ctx.repos.integrations.getForProvider(
+    ctx.userId,
+    "CANVAS",
+  );
 
   if (!canvas) {
     return fail("No Canvas Token found. Connect a canvas account!");
+  }
+
+  if (!integration.ok) {
+    return fail("No Integration found.");
   }
 
   const courseResult = await canvas.fetchCourses();
@@ -46,6 +54,8 @@ export const syncCanvasReqsAction = async (
       due: assignement.due,
       steps: [],
       type: "assignment",
+      integrationId: integration.value.id,
+      externalId: String(assignement.id), //ny
     };
 
     await createEnrichedRequirement(ctx, requirement, assignement.description);

@@ -92,6 +92,7 @@ export const RequirementSchema = z.object({
   updatedAt: z.coerce.date(),
   integrationId: z.string().optional(),
   requirementSummary: z.string().optional(),
+  externalId: z.string(), //ny
 });
 export type Requirement = z.infer<typeof RequirementSchema>;
 

@@ -12,8 +12,8 @@ export const RequirementCard = ({
   index,
 }: RequirementCardProps) => {
   return (
-    <Card className="cursor-pointer min-h-55">
-      <div className="flex flex-col justify-between gap-4">
+    <Card className="cursor-pointer min-h-55 flex flex-col h-full">
+      <div className="flex flex-col justify-between gap-4 flex-1">
         <div className="flex items-center justify-between">
           <div className="bg-electric-violet-100 text-electric-violet-700 py-1 px-3 rounded-2xl text-sm font-medium">
             In Progress

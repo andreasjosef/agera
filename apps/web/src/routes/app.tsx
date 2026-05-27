@@ -1,19 +1,17 @@
-import { Outlet } from "@tanstack/react-router";
-import { authQueries } from "@/modules/auth/api";
-import { createFileRoute, redirect } from "@tanstack/react-router";
-import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
-import {
-  BookA,
-  GalleryHorizontalEnd,
-  LayoutDashboard,
-  Settings,
-} from "lucide-react";
-import BackButtonManager from "@/components/BackButtonManager";
-import { NavLink } from "@/components/NavLink";
-import SyncState from "@/components/SyncState";
 import { Suspense } from "react";
-import { useApp } from "@/modules/store";
+import { Outlet } from "@tanstack/react-router";
+import { useHotkey } from "@tanstack/react-hotkeys";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useShallow } from "zustand/react/shallow";
+
+import { CircleDot, LayoutDashboard, List, Settings } from "lucide-react";
+import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
+
+import { useApp } from "@/modules/store";
+import SyncStateManager from "@/components/SyncStateManager";
+
+import { authQueries } from "@/modules/auth/api";
+import { NavLink } from "@/components/NavLink";
 
 export const Route = createFileRoute("/app")({
   component: RouteComponent,
@@ -36,14 +34,14 @@ export const Route = createFileRoute("/app")({
 
 const sidebarNavItems = [
   { to: "/app/cockpit", label: "Översikt", icon: LayoutDashboard },
-  { to: "/app/now", label: "Fokus", icon: BookA },
+  { to: "/app/now", label: "Fokus", icon: CircleDot },
   {
     to: "/app/requirements",
     label: "Alla Uppgifter",
-    icon: GalleryHorizontalEnd,
+    icon: List,
   },
   {
-    to: "/app/settings",
+    to: "/app/settings/integrations",
     label: "Intsällningar",
     icon: Settings,
   },
@@ -51,10 +49,10 @@ const sidebarNavItems = [
 
 const mobileNavItems = [
   { to: "/app/cockpit", label: "Cockpit", icon: LayoutDashboard },
-  { to: "/app/now", label: "Now", icon: BookA },
-  { to: "/app/requirements", label: "All", icon: GalleryHorizontalEnd },
+  { to: "/app/now", label: "Now", icon: CircleDot },
+  { to: "/app/requirements", label: "All", icon: List },
   {
-    to: "/app/settings",
+    to: "/app/settings/integrations",
     label: "Settings",
     icon: Settings,
   },
@@ -67,6 +65,11 @@ function RouteComponent() {
       setIsSidebarOpen: state.setIsSidebarOpen,
     })),
   );
+
+  useHotkey("Mod+L", () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  });
+
   // TODO: Display remaining pomodoro time in title
   return (
     <AppLayout>
@@ -86,7 +89,7 @@ function RouteComponent() {
           }
           footerContent={
             <>
-              <SyncState />
+              <SyncStateManager />
             </>
           }
         />

@@ -25,6 +25,13 @@ export const createEnrichedRequirement = async (
   const result = await saveRequirement(ctx, req);
   if (!result.ok) return result;
 
+  // Send Requirements with an error status to the LLM again
+  if (
+    result.value.status === "COMPLETE" ||
+    result.value.status === "GENERATING"
+  )
+    return result;
+
   // Start pipleine and move on. This keeps the AI lifecycle sync/save responsive
   processReqLLM(ctx, result.value.id, description, req.type);
 
