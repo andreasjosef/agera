@@ -62,8 +62,6 @@ export const integrationQueries = {
       refetchInterval: (query) => {
         const status = query.state.data?.status;
 
-        console.log("[GET SYNC STATUS QUERY] status: ", status);
-
         if (status === "INITIALIZED" || status === "PROCESSING") {
           return 500;
         }
