@@ -13,4 +13,11 @@ const meta: Meta<typeof Help> = {
 export default meta;
 type Story = StoryObj<typeof Help>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    onAdjustEnergy: () => console.log("Navigate"),
+    onConnectCanvas: () => console.log("Navigate"),
+    onExploreFlow: () => console.log("Navigate"),
+    onGoToFocus: () => console.log("Navigate"),
+  },
+};
