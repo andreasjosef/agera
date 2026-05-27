@@ -4,7 +4,13 @@ import { useHotkey } from "@tanstack/react-hotkeys";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useShallow } from "zustand/react/shallow";
 
-import { CircleDot, LayoutDashboard, List, Settings } from "lucide-react";
+import {
+  CircleDot,
+  CircleQuestionMark,
+  LayoutDashboard,
+  List,
+  Settings,
+} from "lucide-react";
 import { AppLayout, AppSidebar, MobileNavMenu } from "@ccpilot/ui";
 
 import { useApp } from "@/modules/store";
@@ -45,6 +51,11 @@ const sidebarNavItems = [
     label: "Intsällningar",
     icon: Settings,
   },
+  {
+    to: "/app/help/",
+    label: "Hjälp",
+    icon: CircleQuestionMark,
+  },
 ] as const;
 
 const mobileNavItems = [
@@ -73,7 +84,7 @@ function RouteComponent() {
   // TODO: Display remaining pomodoro time in title
   return (
     <AppLayout>
-      <div className="hidden md:block">
+      <div className="hidden md:block h-full">
         {/* TODO: Create a global state for sidebar open */}
         <AppSidebar
           isOpen={isSidebarOpen}
@@ -94,9 +105,8 @@ function RouteComponent() {
           }
         />
       </div>
-
-      <div className="overflow-y-scroll my-4">
-        <div className="flex flex-col gap-y-2 container h-full">
+      <div className="flex flex-col h-full min-w-0 overflow-hidden justify-between">
+        <div className="overflow-y-auto flex-1 py-4 px-2 md:px-6 w-full">
           <Suspense
             fallback={
               <div className="h-1 w-full overflow-hidden rounded-full bg-transparent">
@@ -109,7 +119,7 @@ function RouteComponent() {
         </div>
       </div>
 
-      <div className="md:hidden block">
+      <div className="md:hidden block shrink-0 w-full">
         <MobileNavMenu
           navLinks={
             <>

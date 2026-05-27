@@ -11,7 +11,7 @@ import { UpcomingStepsSection } from "@/components/UpcomingStepsWidget";
 import { EnergySelectorWidget } from "@/components/EnergySelectorWidget";
 
 import { useApp } from "@/modules/store";
-import { useTimer } from "@/modules/cockpit/store";
+import { useBodyDoubling, useTimer } from "@/modules/cockpit/store";
 import { useToggleAcitve } from "@/modules/cockpit/hooks";
 import { useSession } from "@/modules/auth/hooks";
 
@@ -23,18 +23,19 @@ function RouteComponent() {
   const navigate = useNavigate();
   const setIsSidebarOpen = useApp((store) => store.setIsSidebarOpen);
   const setIsPause = useTimer((store) => store.setIsPaused);
+  const bodyDoublingEnabled = useBodyDoubling((store) => store.isEnabled);
   const { toggleStatusActive } = useToggleAcitve();
   const { user } = useSession();
 
   const handleLiftoff = () => {
-    navigate({ to: "/app/now" });
+    navigate({ to: "/app/now", search: { bodyDoublingEnabled } });
     toggleStatusActive(true);
     setIsSidebarOpen(false);
     setIsPause(false);
   };
 
   return (
-    <div className="h-full flex flex-col gap-y-2">
+    <div className="h-full max-w-6xl mx-auto flex flex-col gap-y-2">
       {user && <WelcomeCard username={user.name} onStartPass={handleLiftoff} />}
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
