@@ -22,6 +22,7 @@ export * from "./features/EnergySlider";
 export * from "./features/StepFilter";
 export * from "./features/LoginForm";
 export * from "./features/WelcomeCard";
+export * from "./features/Help";
 export * from "./features/SyncState";
 export * from "./features/ConfettiSwitch";
 
