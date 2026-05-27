@@ -49,8 +49,6 @@ export const useTimer = create<TimerState>((set) => ({
         ? state.cyclesRemaining
         : state.cyclesRemaining - 1;
 
-      console.log("cycles remaining", cyclesRemaining);
-
       return {
         mode: isModeFocus ? "break" : "focus",
         isPaused: true,

@@ -121,7 +121,6 @@ export const requirementQueryOptions = {
 
         if (!result.ok) throw new Error(result.error);
 
-        console.log("[PREVIEW RESULT]: ", result.value);
         return result.value;
       },
     });

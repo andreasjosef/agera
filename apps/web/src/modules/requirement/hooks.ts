@@ -47,8 +47,6 @@ export const useInitiateSync = () => {
 
   return useMutation({
     mutationFn: async () => {
-      console.log("initiateSync");
-
       const result = await safePostItem(
         "/api/requirements/sync",
         {},

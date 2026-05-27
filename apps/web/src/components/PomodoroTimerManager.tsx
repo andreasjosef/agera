@@ -41,7 +41,6 @@ export default function PomodoroTimerManager() {
     }
 
     const interval = setInterval(() => {
-      console.log("tick tack tick tack");
       setTimeRemaining(timeRemainingSeconds - 1);
     }, 1000);
 
