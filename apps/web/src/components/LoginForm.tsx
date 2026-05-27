@@ -37,10 +37,10 @@ export default function LoginForm() {
   };
 
   return (
-    <Card className="max-w-2xl">
+    <Card className="max-w-md">
       <div className="flex flex-col gap-y-6">
         <h2 className="font-display text-2xl font-bold text-content-main">
-          Välkommen
+          Välkommen Tillbaka!
         </h2>
 
         {rootError && <Error message={rootError} />}
@@ -66,10 +66,10 @@ export default function LoginForm() {
         </form>
 
         <p className="text-center text-sm text-content-muted">
-          Behöver du ett konto?
+          Behöver du ett konto?{" "}
           <Link
             to="/signup"
-            className="text-purple-600 underline font-semibold hover:text-purple-700"
+            className="text-brand-primary underline font-semibold hover:text-purple-700"
           >
             Skapa ett här!
           </Link>

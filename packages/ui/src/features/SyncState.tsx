@@ -16,7 +16,7 @@ export function SyncState({
     switch (status) {
       case "COMPLETE":
       case "IDLE":
-        return { color: "bg-state-success", message: "Stabil koppling" };
+        return { color: "bg-state-success", message: "Canvas" };
       case "INITIALIZED":
       case "PROCESSING":
         return { color: "bg-state-caution", message: "Synkar..." };
@@ -24,7 +24,7 @@ export function SyncState({
         return { color: "bg-state-danger", message: "Synk fel" };
 
       default:
-        return { color: "bg-cod-gray-400", message: "Okänd" };
+        return { color: "bg-cod-gray-400", message: "Fel" };
     }
   };
 
@@ -33,12 +33,14 @@ export function SyncState({
   }
 
   return (
-    <div className="border-state-info border rounded-2xl p-2 flex items-center gap-x-2 shadow-[0px_2px_0px] shadow-state-info/50">
+    <div className="px-4 py-2 text-md rounded-lg flex items-center gap-x-2">
       <span
         className={mergeStyles("pulse-dot", getStatusMeta(syncStatus).color)}
         aria-hidden
       ></span>
-      <span>{getStatusMeta(syncStatus).message}</span>
+      <span className="text-content-subtle">
+        {getStatusMeta(syncStatus).message}
+      </span>
     </div>
   );
 }

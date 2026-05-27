@@ -8,8 +8,8 @@ export const Route = createFileRoute("/signup")({
 
 function SignupPage() {
   return (
-    <div>
-      <header className="p-2 flex items-center gap-4">
+    <div className="min-h-screen grid grid-rows-[auto_1fr]">
+      <header className="p-4 flex items-center gap-4">
         <Link
           to="/"
           className="flex gap-1 items-center text-brand-primary hover:text-brand-hover transition-colors duration-200"
@@ -18,7 +18,7 @@ function SignupPage() {
           <span>Tillbaka till hemsidan</span>
         </Link>
       </header>
-      <div className="grid min-h-screen place-items-center p-4">
+      <div className="flex items-center justify-center px-2">
         <SignupForm />
       </div>
     </div>

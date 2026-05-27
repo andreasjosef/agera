@@ -8,8 +8,8 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   return (
-    <div>
-      <header className="p-2">
+    <div className="min-h-screen grid grid-rows-[auto_1fr]">
+      <header className="p-4">
         <Link
           to="/"
           className="flex gap-1 items-center text-brand-primary hover:text-brand-hover transition-colors duration-200"
@@ -19,7 +19,7 @@ function LoginPage() {
         </Link>
       </header>
 
-      <div className="grid min-h-screen place-items-center p-4">
+      <div className="px-2 flex items-center justify-center">
         <LoginForm />
       </div>
     </div>
