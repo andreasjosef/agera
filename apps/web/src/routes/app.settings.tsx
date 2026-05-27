@@ -17,7 +17,7 @@ export const Route = createFileRoute("/app/settings")({
 const options = linkOptions([
   {
     to: "/app/settings/user",
-    label: "Preferencer",
+    label: "Preferenser",
     icon: User,
   },
   {
