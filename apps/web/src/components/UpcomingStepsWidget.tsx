@@ -10,7 +10,7 @@ export function UpcomingStepsSection() {
     requirementQueryOptions.preview(energyLevel),
   );
 
-  if (isLoading) return <p>Colecting next Steps</p>;
+  if (isLoading) return <p>Collecting next Steps</p>;
 
   return <UpcomingSteps steps={preview} RequirementLink={RequirementNavLink} />;
 }
