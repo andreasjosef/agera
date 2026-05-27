@@ -21,7 +21,12 @@ function RouteComponent() {
 
   return (
     <>
-      <h3 className="text-xl font-medium"> Integrationer </h3>
+      <h3 className="text-2xl font-medium"> Integrationer </h3>
+
+      <p className="text-sm text-content-muted mb-2">
+        Koppla ditt Canvas-konto för att synkronisera kurser och uppgifter till
+        Agera.
+      </p>
       <Card>
         {integration?.status === "NOT_FOUND" && (
           <CanvasIntegrationForm
