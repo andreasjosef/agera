@@ -25,7 +25,7 @@ export default function SignupForm() {
     mutationFn: authMutations.signUp,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["auth"] });
-      navigate({ to: "/app/cockpit" });
+      navigate({ to: "/app/onboarding" });
     },
     onError: (err) => {
       setRootError(err.message);
@@ -37,7 +37,7 @@ export default function SignupForm() {
   };
 
   return (
-    <Card className="max-w-2xl">
+    <Card className="max-w-md">
       <div className="flex flex-col gap-y-6">
         <h2 className="font-display text-2xl font-bold text-content-main">
           Skapa ett konto
@@ -49,6 +49,7 @@ export default function SignupForm() {
           <LabeledInput
             label="Namn"
             error={errors.name?.message}
+            placeholder="Vad ska vi kalla dig?"
             {...register("name")}
           />
 
@@ -63,6 +64,7 @@ export default function SignupForm() {
             label="Lösenord"
             error={errors.password?.message}
             type="password"
+            placeholder="Minst 8 Tecken + Siffra + Versal"
             {...register("password")}
           />
 
