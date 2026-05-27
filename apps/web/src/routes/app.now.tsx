@@ -8,9 +8,8 @@ import { ArrowLeft, Divide } from "lucide-react";
 import z from "zod";
 
 const NowSearchSchema = z.object({
-  bodyDoublingEnabled: z.boolean(),
+  bodyDoublingEnabled: z.boolean().optional(),
 });
-
 
 export const Route = createFileRoute("/app/now")({
   component: RouteComponent,
@@ -20,7 +19,6 @@ export const Route = createFileRoute("/app/now")({
 function RouteComponent() {
   const { nextStep, error, isLoading } = useNextStep();
   const { mutate: finish } = useFinishStep();
-  const isEnabled = useBodyDoubling((store) => store.isEnabled);
   const { bodyDoublingEnabled } = Route.useSearch();
 
   if (!nextStep)
