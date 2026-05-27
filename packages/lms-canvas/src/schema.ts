@@ -10,6 +10,7 @@ export const CanvasCourseResponseSchema = z.object({
 
 export const CANAssignmentObjectSchema = z.object({
   id: z.number(),
+  html_url: z.string(),
   name: z.string(),
   description: z.string(),
   due_at: z.string(),

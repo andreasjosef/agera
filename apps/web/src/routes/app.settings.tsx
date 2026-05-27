@@ -32,15 +32,23 @@ function RouteComponent() {
   const isRoot = pathname === "/app/settings";
 
   return (
-    <Card width="h-full max-w-4xl mx-auto">
+    <Card width="h-full mx-auto py-0!">
       <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full gap-x-4">
         <div
           className={mergeStyles(
-            "bg-app-surface flex-col surface-container",
-            isRoot ? "flex" : "hidden md:flex",
+            "bg-app-surface flex-col surface-container border-r border-cod-gray-200 pr-6 py-8",
+            isRoot ? "flex" : "hidden md:flex py-8",
           )}
         >
           <div className="grid gap-y-4">
+            <Link
+              to="/app/settings"
+              className="flex gap-1 items-center text-brand-primary hover:text-brand-hover transition-colors duration-200"
+            >
+              <ArrowLeft size={18} />
+              <span>Tillbaka</span>
+            </Link>
+
             <h2 className="md:text-2xl text-xl font-bold">Inställningar</h2>
 
             <ul>
@@ -58,18 +66,10 @@ function RouteComponent() {
 
         <div
           className={mergeStyles(
-            "surface-container flex-col gap-y-4",
+            "surface-container flex-col gap-y-4 mx-auto w-full max-w-3xl py-8",
             !isRoot ? "flex" : "hidden md:flex",
           )}
         >
-          <Link
-            to="/app/settings"
-            className="flex gap-1 items-center text-brand-primary hover:text-brand-hover transition-colors duration-200"
-          >
-            <ArrowLeft size={18} />
-            <span>Tillbaka</span>
-          </Link>
-
           <Outlet />
         </div>
       </div>

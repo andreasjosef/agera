@@ -18,9 +18,9 @@ export const createLLMClient = (): LLMClientInterface => {
   return {
     complete: async (system, user, schema) => {
       const payload: LLMRequest = {
-        model: "openrouter/free",
+        // model: "openrouter/free",
         //model: "minimax/minimax-m2.7",
-        //model: "google/gemini-2.5-flash-lite",
+        model: "google/gemini-2.5-flash-lite",
         //model: "openrouter/auto",
         messages: [
           { role: "system", content: system },

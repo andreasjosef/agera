@@ -25,8 +25,14 @@ export function NowCard({ step, onDone }: NowCardProps) {
               <p className="text-sm text-content-subtle">
                 est:
                 <span> {step.estimatedMinutes} min, </span>
-                due:
-                <span> {step.effectiveDeadline.toDateString()}</span>
+                deadline:{" "}
+                <span>
+                  {step.effectiveDeadline.toLocaleDateString("sv-SE", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
               </p>
             </div>
           </header>
@@ -54,7 +60,8 @@ export function NowCard({ step, onDone }: NowCardProps) {
 
         <Button
           variant="primary"
-          children="Done"
+          className="p-0"
+          children="Klart"
           onClick={() => onDone(step.id)}
         />
       </article>

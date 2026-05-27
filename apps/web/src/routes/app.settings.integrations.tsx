@@ -21,7 +21,12 @@ function RouteComponent() {
 
   return (
     <>
-      <h3 className="text-xl font-medium"> Integrationer </h3>
+      <h3 className="text-2xl font-medium"> Integrationer </h3>
+
+      <p className="text-sm text-content-muted mb-2">
+        Koppla ditt Canvas-konto för att synkronisera kurser och uppgifter till
+        Agera.
+      </p>
       <Card>
         {integration?.status === "NOT_FOUND" && (
           <CanvasIntegrationForm
@@ -38,14 +43,17 @@ function RouteComponent() {
             <header className="flex justify-between items-center pb-2">
               <h4>Canvas</h4>
               <div className="pulse-dot bg-state-success">
-                <span className="sr-only">Connected</span>
+                <span className="sr-only">Ansluten</span>
               </div>
             </header>
             <div className="grid">
               <ul>
-                <li> Sync Status: {pollingData?.status}</li>
-                <li> Last Sync: {integration.lastSync?.toLocaleString()} </li>
-                <li> Total: {pollingData?.stats.total} </li>
+                <li> Synk status: {pollingData?.status}</li>
+                <li>
+                  Senaste uppdatering:
+                  {integration.lastSync?.toLocaleString()}
+                </li>
+                <li> Totalt: {pollingData?.stats.total} </li>
               </ul>
               <Button
                 className="ml-auto disabled:bg-brand-subtle"
@@ -54,7 +62,7 @@ function RouteComponent() {
                   reSync();
                 }}
               >
-                Re-sync
+                Synka om
               </Button>
             </div>
           </div>

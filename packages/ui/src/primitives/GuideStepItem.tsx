@@ -4,11 +4,17 @@ interface GuideStepItemProps {
   index: number;
   title: string;
   content: string;
+  link?: string;
 }
 
-export function GuideStepItem({ index, title, content }: GuideStepItemProps) {
+export function GuideStepItem({
+  index,
+  title,
+  content,
+  link,
+}: GuideStepItemProps) {
   return (
-    <Card className="grid gap-y-2">
+    <Card className="grid gap-5">
       <header className="flex gap-x-2 items-center">
         <div className="size-10 rounded-sm border-brand-primary border text-brand-primary font-display flex items-center justify-center text-sm font-bold">
           {index}
@@ -16,6 +22,8 @@ export function GuideStepItem({ index, title, content }: GuideStepItemProps) {
         <h3 className="font-medium">{title}</h3>
       </header>
       <p className="text-content-muted">{content}</p>
+
+      <div className="grid">{link}</div>
     </Card>
   );
 }

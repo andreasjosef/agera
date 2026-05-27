@@ -42,6 +42,7 @@ export const createCanvasClient = (apiKey: string): CanvasClientInterface => {
       result.value.forEach((assignment) => {
         assignments.push({
           id: assignment.id.toString(),
+          url: assignment.html_url,
           title: assignment.name,
           due: assignment.due_at,
           description: assignment.description,

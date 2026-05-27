@@ -31,7 +31,7 @@ export function PomodoroTimer({
   return (
     <Card className="grid gap-y-1">
       <header className="flex justify-between items-center">
-        <h3>{mode === "focus" ? "Focus Time" : "Short Break Time"}</h3>
+        <h3>{mode === "focus" ? "Fokus tid" : "Kort paus"}</h3>
         <span className="flex gap-x-2">
           <ClockFading /> {cyclesRemaining}
         </span>
@@ -41,7 +41,7 @@ export function PomodoroTimer({
       </span>
       <div className="grid grid-cols-2 gap-x-2">
         <Button onClick={handleTogglePause} disabled={!cyclesRemaining}>
-          {isPaused ? "Start" : "Pause"}
+          {isPaused ? "Starta" : "Pausa"}
         </Button>
         <Button onClick={handleStop}> Stop </Button>
       </div>

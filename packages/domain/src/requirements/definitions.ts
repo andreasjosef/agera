@@ -84,6 +84,7 @@ export type Step = z.infer<typeof StepSchema>;
 export const RequirementSchema = z.object({
   id: z.string(),
   title: z.string(),
+  url: z.string(),
   due: z.string(),
   type: RequirementTypeSchema,
   source: TokenProviderSchema,
