@@ -35,7 +35,7 @@ function RouteComponent() {
   };
 
   return (
-    <div className="h-full flex flex-col gap-y-2">
+    <div className="h-full max-w-6xl mx-auto flex flex-col gap-y-2">
       {user && <WelcomeCard username={user.name} onStartPass={handleLiftoff} />}
       <NowDashboardLayout>
         <div className="flex flex-col items-end gap-y-2">
