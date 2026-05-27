@@ -29,7 +29,7 @@ const config: Record<
   }
 > = {
   morning: {
-    greeting: "God morgon",
+    greeting: "Godmorgon",
     message: "En bra dag börjar med ett litet steg",
     gradient: "bg-linear-to-r from-amber-100 to-white",
     icon: Sunrise,
@@ -50,7 +50,7 @@ const config: Record<
     iconClass: "text-purple-500",
   },
   night: {
-    greeting: "God natt",
+    greeting: "Godnatt",
     message: "Vila är också produktivt",
     gradient: "bg-linear-to-r from-zinc-300 to-white",
     icon: Moon,
