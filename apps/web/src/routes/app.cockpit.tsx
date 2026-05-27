@@ -38,26 +38,25 @@ function RouteComponent() {
     <div className="h-full max-w-6xl mx-auto flex flex-col gap-y-2">
       {user && <WelcomeCard username={user.name} onStartPass={handleLiftoff} />}
       <NowDashboardLayout>
-        <div className="flex flex-col items-end gap-y-2">
-          <EnergySelectorWidget />
-          <Suspense
-            fallback={
-              <Card
-                className="grid gap-3 min-h-72 w-full"
-                title="Kommande Steg"
-              >
-                {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="animate-pulse rounded-xl bg-app-surface-hover h-24 w-full"
-                  />
-                ))}
-              </Card>
-            }
-          >
-            <UpcomingStepsSection />
-          </Suspense>
-        </div>
+        <EnergySelectorWidget />
+        <Suspense
+          fallback={
+            <Card
+              className="grid gap-3 min-h-72 w-full h-full"
+              title="Kommande Steg"
+            >
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="animate-pulse rounded-xl bg-app-surface-hover h-24 w-full"
+                />
+              ))}
+            </Card>
+          }
+        >
+          <UpcomingStepsSection />
+        </Suspense>
+
         <TimeSelectorManager />
         <BodyDoublingSwitchManager />
       </NowDashboardLayout>

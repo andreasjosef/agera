@@ -118,13 +118,13 @@
   .cockpit-grid {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-areas: "time" "upcoming" "body-doubling" "lift-off";
+    grid-template-areas: "energy" "time" "upcoming" "body-doubling";
 
     /* lg breakpoint */
     @media (width >= 64rem) {
       grid-template-columns: 1fr auto;
       grid-template-rows: auto auto 1fr;
-      grid-template-areas: "upcoming time" "upcoming body-doubling" "upcoming lift-off";
+      grid-template-areas: "energy time" "upcoming body-doubling" "upcoming ...";
     }
   }
 

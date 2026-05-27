@@ -43,7 +43,7 @@ export function EnergySlider({
   };
 
   return (
-    <Card className="w-full space-y-4">
+    <Card className="w-full h-full space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-xs font-bold tracking-widest text-content-muted uppercase">
           Vad är din energinivå idag?
