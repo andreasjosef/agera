@@ -1,5 +1,5 @@
 import { type IntegrationToken } from "@ccpilot/domain";
-import { Button, LabeledInput } from "@ccpilot/ui";
+import { Button, Card, LabeledInput } from "@ccpilot/ui";
 import { useState } from "react";
 import { SquareArrowOutUpRight } from "lucide-react";
 
@@ -36,7 +36,7 @@ export default function CanvasIntegrationForm({
 
   // TODO: We should probably load the existing canvas token as default value
   return (
-    <>
+    <Card>
       <form
         className="grid bg-app-surface p-4 gap-y-6 surface-container"
         onSubmit={handleSubmit}
@@ -74,6 +74,6 @@ export default function CanvasIntegrationForm({
           </p>
         </div>
       </form>
-    </>
+    </Card>
   );
 }

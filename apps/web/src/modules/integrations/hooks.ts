@@ -47,7 +47,7 @@ export const useSyncPolling = (
       queryClient.invalidateQueries({ queryKey: ["requirements"] });
     }
 
-    if (pollingData.status === "COMPLETE") {
+    if (pollingData.status === "COMPLETE" || pollingData.status === "IDLE") {
       queryClient.invalidateQueries({ queryKey: ["requirements"] });
       queryClient.invalidateQueries({ queryKey: ["integrations", "status"] });
     }
