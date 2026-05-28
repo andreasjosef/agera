@@ -1,5 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+
 import { integrationQueries } from "@/modules/integrations/api";
 import { useCanvasConnect, useSyncPolling } from "@/modules/integrations/hooks";
 import CanvasIntegrationForm from "@/components/CanvasIntegrationForm";
@@ -16,6 +20,7 @@ function RouteComponent() {
     integrationQueries.getConnection("CANVAS"),
   );
 
+  const navigate = useNavigate();
   const { pollingData } = useSyncPolling("CANVAS", integration?.status);
   const { mutate, connecting, syncData } = useCanvasConnect();
   const { mutate: reSync } = useInitiateSync();
@@ -23,6 +28,12 @@ function RouteComponent() {
   const [canvasFormOpen, setCanvasFormOpen] = useState(
     ["ERROR", "NOT_FOUND"].includes(integration.status),
   );
+
+  useEffect(() => {
+    if (syncData?.ok) {
+      navigate({ to: "/app/help" });
+    }
+  }, [syncData, navigate]);
 
   return (
     <>
