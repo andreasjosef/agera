@@ -25,6 +25,7 @@ export * from "./features/WelcomeCard";
 export * from "./features/Help";
 export * from "./features/SyncState";
 export * from "./features/ConfettiSwitch";
+export * from "./features/IntegrationStatus";
 
 // Primitives
 export * from "./primitives/Button";
