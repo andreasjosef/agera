@@ -32,7 +32,7 @@ function RouteComponent() {
   const isRoot = pathname === "/app/settings";
 
   return (
-    <Card width="h-full mx-auto py-0!">
+    <Card width="h-full mx-auto py-0 @container">
       <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full gap-x-4">
         <div
           className={mergeStyles(
