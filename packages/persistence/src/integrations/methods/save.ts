@@ -20,7 +20,7 @@ export const save = async (
       })
       .onConflictDoUpdate({
         target: [integrationsTable.user_id, integrationsTable.provider],
-        set: { encryptedToken: token },
+        set: { encryptedToken },
       });
     return ok(undefined);
   } catch (err) {
