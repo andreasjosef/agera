@@ -54,8 +54,8 @@ function RouteComponent() {
             <ul>
               {options.map((option) => {
                 return (
-                  <li>
-                    <NavLink key={option.to} {...option} />
+                  <li key={option.to}>
+                    <NavLink {...option} />
                   </li>
                 );
               })}

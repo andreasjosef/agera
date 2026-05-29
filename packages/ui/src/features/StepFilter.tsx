@@ -20,7 +20,7 @@ export function StepFilter({ stepFilter, setStepFilter }: StepFilterProps) {
         onChange={(e) => setStepFilter(e.target.value as StepFilterMode)}
       >
         {filterOptions.map(({ label, value }) => (
-          <option value={value}>{label}</option>
+          <option key={value} value={value}>{label}</option>
         ))}
       </select>
     </div>
