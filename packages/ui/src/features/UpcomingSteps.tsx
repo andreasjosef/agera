@@ -81,14 +81,14 @@ export function UpcomingSteps({
   }
 
   return (
-    <Card className="min-h-72">
+    <Card className="min-h-72 @container p-4 @md:p-6">
       <div className="grid space-y-4">
         <h3 className="flex text-xs font-bold tracking-widest text-content-muted uppercase">
           Det här skulle passa dig idag!
         </h3>
 
         <div className="space-y-4">
-          <div className="flex items-center justify-between pb-2">
+          <div className="flex flex-col @md:flex-row @md:items-center @md:justify-between pb-2 gap-2 @md:gap-0">
             <div className="flex gap-4">
               <button
                 onClick={() => setActiveTab("flow")}
@@ -111,7 +111,7 @@ export function UpcomingSteps({
                 Mer om Uppgifterna
               </button>
             </div>
-            <span className="text-xs font-semibold text-content-main bg-zinc-50 px-2.5 py-1 rounded-md border border-zinc-100">
+            <span className="text-xs font-semibold text-content-main bg-zinc-50 px-2.5 py-1 rounded-md border border-zinc-100 w-fit">
               {steps.length} rekommenderade
             </span>
           </div>
@@ -152,8 +152,8 @@ export function UpcomingSteps({
                   ).length;
                   return (
                     <RequirementLink key={req.id} id={req.id}>
-                      <div className="rounded-lg border border-app-border px-4 py-3 cursor-pointer mb-2">
-                        <div className="flex items-start justify-between gap-2">
+                      <div className="rounded-lg border border-app-border px-3 py-2 @md:px-4 @md:py-3 cursor-pointer mb-2">
+                        <div className="flex flex-col @md:flex-row @md:items-start @md:justify-between gap-1 @md:gap-2">
                           <div className="min-w-0">
                             <h4 className="text-sm font-semibold text-content-main truncate">
                               {req.title}
@@ -163,16 +163,16 @@ export function UpcomingSteps({
                             </p>
                           </div>
                           <span
-                            className={`shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide ${typeBadgeColor(req.type)}`}
+                            className={`shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide w-fit ${typeBadgeColor(req.type)}`}
                           >
                             {req.type}
                           </span>
                         </div>
-                        <div className="flex items-center justify-between mt-2">
+                        <div className="flex flex-col @md:flex-row @md:items-center @md:justify-between mt-2 gap-1 @md:gap-0">
                           <span className="text-xs text-content-subtle">
                             {completedSteps}/{totalSteps} Steg Klar
                           </span>
-                          <div className="w-16 h-2 bg-app-surface-hover rounded-full overflow-hidden">
+                          <div className="w-full @md:w-16 h-2 bg-app-surface-hover rounded-full overflow-hidden">
                             <div
                               className="h-full bg-brand-primary rounded-full transition-all"
                               style={{
