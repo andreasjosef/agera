@@ -2,9 +2,6 @@ import { safePostItem, zodRawParser } from "@ccpilot/ts-fetch";
 import { StepSchema } from "@ccpilot/domain";
 import { z } from "zod";
 
-const OPEN_ROUTER_KEY =
-  "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";
-
 const SYSTEM_PROMPT = "You are a planning expert. Break this down into 3 steps";
 const description = "I need to build a house in 6 weeks";
 
