@@ -3,8 +3,7 @@ import { useFinishStep, useNextStep } from "@/modules/requirement/hooks";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import PomodoroTimerManager from "@/components/PomodoroTimerManager";
 import BodyDoublingDisplayManager from "@/components/BodyDoublingDisplayManager";
-import { useBodyDoubling } from "@/modules/cockpit/store";
-import { ArrowLeft, Divide } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import z from "zod";
 
 const NowSearchSchema = z.object({
