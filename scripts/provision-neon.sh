@@ -269,7 +269,10 @@ try {
 }
 JS
 
-if ( cd "$REPO_ROOT/apps/express" && DATABASE_URL="$NEON_DATABASE_URL" node "$ROUNDTRIP_FILE" ); then
+note "The persistence package also pulls in @ccpilot/crypto, which needs ENCRYPTION_KEY at"
+note "import time -- loading the rest of .env via --env-file covers that; the explicit"
+note "DATABASE_URL below still wins over .env's own (local Docker) value."
+if ( DATABASE_URL="$NEON_DATABASE_URL" node --env-file="$ENV_FILE" "$ROUNDTRIP_FILE" ); then
   rm -f "$ROUNDTRIP_FILE"
   printf '  %s✓ round-trip verified -- Neon is schema-only again%s\n' "$GREEN" "$RESET"
 else
@@ -277,8 +280,8 @@ else
   warn "wrong connection string, or Neon's compute still waking from scale-to-zero (retry once)."
   note "To retry without re-running this whole wizard, read the saved value out of .env directly"
   note "(the \$NEON_DATABASE_URL shell variable only exists while this script is running):"
-  note "  bash:  DATABASE_URL=\"\$(sed -n 's/^NEON_DATABASE_URL=//p' \"$ENV_FILE\")\" node \"$ROUNDTRIP_FILE\""
-  note "  fish:  env DATABASE_URL=(sed -n 's/^NEON_DATABASE_URL=//p' $ENV_FILE) node $ROUNDTRIP_FILE"
+  note "  bash:  DATABASE_URL=\"\$(sed -n 's/^NEON_DATABASE_URL=//p' \"$ENV_FILE\")\" node --env-file=\"$ENV_FILE\" \"$ROUNDTRIP_FILE\""
+  note "  fish:  env DATABASE_URL=(sed -n 's/^NEON_DATABASE_URL=//p' $ENV_FILE) node --env-file=$ENV_FILE $ROUNDTRIP_FILE"
   SKIPPED+=("Neon round-trip check failed -- see retry commands printed above, or re-run ./scripts/$(basename "$0")")
 fi
 
