@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Card, ConfettiSwitch } from "@ccpilot/ui";
+import { ConfettiSwitch } from "@ccpilot/ui";
 
 export const Route = createFileRoute("/app/settings/user")({
   component: RouteComponent,
@@ -7,6 +8,7 @@ export const Route = createFileRoute("/app/settings/user")({
 
 function RouteComponent() {
   // TODO: Focus, energy level, maximum daily workload minutes.
+  const [isConfettiEnabled, setIsConfettiEnabled] = useState(true);
 
   return (
     <div>
@@ -15,7 +17,10 @@ function RouteComponent() {
         <p> Hantera dina personliga inställningar och upplevelser.</p>
       </div>
 
-      <ConfettiSwitch />
+      <ConfettiSwitch
+        isEnabled={isConfettiEnabled}
+        setIsEnabled={setIsConfettiEnabled}
+      />
     </div>
   );
 }

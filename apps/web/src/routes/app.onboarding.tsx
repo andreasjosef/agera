@@ -1,4 +1,3 @@
-import { ConnectionGuide } from "@ccpilot/ui";
 import { useSession } from "@/modules/auth/hooks";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Info } from "lucide-react";
