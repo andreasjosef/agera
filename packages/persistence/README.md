@@ -19,6 +19,11 @@ Example: `const repo = createRequirementRepo(db);`
 - **Database:** PostgreSQL
 - **Migrations:** Managed via `drizzle-kit` within this package.
 
+## Database provider
+Production runs on **Neon** (free tier, `eu-central-1`/Frankfurt), part of the Kubernetes → Railway/Vercel/Neon cutover ([issue #11](https://github.com/AndreasJosef/agera/issues/11)). The direct (non-pooled) connection endpoint is used, since `client.ts` builds a single long-lived `pg.Pool` for a persistent backend container rather than high-churn serverless calls, and Neon's docs recommend the direct endpoint for that shape of workload over its PgBouncer pooler.
+
+**Supabase is the documented fallback** if Neon's pooling or IPv6 behavior ever becomes a problem, with no pre-committed switch trigger — it's an escape hatch, not a plan. Two caveats to weigh before switching: its free tier pauses a project after a week of total inactivity (a calendar timer, not Neon's per-connection idle suspend), and its direct connection is IPv6-only unless you pay for the IPv4 add-on.
+
 ## Constraints
 - **Dependencies:** Strictly depends on `@repo/domain`.
 - **Logic:** This package should contain **zero** business logic. It only handles mapping, querying, and persistence.
