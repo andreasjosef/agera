@@ -106,7 +106,8 @@ Component ──► useSuspenseQuery / useQuery — reads cached data
 ## Build & Deployment
 - **Dev:** Vite 8 dev server on port `3000`, proxies `/api` to the Express server at `localhost:4000`.
 - **Build:** `vite build` produces static assets in `dist/`.
-- **Docker:** Multi-stage build — Node 24 Alpine (pnpm build) → nginx:alpine (serves `dist/` with SPA fallback). Exposes port `5173`.
+- **Production:** Deployed to Vercel from `main` (Root Directory `apps/web`, zero-config). `vercel.json` rewrites `/api/*` to the Railway backend so the browser only ever talks to one origin — see ADR-0001 and issue #14.
+- **Docker:** Multi-stage build — Node 24 Alpine (pnpm build) → nginx:alpine (serves `dist/` with SPA fallback). Exposes port `5173`. Superseded by the Vercel deploy above; kept for local container testing.
 - **Styles:** Tailwind CSS v4 via `@tailwindcss/vite`. Sources classes from `@ccpilot/ui`, `routes/`, and `components/`.
 
 ## Constraints
