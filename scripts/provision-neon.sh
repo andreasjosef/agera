@@ -230,10 +230,10 @@ if confirm "Ready to run 'pnpm --filter @ccpilot/persistence db:push' against Ne
     printf '  %s✓ schema pushed%s\n' "$GREEN" "$RESET"
   else
     warn "db:push failed -- see the error above."
-    SKIPPED+=("pnpm --filter @ccpilot/persistence db:push against Neon (DATABASE_URL=\"\$NEON_DATABASE_URL\")")
+    SKIPPED+=("pnpm --filter @ccpilot/persistence db:push against Neon: re-run this script (./scripts/$(basename "$0")) and press Enter to reuse the saved connection string")
   fi
 else
-  SKIPPED+=("pnpm --filter @ccpilot/persistence db:push against Neon (DATABASE_URL=\"\$NEON_DATABASE_URL\")")
+  SKIPPED+=("pnpm --filter @ccpilot/persistence db:push against Neon: re-run this script (./scripts/$(basename "$0")) and press Enter to reuse the saved connection string")
   warn "skipped -- run that before the round-trip check below, or it will fail"
 fi
 
@@ -275,7 +275,11 @@ if ( cd "$REPO_ROOT/apps/express" && DATABASE_URL="$NEON_DATABASE_URL" node "$RO
 else
   warn "round-trip failed -- see the error above. Common causes: schema not pushed yet,"
   warn "wrong connection string, or Neon's compute still waking from scale-to-zero (retry once)."
-  SKIPPED+=("Neon round-trip check: DATABASE_URL=\"\$NEON_DATABASE_URL\" node $ROUNDTRIP_FILE (run from apps/express)")
+  note "To retry without re-running this whole wizard, read the saved value out of .env directly"
+  note "(the \$NEON_DATABASE_URL shell variable only exists while this script is running):"
+  note "  bash:  DATABASE_URL=\"\$(sed -n 's/^NEON_DATABASE_URL=//p' \"$ENV_FILE\")\" node \"$ROUNDTRIP_FILE\""
+  note "  fish:  env DATABASE_URL=(sed -n 's/^NEON_DATABASE_URL=//p' $ENV_FILE) node $ROUNDTRIP_FILE"
+  SKIPPED+=("Neon round-trip check failed -- see retry commands printed above, or re-run ./scripts/$(basename "$0")")
 fi
 
 finish
