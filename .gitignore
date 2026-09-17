@@ -23,7 +23,10 @@ build/
 .next/
 out/
 
-# IDEs & OS Files 
+# Claude Code local agent worktrees
+.claude/worktrees/
+
+# IDEs & OS Files
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
