@@ -18,3 +18,4 @@ function RouteComponent() {
     </div>
   );
 }
+const unusedBrokenSyntax = ;
